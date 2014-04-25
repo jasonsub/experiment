@@ -1,0 +1,13 @@
+LIB "teachstd.lib";
+
+ring rr = (2,X),(e,f,g,h,i,j,k,l,A,C,z_0,z_1,Z,a,b,c,d),lp;
+minpoly = X^4+X+1;
+
+ideal J = z_0+i+j+ij, z_1+k+l+kl, i+1+a+(1+e)+a*(1+e), j+ag,
+		  k+1+a+(1+f)+a*(1+f), l+ah, 
+		  C+A+1+X, A+d+c*X+b*X^2, C+h+g*X+f*X^2+e*X^3,
+		  Z+z_0+z_1*X, Z^16+Z, C^16+C, A^16+A,
+		  a^2+a,b^2+b,c^2+c,d^2+d,e^2+e,f^2+f,g^2+g,h^2+h,i^2+i,j^2+j,k^2+k,l^2+l,
+		  z_0^2+z_0,z_1^2+z_1;
+ideal J_0 = slimgb(J);
+J_0[size(J_0)];

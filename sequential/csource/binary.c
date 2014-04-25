@@ -1,0 +1,49 @@
+/* binary search -- maintained by Xiaojun Sun   ********************************************
+ * Implemented with C
+ * Compiled and linked with gcc-4.6.3
+ * Test cases borrowed from http://www.cs.utsa.edu/~wagner/CS3343/recursion/binsearch.html
+ *******************************************************************************************/
+/* desired output for this test case:   ****************************************************
+ * 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 
+ * -1 -1 -1 -1
+ *******************************************************************************************/
+
+#include <stdio.h>
+#include <stdbool.h>
+#define LEN 29
+
+int binarysearch(int MAX, int *A, int item) {
+   int low = 0;
+   int high = MAX;
+   int loc = -1;
+   bool found = false;
+   while ((low < high) && !found) {
+      int mid = (low + high - 1) / 2;
+      if (A[mid] == item) 
+	  {
+		found = true;
+		loc = mid;
+	  }
+      else if (A[mid] < item) low = mid + 1;
+      else high = mid;
+   }
+   return loc;
+}
+
+int main() {
+
+   int A[] =
+    { 2, 8,12,14,16,19,24,28,31,33,// 0-9
+     39,40,45,49,51,53,54,56,57,60,// 10-19
+     63,69,77,82,88,89,94,96,97};  // 20-28
+   int i;
+   for (i = 0; i < 29; i++)
+      printf("%i ", binarysearch(LEN, A, A[i]));
+   printf("\n");
+   printf("%i ", binarysearch(LEN, A, 1));
+   printf("%i ", binarysearch(LEN, A, 17));
+   printf("%i ", binarysearch(LEN, A, 42));
+   printf("%i ", binarysearch(LEN, A, 99));
+   printf("\n");
+   return 0;
+}

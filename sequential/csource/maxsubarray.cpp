@@ -1,0 +1,31 @@
+#include<iostream>
+using namespace std;
+
+int Maxsum_ultimate(int * arr, int size)
+{
+    int maxSum = -9999;
+    int sum = 0;
+    for(int i = 0; i < size; ++i)
+    {
+        if(sum < 0)
+        {
+            sum = arr[i];
+        }else
+        {
+            sum += arr[i];
+        }
+        if(sum > maxSum)
+        {
+            maxSum = sum;
+        }
+    }
+    return maxSum;
+}
+
+int main()
+{
+	int a[] = {-5,-4,-3,-1,-1,-2};
+	int max = Maxsum_ultimate(a,6);
+	cout<<"result is"<<max<<endl;
+	return 0;
+}

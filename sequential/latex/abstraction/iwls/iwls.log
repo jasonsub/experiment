@@ -1,0 +1,944 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=latex 2013.8.5)  9 OCT 2013 13:39
+entering extended mode
+ %&-line parsing enabled.
+**iwls.tex
+(./iwls.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, loaded.
+(/usr/share/texmf-texlive/tex/latex/IEEEtran.cls
+Document Class: IEEEtran 2012/12/27 V1.8 by Michael Shell
+-- See the "IEEEtran_HOWTO" manual for usage information.
+-- http://www.michaelshell.org/tex/ieeetran/
+\@IEEEtrantmpdimenA=\dimen102
+\@IEEEtrantmpdimenB=\dimen103
+\@IEEEtrantmpcountA=\count79
+\@IEEEtrantmpcountB=\count80
+\@IEEEtrantmptoksA=\toks14
+LaTeX Font Info:    Try loading font information for OT1+ptm on input line 368.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
+)
+-- Using 8.5in x 11in (letter) paper.
+-- Using DVI output.
+\@IEEEnormalsizeunitybaselineskip=\dimen104
+-- This is a 10 point document.
+\CLASSINFOnormalsizebaselineskip=\dimen105
+\CLASSINFOnormalsizeunitybaselineskip=\dimen106
+\IEEEnormaljot=\dimen107
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <5> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <7> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <8> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <9> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <11> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <12> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <17> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <20> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 726.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <24> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 726.
+\IEEEilabelindentA=\dimen108
+\IEEEilabelindentB=\dimen109
+\IEEEilabelindent=\dimen110
+\IEEEelabelindent=\dimen111
+\IEEEdlabelindent=\dimen112
+\IEEElabelindent=\dimen113
+\IEEEiednormlabelsep=\dimen114
+\IEEEiedmathlabelsep=\dimen115
+\IEEEiedtopsep=\skip41
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@IEEEsubequation=\count85
+\abovecaptionskip=\skip42
+\belowcaptionskip=\skip43
+\c@figure=\count86
+\c@table=\count87
+\@IEEEeqnnumcols=\count88
+\@IEEEeqncolcnt=\count89
+\@IEEEsubeqnnumrollback=\count90
+\@IEEEtmpitemindent=\dimen116
+\c@IEEEbiography=\count91
+\@IEEEtranrubishbin=\box26
+) (./algorithm2e.sty
+
+LaTeX Warning: You have requested package `./algorithm2e',
+               but the package provides `algorithm2e'.
+
+Package: algorithm2e 2008/00/00 v3.10 algorithms environments
+\c@AlgoLine=\count92
+(/usr/share/texmf-texlive/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+(/usr/share/texmf-texlive/tex/latex/tools/xspace.sty
+Package: xspace 2006/05/08 v1.12 Space after command names (DPC,MH)
+)
+(/usr/share/texmf-texlive/tex/latex/ltxmisc/relsize.sty
+Package: relsize 2003/07/04 ver 3.1
+)
+********************************************************
+Package `algorithm2e' Release 4.01 -- december 14 2009 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (fiorio@lirmm.fr)
+********************************************************
+\skiptotal=\skip44
+\skiplinenumber=\skip45
+\skiprule=\skip46
+\skiphlne=\skip47
+\skiptext=\skip48
+\skiplength=\skip49
+\algomargin=\skip50
+\skipalgocfslide=\skip51
+\algowidth=\dimen117
+\inoutsize=\dimen118
+\inoutline=\dimen119
+\interspacetitleruled=\dimen120
+\interspacealgoruled=\dimen121
+\interspacetitleboxruled=\dimen122
+\algocf@inoutbox=\box27
+\algocf@inputbox=\box28
+\AlCapSkip=\skip52
+\AlCapHSkip=\skip53
+\algocf@nlbox=\box29
+\algocf@hangingbox=\box30
+\algocf@capbox=\box31
+\algoheightruledefault=\skip54
+\algoheightrule=\skip55
+\algotitleheightruledefault=\skip56
+\algotitleheightrule=\skip57
+\c@algocfline=\count93
+\c@algocfproc=\count94
+\c@algocf=\count95
+\algocf@algoframe=\box32
+\algocf@algobox=\box33
+) (/usr/share/texmf-texlive/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2009/06/22 v3.00
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+(/usr/share/texmf-texlive/tex/latex/psnfss/mathptm.sty
+Package: mathptm 2005/04/12 PSNFSS-v9.2a Times w/ Math (SPQR, WaS) 
+
+
+Package mathptm Warning: This package is to be regarded as obsolete.
+(mathptm)                See the PSNFSS documentation.
+
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 31.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/ptmcm/m/n on input line 31.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptmcm/m/n on input line 31.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 32.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/ptmcm/m/it on input line 32.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/ptmcm/m/it on input line 32.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 33.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/pzccm/m/n on input line 33.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/pzccm/m/n on input line 33.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 34.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 34.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/psycm/m/n on input line 34.
+\symbold=\mathgroup6
+\symitalic=\mathgroup7
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 37.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/ptm/bx/n on input line 37.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 38.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/ptm/m/it on input line 38.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/ptm/m/it on input line 38.
+) (/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d
+
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen123
+)
+\pmbraise@=\dimen124
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/etc/texmf/tex/latex/config/graphics.cfg
+File: graphics.cfg 2009/08/28 v1.8 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen125
+\Gin@req@width=\dimen126
+)
+(/usr/share/texmf-texlive/tex/latex/psnfss/helvet.sty
+Package: helvet 2005/04/12 PSNFSS-v9.2a (WaS) 
+)
+(/usr/share/texmf-texlive/tex/latex/tools/enumerate.sty
+Package: enumerate 1999/03/05 v3.00 enumerate extensions (DPC)
+\@enLab=\toks18
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip58
+
+For additional information on amsmath, use the `?' option.
+(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+Package: amstext 2000/06/29 v2.01
+)
+(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count96
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count97
+\leftroot@=\count98
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count99
+\DOTSCASE@=\count100
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box34
+\strutbox@=\box35
+\big@size=\dimen127
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count101
+\c@MaxMatrixCols=\count102
+\dotsspace@=\muskip10
+\c@parentequation=\count103
+\dspbrk@lvl=\count104
+\tag@help=\toks19
+\row@=\count105
+\column@=\count106
+\maxfields@=\count107
+\andhelp@=\toks20
+\eqnshift@=\dimen128
+\alignsep@=\dimen129
+\tagshift@=\dimen130
+\tagwidth@=\dimen131
+\totwidth@=\dimen132
+\lineht@=\dimen133
+\@envbody=\toks21
+\multlinegap=\skip59
+\multlinetaggap=\skip60
+\mathdisplay@stack=\toks22
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+(/usr/share/texmf-texlive/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen134
+)
+(/usr/share/texmf-texlive/tex/latex/subfig/subfig.sty
+Package: subfig 2005/06/28 ver: 1.3 subfig package
+
+(/usr/share/texmf-texlive/tex/latex/caption/caption.sty
+Package: caption 2009/10/09 v3.1k Customizing captions (AR)
+
+(/usr/share/texmf-texlive/tex/latex/caption/caption3.sty
+Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
+\captionmargin=\dimen135
+\captionmargin@=\dimen136
+\captionwidth=\dimen137
+\caption@indent=\dimen138
+\caption@parindent=\dimen139
+\caption@hangindent=\dimen140
+Package caption Info: Unknown document class (or package),
+(caption)             standard defaults will be used on input line 1068.
+)
+
+Package caption Warning: Unsupported document class (or package) detected,
+(caption)                usage of the caption package is not recommended.
+See the caption package documentation for explanation.
+
+Package caption Info: \@makecaption = \long macro:#1#2->\ifx \@captype \@IEEEta
+blestring \footnotesize \bgroup \par \centering \@IEEEtabletopskipstrut {\norma
+lfont \footnotesize #1}\\{\normalfont \footnotesize \scshape #2}\par \addvspace
+ {0.5\baselineskip }\egroup \@IEEEtablecaptionsepspace \else \@IEEEfigurecaptio
+nsepspace \setbox \@tempboxa \hbox {\normalfont \footnotesize {#1.}\nobreakspac
+e \nobreakspace #2}\ifdim \wd \@tempboxa >\hsize \setbox \@tempboxa \hbox {\nor
+malfont \footnotesize {#1.}\nobreakspace \nobreakspace }\parbox [t]{\hsize }{\n
+ormalfont \footnotesize \noindent \unhbox \@tempboxa #2}\else \ifCLASSOPTIONcon
+ference \hbox to\hsize {\normalfont \footnotesize \hfil \box \@tempboxa \hfil }
+\else \hbox to\hsize {\normalfont \footnotesize \box \@tempboxa \hfil }\fi \fi 
+\fi .
+\c@ContinuedFloat=\count108
+)
+\c@KVtest=\count109
+\sf@farskip=\skip61
+\sf@captopadj=\dimen141
+\sf@capskip=\skip62
+\sf@nearskip=\skip63
+\c@subfigure=\count110
+\c@subfigure@save=\count111
+\c@lofdepth=\count112
+\c@subtable=\count113
+\c@subtable@save=\count114
+\c@lotdepth=\count115
+\sf@top=\skip64
+\sf@bottom=\skip65
+) (/usr/share/texmf-texlive/tex/latex/comment/comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
+\c@Algorithm=\count116
+\c@Definition=\count117
+\c@Example=\count118
+\c@Proposition=\count119
+\c@Lemma=\count120
+\c@Theorem=\count121
+\c@Corollary=\count122
+\c@Conjecture=\count123
+\c@Problem=\count124
+\c@Notation=\count125
+\c@Setup=\count126
+ (./iwls.aux)
+\openout1 = `iwls.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 110.
+LaTeX Font Info:    ... okay on input line 110.
+Package caption Info: Begin \AtBeginDocument code.
+Package caption3 Info: subfig package 1.2 or 1.3 is loaded.
+LaTeX Info: Redefining \subref on input line 110.
+Package caption Info: End \AtBeginDocument code.
+LaTeX Font Info:    Calculating math sizes for size <11> on input line 144.
+LaTeX Font Info:    Try loading font information for OT1+ptmcm on input line 14
+4.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptmcm.fd
+File: ot1ptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OT1/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OML+ptmcm on input line 14
+4.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/omlptmcm.fd
+File: omlptmcm.fd 2000/01/03 Fontinst v1.801 font definitions for OML/ptmcm.
+)
+LaTeX Font Info:    Try loading font information for OMS+pzccm on input line 14
+4.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/omspzccm.fd
+File: omspzccm.fd 2000/01/03 Fontinst v1.801 font definitions for OMS/pzccm.
+)
+LaTeX Font Info:    Try loading font information for OMX+psycm on input line 14
+4.
+
+(/usr/share/texmf-texlive/tex/latex/psnfss/omxpsycm.fd
+File: omxpsycm.fd 2000/01/03 Fontinst v1.801 font definitions for OMX/psycm.
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 144.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 144.
+
+(/usr/share/texmf-texlive/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.69997> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <5.5> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 144.
+ (./abstract_iwls.tex)
+(./intro_iwls.tex
+
+LaTeX Warning: Citation `demicheli:tcad_03' on page 1 undefined on input line 8
+.
+
+
+LaTeX Warning: Citation `WLS' on page 1 undefined on input line 8.
+
+
+LaTeX Warning: Citation `lpsat' on page 1 undefined on input line 9.
+
+
+LaTeX Warning: Citation `ms:research' on page 1 undefined on input line 9.
+
+
+LaTeX Warning: Citation `boolector' on page 1 undefined on input line 10.
+
+LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <7.4> not available
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 14.
+
+LaTeX Warning: Citation `Bhunia:Trojan' on page 1 undefined on input line 19.
+
+
+LaTeX Warning: Citation `ideals:book' on page 1 undefined on input line 29.
+
+
+LaTeX Warning: Citation `eccld' on page 1 undefined on input line 42.
+
+
+LaTeX Warning: Citation `BRYA86' on page 1 undefined on input line 73.
+
+
+LaTeX Warning: Citation `okfdd' on page 1 undefined on input line 73.
+
+
+LaTeX Warning: Citation `bmd' on page 1 undefined on input line 73.
+
+
+LaTeX Warning: Citation `singmaster' on page 1 undefined on input line 107.
+
+
+LaTeX Warning: Citation `shekhar:tcad07' on page 1 undefined on input line 110.
+
+
+[1
+
+
+]
+
+LaTeX Warning: Citation `ff:1997' on page 2 undefined on input line 119.
+
+
+LaTeX Warning: Citation `ideals:book' on page 2 undefined on input line 161.
+
+
+LaTeX Warning: Citation `fglm' on page 2 undefined on input line 168.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 2 undefined on input line 173.
+
+
+LaTeX Warning: Citation `buchberger_thesis' on page 2 undefined on input line 1
+87.
+
+
+LaTeX Warning: Reference `sec:prelimgf' on page 2 undefined on input line 208.
+
+
+LaTeX Warning: Reference `sec:ideals' on page 2 undefined on input line 210.
+
+
+LaTeX Warning: Reference `sec:theory' on page 2 undefined on input line 213.
+
+
+LaTeX Warning: Reference `sec:fglm' on page 2 undefined on input line 216.
+
+
+LaTeX Warning: Reference `sec:concl' on page 2 undefined on input line 217.
+
+) (./prev_iwls.tex
+
+LaTeX Warning: Citation `BRYA86' on page 2 undefined on input line 6.
+
+
+LaTeX Warning: Citation `okfdd' on page 2 undefined on input line 11.
+
+
+LaTeX Warning: Citation `add' on page 2 undefined on input line 11.
+
+
+LaTeX Warning: Citation `hdd' on page 2 undefined on input line 12.
+
+
+LaTeX Warning: Citation `evbdd' on page 2 undefined on input line 12.
+
+
+LaTeX Warning: Citation `bmd' on page 2 undefined on input line 15.
+
+
+LaTeX Warning: Citation `kbmd' on page 2 undefined on input line 16.
+
+
+LaTeX Warning: Citation `ted_tcomp' on page 2 undefined on input line 33.
+
+
+LaTeX Warning: Citation `shekhar:tcad07' on page 2 undefined on input line 40.
+
+
+LaTeX Warning: Citation `alizadeh:tcad2010' on page 2 undefined on input line 4
+0.
+
+
+LaTeX Warning: Citation `modd' on page 2 undefined on input line 46.
+
+
+LaTeX Warning: Citation `modd_tcomp' on page 2 undefined on input line 46.
+
+
+LaTeX Warning: Citation `ibm:blueveri' on page 2 undefined on input line 97.
+
+
+LaTeX Warning: Citation `DGPS' on page 2 undefined on input line 121.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 2 undefined on input line 127.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 2 undefined on input line 133.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 2 undefined on input line 140.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 2 undefined on input line 145.
+
+[2]
+
+Package amsmath Warning: Foreign command \over;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 156.
+
+
+LaTeX Warning: Reference `fig:blackbox' on page 3 undefined on input line 160.
+
+File: ../blackbox.eps Graphic file (type eps)
+<../blackbox.eps>
+
+LaTeX Warning: Citation `zippel:interpolate' on page 3 undefined on input line 
+177.
+
+
+LaTeX Warning: Citation `ben-or-tiwari:interpolate' on page 3 undefined on inpu
+t line 178.
+
+
+LaTeX Warning: Citation `monagan:interpolate' on page 3 undefined on input line
+ 181.
+
+
+Underfull \hbox (badness 2662) in paragraph at lines 171--182
+[]\OT1/ptm/m/n/10 Let $\OMS/pzccm/m/n/10 F$ \OT1/ptm/m/n/10 be a mul-ti-vari-at
+e poly-no-mial in $\OML/ptmcm/m/it/10 n$ \OT1/ptm/m/n/10 vari-ables
+ []
+
+
+LaTeX Warning: Citation `zilic:interpolate' on page 3 undefined on input line 1
+88.
+
+) (./prelim_gf_iwls.tex
+
+LaTeX Warning: Citation `galois_field:mceliece' on page 3 undefined on input li
+ne 58.
+
+
+LaTeX Warning: Reference `tab:gfelement' on page 3 undefined on input line 119.
+
+
+
+LaTeX Warning: Citation `ff:1997' on page 3 undefined on input line 171.
+
+[3]
+Underfull \hbox (badness 6110) in paragraph at lines 227--231
+[][]\OT1/ptm/m/it/10 Definition 3.1: \OT1/ptm/m/n/10 Any func-tion $\OML/ptmcm/
+m/it/10 f \OT1/ptmcm/m/n/10 : \U/msb/m/n/10 F[] \OMS/pzccm/m/n/10 ! \U/msb/m/n/
+10 F[]$ \OT1/ptm/m/n/10 has a
+ []
+
+
+LaTeX Warning: Citation `eccld' on page 4 undefined on input line 249.
+
+
+LaTeX Warning: Citation `mastro:1989' on page 4 undefined on input line 294.
+
+
+LaTeX Warning: Citation `acar:1998' on page 4 undefined on input line 295.
+
+
+LaTeX Warning: Citation `Knezevic:2008' on page 4 undefined on input line 295.
+
+
+LaTeX Warning: Citation `cfmulti:1996' on page 4 undefined on input line 296.
+
+
+LaTeX Warning: Reference `fig:mm4' on page 4 undefined on input line 305.
+
+File: ../new_mmcircuit.eps Graphic file (type eps)
+<../new_mmcircuit.eps>) (./prelim_gb_iwls.tex
+
+LaTeX Warning: Citation `gao:gf-gb-ms' on page 4 undefined on input line 123.
+
+
+LaTeX Warning: Citation `gb_book' on page 4 undefined on input line 195.
+
+[4]
+
+LaTeX Warning: Reference `def:gb' on page 5 undefined on input line 207.
+
+
+LaTeX Warning: Citation `buchberger_thesis' on page 5 undefined on input line 2
+12.
+
+
+LaTeX Warning: Reference `alg:gb' on page 5 undefined on input line 213.
+
+) (./abstraction.tex
+
+LaTeX Warning: Reference `eqn:words' on page 5 undefined on input line 21.
+
+
+LaTeX Warning: Reference `prop:finIV' on page 5 undefined on input line 35.
+
+
+LaTeX Warning: Reference `thm:strong-nullsatz-fq' on page 5 undefined on input 
+line 37.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 5 undefined on input line 50.
+
+
+LaTeX Warning: Citation `ideals:book' on page 5 undefined on input line 67.
+
+
+LaTeX Warning: Citation `ideals:book' on page 5 undefined on input line 90.
+
+
+LaTeX Warning: Citation `ideals:book' on page 5 undefined on input line 102.
+
+
+LaTeX Warning: Reference `thm:elim' on page 5 undefined on input line 116.
+
+[5]
+
+LaTeX Warning: Reference `not:abs' on page 6 undefined on input line 179.
+
+
+! LaTeX Error: Environment proof undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.190 \begin{proof}
+                   
+? 
+
+LaTeX Warning: Reference `prop:spec_in_IV' on page 6 undefined on input line 19
+9.
+
+
+LaTeX Warning: Reference `def:gb' on page 6 undefined on input line 200.
+
+
+! LaTeX Error: \begin{document} ended by \end{proof}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.216 \end{proof}
+                 
+? 
+
+LaTeX Warning: Reference `thm:abs' on page 6 undefined on input line 218.
+
+
+LaTeX Warning: Reference `fig:mul2bit' on page 6 undefined on input line 250.
+
+File: 2bitmult.eps Graphic file (type eps)
+<2bitmult.eps> [6]) (./fglm.tex
+
+LaTeX Warning: Citation `lv:date2012' on page 7 undefined on input line 8.
+
+
+LaTeX Warning: Reference `tab:sT' on page 7 undefined on input line 18.
+
+
+LaTeX Warning: Citation `mastro:1989' on page 7 undefined on input line 19.
+
+
+LaTeX Warning: Citation `DGPS' on page 7 undefined on input line 27.
+
+
+LaTeX Warning: Citation `fglm' on page 7 undefined on input line 62.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 7 undefined on input line 66.
+
+
+LaTeX Warning: Citation `lv:date2012' on page 7 undefined on input line 84.
+
+
+LaTeX Warning: Reference `ex:twomult' on page 7 undefined on input line 99.
+
+
+LaTeX Warning: Reference `fig:mul2bit' on page 7 undefined on input line 100.
+
+
+LaTeX Warning: Reference `ex:myapproach' on page 7 undefined on input line 136.
+
+
+[7]) (./xiaojun.tex
+! Undefined control sequence.
+l.20 Furthermore, if $I = \langel
+                                  f_1, \dots, f_r\rangle$ and
+? 
+! Undefined control sequence.
+l.21 $J = \langel
+                  g_1, \dots, g_s\rangle$, then
+? 
+! Undefined control sequence.
+l.22 $I + J = \langel
+                      f_1, \dots, f_r, g_1, \dots, g_s\rangle$.
+? 
+! Undefined control sequence.
+l.29 $I = \langel
+                  f_1, \dots, f_r\rangle$ and $J = \langel g_1, \dots, g_s\r...
+
+? 
+! Undefined control sequence.
+l.29 ...l f_1, \dots, f_r\rangle$ and $J = \langel
+                                                   g_1, \dots, g_s\rangle$, ...
+
+? 
+
+! LaTeX Error: \mathbb allowed only in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.56 Let V and W be varieties in \Fkk
+                                     . Then ${\bf I}(V) : {\bf I}(W) =
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.56 Let V and W be varieties in \Fkk
+                                     . Then ${\bf I}(V) : {\bf I}(W) =
+? 
+
+! LaTeX Error: Command \end{Theorem} invalid in math mode.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 \end{Theorem}
+                  
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 \end{Theorem}
+                  
+? 
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.58 \end{Theorem}
+                  
+? 
+! Missing $ inserted.
+<inserted text> 
+                $
+l.58 \end{Theorem}
+                  
+? 
+
+LaTeX Warning: Reference `thm:quotient' on page 8 undefined on input line 60.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 60--62
+
+ []
+
+
+LaTeX Warning: Reference `sec:fsm' on page 8 undefined on input line 84.
+
+
+LaTeX Warning: File `./fsm_ckt.eps' not found on input line 91.
+
+
+! LaTeX Error: File `./fsm_ckt.eps' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.91 ...includegraphics[scale=0.3]{./fsm_ckt.eps}}
+                                                  
+? 
+
+! LaTeX Error: Cannot determine size of graphic in ./fsm_ckt.eps (no BoundingBo
+x).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.91 ...includegraphics[scale=0.3]{./fsm_ckt.eps}}
+                                                  
+? 
+File: ./fsm_ckt.eps Graphic file (type eps)
+<./fsm_ckt.eps>
+
+LaTeX Warning: File `./fsm_stg.eps' not found on input line 97.
+
+
+! LaTeX Error: File `./fsm_stg.eps' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...includegraphics[scale=0.3]{./fsm_stg.eps}}
+                                                  
+? 
+
+! LaTeX Error: Cannot determine size of graphic in ./fsm_stg.eps (no BoundingBo
+x).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.97 ...includegraphics[scale=0.3]{./fsm_stg.eps}}
+                                                  
+? 
+File: ./fsm_stg.eps Graphic file (type eps)
+<./fsm_stg.eps>
+
+LaTeX Warning: Reference `sec:fsm' on page 8 undefined on input line 109.
+
+
+LaTeX Warning: Reference `sec:theory' on page 8 undefined on input line 110.
+
+
+LaTeX Warning: Reference `thm:elim' on page 8 undefined on input line 119.
+
+
+LaTeX Warning: Reference `alg:BFS' on page 8 undefined on input line 124.
+
+
+LaTeX Warning: Reference `thm:unionintersect' on page 8 undefined on input line
+ 127.
+
+
+LaTeX Warning: Reference `thm:quotient' on page 8 undefined on input line 128.
+
+
+LaTeX Warning: Reference `alg:BFS' on page 8 undefined on input line 128.
+
+[8]
+
+LaTeX Warning: File `./SMPO.eps' not found on input line 144.
+
+
+! LaTeX Error: File `./SMPO.eps' not found.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144 ...{\includegraphics[scale=0.3]{./SMPO.eps}}
+                                                  
+? 
+
+! LaTeX Error: Cannot determine size of graphic in ./SMPO.eps (no BoundingBox).
+
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.144 ...{\includegraphics[scale=0.3]{./SMPO.eps}}
+                                                  
+? 
+File: ./SMPO.eps Graphic file (type eps)
+<./SMPO.eps>
+
+LaTeX Warning: Reference `thm:abs' on page 9 undefined on input line 151.
+
+
+LaTeX Warning: Reference `alg:BFS' on page 9 undefined on input line 157.
+
+) (./iwls.bbl) [9] (./iwls.aux)
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 4706 strings out of 495062
+ 68964 string characters out of 1182645
+ 167002 words of memory out of 3000000
+ 7819 multiletter control sequences out of 15000+50000
+ 52651 words of font info for 128 fonts, out of 3000000 for 9000
+ 28 hyphenation exceptions out of 8191
+ 44i,19n,42p,356b,455s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on iwls.dvi (9 pages, 104616 bytes).

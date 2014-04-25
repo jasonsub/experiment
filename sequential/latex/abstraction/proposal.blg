@@ -1,0 +1,167 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: proposal.aux
+The style file: ieee.bst
+Database file #1: oldlogic.bib
+You're missing a field name---line 303 of file oldlogic.bib
+ : 
+ : %   url = {http://dx.doi.org/10.1007/3-540-57936-2_31},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #2: logic.bib
+Repeated entry---line 20 of file logic.bib
+ : @article{cfmulti:1996
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 62 of file logic.bib
+ : @book{ff:1997
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 79 of file logic.bib
+ : @book{galois_field:mceliece
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 393 of file logic.bib
+ : @article{acar:1998
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 545 of file logic.bib
+ : @phdthesis{buchberger_thesis
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 589 of file logic.bib
+ : @article{demicheli:tcad_03
+ :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 684 of file logic.bib
+ : @inproceedings{gbverify:2007
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 756 of file logic.bib
+ : @book{gb_book
+ :              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 789 of file logic.bib
+ : @mastersthesis{gao:gf-gb-ms
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 803 of file logic.bib
+ : @inproceedings{gao:qe-gf-gb
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 841 of file logic.bib
+ : @article{BRYA86
+ :                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 870 of file logic.bib
+ : @inproceedings{bmd
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1176 of file logic.bib
+ : @inproceedings{tew:iccad08
+ :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1344 of file logic.bib
+ : @techreport{ms:research
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1879 of file logic.bib
+ : @inproceedings{demicheli:iccad_98
+ :                                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1887 of file logic.bib
+ : @inproceedings{demicheli:dac_99
+ :                                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2032 of file logic.bib
+ : @inproceedings{add
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2054 of file logic.bib
+ : @inproceedings{WLS
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2073 of file logic.bib
+ : @inproceedings{hdd
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2092 of file logic.bib
+ : @article{kbmd
+ :              ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2139 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 2144 of file logic.bib
+ : @inproceedings{modd
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2224 of file logic.bib
+ : @article{singmaster
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2252 of file logic.bib
+ : @article{chen_96
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2269 of file logic.bib
+ : @article{chen_95
+ :                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2481 of file logic.bib
+ : @unpublished{blueveri:ita
+ :                          ,
+I'm skipping whatever remains of this entry
+A bad cross reference---entry "gbverify:2007"
+refers to entry "", which doesn't exist
+Warning--I didn't find a database entry for ""
+`volume' is a missing field, not a string, for entry alizadeh:tcad2010
+while executing---line 987 of file ieee.bst
+Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+while executing---line 987 of file ieee.bst
+Warning--empty journal in DGPS
+`volume' is a missing field, not a string, for entry DGPS
+while executing---line 987 of file ieee.bst
+You've used 56 entries,
+            1802 wiz_defined-function locations,
+            756 strings with 12676 characters,
+and the built_in function-call counts, 13708 in all, are:
+= -- 1175
+> -- 561
+< -- 19
++ -- 210
+- -- 154
+* -- 979
+:= -- 2043
+add.period$ -- 59
+call.type$ -- 56
+change.case$ -- 49
+chr.to.int$ -- 0
+cite$ -- 57
+duplicate$ -- 714
+empty$ -- 1419
+format.name$ -- 154
+if$ -- 3210
+int.to.chr$ -- 0
+int.to.str$ -- 56
+missing$ -- 54
+newline$ -- 284
+num.names$ -- 58
+pop$ -- 247
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 354
+stack$ -- 0
+substring$ -- 767
+swap$ -- 232
+text.length$ -- 19
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 114
+width$ -- 58
+write$ -- 604
+(There were 31 error messages)

@@ -1,0 +1,84 @@
+LIB "teachstd.lib";
+LIB "general.lib";
+LIB "poly.lib";
+
+proc huo(poly f1, poly f2)  // "huo" means OR
+{
+	poly g = f1 + f2 + (f1*f2);
+	return (g);
+}
+
+proc nxor(poly f1, poly f2)  // XNOR
+{
+	poly g = huo(f1*f2, (1+f1)*(1+f2));
+	return (g);
+}
+
+proc tran(poly f4) // State Transition Function in GB form
+{
+	poly f0 = 1 + nxor(t0, huo(p*q, (1+xi)*(1+p)*(1+q)));
+	poly f1 = 1 + nxor(t1, huo(xi*(1+p),p*(1+q))); // these 2 are image function w.r.t. 2 primary outputs
+	poly f2 = S - p - q*X;
+	poly f3 = T - t0 - t1*X;
+	poly v0 = p^2 - p;
+	poly v1 = q^2 - q;
+	poly v2 = t0^2 - t0;
+	poly v3 = t1^2 - t1;
+	poly v4 = S^4 - S;
+	poly v5 = xi^2 - xi;
+	poly v6 = T^4 - T;
+
+	ideal I = f0, f1, f2, f3, f4, v0, v1, v2, v3, v4, v5, v6;
+	ideal J = slimgb(I);
+	J = sort(J)[1];
+	return (J[1]/leadcoef(J[1]));
+}
+
+proc cmp(poly r) // Compute ideal quotient (variety's complement)
+{
+	ideal U = T^4 + T;
+	ideal R = r;
+	return (quotient(U,R)[1]);
+}
+
+proc va(poly f) // reduce higher degree of word-level variable
+{
+	ideal I = f, T^4+T;
+	poly g = slimgb(I)[1];
+	g = g/leadcoef(g);
+	return (g);
+}
+
+ring rr = (2,X), (p, q, t0, t1, xi, S, T), lp;
+minpoly = X^2 + X + 1;
+
+poly cs = S; // "Current State" in first iteration, actually initial state
+// here initial state is S = X+1, i.e. {"11"}. Feel free to change the initial state(s)!
+poly reached = T; // "reached" record reached states from initial, it should be
+// initialized as the initial state (replace current state word "S" by next state word "T")
+int i = 1;
+ideal from,to,new;
+from[1] = cs;
+while(1)
+{
+	i++;
+	to[i] = tran(from[i-1]);
+	"Iteration #";
+	i;
+	"Next State(s):";
+	to[i];
+	new[i] = va(to[i]+cmp(reached));
+	"Newly reached states:";
+	new[i];
+	if (va(new[i]) == 1)
+	{
+		break;
+	}
+	reached = va(reached * new[i]);
+	"Currently reached states:";
+	reached;
+	from[i] = subst(new[i],T,S);
+}
+"Final reachable states:";
+reached;
+

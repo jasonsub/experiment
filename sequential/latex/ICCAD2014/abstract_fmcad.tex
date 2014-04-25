@@ -1,0 +1,17 @@
+\begin{abstract}
+Sequential circuits that implement Galois field arithmetic over
+$\Fkk$ are prevalent in cryptography and error control coding, where
+the datapath size $k$ is very large. Formal verification of sequential
+arithmetic circuits with large datapath size is beyond the
+capabilities of contemporary verification techniques. To address this
+problem, this paper introduces a new concept of implicit state
+enumeration of finite state machines (FSMs) performed at the
+word-level. Using algebraic geometry, we show that the state-space of
+a sequential circuit can be encoded, canonically, as solutions to a
+multivariate word-level polynomial $\F(A)$ in $\Fkk$, where $A = {a_0,
+\dots, a_{k-1}}$ represents the $k$-bit state-register (word). Subsequently,
+the Groebner basis algorithm, along with elimination ideals and quotients 
+of ideals can be employed for FSM traversal. We apply our approach 
+to verify sequential Galois field multipliers with large datapath sizes, 
+where contemporary techniques prove to be infeasible.
+\end{abstract}

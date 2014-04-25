@@ -1,0 +1,59 @@
+\begin{thebibliography}{1}
+
+\bibitem{alizadeh2009sequential}
+B.~Alizadeh and M.~Fujita.
+\newblock Sequential equivalence checking using a hybrid boolean-word level
+  decision diagram.
+\newblock In {\em Advances in Computer Science and Engineering}, pages
+  697--704. Springer, 2009.
+
+\bibitem{avrunin1996symbolic}
+G.~S. Avrunin.
+\newblock Symbolic model checking using algebraic geometry.
+\newblock In {\em Computer Aided Verification}, pages 26--37. Springer, 1996.
+
+\bibitem{bjesse2000sat}
+P.~Bjesse and K.~Claessen.
+\newblock Sat-based verification without state space traversal.
+\newblock In {\em Formal Methods in Computer-Aided Design}, pages 409--426.
+  Springer, 2000.
+
+\bibitem{burch1991representing}
+J.~R. Burch, E.~M. Clarke, and D.~E. Long.
+\newblock Representing circuits more efficiently in symbolic model checking.
+\newblock In {\em Proceedings of the 28th ACM/IEEE Design Automation
+  Conference}, pages 403--407. ACM, 1991.
+
+\bibitem{coudert1990verification}
+O.~Coudert, C.~Berthet, and J.~C. Madre.
+\newblock Verification of synchronous sequential machines based on symbolic
+  execution.
+\newblock In {\em Automatic verification methods for finite state systems},
+  pages 365--373. Springer, 1990.
+
+\bibitem{gunther2001application}
+W.~G{\"u}nther, A.~Hett, and B.~Becker.
+\newblock Application of linearly transformed bdds in sequential verification.
+\newblock In {\em Proceedings of the 2001 Asia and South Pacific Design
+  Automation Conference}, pages 91--96. ACM, 2001.
+
+\bibitem{jiang2003verification}
+J.-H. Jiang and R.~K. Brayton.
+\newblock On the verification of sequential equivalence.
+\newblock {\em Computer-Aided Design of Integrated Circuits and Systems, IEEE
+  Transactions on}, 22(6):686--697, 2003.
+
+\bibitem{narayan1997reachability}
+A.~Narayan, A.~J. Isles, J.~Jain, R.~K. Brayton, and A.~L.
+  Sangiovanni-Vincentelli.
+\newblock Reachability analysis using partitioned-robdds.
+\newblock In {\em Proceedings of the 1997 IEEE/ACM international conference on
+  Computer-aided design}, pages 388--393. IEEE Computer Society, 1997.
+
+\bibitem{touati1990implicit}
+H.~J. Touati, H.~Savoj, B.~Lin, R.~K. Brayton, and A.~Sangiovanni-Vincentelli.
+\newblock Implicit state enumeration of finite state machines using bdd's.
+\newblock In {\em Computer-Aided Design, 1990. ICCAD-90. Digest of Technical
+  Papers., 1990 IEEE International Conference on}, pages 130--133. IEEE, 1990.
+
+\end{thebibliography}

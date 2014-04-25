@@ -1,0 +1,106 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IEEEsample.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%    More information: see the header of IEEEtran.sty
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%
+
+\documentclass{llncs}
+
+\usepackage{helvet}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{subfig}
+\RequirePackage{algorithmic}
+\RequirePackage{algorithm}
+
+
+\input{epsf}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em1
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%\newtheorem{Definition}{definition}[section]
+%\newtheorem{example}{Example}
+%\newtheorem{Lemma}{Lemma}
+
+% New command for the table notes.
+\def\tabnote#1{{\small{#1}}}
+
+% New command for the line spacing.
+\newcommand{\ls}[1]
+    {\dimen0=\fontdimen6\the\font
+     \lineskip=#1\dimen0
+     \advance\lineskip.5\fontdimen5\the\font
+     \advance\lineskip-\dimen0
+     \lineskiplimit=.9\lineskip
+     \baselineskip=\lineskip
+     \advance\baselineskip\dimen0
+     \normallineskip\lineskip
+     \normallineskiplimit\lineskiplimit
+     \normalbaselineskip\baselineskip
+     \ignorespaces
+    }
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\ov}{\overline}
+%\newcommand{\ov}{\bar}
+\newcommand{\xor}{\bigoplus}
+%%
+%\newtheorem{algorithm}{Algorithm}[section]
+
+\newcommand{\Fq}{{\mathbb{F}}_{q}}
+\newcommand{\Fkk}{{\mathbb{F}}_{2^k}}
+\newcommand{\Fkkx}[1][x]{\ensuremath{\mathbb{F}}_{2^k}[#1]\xspace}
+\newcommand{\Grobner}{Gr\"{o}bner\xspace}
+\newcommand{\B}{{\mathbb{B}}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\G}{{\mathcal{G}}}
+%%%
+
+\newcommand{\debug}[1]{\textcolor{gray}{[ #1 ]}}
+
+
+\begin{document}
+
+\title{{Deriving Canonical Polynomial Representations from Circuits using Gr\"obner Bases}}
+
+\author{
+T. Pruss\inst{1} \and P. Kalla\inst{1} \and F. Enescu\inst{2}
+}
+
+\institute{
+Electrical \& Computer Engineering\\
+University of Utah, USA
+\and
+Mathematics \& Statistics\\
+Georgia State University, USA
+}
+
+\maketitle
+
+%\thispagestyle{empty}
+%\pagestyle{empty}
+
+\input{abstract}
+\input{intro}
+%% \input{prelim_gf}
+%% \input{setup}
+%% %\input{promodel}
+%% %\input{solve}
+%% \input{experiment}
+%% %\input{conclusion}
+
+
+%%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{splncs03}
+%\bibliographystyle{/Users/Kalla/tex/inputs/ieee}
+\bibliography{logic,oldlogic}
+\end{document} 
+
+
+
+

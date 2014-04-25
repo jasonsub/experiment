@@ -1,0 +1,254 @@
+\section{Word-Level Abstraction using Gr\"obner basis}
+\label{sec:theory}
+We are given a circuit $C$ with $k$-bit inputs and outputs that
+performs a polynomial computation $Y = \F(A)$ over $\Fq = \Fkk$. Let
+$P(x)$ be the {\it given} irreducible or primitive polynomial used for
+field construction, and let $\alpha$ be its root, i.e. $P(\alpha) = 0
+$. Note that we do not know the polynomial representation
+$\F(A)$ and our objective is to identify (the coefficients of)
+$\F(A)$. Let $\{a_0, \dots, a_{k-1}\}$ denote the primary inputs and
+let $\{y_0, \dots, y_{k-1}\}$ be the primary outputs of $C$. Then, the
+word-level and bit-level correspondences are: 
+\begin{equation}
+\label{eqn:words}
+ A = a_0 + a_1 \alpha + \dots + a_{k-1} \alpha^{k-1}; ~~ Y = y_0 +
+y_1 \alpha + \dots + y_{k-1} \alpha^{k-1};
+\end{equation}
+
+We analyze the circuit and model all the gate-level Boolean operators
+as polynomials in ${\mathbb{F}}_2 \subset \Fkk$. To this set of
+Boolean polynomials, we append the polynomials of Eqn
+(\ref{eqn:words}) that relate the word-level and bit-level
+variables. We model this set of polynomials as $F = \{f_1, \dots,
+f_s\}$ over the ring $R = \Fq[x_1, \dots, x_d, Y, A]$. Here $x_1,
+\dots, x_d$ denote, collectively, all the bit-level variables of the
+circuit --- i.e. primary inputs, primary outputs and the intermediate
+circuit variables --- and $Y, A$ the word-level variables. Denote the
+generated ideal as $J = \langle F \rangle \subset R$. As $Y = \F(A)$
+is a polynomial representation of the circuit, represent this (unknown)
+``specification'' as a polynomial $f: Y - \F(A)$, or as $f: Y + \F(A)$
+and $-1 = +1$ over $\Fkk$.  
+
+As the circuit $C$ implements the function $f$, clearly $f$ {\it
+  agrees with the solutions} to $f_1 = \dots = f_s = 0$. In computer
+algebra terminology, this means that $f$ {\it vanishes on the variety} 
+$V_{\Fq}(J)$. If $f$ vanishes on $V_{\Fq}(J)$, then $f$ is a member of
+the ideal $I(V_{\Fq}(J))$. Strong Nullstellensatz over Galois fields
+(Theorem \ref{thm:strong-nullsatz-fq}) tells us that $I(V_{\Fq}(J)) =
+J + J_0$, where $J_0 = \langle x_1^q - x_1, \dots, x_d^q - x_d, Y^q -
+Y, A^q - A \rangle$ is the ideal of vanishing polynomials in
+$R$. Consolidating these results, we deduce that the specification
+polynomial $f \in (J+J_0)$. 
+
+If the specification polynomial is known, then the verification
+problem can be solved using membership testing of $f$ in the ideal $(J
++ J_0)$ (\cite{lv:date2012} used such a formulation). We will now show
+that by computing a Gr\"obner basis of $(J + J_0)$, using a specific
+elimination term order, we can also identify the polynomial $f$ which
+represents the function implemented by the circuit.
+
+
+{\bf Reverse-Engineering $f$ from $C$:} The variety $V_{\Fq}(J)$ is
+the set of all consistent assignments to the nets (signals) in the
+circuit $C$. If we {\it project this variety on the word-level input and
+output variables of the circuit $C$, we essentially generate the
+function $f$ implemented by the circuit.} Projection of varieties from
+$d$-dimensional space $\Fq^d$ onto a lower dimensional subspace
+$\Fq^{d-l}$ is equivalent to {\it eliminating $l$ variables} from the
+corresponding ideal. 
+
+\begin{Definition}
+    ({\bf Elimination Ideal}) From \cite{ideals:book}:  Given
+  $J=\langle f_1,\dots,f_s\rangle \subset \Fq[x_1,\dots,x_d]$, the
+  $l$th {\bf elimination ideal} $J_l$ is the ideal of
+  $\Fq[x_{j+1},\dots,x_d]$ defined by 
+    \begin{equation}
+        J_l= J \cap \Fq[x_{l+1},\dots,x_d]
+    \end{equation}
+\end{Definition}
+
+In other words, the $l$th elimination ideal does not contain variables
+$x_1,\dots,x_l$, nor do the generators of it.  This can aid in solving
+systems of polynomial equations by isolating variables in a set of
+constraints, as is the purpose of techniques such as Gaussian
+elimination. 
+%The generators of a $k$th elimination ideal are such that
+%$variables  are not present.
+Moreover, Gr\"obner bases may be used to generate an elimination ideal
+by using an ``elimination order.''  One such ordering
+is a pure lexicographic ordering, which features into a theorem:
+%The ideal $I_k$ is spanned by elements which eliminate variables
+%$x_1,\dots,x_k$.  This leads to an {\bf elimination theorem} for \Grobner
+%bases:
+\begin{Theorem} \label{thm:elim}
+({\bf Elimination Theorem}) From \cite{ideals:book}: Let $J
+  \subset \Fq[x_1,\dots,x_d]$ be an     ideal and let $G$ be a
+  Gr\"obner basis of $J$ with respect to a lex ordering where $x_1
+  > x_2 > \dots > x_d$.  Then for every $0     \leq l \leq
+  d$, the set 
+    \begin{equation}
+        G_l= G \cap \Fq[x_{l+1},\dots,x_d]
+    \end{equation}
+    is a Gr\"obner basis of the $l$th elimination ideal $J_l$.
+\end{Theorem}
+
+We describe the application of elimination ideals using the following
+example, borrowed from \cite{ideals:book}.
+
+\begin{Example}
+
+{\it 
+Consider polynomials $f_1: x^2 - y - z - 1; ~~f_2: x - y^2 - z -1; 
+~~f_3: x - y - z^2 - 1$ and ideal $J = \langle f_1, f_2, f_3\rangle
+\subset {\mathbb{C}}[x, y, z]$. Let us compute a Gr\"obner basis $G$
+of $J$ w.r.t. lex term order with $x > y > z$. Then $G = \{g_1, \dots,
+g_4\}$ is obtained as: $g_1: x - y - z^2 - 1; ~~g_2: y^2 - y - z^2 - z;
+~~g_3: 2yz^2 - z^4 - z^2; ~~g_4: z^6 - 4z^4 - 4z^3 - z^2$. 
+Notice that the polynomial $g_4$ contains only the variable $z$, and
+it {\bf eliminates} variables $x, y$. Similarly, polynomials $g_2,
+g_3, g_4$, contain variables $y, z$ and eliminate $x$. According to
+Theorem \ref{thm:elim}, $G_1 = G \cap {\mathbb{C}}[y, z] = \{g_2, g_3,
+g_4\}$ and $G_2 = G \cap {\mathbb{C}}[z] = \{g_4\}$ are the Gr\"obner
+bases of the $1^{st}$ and $2^{nd}$ elimination ideals of $J$, respectively.
+}
+\end{Example}
+
+In conclusion, Gr\"obner basis computations w.r.t. pure lexicographic
+term orders can be used to eliminate variables from an ideal. The
+above example motivates our approach: Since we want to derive a
+polynomial representation from a circuit in variables $Y, A$, we can
+compute a Gr\"obner basis of $J + J_0$ w.r.t. an elimination order
+that eliminates all the ($d$) bit-level variables of the
+circuit. Then, the Gr\"obner basis $G_d = G \cap \Fq[x_1, \dots, x_d,
+  Y, A]$ of the $d^{th}$ elimination ideal of $(J + J_0)$ will contain
+polynomials in only $Y, A$. We now prove that the 
+required polynomial representation will be found in $G_d$.
+%$Y = \F(A)$
+%will be found in $G_d$ and it will be the polynomial representation of
+%the function implemented by the circuit.
+First, let us formally ``setup'' the abstraction problem:
+
+\begin{Setup}\label{not:abs}
+Given a circuit $C$ with $k$-bit inputs and outputs which computes a
+polyfunction $f: \Fkk \rightarrow \Fkk$. Let $\{a_0, \dots, a_{k-1}\}$
+be the bit-level primary inputs and $\{y_0, \dots, y_{k-1}\}$ be the
+primary outputs. Let $A, Y$ denote the word-level input and output
+variables of the circuit, respectively, such that $A = a_0 + a_1
+\alpha + \dots + a_{k-1}\alpha^{k-1}$ and $Y = y_0 + \dots +
+y_{k-1}\alpha^{k-1}$, where $\alpha$ is a primitive element of $\Fkk$. 
+Let ${\mathcal{F}}(A)$ be the (unknown) polynomial representation of
+the function implemented by the circuit such that $Y =
+{\mathcal{F}}(A)$.  
+
+Denote by $x_i, i = 1, \dots, d$ all the Boolean variables of the
+circuit -- i.e. the input, output and the intermediate
+variables. Let $R = \Fkk[x_i, Y, A: i = 1, \dots d]$ denote the
+ring to model the polynomials that describe 
+the circuit functionality. Let ideal $J \subset \Fkk[x_i, Y, A: i = 1
+  \dots d]$ be generated by the bit-level and word-level polynomials
+of the circuit. Let $J_0 = \langle x_i^2-x_i, Y^{2^k} - Y, A^{2^k} - A: i =
+1, \dots, d\rangle$ denote the ideal of vanishing polynomials in $R$. 
+\hfill$\Box$
+\end{Setup}
+
+Now, we will impose the following elimination order used for
+abstraction: 
+
+\begin{Definition}
+{\bf Abstraction Term Order $>$:} 
+%For the given circuit $C$,
+%let $x_1, \dots, x_d$ denote all the bit-level variables, and let $Y,
+%A$ denote, respectively the word-level output and input
+%variables. 
+Using the variable order $x_1 > x_2 > \dots > x_d > Y > A$,
+impose a lex term order $>$ on the polynomial ring $R = \Fq[x_1,
+  \dots, x_d, Y, A]$. This elimination term order $>$ is defined as
+the {\bf Abstraction Term Order}. 
+\end{Definition}
+
+
+\begin{Theorem} \label{thm:abs}
+{\bf Abstraction Theorem:} Using the setup and notations from Problem
+Setup \ref{not:abs} above, compute a Gr\"obner basis $G$ of ideal $(J
++ J_0)$ using the abstraction term order $>$. Then: \\
+(i) $G$ must contain the vanishing polynomial $A^q - A$ as the only
+polynomial with only $A$ as the support variable;\\
+(ii) $G$ must contain a polynomial of the form $Y + {\mathcal{G}}(A)$;
+and\\ 
+(iii) $Y + {\mathcal{G}}(A)$ is such that $\F(A) = {\mathcal{G}}(A),
+\forall A \in \Fq$. In other words, ${\mathcal{G}}(A)$ and $\F(A)$ are
+equal as polynomial functions over $\Fq$.
+\end{Theorem}
+
+\begin{proof}
+(i) $A^q -A$ is a given generator of $J_0$. Variable $A$ is also the
+  last variable in the abstraction term order. Moreover, $A$ is an
+  input to the circuit, so $A$ is an independent variable which can
+  take any and all values in $\Fkk$. As a   result, $G_{d+1} = G \cap
+  \Fkk[A] = \{A^q - A\}$.
+
+(ii) Since $f:Y + {\mathcal{F}}(A)$ is a polynomial representation of
+  the function of the circuit, $Y + {\mathcal{F}}(A) \in J + J_0$, as
+  described above. Therefore, according to the definition of a
+  Gr\"obner basis (Definition \ref{def:gb}), the leading term of $Y +
+  {\mathcal{F}}(A)$ (which is $Y$) should be divisible by the leading
+  term of some polynomial $g_i \in G$. The only way $lt(g_i)$ can
+  divide $Y$ is when $lt(g_i) = Y$ itself. Moreover, due to our
+  abstraction (lex) term order, $Y > A$, so this polynomial must be
+  of the form $Y + {\mathcal{G}}(A)$. 
+
+(iii) As $Y = \F(A)$ represents the function of the circuit, $Y +
+  \F(A) \in J + J_0$. Moreover, $V(J + J_0) \subset V(Y + \F(A))$. 
+  Project this variety $V(J + J_0)$ onto the co-ordinates
+  corresponding to $(A, Y)$. What we obtain is the {\it graph of the
+  function} $(A) \mapsto \F(A)$ from $\Fkk \rightarrow \Fkk$. Since $Y
+  + {\mathcal{G}}(A)$ is an element of the Gr\"obner basis of $J +
+  J_0$, $V(J + J_0) \subset V(Y + {\mathcal{G}}(A))$ too. Therefore,
+  $Y = {\mathcal{G}}(A)$ gives the same function as $Y = \F(A)$, for
+  all $A \in \Fkk$.
+\end{proof}
+
+As a consequence of Theorem \ref{thm:abs}, if we compute a Gr\"obner
+basis $G$ of $J + J_0$ using the abstraction term order, we will find
+a polynomial of the form $Y + \G(A)$ in the Gr\"obner basis, such that
+$Y = \G(A)$ is a polynomial representation of the circuit. However, if
+the Gr\"obner basis is not reduced, it is possible to obtain multiple
+polynomials in $G$ of the form $Y + \G _1(A), Y + \G _2(A), \dots,$;
+all of which correspond to the same function. 
+
+\begin{Corollary}
+Computing a {\bf reduced} Gr\"obner basis $G_r$ of $J + J_0$, we
+will obtain {\bf one and only one polynomial} in $G_r$ of the form $Y
++ \G(A)$, such that $Y = \G(A)$ is the {\bf unique, minimal,
+  canonical} representation of the function $f$ implemented by the
+circuit.  
+\end{Corollary}
+
+The above results trivially extend to circuits with multiple
+word-level input variables $A^1, \dots, A^n$, and the canonical
+polynomial representation obtained by computing a reduced Gr\"obner
+basis $G_r$ of $J + J_0$ using $>$ is of the form $Y = \F(A^1, \dots,
+A^n)$. 
+
+\section{Research to be conducted further....}
+
+{\it Gr\"obner basis Complexity:} To compute a Gr\"obner basis for
+$J + J_0$ over $\Fq$, the following result is known \cite{gao:gf-gb-ms}:  
+
+\begin{Theorem}
+Let $J = \langle f_1, \dots, f_s, ~x_1^q - x_1, \dots, x_d^q -
+x_d\rangle \subset \Fq [x_1, \dots, x_d]$ be an ideal. The time and
+space complexity of Buchberger's algorithm to compute a Gr\"obner
+basis of $J$ is bounded by $q^{O(d)}$.
+ assuming that the length of input $f_1, \dots, f_s$ is dominated by
+ $q^{O(d)}$.  
+\end{Theorem}
+
+In our case, $q = 2^k$, and when $k$ and $d$ are large, this complexity
+may make  verification infeasible. Therefore, I wish to conduct
+research to make this approach scalable. Talk about FGLM here, and
+maybe show an example corresponding to the same 2-bit multiplier
+circuit....... You take it up from here.... 
+
+
+

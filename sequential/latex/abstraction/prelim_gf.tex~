@@ -1,0 +1,434 @@
+\section{Galois Fields, Polynomial Functions \& Hardware Design}
+\label{sec:prelimgf}
+%\vspace{-0.035in}
+
+%% We briefly describe the relevant concepts related to Galois fields
+%% $\Fkk$; for more details, interested readers may refer to the textbook 
+%% \cite{galois_field:mceliece}. 
+%% %to put the complexity of the verification problem in perspective, 
+%% %to shed some light on the complexity of our design verification, 
+%% We also review some VLSI architectures used for Galois field
+%% computations \cite{mastro:phd} \cite{acar:1998} \cite{wu:2002}
+%% \cite{Knezevic:2008} \cite{eccld} \cite{ecc163}. In our experiments,
+%% we have verified custom designs based on these architectures. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% %\begin{Definition}
+%% A finite field, also called a {\bf Galois field}, denoted by $F_q$, is
+%% a set of $q$ elements, including two distinguished elements 0 and 1,
+%% along with operations $'+'$ and $'\cdot'$ (addition and
+%% multiplication) that satisfy the following properties: 
+%% \begin{itemize}
+%% \item ($F_q, +, 0$) forms an Abelian group.
+
+%% % \begin{itemize}
+%% % \item  Closure: $\forall a, b \in F_q, a + b \in F_q$.
+%% % \item Associativity: $\forall a, b, c \in F_q, a+(b+c)=(a+b)+c$.
+%% % \item Commutativity: $\forall a, b \in F_q, a+b=b+a$.
+%% % \item Additive Identity: $\forall a \in F_q, a+0=a$. 
+%% % \item Additive Inverse: $\forall a \in F_q$, there is an additive
+%% %   inverse element $-a \in F_q$ such that $a+(-a)=0$. 
+%% %\end{itemize}
+
+%% \item ($F_q, +, \cdot, 0, 1$) forms a commutative ring with unity.
+%% % \begin{itemize}
+%% % \item Multiplication closure: $\forall a, b \in F_q, a \cdot b \in
+%% %   F_q$.
+%% % \item Multiplication Associativity: $\forall a, b, c \in F_q, a \cdot
+%% %   (b \cdot c)=(a \cdot b)\cdot c$.  
+%% % \item Multiplication Commutativity: $\forall a, b \in F_q, a \cdot b=b \cdot a$. 
+%% % \item Multiplication Identity: $\forall a \in F_q, a\cdot 1=a$. 
+%% % \item Distributivity: $\forall a, b, c \in F_q, a \cdot (b+c)=(a
+%% % \cdot b)+(a \cdot c)$. 
+%% % \end{itemize}
+
+%% \item Every non-zero element in $F_q$ has a   multiplicative inverse:
+%%   $\forall a \in F_q - \{0\}, \exists a^{-1} \in F_q$ such that $a \cdot
+%%   a^{-1}=1$. 
+
+%% \item The number of elements $q$ of the finite field is a
+%%   power of a prime integer, i.e. $q = p^k, k \geq 1, p=$ prime. 
+
+%% \end{itemize}
+%% %\end{Definition}
+
+A Galois field is a field with a finite number of elements. The number
+of elements $q$ of the field is a power of a prime integer --- i.e. $q
+= p^k$, where $p$ is a prime integer, and $k \geq 1$ is a positive
+integer \cite{galois_field:mceliece}. Galois fields are denoted as
+${\mathbb{F}}_{q}$ and also $GF(q =p^k)$. We are interested in fields
+where $p = 2$ and $k >1$ --- i.e. {\it   binary Galois extension
+  fields} $\mathbb{F}_{2^k}$ --- as they are widely employed in
+hardware implementations of cryptography primitives. 
+
+To construct ${\mathbb{F}}_{2^k}$, we take the polynomial ring
+${\mathbb{F}}_2[x]$, where ${\mathbb{F}}_{2} = \{0, 1\}$, and an
+irreducible  polynomial $P(x) \in {\mathbb{F}}_2[x]$ of degree $k$, and
+construct ${\mathbb{F}}_{2^k}$ as ${\mathbb{F}}_2[x] \pmod{   P(x)}$. As a
+result, all field operations are performed 
+modulo the irreducible polynomial $P(x)$ and the coefficients are
+reduced modulo $p=2$. %=2$; due to which $-1 = +1$ over $\Fkk$. 
+Any element $A \in {\mathbb{F}}_{2^k}$ can be represented in polynomial
+form as $A = a_0 +  a_1 \alpha + \dots + a_{k-1} \alpha^{k-1}$, where
+$a_i \in {\mathbb{F}}_2, i = 0, \dots, k-1$, and $\alpha$ is the root of
+the irreducible polynomial, {\it i.e.} $P(\alpha)=0$. The field
+$\Fkk$ can therefore be construed as a $k$-dimensional vector space
+over ${\mathbb{F}}_2$.
+
+%For
+%example, $\mathbb{F}_{16} =  \mathbb{F}_2[x] \pmod{ x^4 + x + 1}$. 
+
+%% \debug{
+%% The {\it characteristic} of any finite field with
+%% unity element $1$ is the least integer $n$ such that $1 + \dots + 1$
+%% {\it (n times)} $= 0$. The characteristic of fields of the type
+%% ${\mathbb{F}}_{p^k}$ %{\mathbb{F}}_p[x] \pmod{ P(x)}$ 
+%% is the prime integer $p$. Since in our
+%% case $p = 2$, all fields of the type $\Fkk$, for any given $k$, have 
+%% characteristic 2. As a result, all field operations are performed
+%% modulo the irreducible polynomial $P(x)$ and the coefficients are
+%% reduced modulo $p=2$; due to which $-1 = +1$ over $\Fkk$. 
+%% }
+
+%% Any element $A \in \mathbb{F}_{2^k}$ can be represented in polynomial
+%% form as $A = a_0 +  a_1 \alpha + \dots + a_{k-1} \alpha^{k-1}$, where
+%% $a_i \in \mathbb{F}_2, i = 0, \dots, k-1$, and $\alpha$ is the root of
+%% the irreducible polynomial, {\it i.e.} $P(\alpha)=0$. The field
+%% $\Fkk$ can therefore be construed as a $k$-dimensional vector space
+%% over $\mathbb{F}_2$.
+
+
+
+\begin{Example}\label{ex:1}
+Let us construct ${\mathbb{F}}_{2^4}$ as ${\mathbb{F}}_2[x] \pmod{
+  P(x)}$, where $P(x)=x^4+x^3+1 \in {\mathbb{F}}_2[x]$ is an
+irreducible polynomial of degree $k =4$. Let $\alpha$ be the root of
+$P(x)$, i.e. $P(\alpha)=0$.  Any element $A \in {\mathbb{F}}_2[x]
+\pmod{ x^4 + x^3 + 1}$ has a representation of the type: $A = a_3 x^3
++ a_2 x^2 +  a_1 x + a_0$ where the coefficients $a_3, \dots, a_0$ are
+in ${\mathbb{F}}_2 = \{0, 1\}$. Since there are only 16 such
+polynomials, we obtain 16 elements in the field
+${\mathbb{F}}_{16}$. Each element in can then be viewed as a 4-bit
+vector over ${\mathbb{F}}_2$: ${\mathbb{F}}_{16}=\{(0000),(0001),
+\dots (1110),(1111)\}$.  Each element also has an exponential
+representation; all three representations are shown in Table
+\ref{tab:gfelement}. For example, consider the element $\alpha^{12}$.
+Computing $\alpha^{12} \pmod{ \alpha^4+\alpha^3+1} = \alpha + 1
+= (0011)$; hence we have the three equivalent representations. 
+
+\vspace{-0.1in}
+\begin{table}[h]
+\begin{center}
+{\small
+\caption{Bit-vector, Exponential and Polynomial representation of
+elements in  ${\mathbb{F}}_{2^4} = {\mathbb{F}}_2[x]
+\pmod{x^4+x^3+1}$}\label{tab:gfelement}  
+\begin{tabular}{|c|c|c||c|c|c|} 
+\hline
+$a_3a_2a_1a_0$ & Exponential & Polynomial     &$a_3a_2a_1a_0$ & Exponential & Polynomial  \\
+\hline
+$0000$        & $0$         & $0$            & $1000$ & $\alpha^3$ &  $\alpha^3$\\
+\hline
+$0001$        & $1$         & $1$            & $1001$ & $\alpha^4$ & $\alpha^3 + 1$\\
+\hline
+$0010$        & $\alpha$    & $\alpha$       & $1010$ & $\alpha^{10}$&$\alpha^3 + \alpha$  \\
+\hline
+$0011$        & $\alpha^{12}$& $\alpha + 1$   & $1011$ & $\alpha^5$ & $\alpha^3+\alpha+1$\\
+\hline
+$0100$        & $\alpha^2$  & $\alpha^2$     &  $1100$ & $\alpha^{14}$ & $\alpha^3 + \alpha^2$\\
+\hline
+$0101$        & $\alpha^9$   &$\alpha^2 + 1$ & $1101$  &$\alpha^{11}$  & $\alpha^3+\alpha^2+1$\\
+\hline
+$0110$        & $\alpha^{13}$& $\alpha^2 + \alpha$ & $1110$ & $\alpha^8$& $\alpha^3+\alpha^2+\alpha$\\
+\hline
+$0111$        &$\alpha^7 $ & $\alpha^2+\alpha+1$ & $1111$ &$\alpha^6$ & $\alpha^3+\alpha^2+\alpha+1$\\
+\hline
+\end{tabular}
+}
+\end{center}
+\end{table}
+\end{Example}
+
+
+An important property of Galois fields is that for all elements $A \in
+{\mathbb{F}}_q, A^q = A$, and hence $A^q - A =  0.$ Therefore, the
+polynomial $x^q -x$ {\it vanishes} on 
+all points in $\Fq$. Such {\it vanishing polynomials} will form an
+important part of our ideal membership formulation. 
+
+
+%%%%%%%%%
+{\bf Polynomial Functions $f: \Fkk \rightarrow \Fkk$:} 
+Any mapping between $k$-bit vectors can be construed as a function over
+$\Fkk$. Every such function is a polynomial function.
+
+\begin{Theorem}
+From \cite{ff:1997}: 
+Any  function $f: \Fq \to \Fq$ is a polynomial function
+  over $\Fq$, that is there exists a polynomial $p \in \Fq [x]$ such
+  that $f(a) = p(a)$, for all $a \in \Fq$. 
+\end{Theorem}
+
+
+\subsection{Hardware Implementations of Galois Field Arithmetic}
+% Operations Over $\mathbb{F}_{2^k}$}
+
+In many Galois field applications, primitive computations such as {\sc
+  add, mult, inverse} etc., are implemented in hardware, and
+application algorithms are then implemented in software
+(e.g. cryptoprocessors \cite{ecc163}).  In other cases, the entire
+design can be implemented in hardware --- such as the point-addition
+circuitry \cite{eccld} used in elliptic curve cryptosystems.  
+
+As modular multiplication over $\Fkk$ is at the heart of most public-key 
+cryptosystems, efficient VLSI architectures have been introduced
+for this computation. These include the Mastrovito multiplication,
+Montgomery reduction 
+%\cite{PT:1985} 
+\cite{acar:1998} and the Barrett reduction \cite{Knezevic:2008}. 
+
+Conceptually, the multiplication $Z =A\times B \pmod{ P(x) }$ in
+$\mathbb{F}_{2^k}$ consists of two steps. First, $A\times B$ is
+computed, and then the result is reduced $\pmod{ P(x)}$.
+A Mastrovito implementation \cite{mastro:1989} \cite{mastro:phd} is
+shown in the example below: 
+
+%\ref{exp:mul}.
+%Multiplier circuit design over $\mathbb{F}_{2^k}$ is illustrated below.
+%\ref{exp1}, 
+
+\begin{Example}
+\label{exp1}
+{\it 
+Consider the field $\mathbb{F}_{2^4}$. We take as inputs:
+$A=a_0+a_1\cdot \alpha+a_2\cdot \alpha^2+a_3\cdot \alpha^3$ and
+$B=b_0+b_1\cdot \alpha+b_2\cdot \alpha^2+b_3\cdot \alpha^3$, along
+with the irreducible polynomial $P(x)=x^4+x^3+1$. We have to perform the
+multiplication $Z =A\times B \pmod{ P(x) }$. The coefficients
+of $A = \{a_0, \dots, a_3\}, B = \{b_0, \dots, b_3\}$ are in
+$\mathbb{F}_2 = \{0, 1\}$. Multiplication can be performed as:
+
+%\vspace{-0.2in}
+
+\vspace{0.05in}
+
+{\small
+{\begin{tabular}{c c c c c c c c}
+%\vspace{-0.2in}
+  &   &   & $a_3$ & $a_2$ & $a_1$ & $a_0$  \\ 
+ $\times$&   &   & $b_3$ & $b_2$ & $b_1$ & $b_0$  \\ 
+ \hline
+ &   &   & $a_3\cdot b_0$ & $a_2 \cdot b_0$ & $a_1\cdot b_0$ & $a_0\cdot b_0$ \\
+ &  & $a_3\cdot b_1$ & $a_2\cdot b_1$ & $a_1 \cdot b_1$ & $a_0\cdot b_1$ &   \\
+ & $a_3\cdot b_2$ & $a_2\cdot b_2$ & $a_1\cdot b_2$ & $a_0\cdot b_2$ &  &   \\
+ $a_3\cdot b_3$ & $a_2\cdot b_3$ & $a_1\cdot b_3$ & $a_0\cdot b_3$ &  &  &   \\
+ \hline
+ $s_6$& $s_5$  & $s_4$  & $s_3$ & $s_2$  & $s_1$   & $s_0$ 
+% \vspace{-0.2in}
+\end{tabular}}
+}
+
+\vspace{0.05in}
+
+The result $Sum = s_0+s_1\cdot \alpha + s_2\cdot \alpha^2 + s_3\cdot
+\alpha^3 + s_4\cdot \alpha^4 + s_5\cdot \alpha^5 + s_6\cdot \alpha^6$,
+where, $s_0  =  a_0\cdot b_0, ~~s_1  =  a_0\cdot b_1 + a_1\cdot b_0,
+~~s_2 = a_0\cdot b_2 + a_1\cdot b_1 + a_2\cdot b_0$, and so on. Here
+the multiply ``$\cdot$'' and add ``$+$'' operations are performed
+modulo 2, so they can be implemented in a circuit using AND and XOR
+gates. Note that unlike integer multipliers, there are no carry-chains
+in the design, as the coefficients are always reduced modulo $p =
+2$. However, the result is yet to be reduced modulo the primitive
+polynomial $P(x) = x^4 + x^3 + 1$. This is shown below:
+% where the final output of the circuit is denoted by $G(x)  = g_3x^3
+% + g_2x^2 +g_1x + g_0$.  
+
+\vspace{0.05in}
+
+{\small
+{\begin{tabular}{|c c c c | l }
+  $s_3$ 	&$s_2$  	&$s_1$   &$s_0$ 	&   \\
+ \hline
+ $s_4$ 		&$0$		&$0$ 	 &$s_4$  	&$s_4\cdot \alpha^4 \pmod{P(\alpha)} = s_4 \cdot (\alpha^3 + 1)$\\
+ $s_5$ 		&$0$		&$s_5$   &$s_5$     &$s_5\cdot \alpha^5 \pmod{P(\alpha)} = s_5\cdot (\alpha^3+ \alpha + 1)$\\
+ $s_6$ 		&$s_6$		&$s_6$   &$s_6$     &$s_6\cdot \alpha^6 \pmod{ P(\alpha)} = s_6\cdot( \alpha^3 + \alpha^2 + \alpha + 1)$\\
+ \hline
+ $z_3$ 		&$z_2$ 		&$z_1$   &$z_0$ 	&
+ \end{tabular}\par}
+}
+
+\vspace{0.05in}
+
+The final result (output) of the circuit is: $Z = z_0 + z_1 \alpha + z_2
+\alpha^2 + z_3 \alpha^3$; where  $z_0=s_0+s_4+s_5+s_6; ~~z_1=s_1+s_5+s_6;
+~~z_2=s_2+s_6; ~~z_3=s_3+s_4+s_5+s_6$. 
+}
+\end{Example}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+In cryptosystems, multiplication is often performed repeatedly --
+e.g., for exponentiation. For such applications, Montgomery and 
+Barrett architectures \cite{acar:1998} \cite{wu:2002}
+\cite{Barrett:1987} \cite{Knezevic:2008} over Galois 
+fields are employed for faster computation. % (at the expense of area). 
+
+{\bf Montgomery Reduction:}  Montgomery reduction (MR) computes: 
+
+\begin{equation}
+MR(A,B)=A\cdot B \cdot R^{-1} \pmod {P(x)} \nonumber
+\end{equation}
+where $A,B$ are $k$-bit inputs, $R$ is suitably chosen as
+$R={\alpha}^k$, $R^{-1}$ is multiplicative inverse of $R$ in
+$\mathbb{F}_{2^k}$, and $P(x)$ is the irreducible polynomial.
+Since Montgomery reduction cannot directly compute $A\cdot B \pmod
+{P(x)}$, we need to pre-compute $A\cdot R$ and $B\cdot R$, as shown in
+Figure \ref{fig:mm4}.   
+
+\begin{figure}[hbt]
+	\begin{center}
+	\includegraphics[scale=0.4]{figures/new_mmcircuit.eps}
+	\end{center}
+	\caption{{\it Montgomery} multiplication over $\mathbb{F}_{2^k}$
+          using four Montgomery reductions.}
+	\label{fig:mm4}
+\end{figure}
+
+\debug{
+Each {\it MR} block in Fig. \ref{fig:mm4} represents a Montgomery
+reduction step, which is a hardware implementation of the algorithm
+shown in Algorithm \ref{alg:mont}. The algorithm is referred from \cite{acar:1998}.  }
+
+\begin{algorithm}
+\SetAlgoNoLine
+\debug{
+ \KwIn{$A, B\in \mathbb{F}_{2^k}$; irreducible polynomial $P(x)$.}
+ \KwOut{$Z=A\cdot B\cdot x^{-k} \pmod {P(x)}$.}
+%%%%%%%%%%%%%%%%%%%%
+  $Z:=$0 \\
+  \For { ($i=0$;   $i \le k-1$; ++i ) }
+  {
+        $Z:=Z+A_i\cdot B$ \CommentSty{/*$A_{i}$ is the $i^{th}$ bit of $A$*/\;}
+        $Z:=Z+Z_0\cdot P(x)$ \\
+    \CommentSty{/*$Z_{0}$ is the least significant bit of $Z$*/\;}
+        $Z:=Z / x$ \CommentSty{/*Right shift $Z$ by $1$ bit*/\;}
+  }
+}
+\caption{\debug{Montgomery Reduction Algorithm
+  \cite{acar:1998}}}\label{alg:mont}
+\end{algorithm}
+
+
+%% The design of Fig. \ref{fig:mm4} is an overkill to compute just
+%% $A\cdot B \pmod{ P(x)}$. However, when these multiplications are
+%% performed repeatedly, such as in iterative squaring, then the
+%% Montgomery approach speeds-up the computation. As shown in
+%% \cite{wu:2002}, the critical path delay and gate counts of a squarer
+%% designed using the Montgomery approach are much smaller than the
+%% traditional approaches.  
+
+{\bf Barrett Reduction:} Similar to Montgomery reduction, 
+traditional Barrett reduction \cite{Barrett:1987} needs
+a pre-computed value of the reciprocal/inverse of modulus $P(x)$.   
+%This pre-computation requires extra computational time and memory
+%space. To overcome this limitation, 
+The recent approach of \cite{Knezevic:2008} avoids such a
+pre-computation of inverses and simplifies the hardware 
+implementation. 
+%% This computation is shown in Algorithm
+%% \ref{alg:bar}. 
+%% \begin{algorithm}
+%% \SetAlgoNoLine
+%%  \KwIn{$R(x) \in \mathbb{F}_{2^k}$; irreducible polynomial
+%%  $P(x)=x^k+\displaystyle\sum\limits_{i=0}^l {m_i \cdot x^i}$
+%%  satisfying $l=\lfloor \frac{k}{2} \rfloor, m_i \in \{0,1\}$.} 
+%%  \KwOut{$G(x)=R(x) \pmod {P(x)}$.}
+%% %%%%%%%%%%%%%%%%%%%%
+%% 	$Q_1(x)=\frac{R(x)}{x^k}$ \CommentSty{/*Right shift by $k$ bits*/\;}
+%% 	$Q_2(x)=P(x) \cdot Q_1(x)$ \;
+%% 	$Q_3(x)=\frac{Q_2(x)}{x^k}$ \;
+	
+%% 	$G_1(x)=R(x) \pmod {x^k}$ \CommentSty{/* Lower $k$ bits of $R(x)$*/\;}
+%% 	$G_2(x)=P(x)\cdot Q_3(x) \pmod {x^k}$ \;
+%% 	$G(x)=G_1(x) +G_2(x)$ \;
+	
+%% \caption{Barrett Reduction Without Pre-Computation Algorithm \cite{Knezevic:2008}}\label{alg:bar}
+%% \end{algorithm}
+Based on Barrett reduction, a multiplier can be designed in two
+steps:  multiplication $R=A \times B$ and a subsequent Barrett
+reduction $G=R \pmod {P}$. 
+%Barrett multipliers are similar to
+%Mastrovito ones except for the reduction step. 
+In our experiments, we have verified custom implementations of each of
+the Mastrovito, Montgomery and Barrett multipliers.
+
+
+
+
+{\bf Point Addition over Elliptic Curves:} The main operations of
+encryption, decryption and authentication in elliptic curve
+cryptography (ECC) rely on {\it point additions} and {\it doubling}
+operations on elliptic curves designed over Galois fields. 
+%Point multiplication involves a series of addition and doubling of
+%points on the elliptic curve. % -- this, in turn, requires finite
+%field multiplications.  
+%A drawback of traditional approaches is that they require
+%point multiplication is that each point addition and doubling 
+In general, this requires computation of multiplicative inverses over
+the field - which is expensive. Modern approaches represent
+the points in projective coordinate systems, {\it e.g.}, the
+L$\acute{o}$pez-Dahab (LD) projective coordinate \cite{eccld},
+%\cite{ecc:software},
+which eliminates the need for multiplicative inverses and improves the
+efficiency of these operations. 
+
+%%%
+
+\begin{Example}
+{\it 
+Consider point addition in L$\acute{o}$pez-Dahab (LD) projective
+coordinate. Given an elliptic curve: $Y^2 + XYZ = X^3Z + aX^2Z^2 +
+bZ^4$ over $\mathbb{F}_{2^k}$,   where $X,Y,Z$ are $k$-bit vectors
+that are elements in $\mathbb{F}_{2^k}$ and similarly, $a, b$ are
+constants from the field.   Let ($X_3$, $Y_3$, $Z_3$) = ($X_1$, $Y_1$,
+$Z_1$) + ($X_2$, $Y_2$, $1$)  represent point addition over the
+elliptic curve.  Then $X_3$, $Y_3$, $Z_3$ can be computed as follows: 
+
+\begin{align*}
+A &= Y_2 \cdot Z_1^2 + Y_1 \\
+B &= X_2 \cdot Z_1 + X_1 \\
+C &= Z_1 \cdot B \\
+D &= B^2 \cdot(C + a Z_1^2) \\
+Z_3 &= C^2 \\
+E &= A \cdot C  \\
+X_3 &= A^2 + D + E  \\
+F &= X_3 + X_2 \cdot Z_3 \\
+G &= X_3 + Y_2\cdot Z_3 \\
+Y_3 &= E\cdot F + Z_3 \cdot G \\
+\end{align*}
+}
+\end{Example}
+
+\begin{Example}
+{\it 
+Consider point doubling in LD projective coordinate system. Given an
+elliptic curve: $Y^2 + XYZ = X^3Z + aX^2Z^2 + bZ^4$.  
+Let  ($X_3$, $Y_3$, $Z_3$) = 2($X_1$, $Y_1$, $Z_1$), then
+
+\begin{align*}
+X_3 &= X_1^4 + b \cdot Z_1^4  \\
+Z_3 &= X_1^2 \cdot Z_1^2 \\
+Y_3 &= b Z_1^4 \cdot Z_3 + X_3 \cdot (aZ_3 + Y_1^2 + bZ_1^4 ) \\
+\end{align*}
+}
+\end{Example}
+
+
+In the above computations, polynomial multiplication and squaring
+operations can be implemented  in hardware using Montgomery or Barrett
+reductions over $\mathbb{F}_{2^k}$.  In our experiments, 
+we verify circuit implementations of point addition and
+doubling based on the above examples. 
+

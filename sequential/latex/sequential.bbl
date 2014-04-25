@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{Gao}
+Shuhong Gao.
+\newblock {\em Normal bases over finite fields.}
+\newblock Citeseer, 1993.
+
+\bibitem{ECC}
+Michael Rosing.
+\newblock {\em Implementing elliptic curve cryptography}.
+\newblock Manning New York, 1999.
+
+\bibitem{ONB}
+Ronald~C Mullin, Ivan~M Onyszchuk, Scott~A Vanstone, and Richard~M Wilson.
+\newblock Optimal normal bases in gf (p< sup> n</sup>).
+\newblock {\em Discrete Applied Mathematics}, 22(2):149--161, 1989.
+
+\bibitem{SMPO}
+Arash Reyhani-Masoleh and M~Anwar Hasan.
+\newblock Low complexity word-level sequential normal basis multipliers.
+\newblock {\em Computers, IEEE Transactions on}, 54(2):98--110, 2005.
+
+\bibitem{KAUST}
+Turki~F Al-Somani and Alaaeldin Amin.
+\newblock Hardware implementations of gf (2m) arithmetic using normal basis.
+\newblock {\em Journal of Applied Sciences}, 6(6):1362--1372, 2006.
+
+\end{thebibliography}

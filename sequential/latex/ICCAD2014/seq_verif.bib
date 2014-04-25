@@ -1,0 +1,270 @@
+@article{khasidashvili2003sat,
+  title={SAT-based methods for sequential hardware equivalence verification without synchronization},
+  author={Khasidashvili, Zurab and Hanna, Ziyad},
+  journal={Electronic Notes in Theoretical Computer Science},
+  volume={89},
+  number={4},
+  pages={593--607},
+  year={2003},
+  publisher={Elsevier}
+}
+%Decide ungiven initial states and reset states
+%The idea is to employ a binary encoding of 3-valued modeling of circuits, 
+%and use the undefined state X as a reset state.
+
+@inproceedings{coudert1990verification,
+  title={Verification of synchronous sequential machines based on symbolic execution},
+  author={Coudert, Olivier and Berthet, Christian and Madre, Jean Christophe},
+  booktitle={Automatic verification methods for finite state systems},
+  pages={365--373},
+  year={1990},
+  organization={Springer}
+}
+% Old paper, applying SAT solver to BFS algorithm, talk about how to simplify boolean functions
+%actually quantify out ckt variables
+
+@inproceedings{burch1990sequential,
+  title={Sequential circuit verification using symbolic model checking},
+  author={Burch, Jerry R and Clarke, Edmund M and McMillan, Kenneth L and Dill, David L},
+  booktitle={Design Automation Conference, 1990. Proceedings., 27th ACM/IEEE},
+  pages={46--51},
+  year={1990},
+  organization={IEEE}
+}
+
+%McMillan's paper, the use of BDD for CTL
+
+@inproceedings{mneimneh2003reverse,
+  title={REVERSE: Efficient sequential verification for retiming},
+  author={Mneimneh, Maher and Sakallah, Karem},
+  booktitle={International Workshop on Logic Synthesis},
+  year={2003},
+  organization={Citeseer}
+}
+%Retiming Invariant
+
+@inproceedings{gunther2001application,
+  title={Application of linearly transformed BDDs in sequential verification},
+  author={G{\"u}nther, Wolfgang and Hett, Andreas and Becker, Bernd},
+  booktitle={Proceedings of the 2001 Asia and South Pacific Design Automation Conference},
+  pages={91--96},
+  year={2001},
+  organization={ACM}
+}
+%linearly transformed BDD(LTBDD) to compute set of reachable states
+
+@inproceedings{touati1990implicit,
+  title={Implicit state enumeration of finite state machines using BDD's},
+  author={Touati, Herve J and Savoj, Hamid and Lin, Bill and Brayton, Robert K and Sangiovanni-Vincentelli, Alberto},
+  booktitle={Computer-Aided Design, 1990. ICCAD-90. Digest of Technical Papers., 1990 IEEE International Conference on},
+  pages={130--133},
+  year={1990},
+  organization={IEEE}
+}
+%State enumeration
+
+@inproceedings{van1998sequential,
+  title={Sequential equivalence checking without state space traversal},
+  author={Van Eijk, CAJ},
+  booktitle={Design, Automation and Test in Europe, 1998., Proceedings},
+  pages={618--623},
+  year={1998},
+  organization={IEEE}
+}
+%Find structural similarity, use combinational BDDs to check equivalence
+
+@inproceedings{mishchenko2008recording,
+  title={Recording synthesis history for sequential verification},
+  author={Mishchenko, Alan and Brayton, Robert},
+  booktitle={Formal Methods in Computer-Aided Design, 2008. FMCAD'08},
+  pages={1--8},
+  year={2008},
+  organization={IEEE}
+}
+%using synthesis information to assist verification, not only retiming
+
+@article{jiang2003verification,
+  title={On the verification of sequential equivalence},
+  author={Jiang, J-HR and Brayton, Robert K},
+  journal={Computer-Aided Design of Integrated Circuits and Systems, IEEE Transactions on},
+  volume={22},
+  number={6},
+  pages={686--697},
+  year={2003},
+  publisher={IEEE}
+}
+%Construct a multuplexed machine to half the state space
+
+@inproceedings{stoffel1997record,
+  title={Record \& play: A structural fixed point iteration for sequential circuit verification},
+  author={Stoffel, Dominik and Kunz, Wolfgang},
+  booktitle={Proceedings of the 1997 IEEE/ACM international conference on Computer-aided design},
+  pages={394--399},
+  year={1997},
+  organization={IEEE Computer Society}
+}
+%find fix-point iteration, can work on retimed ckts
+
+@inproceedings{burch1991representing,
+  title={Representing circuits more efficiently in symbolic model checking},
+  author={Burch, Jerry R and Clarke, Edmund M and Long, David E},
+  booktitle={Proceedings of the 28th ACM/IEEE Design Automation Conference},
+  pages={403--407},
+  year={1991},
+  organization={ACM}
+}
+%using partitioned transition relations to scale down BDD size
+
+@article{brayton2007scalable,
+  title={Scalable sequential verification},
+  author={Brayton, Robert and Mishchenko, Alan},
+  year={2007},
+  publisher={Citeseer}
+}
+% introduce history AIG info during synthesis  (rewriting) to help verification
+
+@inproceedings{van1996exploiting,
+  title={Exploiting functional dependencies in finite state machine verification},
+  author={Van Eijk, CAJ and Jess, Jochen AG},
+  booktitle={European Design and Test Conference, 1996. ED\&TC 96. Proceedings},
+  pages={9--14},
+  year={1996},
+  organization={IEEE}
+}
+% find functional variable dependencies to reduce iterations by direct proving
+
+@inproceedings{khasidashvili2004theoretical,
+  title={Theoretical framework for compositional sequential hardware equivalence verification in presence of design constraints},
+  author={Khasidashvili, Zurab and Skaba, Marcelo and Kaiss, Daher and Hanna, Ziyad},
+  booktitle={Proceedings of the 2004 IEEE/ACM International conference on Computer-aided design},
+  pages={58--65},
+  year={2004},
+  organization={IEEE Computer Society}
+}
+% divide whole ckts to smaller conditional FSM
+
+@inproceedings{narayan1997reachability,
+  title={Reachability analysis using partitioned-ROBDDs},
+  author={Narayan, Amit and Isles, Adrian J and Jain, Jawahar and Brayton, Robert K and Sangiovanni-Vincentelli, Alberto L},
+  booktitle={Proceedings of the 1997 IEEE/ACM international conference on Computer-aided design},
+  pages={388--393},
+  year={1997},
+  organization={IEEE Computer Society}
+}
+% use partitioned ROBDDs, cut space use, can use independent variable ordering for each partition
+
+@article{cabodi2005bdds,
+  title={Are BDDs still alive within sequential verification?},
+  author={Cabodi, Gianpiero and Nocco, Sergio and Quer, Stefano},
+  journal={International Journal on Software Tools for Technology Transfer},
+  volume={7},
+  number={2},
+  pages={129--142},
+  year={2005},
+  publisher={Springer}
+}
+%conclude all SAT based and BDD based methods
+
+@inproceedings{baumgartner2007scalable,
+  title={Scalable sequential equivalence checking across arbitrary design transformations},
+  author={Baumgartner, Jason and Mony, Hari and Paruthi, Viresh and Kanzelman, Robert and Janssen, Geert},
+  booktitle={Computer Design, 2006. ICCD 2006. International Conference on},
+  pages={259--266},
+  year={2007},
+  organization={IEEE}
+}
+%Compare among all sequential equivalence checking engines used in IBM
+
+@inproceedings{savoj2010combinational,
+  title={Combinational techniques for sequential equivalence checking},
+  author={Savoj, Hamid and Berthelot, David and Mishchenko, Alan and Brayton, Robert},
+  booktitle={Formal Methods in Computer-Aided Design (FMCAD), 2010},
+  pages={145--149},
+  year={2010},
+  organization={IEEE}
+}
+% find a theorem that some SEC can be converted to combinational equivalence checking
+
+@article{ray2009incremental,
+  title={Incremental sequential equivalence checking and subgraph isomorphism},
+  author={Ray, Sayak and Mishchenko, Alan and Brayton, Robert},
+  year={2009},
+  publisher={Citeseer}
+}
+% find isomorphism in AIG
+
+@incollection{alizadeh2009sequential,
+  title={Sequential Equivalence Checking Using a Hybrid Boolean-Word Level Decision Diagram},
+  author={Alizadeh, Bijan and Fujita, Masahiro},
+  booktitle={Advances in Computer Science and Engineering},
+  pages={697--704},
+  year={2009},
+  publisher={Springer}
+}
+%Taylor Expansion Diagram (TED)
+
+@inproceedings{bjesse2000sat,
+  title={SAT-based verification without state space traversal},
+  author={Bjesse, Per and Claessen, Koen},
+  booktitle={Formal Methods in Computer-Aided Design},
+  pages={409--426},
+  year={2000},
+  organization={Springer}
+}
+% SAT and boolean constrains manipulation
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%   About abstraction and refinement  %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+@article{braytonvariable,
+  title={Variable Time-Frame Abstraction},
+  author={Brayton, Alan Mishchenko Niklas Een Robert and Nalla, Jason Baumgartner Hari Mony Pradeep}
+}
+% IWLS12: a new gate-level abstraction method for unrolled AIG
+
+@inproceedings{clarke2000counterexample,
+  title={Counterexample-guided abstraction refinement},
+  author={Clarke, Edmund and Grumberg, Orna and Jha, Somesh and Lu, Yuan and Veith, Helmut},
+  booktitle={Computer aided verification},
+  pages={154--169},
+  year={2000},
+  organization={Springer}
+}
+% most basic paper on abstraction refinement for verification
+
+@inproceedings{jain2005word,
+  title={Word level predicate abstraction and refinement for verifying RTL verilog},
+  author={Jain, Himanshu and Kroening, Daniel and Sharygina, Natasha and Clarke, Edmund},
+  booktitle={Proceedings of the 42nd annual Design Automation Conference},
+  pages={445--450},
+  year={2005},
+  organization={ACM}
+}
+% SAT based predicates abstraction
+
+@incollection{mcmillan2003automatic,
+  title={Automatic abstraction without counterexamples},
+  author={McMillan, Kenneth L and Amla, Nina},
+  booktitle={Tools and Algorithms for the Construction and Analysis of Systems},
+  pages={2--17},
+  year={2003},
+  publisher={Springer}
+}
+% unbounded model checking
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   GB and Alg Geometry  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@inproceedings{avrunin1996symbolic,
+  title={Symbolic model checking using algebraic geometry},
+  author={Avrunin, George S},
+  booktitle={Computer Aided Verification},
+  pages={26--37},
+  year={1996},
+  organization={Springer}
+}
+% Algebraic Geometry!

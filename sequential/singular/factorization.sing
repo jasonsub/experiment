@@ -1,0 +1,4 @@
+ring rr = (2,X), (ak, bn), lp;
+minpoly = X^4 + X + 1;
+
+factorize(ak^3+ak^2+ak+1, 2);

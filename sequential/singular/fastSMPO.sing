@@ -1,0 +1,237 @@
+/* this is for a fast groebner basis computation */
+/* main idea is to calculate bit-level var a_i = g(A) */
+/* then subst in the reduced s-poly, maybe we can get desired R = f(A,B) */
+/* whole process is like gaussian elemination */
+/* all coeffs are in F_2, so need to reduce them by (a_i^2 + a_i) */
+/* suppose to compare with slimgb result */
+LIB "teachstd.lib";
+LIB "general.lib";
+LIB "poly.lib";
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly r,fi = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r);  // Note this is a little different return value, only the remainder!!!!!!
+}
+
+proc conv_word(poly origin, poly last_poly, ideal red_A, ideal red_B, ideal red_r) /* last_poly is r + g(A,B) */
+{
+  int n = size(red_A);
+  int i;
+  ideal word_red = A^(2^n)+A, B^(2^n)+B; // Note: How to present large as 2^233 ??
+  for(i = 1; i <= n; i = i + 1)
+  {
+	origin = subst(origin, lead(red_A[i]), red_A[i] - lead(red_A[i]));
+	origin = subst(origin, lead(red_B[i]), red_B[i] - lead(red_B[i]));
+	origin = subst(origin, lead(red_r[i]), red_r[i] - lead(red_r[i]));
+  }
+  origin = subst(origin, r, last_poly - r);
+  origin = multidiv(origin,word_red); // Note: Any trick to reduce ultra high order Word-level terms ??
+  return(origin/leadcoef(origin));
+}
+
+proc preprocess(poly f0, ideal va, ideal vec_A, ideal vec_B, ideal vec_r)
+{
+  int len = size(vec_A);
+  ideal result;
+  poly f1,f2,f3;
+  f3 = f0;
+  int i = 1;
+  int j;
+  result[1] = f0/leadcoef(f0);
+
+  for(i = 1; i < len; i= i+1)
+  {
+	f0 = f3;
+	f1 = f0^2;
+	f2 = f1 + f0*leadcoef(f1)/leadcoef(f0);
+	f3 = multidiv(f2, va);
+//	f3;
+	result[i+1] = f3/leadcoef(f3);
+  }
+  poly temp;
+  poly tobesub;
+
+  for(i = len; i > 1; i= i-1)
+  {
+	tobesub = lead(result[i]);
+	temp = result[i]-tobesub;
+	for(j = i-1; j >= 1; j = j - 1)
+	{
+	  result[j] = subst(result[j], tobesub, temp);
+	}
+  }
+  
+  /* This need to be revise bitwise */
+  /*  ideal result_B = subst(result, a0, b0, a1, b1, a2, b2, a3, b3, a4, b4, A, B);
+  ideal result_r = subst(result, a0, r0, a1, r1, a2, r2, a3, r3, a4, r4, A, r);  */
+
+  ideal result_B = result;
+  ideal result_r = result;
+  for(i = 1; i <= len; i=i+1)
+  {
+	result_B = subst(result_B, vec_A[i], vec_B[i]);
+	result_r = subst(result_r, vec_A[i], vec_r[i]);
+  }
+  result_B = subst(result_B, A, B);
+  result_r = subst(result_r, A, r);
+  
+  return (result,result_B,result_r);
+}
+
+proc findspoly(ideal J)
+{
+  ideal J0 = sort(J)[1];
+  poly f1 = J0[size(J)];
+  poly f2 = J0[size(J)-1];
+  poly sp = spoly(f1,f2);
+  poly rem;
+  rem = multidiv(sp,J);
+  return (rem/leadcoef(rem));
+}
+
+proc fastgb(ideal I, ideal I0, ideal I1, ideal I2, ideal I3)
+{
+  poly spoly1 = findspoly(I0);
+  return (conv_word(spoly1, I[size(I)], I1, I2, I3));
+}
+
+proc tran(ideal array_A, ideal array_B, poly r_in, ideal I1, ideal I2, ideal I3)
+{
+	ideal I = array_A[2]+array_A[5]+c1, array_A[2]+array_A[1]+c2, array_A[1]+array_A[5]+c3, array_A[2]+array_A[4]+c4,
+		  array_A[2]*array_B[1]+r4+R0, c1*array_B[3]+r0+R1, c2*array_B[5]+r1+R2, c3*array_B[2]+r2+R3, c4*array_B[4]+r3+R4,
+		  A+a0*X^5+a1*X^10+a2*X^20+a3*X^9+a4*X^18,
+		  B+b0*X^5+b1*X^10+b2*X^20+b3*X^9+b4*X^18,
+		  r+r0*X^5+r1*X^10+r2*X^20+r3*X^9+r4*X^18,
+		  R+R0*X^5+R1*X^10+R2*X^20+R3*X^9+R4*X^18,  //THIS IS DIFFERENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		  a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4,
+		  b0^2+b0, b1^2+b1, b2^2+b2, b3^2+b3, b4^2+b4,
+		  r0^2+r0, r1^2+r1, r2^2+r2, r3^2+r3, r4^2+r4,
+		  R0^2+R0, R1^2+R1, R2^2+R2, R3^2+R3, R4^2+R4,
+		  c1^2+c1, c2^2+c2, c3^2+c3, c4^2+c4,
+		  A^32+A, B^32+B, r^32+r, R^32+R,
+		  /*a+X^4+X^2+X, b+X^3+1,*/ r_in;
+	ideal I0 = array_A[2]+array_A[5]+c1, array_A[2]+array_A[1]+c2, array_A[1]+array_A[5]+c3, array_A[2]+array_A[4]+c4,
+		  array_A[2]*array_B[1]+r4+R0, c1*array_B[3]+r0+R1, c2*array_B[5]+r1+R2, c3*array_B[2]+r2+R3, c4*array_B[4]+r3+R4,
+		  A+a0*X^5+a1*X^10+a2*X^20+a3*X^9+a4*X^18,
+		  B+b0*X^5+b1*X^10+b2*X^20+b3*X^9+b4*X^18,
+		  r+r0*X^5+r1*X^10+r2*X^20+r3*X^9+r4*X^18,
+		  R+R0*X^5+R1*X^10+R2*X^20+R3*X^9+R4*X^18;
+	return (fastgb(I,I0,I1,I2,I3));
+}
+
+proc anotran(ideal array_A, ideal array_B, poly r_in, ideal I1, ideal I2, ideal I3)
+{
+	ideal I = array_A[2]+array_A[5]+c1, array_A[2]+array_A[1]+c2, array_A[1]+array_A[5]+c3, array_A[2]+array_A[4]+c4,
+		  array_A[2]*array_B[1]+r4+R0, c1*array_B[3]+r0+R1, c2*array_B[5]+r1+R2, c3*array_B[2]+r2+R3, c4*array_B[4]+r3+R4,
+		  A+a0*X^5+a1*X^10+a2*X^20+a3*X^9+a4*X^18,
+		  B+b0*X^5+b1*X^10+b2*X^20+b3*X^9+b4*X^18,
+		  r+r0*X^5+r1*X^10+r2*X^20+r3*X^9+r4*X^18,
+		  R+R4*X^5+R0*X^10+R1*X^20+R2*X^9+R3*X^18,   // BU YI YANG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		  a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4,
+		  b0^2+b0, b1^2+b1, b2^2+b2, b3^2+b3, b4^2+b4,
+		  r0^2+r0, r1^2+r1, r2^2+r2, r3^2+r3, r4^2+r4,
+		  R0^2+R0, R1^2+R1, R2^2+R2, R3^2+R3, R4^2+R4,
+		  c1^2+c1, c2^2+c2, c3^2+c3, c4^2+c4,
+		  A^32+A, B^32+B, r^32+r, R^32+R,
+		  /*a+X^4+X^2+X, b+X^3+1,*/ r_in;
+	ideal I0 = array_A[2]+array_A[5]+c1, array_A[2]+array_A[1]+c2, array_A[1]+array_A[5]+c3, array_A[2]+array_A[4]+c4,
+		  array_A[2]*array_B[1]+r4+R0, c1*array_B[3]+r0+R1, c2*array_B[5]+r1+R2, c3*array_B[2]+r2+R3, c4*array_B[4]+r3+R4,
+		  A+a0*X^5+a1*X^10+a2*X^20+a3*X^9+a4*X^18,
+		  B+b0*X^5+b1*X^10+b2*X^20+b3*X^9+b4*X^18,
+		  r+r0*X^5+r1*X^10+r2*X^20+r3*X^9+r4*X^18,
+		  R+R4*X^5+R0*X^10+R1*X^20+R2*X^9+R3*X^18;   // Ye Bu Yi Yang!!!!!!!!!!
+	return (fastgb(I,I0,I1,I2,I3));
+}
+
+
+proc arrayshift(ideal I)
+{
+	ideal tmp;
+	for(int j = 1; j <= 5; j = j+1)
+	{
+		tmp[j] = I[((j+3) mod 5) + 1];
+	}
+	return (tmp);
+}
+
+
+/************************************ Main Program Begins here ****************************************/
+
+ring rr = (2,X), (R0,R1,R2,R3,R4,r0,r1,r2,r3,r4,c1,c2,c3,c4,b0,b1,b2,b3,b4,a0,a1,a2,a3,a4,R,r,A,B), lp;
+minpoly = X^5 + X^2 + 1;
+/* poly spoly1 = r1+(X)*r2+(X^4+X^2)*r3+(X^3+X^2)*r4+(X^3)*b1*a1+(X^4+X^2)*b1*a2+(X^3+X+1)*b1*a3+(X^3+X)*b1*a4+(X+1)*b1*A+
+(X^4+X^2+X)*b2*a1+(X^4+X^3+X^2+X)*b2*a4+(X^3+X^2+1)*b3*a1+(X)*b3*a3+(X^2+X+1)*b4*a1+(X+1)*b4*a2+(X^4+X^2)*b4*a3+(X^4+X^3+X+1)*b4*a4+(X^3+1)*b4*A+(X^4+X^3+X^2+1)*a1*B+(X^4+X^3+X^2+1)*R; */
+
+int i = 1;
+ideal from, to;
+ideal A_in = a0, a1, a2, a3, a4;
+ideal B_in = b0, b1, b2, b3, b4;
+ideal vec_r = r0, r1, r2, r3, r4;
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+poly f0 = a0*X^5 + a1*X^10 + a2*X^20 + a3*X^9 + a4*X^18 + A;
+ideal va = a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4, A^32+A;
+ideal I1,I2,I3;
+(I1,I2,I3) = preprocess(f0, va, A_in, B_in, vec_r);
+int t1 = timer-t0; // time in ms
+
+from[1] = r;
+for (i = 1; i <= 4; i= i+1)
+{
+	to[i+1] = tran(A_in, B_in, from[i], I1, I2, I3);
+	"Calc Done!";
+	A_in = arrayshift(A_in);
+	B_in = arrayshift(B_in);
+	"Shift Done!";
+	from[i+1] = subst(to[i+1],R,r);
+	"Subst Done!";
+}
+"I'm Out!";
+//from[5];
+to[6] = anotran(A_in, B_in, from[5], I1, I2, I3);
+"Final Calc Done!";
+to[6];
+int t2 = timer - t1;
+int tt= timer - t0;
+
+"Pre-time:";
+t1;
+"Loop-time:";
+t2;
+"Total time:";
+tt;
+;
+

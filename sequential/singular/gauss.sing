@@ -1,0 +1,11 @@
+ring rr = (2,X),(ak,bn,cf),lp;
+minpoly = X^4 + X +1;
+
+list l1 = X^2, X;
+number a = X + 1;
+number b = X^2 + 1;
+l1 = insert(l1,a);
+l1;
+l1 = insert(l1,b);
+l1;
+size(l1);

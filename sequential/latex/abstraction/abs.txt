@@ -1,0 +1,20 @@
+A combinational circuit with k-inputs and k-outputs implements a
+Boolean function f:B^k ---> B^k, where B = {0, 1\}. The same function
+can also be construed as a mapping f: F_{2^k} ---> F_{2^k},  where
+F_{2^k} denotes a Galois field of 2^k elements. Every function over
+F_{2^k} is a polynomial function -- i.e. there exists a unique,
+minimal, canonical polynomial F that describes f. This paper describes
+a method to derive this canonical (word-level) polynomial
+representation for the circuit as Y = F(A) over F_{2^k}, such that A
+is the input bit-vector and Y the output. We show that this can be
+achieved by computing a Groebner basis of a set of polynomials derived 
+from the circuit, using an elimination term  order. Computing a
+Groebner basis using elimination orders is, however, practically
+infeasible for large circuits. We subsequently show that a large
+circuit can be partitioned into sub-circuits with arbitrary
+input-output bit-widths and polynomials can be derived for these
+sub-circuits over f: F_{2^n} ---> F_{2^m}. Finally, a hierarchical
+approach is proposed for polynomial interpolation from circuits. We
+demonstrate the application of our approach to verification of
+Galois-field multiplier circuits, which are generally hard to verify
+using contemporary automatic verification tools. 

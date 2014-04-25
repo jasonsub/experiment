@@ -1,0 +1,93 @@
+\section{Experiment Results}
+Our experiment on different size of SMPO designs is performed with Singular symbolic algebra computation system.
+The SMPO designs are given as gate-level netlists with registers, then translated to polynomials to compose
+elimination ideal in Singular for Gr\"obner basis calculation. The experiment is conducted on desktop with
+3.5GHz Intel $\text{Core}^\text{TM}$ i7 Quad-core CPU, 16 GB RAM and running 64-bit Linux OS.
+
+\subsection{Computing Gr\"obner basis in Singular}
+The Singular tool can read in scripts written in its own format similar to ANSI-C. For SMPO experiment, the main 
+loop of our script file performs the same function as algorithm \ref{alg:modified} describes, while Gr\"obner basis
+computation in main loop can be divided into 4 different function parts:
+
+(i) Pre-process:
+
+This step is executed only once before main loop starts. The function of pre-process is to compute following system
+of equations for bit-level inputs $a_0 \sim a_{k-1}$:
+\begin{displaymath}
+\left\{
+  \begin{array}{ll}
+  a_0 & = f_0(A)\\
+  a_1 & = f_1(A)\\
+  \vdots & \ \\
+  a_{k-1} & = f_{k-1}(A)
+  \end{array} \right.
+\end{displaymath}
+The methodology has been discussed in section \ref{sec:blvs}. For 5-bit SMPO example, we start from word-level
+expression polynomial
+\begin{displaymath}
+A + a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18}
+\end{displaymath}
+and the result is
+\begin{displaymath}
+\left\{
+  \begin{array}{lcl}
+  a_0 & = & (\alpha+1)A^{16}+(\alpha^4+\alpha^3+\alpha)A^8+(\alpha^3+\alpha^2)A^4\\&&+(\alpha^4+1)A^2+(\alpha^2+1)A\\
+  a_1 & = & (\alpha^2+1)A^{16}+(\alpha+1)A^8+(\alpha^4+\alpha^3+\alpha)A^4\\&&+(\alpha^3+\alpha^2)A^2+(\alpha^4+1)A\\
+  a_2 & = & (\alpha^4+1)A^{16}+(\alpha^2+1)A^8+(\alpha+1)A^4\\&&+(\alpha^4+\alpha^3+\alpha)A^2+(\alpha^3+\alpha^2)A\\
+  a_3 & = & (\alpha^3+\alpha^2)A^{16}+(\alpha^4+1)A^8+(\alpha^2+1)A^4\\&&+(\alpha+1)A^2+(\alpha^4+\alpha^3+\alpha)A\\
+  a_4 & = & (\alpha^4+\alpha^3+\alpha)A^{16}+(\alpha^3+\alpha^2)A^8+(\alpha^4+1)A^4\\&&+(\alpha^2+1)A^2+(\alpha+1)A
+  \end{array} \right.
+\end{displaymath}
+By replacing bit-level variable $a_i$ with $b_i, r_i$ or $R_i$, and word-level variable $A$ with $B, r, R$ respectively,
+we can directly get bit-word relation functions for another operand input, pseudo input and pseudo output.
+
+One limitation to Singular tool is the exponential cannot exceed $2^{63}$, so when doing experiments for SMPO larger than
+62 bits, we use a little trick (the feasibility of this trick can also be verified in following steps). Since the BLVS method
+only requires squaring of equations each time, the exponential of word $A$ can only be in the form $2^{i-1}$, i.e. 
+$A^{2^0},A^{2^1},\dots,A^{2^{k-1}}$. To minimize the exponential presenting in Singular tool, we rewrite $2^{i-1}$ to $i$, i.e.
+$(A^{2^0},A^{2^1},\dots,A^{2^{k-1}}) \to (A, A^2, \dots, A^k)$. In this way result is rewritten to be
+$$a_0 = (\alpha+1)A^5+(\alpha^4+\alpha^3+\alpha)A^4+(\alpha^3+\alpha^2)A^3+(\alpha^4+1)A^2+(\alpha^2+1)A$$
+Thus the exponential will not exceed the Singular data size limit.
+
+This step requires limited substitution operations in Singular, so although we use the naive Gaussian elimination
+method (whose time complexity is $O(k^3)$), the time cost is trivial comparing to following steps. For 33 bits experiment,
+pre-process execution time is 2.7 sec; while for 100 bits experiment time cost is 36 sec.
+
+(ii) Spoly reduction:
+
+First, Spoly is calculated based on RATO, then reduced with the ideal composed by circuit description polynomials ($J$).
+For already finished experiments, naive reduction (multi-division) is adopted, and this step takes largest portion of total 
+time consumption.
+
+For SMPO experiments, reduced Spoly has following generic form (all coefficients are omitted):
+$$redSpoly = \sum r_i + \sum a_ib_i + \sum a_iB + \sum b_iA + R + r$$
+Note there is no cross-term for bit-level or word-level variables from same side such as $a_ia_j, a_iA$, etc. Consider the necessary
+condition of our trick, this property of reduced Spoly guarantees the word level variable can only exist in the form $A^{2^{i-1}}$,
+after substituting bit-level variables with corresponding word-level variable.
+
+(iii) Substitute bit-level variables in reduced Spoly:
+
+Use the result from pre-process, get rid of $r_i, a_i$ and $b_i$ through substitution. This step yields following polynomial (consider the trick we used):
+$$R + \sum r^i + \sum A^iB^j$$
+all coefficients omitted.
+
+(iv) Substitute present state word-level variable $r$ with inputs $A$ and $B$:
+
+According to section \ref{sec:SMPOexperiment}, there is still a polynomial $r_{in}$ in the ideal we want to compute Gr\"obner basis.
+This polynomial has form $r+f'(A,B)$, which is last clock cycle's output ($R+f'(A,B)$) with only leading term replaced in step "$from^i\gets to^i$" in 
+algorithm \ref{alg:modified}. Basically this step has nothing different from last one, however, it must be taken good care of when using our
+trick. There is power of $r$, $r^m$ is originally $r^{2^{m-1}}$; so if $r+f'(A,B)$ contains terms $A^iB^j$, the correct result after doing power
+is $$(A^{2^{i-1}}B^{2^{j-1}})^{2^{m-1}} = A^{2^{((i+m-2)\bmod k)+1}}B^{2^{((j+m-2)\bmod k)+1}}$$
+So the correct exponential for $A$ and $B$ in $(A^iB^j)^m$ should be $((i+m-2)\bmod k)+1$ and $((j+m-2)\bmod k)+1$, respectively.
+
+Within one main loop, after finishing steps (ii) to (iv), the output should be intermediate multiplication result $R+f(A,B)$. After $k$ loops,
+the output is $R+A\cdot B$ when SMPO is bug-free.
+
+\subsection{Discussion}
+
+I have concerns on this SMPO experiment because we use abstraction polynomial $R+f(A,B)$ instead of eliminating to univariate polynomial $g(R)$.
+The only point of inconsistency to the FSM traversal we proposed is, currently the ideal quotient theory's correctness is only guaranteed under
+univariate assumption. I think we have some options here: 1, expand the ideal quotient theory to multivariate; 2, argue that we use abstraction
+only to make it easier to check the correctness of our experiment and let the output make sense to people; 3, abandon SMPO experiment in this paper
+focusing on FSM traversal, try to do some new experiments on reachability checking, leave this SMPO experiment for some new paper concerning
+functional verification.

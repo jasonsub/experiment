@@ -1,0 +1,126 @@
+\begin{thebibliography}{10}
+
+\bibitem{thispaper}
+Jittat Fakcharoenphol, Satish Rao, and Kunal Talwar,
+\newblock ``A tight bound on approximating arbitrary metrics by tree metrics'',
+\newblock {\em Journal of Computer and System Sciences}, vol. 69, pp. 485--497,
+  2004.
+
+\bibitem{h_tsp}
+Daniel~J Rosenkrantz, Richard~E Stearns, and Philip~M Lewis, II,
+\newblock ``An analysis of several heuristics for the traveling salesman
+  problem'',
+\newblock {\em SIAM journal on computing}, vol. 6, pp. 563--581, 1977.
+
+\bibitem{Jeff}
+Jeff Erickson,
+\newblock ``Algorithms course materials''.
+
+\bibitem{hilbert}
+William~B Johnson and Joram Lindenstrauss,
+\newblock ``Extensions of lipschitz mappings into a hilbert space'',
+\newblock {\em Contemporary mathematics}, vol. 26, pp. 1, 1984.
+
+\bibitem{zd}
+RL~Graham and PM~Winkler,
+\newblock ``On isometric embeddings of graphs'',
+\newblock {\em Transactions of the American mathematical Society}, vol. 288,
+  pp. 527--536, 1985.
+
+\bibitem{realnorm}
+Nathan Linial, Eran London, and Yuri Rabinovich,
+\newblock ``The geometry of graphs and some of its algorithmic applications'',
+\newblock {\em Combinatorica}, vol. 15, pp. 215--245, 1995.
+
+\bibitem{Cai}
+Leizhen Cai and Derek~G Corneil,
+\newblock ``Tree spanners'',
+\newblock {\em SIAM Journal on Discrete Mathematics}, vol. 8, pp. 359--387,
+  1995.
+
+\bibitem{hst}
+Yair Bartal,
+\newblock ``Probabilistic approximation of metric spaces and its algorithmic
+  applications'',
+\newblock {\em in} {\em Foundations of Computer Science, 1996. Proceedings.,
+  37th Annual Symposium on}, pp. 184--193. IEEE, 1996.
+
+\bibitem{bartal98}
+Yair Bartal,
+\newblock ``On approximating arbitrary metrices by tree metrics'',
+\newblock {\em in} {\em Proceedings of the thirtieth annual ACM symposium on
+  Theory of computing}, pp. 161--168. ACM, 1998.
+
+\bibitem{CKR}
+Gruia Calinescu, Howard Karloff, and Yuval Rabani,
+\newblock ``Approximation algorithms for the 0-extension problem'',
+\newblock {\em in} {\em In Proceedings of the twelfth annual ACM-SIAM symposium
+  on Discrete algorithms}, 2001.
+
+\bibitem{GKR98}
+Naveen Garg, Goran Konjevod, and R~Ravi,
+\newblock ``A polylogarithmic approximation algorithm for the group steiner
+  tree problem'',
+\newblock {\em in} {\em Proceedings of the ninth annual ACM-SIAM symposium on
+  Discrete algorithms}, pp. 253--259. Society for Industrial and Applied
+  Mathematics, 1998.
+
+\bibitem{AA97}
+Baruch Awerbuch and Yossi Azar,
+\newblock ``Buy-at-bulk network design'',
+\newblock {\em in} {\em Foundations of Computer Science, 1997. Proceedings.,
+  38th Annual Symposium on}, pp. 542--547. IEEE, 1997.
+
+\bibitem{Hu74}
+Te~C Hu,
+\newblock ``Optimum communication spanning trees'',
+\newblock {\em SIAM Journal on Computing}, vol. 3, pp. 188--195, 1974.
+
+\bibitem{MMS88}
+Mark Manasse, Lyle McGeoch, and Daniel Sleator,
+\newblock ``Competitive algorithms for on-line problems'',
+\newblock {\em in} {\em Proceedings of the twentieth annual ACM symposium on
+  Theory of computing}, pp. 322--333. ACM, 1988.
+
+\bibitem{CL91}
+Marek Chrobak and Lawrence~L Larmore,
+\newblock ``An optimal on-line algorithm for k servers on trees'',
+\newblock {\em SIAM Journal on Computing}, vol. 20, pp. 144--148, 1991.
+
+\bibitem{Garg}
+Naveen Garg, Vijay~V Vazirani, and Mihalis Yannakakis,
+\newblock ``Approximate max-flow min-(multi) cut theorems and their
+  applications'',
+\newblock {\em SIAM Journal on Computing}, vol. 25, pp. 235--251, 1996.
+
+\bibitem{metriclabel}
+Matthieu Guillaumin, Thomas Mensink, Jakob Verbeek, and Cordelia Schmid,
+\newblock ``Tagprop: Discriminative metric learning in nearest neighbor models
+  for image auto-annotation'',
+\newblock {\em in} {\em Computer Vision, 2009 IEEE 12th International
+  Conference on}, pp. 309--316. IEEE, 2009.
+
+\bibitem{plan}
+Feifei Li, Dihan Cheng, Marios Hadjieleftheriou, George Kollios, and Shang-Hua
+  Teng,
+\newblock ``On trip planning queries in spatial databases'',
+\newblock {\em in} {\em Advances in Spatial and Temporal Databases}, pp.
+  273--290. Springer, 2005.
+
+\bibitem{lowspan}
+Michael Elkin,
+\newblock ``Low stretch spanning trees'',
+\newblock {\em in} {\em Encyclopedia of Algorithms}, pp. 1--99. Springer, 2008.
+
+\bibitem{RMOP}
+Yu-hua Cai and Feng-ying Wei,
+\newblock ``Probabilistic approximation algorithm of metric spaces'',
+\newblock {\em Journal of Shandong University}, vol. 48, pp. 51--55, 2013.
+
+\bibitem{FRT}
+Schalekamp F.,
+\newblock ``Probabilistic tree embedding'',
+\newblock {\em in} {\em http://fransschalekamp.com/research/teaching/FRT.pdf},
+  2012.
+
+\end{thebibliography}

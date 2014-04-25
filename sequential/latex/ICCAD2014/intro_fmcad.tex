@@ -1,0 +1,23 @@
+\section{Introduction}
+Verification for sequential circuits has been extensively discussed for decade. Binary Decision Diagram (BDD) is the first
+and most widely used canonical technique among those for sequential verification \cite{touati1990implicit}. It is easy to
+manipulate any Boolean expressions with BDD and use them to enumerate implicit states. However, an issue that BDDs have to
+face is the size explosion when Boolean variables increase significantly. Several modifications have been made to improve
+this problem by optimizing original BDD \cite{gunther2001application} \cite{narayan1997reachability}, or by reducing Boolean
+variables from circuits\cite{burch1991representing} \cite{jiang2003verification}. Some variants of BDD representation
+have also been developed such as Linear Taylor Expansion Diagram (LTED) \cite{alizadeh2009sequential}.
+
+Another sort of approaches are based on satisfiability theory (SAT). SAT-solver is applied to state space traversal and 
+work through eliminations on Boolean constrains \cite{coudert1990verification}. By exploiting SAT-based algorithm, direct
+reachability induction is proposed \cite{bjesse2000sat}. Still SAT-based approaches need to struggle with size explosion problem.
+
+\section{Related Works}
+G. Avrunin \cite{avrunin1996symbolic} introduced algebraic geometry into formal verification. In his paper, the corresponding
+relation between varieties of ideals and circuit variables is discussed, and concepts such as intersect of varieties, ideal and
+its generators and algebraic closure are explored. Yet, a self-contained system of algebraic geometry representation theory has
+not been well-defined.
+
+T. Pruss, el(which one should I cite?) developed a word-level abstraction method based on  Gr\"obner basis theory...
+
+J. Lv, el (should I cite this part) gave out a F4-style reduction algorithm which can help speed up Gr\"obner basis calculation...
+

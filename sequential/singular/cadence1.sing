@@ -1,0 +1,27 @@
+/*Input pins(top down): a b c d*/
+/*Output pins(top down): z_0 z_1*/
+/*More details in pic*/
+
+LIB "teachstd.lib";
+
+ring rr = (2,X),(e,f,g,h,i,j,k,l,m,n,A,C,z_0,z_1,Z,a,b,c,d),lp;
+minpoly = X^4+X+1;
+
+ideal I = z_0+k+l+kl, z_1+m+n+mn, k+1+a+h+ah, l+ai, m+1+a+j+aj, n+a+ad,
+		  h+1+f+g+fg, i+1+d+b, j+1+c+e,/*XNOR gates here!*/ f+cb, g+cd, e+b+d+bd,
+		  Z+z_0+z_1*X, Z^16+Z,
+		  a^2+a,b^2+b,c^2+c,d^2+d,e^2+e,f^2+f,g^2+g,h^2+h,i^2+i,j^2+j,k^2+k,l^2+l,
+		  m^2+m,n^2+n,z_0^2+z_0,z_1^2+z_1;
+
+ideal I_0 = slimgb(I);
+
+ideal J = z_0+i+j+ij, z_1+k+l+kl, i+1+a+(1+e)+a*(1+e), j+ag,
+		  k+1+a+(1+f)+a*(1+f), l+ah, 
+		  C+A+1+X, A+d+b*X+c*X^2,/* Note, not 1bcd, it's 1cbd!*/ C+h+g*X+f*X^2+e*X^3,
+		  Z+z_0+z_1*X, Z^16+Z, C^16+C, A^16+A,
+		  a^2+a,b^2+b,c^2+c,d^2+d,e^2+e,f^2+f,g^2+g,h^2+h,i^2+i,j^2+j,k^2+k,l^2+l,
+		  z_0^2+z_0,z_1^2+z_1;
+ideal J_0 = slimgb(J);
+J_0[size(J_0)];
+
+I_0[size(I_0)];

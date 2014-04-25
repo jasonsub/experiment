@@ -1,0 +1,45 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: fmcad_xiaojun.aux
+The style file: ieee.bst
+Database file #1: seq_verif.bib
+You've used 9 entries,
+            1802 wiz_defined-function locations,
+            509 strings with 5446 characters,
+and the built_in function-call counts, 3267 in all, are:
+= -- 341
+> -- 95
+< -- 8
++ -- 35
+- -- 26
+* -- 216
+:= -- 433
+add.period$ -- 17
+call.type$ -- 9
+change.case$ -- 9
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 173
+empty$ -- 320
+format.name$ -- 26
+if$ -- 804
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 9
+newline$ -- 48
+num.names$ -- 9
+pop$ -- 49
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 110
+stack$ -- 0
+substring$ -- 265
+swap$ -- 84
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 35
+width$ -- 10
+write$ -- 109

@@ -1,0 +1,132 @@
+LIB "teachstd.lib";
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly r,fi = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r, J);
+}
+
+proc miniGB(ideal G0)
+{
+	int s = size(G0);
+	for (int i = 1; i <= s; i = i + 1)
+	{
+		for (int j = 1; j <= s; j = j +1)
+		{
+			if (lead(G0[j]) != 0)
+			{
+				if (lead(G0[i])/lead(G0[j]) != 0 and i != j) {G0[i] = 0;}
+			}
+		}
+	}
+	ideal G = sort(G0)[1];
+	s = size(G);
+	for (int k = 1; k <= s; k = k + 1)
+	{
+		G[k] = G[k]/leadcoef(G[k]);
+	}
+	return (G);
+}
+
+proc myRGB(ideal G0)
+{
+	int s = size(G0);
+	poly h0;
+	ideal q0,H;
+	for (int i = 1; i <= s; i = i + 1)
+	{
+		ideal F = G0;
+		F[i] = 0;
+		H = sort(F)[1];
+		h0,q0 = multidiv(G0[i],H);
+		G0[i] = h0;
+	}
+	return (G0);
+}
+
+
+ring rr = (2,X), (R0,R1,R2,R3,R4,r0,r1,r2,r3,r4,c1,c2,c3,c4,b0,b1,b2,b3,b4,a0,a1,a2,a3,a4,R,r,A,B), lp;
+minpoly = X^5 + X^2 + 1;
+
+ideal I;
+
+I[1]=c1+a1+a4;
+I[2]=c2+a0+a1;
+I[3]=c3+a0+a4;
+I[4]=c4+a1+a3;
+I[5]=R0+r4+b0*a1;
+I[6]=R1+r0+c1*b2;
+I[7]=R2+r1+c2*b4;
+I[8]=R3+r2+c3*b1;
+I[9]=R4+r3+c4*b3;
+I[10]=(X^2+1)*a0+(X^4+1)*a1+(X^3+X^2)*a2+(X^4+X^3+X)*a3+(X+1)*a4+A;
+I[11]=(X^2+1)*b0+(X^4+1)*b1+(X^3+X^2)*b2+(X^4+X^3+X)*b3+(X+1)*b4+B;
+I[12]=(X^2+1)*r0+(X^4+1)*r1+(X^3+X^2)*r2+(X^4+X^3+X)*r3+(X+1)*r4+r;
+I[13]=(X^2+1)*R0+(X^4+1)*R1+(X^3+X^2)*R2+(X^4+X^3+X)*R3+(X+1)*R4+R;
+/*I[14]=a0^2+a0;
+I[15]=a1^2+a1;
+I[16]=a2^2+a2;
+I[17]=a3^2+a3;
+I[18]=a4^2+a4;
+I[19]=b0^2+b0;
+I[20]=b1^2+b1;
+I[21]=b2^2+b2;
+I[22]=b3^2+b3;
+I[23]=b4^2+b4;
+I[24]=r0^2+r0;
+I[25]=r1^2+r1;
+I[26]=r2^2+r2;
+I[27]=r3^2+r3;
+I[28]=r4^2+r4;
+I[29]=R0^2+R0;
+I[30]=R1^2+R1;
+I[31]=R2^2+R2;
+I[32]=R3^2+R3;
+I[33]=R4^2+R4;
+I[34]=c1^2+c1;
+I[35]=c2^2+c2;
+I[36]=c3^2+c3;
+I[37]=c4^2+c4;
+I[38]=A^32+A;
+I[39]=B^32+B;
+I[40]=r^32+r;
+I[41]=R^32+R;
+I[42]=r;*/
+  
+poly f = spoly(I[5],I[13]);  // sort, then I[size-2], I[size-1]
+poly rem = 0;
+ideal cd = 0;
+rem, cd = multidiv(f,I);
+rem = rem/leadcoef(rem);
+
+rem;
+

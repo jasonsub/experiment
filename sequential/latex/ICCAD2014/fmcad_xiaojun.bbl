@@ -1,0 +1,65 @@
+\begin{thebibliography}{1}
+
+\bibitem{touati1990implicit}
+Herve~J Touati, Hamid Savoj, Bill Lin, Robert~K Brayton, and Alberto
+  Sangiovanni-Vincentelli,
+\newblock ``Implicit state enumeration of finite state machines using bdd's'',
+\newblock {\em in} {\em Computer-Aided Design, 1990. ICCAD-90. Digest of
+  Technical Papers., 1990 IEEE International Conference on}, pp. 130--133.
+  IEEE, 1990.
+
+\bibitem{gunther2001application}
+Wolfgang G{\"u}nther, Andreas Hett, and Bernd Becker,
+\newblock ``Application of linearly transformed bdds in sequential
+  verification'',
+\newblock {\em in} {\em Proceedings of the 2001 Asia and South Pacific Design
+  Automation Conference}, pp. 91--96. ACM, 2001.
+
+\bibitem{narayan1997reachability}
+Amit Narayan, Adrian~J Isles, Jawahar Jain, Robert~K Brayton, and Alberto~L
+  Sangiovanni-Vincentelli,
+\newblock ``Reachability analysis using partitioned-robdds'',
+\newblock {\em in} {\em Proceedings of the 1997 IEEE/ACM international
+  conference on Computer-aided design}, pp. 388--393. IEEE Computer Society,
+  1997.
+
+\bibitem{burch1991representing}
+Jerry~R Burch, Edmund~M Clarke, and David~E Long,
+\newblock ``Representing circuits more efficiently in symbolic model
+  checking'',
+\newblock {\em in} {\em Proceedings of the 28th ACM/IEEE Design Automation
+  Conference}, pp. 403--407. ACM, 1991.
+
+\bibitem{jiang2003verification}
+J-HR Jiang and Robert~K Brayton,
+\newblock ``On the verification of sequential equivalence'',
+\newblock {\em Computer-Aided Design of Integrated Circuits and Systems, IEEE
+  Transactions on}, vol. 22, pp. 686--697, 2003.
+
+\bibitem{alizadeh2009sequential}
+Bijan Alizadeh and Masahiro Fujita,
+\newblock ``Sequential equivalence checking using a hybrid boolean-word level
+  decision diagram'',
+\newblock {\em in} {\em Advances in Computer Science and Engineering}, pp.
+  697--704. Springer, 2009.
+
+\bibitem{coudert1990verification}
+Olivier Coudert, Christian Berthet, and Jean~Christophe Madre,
+\newblock ``Verification of synchronous sequential machines based on symbolic
+  execution'',
+\newblock {\em in} {\em Automatic verification methods for finite state
+  systems}, pp. 365--373. Springer, 1990.
+
+\bibitem{bjesse2000sat}
+Per Bjesse and Koen Claessen,
+\newblock ``Sat-based verification without state space traversal'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design}, pp. 409--426.
+  Springer, 2000.
+
+\bibitem{avrunin1996symbolic}
+George~S Avrunin,
+\newblock ``Symbolic model checking using algebraic geometry'',
+\newblock {\em in} {\em Computer Aided Verification}, pp. 26--37. Springer,
+  1996.
+
+\end{thebibliography}

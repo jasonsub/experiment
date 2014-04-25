@@ -1,0 +1,92 @@
+LIB "general.lib";
+
+proc decom_terms(poly f)
+{
+  int s = size(f);
+  int i;
+  ideal I;
+  for(i=1;i<=s;i=i+1)
+  {
+	I[i] = lead(f);
+	f = f - lead(f);
+  }
+  if(f == 0)
+  {return (I);}
+  else
+  {"Decom error!";return (0);}
+}
+
+proc poly_power(poly f, int n) /* requires even powers in F_2^k */
+{
+  ideal I = decom_terms(f);
+  poly g = 0;
+  poly m;
+  number c;
+  int i;
+  for(i=1;i<=size(I);i++)
+  {
+	c = leadcoef(I[i]);
+	m = leadmonom(I[i]);
+	c = c^n;
+	g = g + c*m;
+  }
+  return (g);
+}
+
+proc check_primitive(number num, number ak)  /* check every "term" in std basis rep. to see if it contains a^k  */
+{
+  string s0 = string(num);
+  number n2 = num + ak;
+  string s1 = string(n2);
+  if(num == 1)
+  {return (num > n2);}
+  else
+  {
+    if(n2 == 1)
+	{return (1);}
+	else
+	{
+	  return (size(s0)>size(s1));
+	}
+  }
+}
+
+proc decom_primitive(poly f, int n)  /* find the "coef" for each std basis a^k  */
+{
+  ideal I = decom_terms(f);
+  number ak = 1;
+  int k;
+  int i;
+  ideal result;
+  for(k=0;k<n;k=k+1)
+  {
+	result[k+1] = 0;
+	for(i=1;i<=size(I);i=i+1)
+	{
+	  if(check_primitive(leadcoef(I[i]),ak))
+	  {result[k+1] = result[k+1] + leadmonom(I[i]);}
+	}
+	ak = ak*X;
+  }
+  return (result);
+}
+
+ring rr = (2,X),(a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30,a31,a32),lp;
+minpoly = X^33 + X^27 + X^20 + X^19 + X^17 + X^11 + X^5 + X + 1;
+
+poly f = a0 + a1*X + a2*X^2 + a3*X^3 + a4*X^4 + a5*X^5 + a6*X^6 + a7*X^7 + a8*X^8 + a9*X^9 + a10*X^10 + a11*X^11 + a12*X^12 + a13*X^13 + a14*X^14 + a15*X^15 + a16*X^16 + a17*X^17 + a18*X^18 + a19*X^19 + a20*X^20 + a21*X^21 + a22*X^22 + a23*X^23 + a24*X^24 + a25*X^25 + a26*X^26 + a27*X^27 + a28*X^28 + a29*X^29 + a30*X^30 + a31*X^31 + a32*X^32;
+ideal va = a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4, a5^2+a5, a6^2+a6, a7^2+a7, a8^2+a8, a9^2+a9, a10^2+a10, a11^2+a11, a12^2+a12, a13^2+a13, a14^2+a14, a15^2+a15, a16^2+a16, a17^2+a17, a18^2+a18, a19^2+a19, a20^2+a20, a21^2+a21, a22^2+a22, a23^2+a23, a24^2+a24, a25^2+a25, a26^2+a26, a27^2+a27, a28^2+a28, a29^2+a29, a30^2+a30, a31^2+a31, a32^2+a32;
+poly g = f + reduce(f^3,va);
+
+g = g + poly_power(f,64);
+
+ideal blackjack = decom_primitive(g, 33);
+
+int i;
+link l=":w 33bit.out";
+for(i=1;i<=33;i=i+1)
+{
+	write(l,blackjack[i]);
+}
+close(l);
+quit;

@@ -1,0 +1,52 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{fullpage}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=0.5cm,bottom=1cm}
+\pagestyle{fancyplain}
+\headheight 15pt
+%\lhead{Xiaojun Sun\ (u0741290)}
+%\chead{\textbf{\Large Homework \asgnname}}
+%\rhead{\today}
+%\headsep 10pt
+
+\begin{document}
+
+\title{Proposal: Reachability and Liveness for Marked Graph based on Invariants}
+\author{Xiaojun Sun}
+\maketitle
+
+\section{Objective}
+Reachability can not easily be checked through simple traversals, because a Labeled Petri-Net can have distint
+markings even a fixed point was reached, \textit{i.e.} a reachable state set may have infinite number of markings
+. However a necassary condition is found, which means it can also be deployed as a sufficient consition to
+find all unreachable states. That is
+One kind of constrained Petri-Nets is Marked Graph
+
+\section{Techniques}
+In Galois field $F_{2^k}$, when k is large, symbolic BDD-based methods are infeasible.
+The essence of the new technique is state-space traversal using algebraic geometry. In the traversal
+algorithm, concepts such as \emph{states'} \emph{Union, Intersection} and \emph{Complementary set} are modeled
+in a computer algebra/Gr\"obner basis framework. Each state
+can be represented with a polynomial ideal, and the values of labels are mapped to the variants of their
+ideals. Based on this refined state-space traversal, the \emph{next state} in every iteration can be 
+calculated in the form of a polynomial ideal, which is compared to the desired function for eqivalence 
+checking.
+
+\section{Challenges}
+(a)\ \ Derive appropriate verification formulation using algebraic geometry; \\
+\indent \hspace{5mm} \ \\
+(b)\ \ Solve the system using Gr\"obner basis while addressing the issue of scalability of the Gr\"obner basis algorithm; \\
+\indent \hspace{5mm} \ \\
+(c)\ \ In [1], standard basis representation is an appropriate tool for interpretation of combinational
+arithmetic circuits. For sequential circuits, normal basis representation has unique advantages, 
+but normal basis theory and algorithms are not well developed. These symbolic computation algorithms will
+also have to be explored in this work.
+
+\begin{thebibliography}{1}
+\bibitem{ref1}
+J. Lv, \emph{Scalable Formal Verification of Finite Field Arithmetic Circuits using Computer Algebra Techniques}, Ph.D. Dissertation, The University of Utah, 2012
+\end{thebibliography}
+
+\end{document}

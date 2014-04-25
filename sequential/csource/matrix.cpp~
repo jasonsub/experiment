@@ -1,0 +1,106 @@
+#include <iostream>
+#include <cstring>
+#include <cmath>
+using namespace std;
+
+bool onb(double a, double b, int n)
+{
+	long sum, diff, power_a, power_b;
+	power_a = long(pow(2,a))%(2*n+1);
+	power_b = long(pow(2,b))%(2*n+1);
+	if (a>16) 
+		power_a = (long(pow(2,16))%(2*n+1)) * (long(pow(2,(a - 16)))%(2*n+1));
+	if (b>16) 
+		power_b = (long(pow(2,16))%(2*n+1)) * (long(pow(2,(b - 16)))%(2*n+1));
+	sum = power_a + power_b;
+	diff = power_a - power_b;
+	while(diff < 0)
+		diff += (2*n+1);
+	sum = sum%(2*n+1);
+	diff = diff%(2*n+1);
+	if (sum == 1 || sum == (2*n) || diff == 1 || diff == (2*n))
+		return 1;
+	else return 0;
+}
+
+void beta_cube(int **idx, int n)
+{
+	int i,d;
+	cout<<endl;
+	if(idx[0][0] == 1)
+		cout<<"0 ";
+	if(idx[n-1][0] == 0)
+		cout<<"1 ";
+	for(i=n-2;i>0;i--)
+	{
+		d = i+1;
+		if((d == idx[i][0]) || (d == idx[i][1]))
+			cout<<n-i<<" ";
+	}
+	cout<<endl;
+}
+
+int main()
+{
+	int n = 4; // You can change n, currently plz keep n<64
+	bool **l=new bool*[n];
+	int **idx = new int*[n];
+	for(int k=0;k<n;k++)
+	{
+		l[k] = new bool[n];
+		idx[k] = new int[2];
+	}
+//	bool l[11][11];
+//	int idx[11][2];
+	int cnt=0;
+	int x, ip, jp;
+	double i = 0, j = 0;
+	for(i=0; i<n; i++)
+		memset(l[int(i)],0,n);
+	for(i=0; i<n; i++)
+		memset(idx[int(i)],0,2);
+	for(i=0; i < n; i++){
+		cnt = 0;
+		for(j = 0; j<n; j++){
+			if(onb(i,j,n) == 1){
+			    ip = ( int(j) - int(i) + n )%n;
+				jp = ( n - int(i) )%n;
+				if (ip > n || jp > n) cout<<"Warning!!!!"<<endl;
+				l[ip][jp] = 1;
+//				idx[int(i)][cnt] = int(j);
+//				cnt++;
+			}
+		}
+	}
+	for(i=0;i<n;i++){
+	  cnt = 0;
+		for(j=0;j<n;j++){
+			cout<<l[int(i)][int(j)]<<" ";
+			if(l[int(i)][int(j)]){
+				idx[int(i)][cnt] = int(j);
+				cnt++;
+			}
+		}
+		cout<<endl;
+	}
+	
+	cout<<idx[0][0]<<" ";
+	for(x=1;x<n;x++)
+		cout<<idx[x][0]<<" "<<idx[x][1]<<" ";
+	
+	beta_cube(idx, n);
+
+	for(int k=0;k<n;k++)
+    {
+        delete [](l[k]);
+		delete [](idx[k]);
+        l[k]=NULL;
+		idx[k] = NULL;
+    }
+    delete []l;
+    l=NULL;
+	delete []idx;
+	idx=NULL;
+	return 0;
+}
+

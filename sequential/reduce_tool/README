@@ -1,0 +1,125 @@
+F2^k polynomial reduce tool.
+
+Linux tools required to build this tool:
+bison, flex, g++, make
+
+To build:
+make clean
+make
+
+To build in debug mode (prints every reduction):
+make clean
+make debug
+
+To run:
+./cav InputFile
+
+Input file format:
+Comma delimited list of ring elements in lp order ending, with a semicolon
+Primitive polynomial (where alpha is X), i.e. minpoly, ending with a semicolon
+Polynomial to reduce, ending with a semicolon
+Comma delimited list of polynomials (ideal) to reduce with, ending with a semicolon
+
+Here's a small input example as well as the different outputs the tool gives 
+when it is run with and without debugging turned on:
+-----FILE: Input/readmeExample----------
+A,B,C,D;
+X^2+X+1;
+A+(X)*B;
+A+C+D,
+B+X*D,
+C+D;
+-------------------------------------
+-----Tool invocation without debug---
+make clean
+make
+./cav Input/readmeExample
+--------Tool output-------------
+FINAL RESULT: (X+1)*D
+Total verification time is: 0 ms.
+-------------------------------------
+
+------Tool invocation with debug-----
+make clean
+make debug
+./cav Input/readmeExample
+--------Tool output-------------
+A+(X)*B
+IS DIVIDED BY
+A+C+D
+RESULT
+(X)*B+C+D
+
+(X)*B+C+D
+IS DIVIDED BY
+B+(X)*D
+RESULT
+C+(X)*D
+
+C+(X)*D
+IS DIVIDED BY
+C+D
+RESULT
+(X+1)*D
+
+FINAL RESULT: (X+1)*D
+Total verification time is: 0 ms.
+-----------------------------------------------
+
+More example files are found in the Input directory. 
+These are mastrovito multipliers of different sizes using elimination ordering.
+
+There are a number of things to note about the proper use of this tool:
+1. Minpoly MUST start with the largest exponent first.
+ valid:   X^4+X^3+1;bison
+ invalid: 1+X^3+X^4;
+
+2. Polynomials must be in the sum of product form
+ valid:   A+AB
+ invalid: A*(B+1)
+
+3. Parenthesis () can only be used to group alpha coefficients
+ valid:   (X+1)*A+(X+1)*B
+ invalid: (X+1)*(A+B)
+
+4. Exponents of ring variables are not supported.
+   If a reduction would cause an exponent to be generated,
+   a warning is output by the tool and the exponent is ignored.
+ invalid: A^2+A
+ The following input would cause a warning to be displayed:
+------FILE: Input/exponentWarning-------
+ A,B,C,D;
+ X^2+X+1;
+ A*B*C;
+ B+C*D;
+----------------------------------------
+ Result becomes A*C*D when the correct result should be A*C^2*D
+ 
+5. The polynomials in the ideal can be in any order, but the tool parses the 
+   input faster if they already are ordered. Currently, the tool appends the next
+   poly to the end and bubble-sorts it to the correct spot in the ideal.
+   This really should be changed to be a binary insertion sort or something.
+
+6. While alphaPoly.cpp contains an implementation for a Ring class, it is not used in this tool.
+
+7. alphaPoly.cpp is by itself a pretty powerful tool. It provides full functionality for working with
+   alpha coefficients (F_2^k elements) over any given minpoly, including addition, multiplication,
+   and inverse. Feel free to copy it (along with with alphaPoly.h) and use it elsewhere if you'd like.
+
+----------------An example of how to use alphaPoly-----------
+   #include "alphaPoly.h"
+   int main()
+   {
+	   AlphaPoly::setMinpoly("X^8+X^4+X^3+X+1"); // setMinPoly must be called before any other AlphaPoly function
+	   AlphaPoly one = AlphaPoly("X^6+X^4+X+1");
+	   AlphaPoly two = AlphaPoly(5); // X^5
+	   one.mult(&two); // multiply one, which is X^6+X^4+X+1, by X^5 and store in one
+	   cout<<one.toString()<<endl; // Prints X^8+X^4+X^3+X+1
+   }
+------------------------------------------------------
+
+   alphaPoly.h is heavily commented. Read through it to see what this tool offers.
+
+
+I think that basically covers everything. Let me know if you have any questions about the tool.
+~Tim Pruss

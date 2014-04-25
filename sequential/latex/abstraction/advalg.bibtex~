@@ -1,0 +1,145 @@
+@article{thispaper,
+  title={A tight bound on approximating arbitrary metrics by tree metrics},
+  author={Fakcharoenphol, Jittat and Rao, Satish and Talwar, Kunal},
+  journal={Journal of Computer and System Sciences},
+  volume={69},
+  pages={485--497},
+  year={2004},
+  publisher={Citeseer}
+}
+
+@article{t_hsp,
+  title={An analysis of several heuristics for the traveling salesman problem},
+  author={Rosenkrantz, Daniel J and Stearns, Richard E and Lewis, II, Philip M},
+  journal={SIAM journal on computing},
+  volume={6},
+  number={3},
+  pages={563--581},
+  year={1977},
+  publisher={SIAM}
+}
+
+@article{hilbert,
+  title={Extensions of Lipschitz mappings into a Hilbert space},
+  author={Johnson, William B and Lindenstrauss, Joram},
+  journal={Contemporary mathematics},
+  volume={26},
+  number={189-206},
+  pages={1},
+  year={1984}
+}
+
+@article{zd,
+  title={On isometric embeddings of graphs},
+  author={Graham, RL and Winkler, PM},
+  journal={Transactions of the American mathematical Society},
+  volume={288},
+  number={2},
+  pages={527--536},
+  year={1985}
+}
+
+@article{realnorm,
+  title={The geometry of graphs and some of its algorithmic applications},
+  author={Linial, Nathan and London, Eran and Rabinovich, Yuri},
+  journal={Combinatorica},
+  volume={15},
+  number={2},
+  pages={215--245},
+  year={1995},
+  publisher={Springer}
+}
+
+@article{Cai,
+  title={Tree spanners},
+  author={Cai, Leizhen and Corneil, Derek G},
+  journal={SIAM Journal on Discrete Mathematics},
+  volume={8},
+  number={3},
+  pages={359--387},
+  year={1995},
+  publisher={SIAM}
+}
+
+@inproceedings{hst,
+  title={Probabilistic approximation of metric spaces and its algorithmic applications},
+  author={Bartal, Yair},
+  booktitle={Foundations of Computer Science, 1996. Proceedings., 37th Annual Symposium on},
+  pages={184--193},
+  year={1996},
+  organization={IEEE}
+}
+
+@inproceedings{bartal98,
+  title={On approximating arbitrary metrices by tree metrics},
+  author={Bartal, Yair},
+  booktitle={Proceedings of the thirtieth annual ACM symposium on Theory of computing},
+  pages={161--168},
+  year={1998},
+  organization={ACM}
+}
+
+@inproceedings{CKR,
+  title={Approximation algorithms for the 0-extension problem},
+  author={Calinescu, Gruia and Karloff, Howard and Rabani, Yuval},
+  booktitle={In Proceedings of the twelfth annual ACM-SIAM symposium on Discrete algorithms},
+  year={2001}
+}
+
+@article{Garg,
+  title={Approximate max-flow min-(multi) cut theorems and their applications},
+  author={Garg, Naveen and Vazirani, Vijay V and Yannakakis, Mihalis},
+  journal={SIAM Journal on Computing},
+  volume={25},
+  number={2},
+  pages={235--251},
+  year={1996},
+  publisher={SIAM}
+}
+
+@inproceedings{metriclabel,
+  title={Tagprop: Discriminative metric learning in nearest neighbor models for image auto-annotation},
+  author={Guillaumin, Matthieu and Mensink, Thomas and Verbeek, Jakob and Schmid, Cordelia},
+  booktitle={Computer Vision, 2009 IEEE 12th International Conference on},
+  pages={309--316},
+  year={2009},
+  organization={IEEE}
+}
+
+@incollection{plan,
+  title={On trip planning queries in spatial databases},
+  author={Li, Feifei and Cheng, Dihan and Hadjieleftheriou, Marios and Kollios, George and Teng, Shang-Hua},
+  booktitle={Advances in Spatial and Temporal Databases},
+  pages={273--290},
+  year={2005},
+  publisher={Springer}
+}
+
+@incollection{lowspan,
+  title={Low Stretch Spanning Trees},
+  author={Elkin, Michael},
+  booktitle={Encyclopedia of Algorithms},
+  pages={1--99},
+  year={2008},
+  publisher={Springer}
+}
+
+@inproceedings{FRT,
+  title={Probabilistic tree embedding},
+  author={Schalekamp F.},
+  booktitle={http://fransschalekamp.com/research/teaching/FRT.pdf},
+  year={2012}
+}
+
+@article{RMOP,
+  title={Probabilistic approximation algorithm of metric spaces},
+  author={Cai, Yu-hua and Wei, Feng-ying},
+  journal={Journal of Shandong University},
+  volume={48},
+  number={9},
+  pages={51--55},
+  year={2013},
+  publisher={CNKI}
+}
+
+

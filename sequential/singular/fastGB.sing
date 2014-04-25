@@ -1,0 +1,118 @@
+/* this is for a fast groebner basis computation */
+/* main idea is to calculate bit-level var a_i = g(A) */
+/* then subst in the reduced s-poly, maybe we can get desired R = f(A,B) */
+/* whole process is like gaussian elemination */
+/* all coeffs are in F_2, so need to reduce them by (a_i^2 + a_i) */
+/* suppose to compare with slimgb result */
+LIB "teachstd.lib";
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly r,fi = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r, J);
+}
+
+proc conv_word(poly origin, poly last_poly, ideal red_A, ideal red_B, ideal red_r) /* last_poly is r + g(A,B) */
+{
+  int n = size(red_A);
+  int i;
+  for(i = 1; i <= n; i = i + 1)
+  {
+	origin = subst(origin, lead(red_A[i]), red_A[i] - lead(red_A[i]));
+	origin = subst(origin, lead(red_B[i]), red_B[i] - lead(red_B[i]));
+	origin = subst(origin, lead(red_r[i]), red_r[i] - lead(red_r[i]));
+  }
+  origin = subst(origin, r, last_poly - r);
+  return(origin);
+}
+
+
+ring rr = (2,X), (r0,r1,r2,r3,r4,c1,c2,c3,c4,b0,b1,b2,b3,b4,a0,a1,a2,a3,a4,R,r,A,B), lp;
+minpoly = X^5 + X^2 + 1;
+
+poly f0 = a0*X^5 + a1*X^10 + a2*X^20 + a3*X^9 + a4*X^18 + A;
+/* normal basis definition */
+
+//poly f1 = f0^2;
+/* create a ref poly to eliminate a0 first */
+
+//poly f2 = f1 + f0*X^5;
+/* by shifting with X^5, the first term can be eliminated */
+
+ideal va = a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4, A^32+A;
+/* vanishing poly, for reducing */
+//poly f3 = reduce(f2, std(va));
+
+ideal result;
+//result[1] = f3/leadcoef(f3);
+
+poly f1,f2,f3;
+f3 = f0;
+int i = 1;
+int j;
+result[1] = f0/leadcoef(f0);
+
+for(i = 1; i < 5; i= i+1)
+{
+  f0 = f3;
+  f1 = f0^2;
+  f2 = f1 + f0*leadcoef(f1)/leadcoef(f0);
+  f3 = reduce(f2, std(va));
+  f3;
+  result[i+1] = f3/leadcoef(f3);
+}
+
+result;
+"****************************";
+/* Rewrite this part of "reduce" with multidiv! */
+
+poly temp;
+poly tobesub;
+
+for(i = 5; i > 1; i= i-1)
+{
+  tobesub = lead(result[i]);
+  temp = result[i]-tobesub;
+  for(j = i-1; j >= 1; j = j - 1)
+  {
+	result[j] = subst(result[j], tobesub, temp);
+  }
+}
+result;
+
+ideal result_B = subst(result, a0, b0, a1, b1, a2, b2, a3, b3, a4, b4, A, B);
+ideal result_r = subst(result, a0, r0, a1, r1, a2, r2, a3, r3, a4, r4, A, r);
+
+poly spoly1 = r1+(X)*r2+(X^4+X^2)*r3+(X^3+X^2)*r4+(X^3)*b1*a1+(X^4+X^2)*b1*a2+(X^3+X+1)*b1*a3+(X^3+X)*b1*a4+(X+1)*b1*A+
+(X^4+X^2+X)*b2*a1+(X^4+X^3+X^2+X)*b2*a4+(X^3+X^2+1)*b3*a1+(X)*b3*a3+(X^2+X+1)*b4*a1+(X+1)*b4*a2+(X^4+X^2)*b4*a3+(X^4+X^3+X+1)*b4*a4+(X^3+1)*b4*A+(X^4+X^3+X^2+1)*a1*B+(X^4+X^3+X^2+1)*R;
+
+conv_word(spoly1, r, result, result_B, result_r);

@@ -1,0 +1,91 @@
+array_A[20]+array_A[21]+c1,
+array_A[11]+array_A[23]+c2,
+array_A[18]+array_A[25]+c3,
+array_A[27]+array_A[36]+c4,
+array_A[29]+array_A[33]+c5,
+array_A[31]+array_A[1]+c6,
+array_A[30]+array_A[33]+c7,
+array_A[11]+array_A[35]+c8,
+array_A[1]+array_A[6]+c9,
+array_A[22]+array_A[3]+c10,
+array_A[22]+array_A[5]+c11,
+array_A[5]+array_A[7]+c12,
+array_A[29]+array_A[9]+c13,
+array_A[18]+array_A[11]+c14,
+array_A[29]+array_A[13]+c15,
+array_A[2]+array_A[15]+c16,
+array_A[7]+array_A[17]+c17,
+array_A[19]+array_A[20]+c18,
+array_A[21]+array_A[10]+c19,
+array_A[23]+array_A[8]+c20,
+array_A[25]+array_A[2]+c21,
+array_A[27]+array_A[30]+c22,
+array_A[29]+array_A[8]+c23,
+array_A[31]+array_A[23]+c24,
+array_A[33]+array_A[7]+c25,
+array_A[35]+array_A[10]+c26,
+array_A[33]+array_A[1]+c27,
+array_A[3]+array_A[5]+c28,
+array_A[5]+array_A[27]+c29,
+array_A[1]+array_A[7]+c30,
+array_A[36]+array_A[9]+c31,
+array_A[6]+array_A[11]+c32,
+array_A[13]+array_A[27]+c33,
+array_A[15]+array_A[23]+c34,
+array_A[17]+array_A[35]+c35,
+/***************************************************/
+array_A[19]*array_B[1]+r35+R0,
+c1*array_B[3]+r0+R1,
+c2*array_B[5]+r1+R2,
+c3*array_B[7]+r2+R3,
+c4*array_B[9]+r3+R4,
+c5*array_B[11]+r4+R5,
+c6*array_B[13]+r5+R6,
+c7*array_B[15]+r6+R7,
+c8*array_B[17]+r7+R8,
+c9*array_B[19]+r8+R9,
+c10*array_B[21]+r9+R10,
+c11*array_B[23]+r10+R11,
+c12*array_B[25]+r11+R12,
+c13*array_B[27]+r12+R13,
+c14*array_B[29]+r13+R14,
+c15*array_B[31]+r14+R15,
+c16*array_B[33]+r15+R16,
+c17*array_B[35]+r16+R17,
+c18*array_B[1]+r17+R18,
+c19*array_B[3]+r18+R19,
+c20*array_B[5]+r19+R20,
+c21*array_B[7]+r20+R21,
+c22*array_B[9]+r21+R22,
+c23*array_B[11]+r22+R23,
+c24*array_B[13]+r23+R24,
+c25*array_B[15]+r24+R25,
+c26*array_B[17]+r25+R26,
+c27*array_B[19]+r26+R27,
+c28*array_B[21]+r27+R28,
+c29*array_B[23]+r28+R29,
+c30*array_B[25]+r29+R30,
+c31*array_B[27]+r30+R31,
+c32*array_B[29]+r31+R32,
+c33*array_B[31]+r32+R33,
+c34*array_B[33]+r33+R34,
+c35*array_B[35]+r34+R35,
+/***************************************************/
+ideal va = a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4, a5^2+a5, a6^2+a6, a7^2+a7, a8^2+a8, a9^2+a9, a10^2+a10, a11^2+a11, a12^2+a12, a13^2+a13, a14^2+a14, a15^2+a15, a16^2+a16, a17^2+a17, a18^2+a18, a19^2+a19, a20^2+a20, a21^2+a21, a22^2+a22, a23^2+a23, a24^2+a24, a25^2+a25, a26^2+a26, a27^2+a27, a28^2+a28, a29^2+a29, a30^2+a30, a31^2+a31, a32^2+a32, a33^2+a33, a34^2+a34, a35^2+a35, 
+
+********************** ring var ***********************
+
+R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28,R29,R30,R31,R32,R33,R34,R35,r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20,r21,r22,r23,r24,r25,r26,r27,r28,r29,r30,r31,r32,r33,r34,r35,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30,c31,c32,c33,c34,c35,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24,b25,b26,b27,b28,b29,b30,b31,b32,b33,b34,b35,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30,a31,a32,a33,a34,a35,R,r,A,B
+
+
+********************** Word vectors ***********************
+
+ideal A_in = a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a14,a15,a16,a17,a18,a19,a20,a21,a22,a23,a24,a25,a26,a27,a28,a29,a30,a31,a32,a33,a34,a35;
+ideal B_in = b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,b11,b12,b13,b14,b15,b16,b17,b18,b19,b20,b21,b22,b23,b24,b25,b26,b27,b28,b29,b30,b31,b32,b33,b34,b35;
+ideal vec_r = r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,r11,r12,r13,r14,r15,r16,r17,r18,r19,r20,r21,r22,r23,r24,r25,r26,r27,r28,r29,r30,r31,r32,r33,r34,r35;
+ideal vec_R = R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,R14,R15,R16,R17,R18,R19,R20,R21,R22,R23,R24,R25,R26,R27,R28,R29,R30,R31,R32,R33,R34,R35;
+
+
+************************** Min-poly ************************
+
+minpoly = X^36 + X^35 + X^34 + X^33 + X^32 + X^31 + X^30 + X^29 + X^28 + X^27 + X^26 + X^25 + X^24 + X^23 + X^22 + X^21 + X^20 + X^19 + X^18 + X^17 + X^16 + X^15 + X^14 + X^13 + X^12 + X^11 + X^10 + X^9 + X^8 + X^7 + X^6 + X^5 + X^4 + X^3 + X^2 + X + 1;

@@ -1,0 +1,30 @@
+\begin{abstract}
+A combinational circuit with $k$-inputs and $k$-outputs implements
+Boolean functions $f: \B^k \rightarrow \B^k$, where $\B = \{0, 1\}$.
+Such functions can also be construed as a mapping $f: \Fkk
+\rightarrow \Fkk$,  where $\Fkk$ denotes the Galois field of $2^k$
+elements. Every function over $\Fkk$ is a polynomial function ---
+i.e. there exists a unique, minimal, canonical polynomial
+$\F$ that describes $f$. In this master's thesis, we propose to
+investigate computer algebra based methods to derive the canonical
+(word-level) polynomial representation of the circuit as $Y = \F (A)$
+over $\Fkk$, where $A$ and $Y$ denote, respectively, the input and 
+output bit-vectors of the circuit. We show that this can be achieved
+by computing a Gr\"obner basis of a set of polynomials derived from
+the circuit, using a specific elimination term order. 
+%This
+%approach can be generalized to any circuit with arbitray number of
+%inputs and outputs to abstract polynomial functions over $f:
+%{\mathbb{F}}^{2^n} \rightarrow {\mathbb{F}}^{2^m}$.
+Computing Gr\"obner bases using elimination orders is, however,
+practically infeasible for large circuits. To overcome this
+limitation, we propose to investigate the use of the FGLM algorithm 
+--- which converts a given Gr\"obner basis w.r.t. one term order $>_1$
+into another w.r.t. an elimination term order $>_2$ ---  to  
+derive the required polynomial abstraction. The objective of this
+research is to: i) design an efficient CAD tool based on our approach;
+and ii) apply it to reverse-engineer hardware implementations of
+Elliptic Curve Cryptography (ECC) primitives over Galois fields $\Fkk$
+--- with applications to design verification and function
+identification. 
+\end{abstract}

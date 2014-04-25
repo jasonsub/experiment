@@ -1,0 +1,25 @@
+A combinational circuit with k-inputs and k-outputs implements a
+Boolean function f: B^k ---> B^k, where B = {0, 1}.
+The function can also be construed as a mapping f: F_{2^k}
+---> F_{2^k},  where F_{2^k} denotes a Galois field of 2^k
+elements. Every function over F_{2^k} is a polynomial function ---
+i.e. there exists a unique, minimal, canonical polynomial
+F that describes f. This paper presents novel techniques based on 
+computer-algebra and algebraic-geometry to derive the canonical
+(word-level) polynomial representation of the circuit as Y = F(A)
+over F_{2^k}, where A and Y denote, respectively, the input and 
+output bit-vectors of the circuit. We show that this can be achieved
+by computing a Groebner basis of a set of polynomials derived from
+the circuit, using a specific elimination term order. Our approach can
+be generalized to circuits with arbitrary number of inputs and
+outputs. 
+
+Computing Grobner bases using elimination orders is, however,
+practically infeasible for large circuits. To overcome this
+limitation, we present improvements to the computation
+based on: i) term orders derived from the topological
+traversal of the given circuit; and ii) the use of FGLM algorithm from 
+algebraic geometry. We apply our approach to ``reverse-engineer''
+hardware implementations of Elliptic Curve Cryptography (ECC)
+primitives over Galois fields F_{2^k} --- with applications to design
+verification and function identification. 

@@ -1,0 +1,159 @@
+LIB "teachstd.lib";
+LIB "general.lib";
+LIB "poly.lib";
+
+proc huo(poly f1, poly f2)  // "huo" means OR
+{
+	poly g = f1 + f2 + (f1*f2);
+	return (g);
+}
+
+proc nxor(poly f1, poly f2)  // XNOR
+{
+	poly g = huo(f1*f2, (1+f1)*(1+f2));
+	return (g);
+}
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r, J);
+}
+
+proc myGB(ideal F)
+{
+	ideal G = F;
+	ideal G0, q;
+	int n, i, j = size(F), 1, 1;
+	poly r;
+	while(1)
+	{
+		G0 = G;
+		n = size(G0);
+		for (i=1; i<n; i=i+1)
+		{
+			for (j=i+1; j<=n; j=j+1)
+			{
+				r = spoly(G0[i], G0[j]);
+				r,q = multidiv(r,G0);
+				if (lead(r) != 0)
+				{
+					G[n+1] = r;
+				}
+			}
+		}
+		if (size(G) == size(G0))
+		{
+			break;
+		}
+	}
+	return (G);
+}
+
+
+
+proc miniGB(ideal G0)
+{
+	int s = size(G0);
+	int i;
+	int j;
+	int k;
+	for (i = 1; i <= s; i = i + 1)
+	{
+		for (j = 1; j <= s; j = j +1)
+		{
+			if (lead(G0[j]) != 0)
+			{
+				if (lead(G0[i])/lead(G0[j]) != 0 and i != j)
+				{G0[i] = 0;}
+			}
+		}
+	}
+	ideal G = sort(G0)[1];
+	s = size(G);
+	for (k = 1; k <= s; k = k + 1)
+	{
+		G[k] = G[k]/leadcoef(G[k]);
+	}
+	return (G);
+}
+
+proc myRGB(ideal G0)
+{
+	int s = size(G0);
+	poly h0;
+	ideal q0,H;
+	for (int i = 1; i <= s; i = i + 1)
+	{
+		ideal F = G0;
+		F[i] = 0;
+		H = sort(F)[1];
+		h0,q0 = multidiv(G0[i],H);
+		G0[i] = h0;
+	}
+	return (G0);
+}
+
+proc va(poly f) // reduce higher degree of word-level variable
+{
+	ideal I = f, T^4+T;
+	poly g = slimgb(I)[1];
+	g = g/leadcoef(g);
+	return (g);
+}
+
+ring rr = (2,X), (t0,t1,s0,s1, xi, T, S), lp;
+minpoly = X^2 + X + 1;
+
+poly cs = S; // "Current State" in first iteration, actually initial state
+// here initial state is S = X+1, i.e. {"11"}. Feel free to change the initial state(s)!
+poly reached = T; // "reached" record reached states from initial, it should be
+// initialized as the initial state (replace current state word "S" by next state word "T")
+int i = 1;
+ideal from,to,new;
+from[1] = cs;
+	poly f0 = t0 + huo(s0*s1, (1+xi)*(1+s0)*(1+s1));
+	poly f1 = t1 + huo(xi*(1+s0),s0*(1+s1)); // these 2 are image function w.r.t. 2 primary outputs
+	poly f2 = S - s0 - s1*X;
+	poly f3 = T - t0 - t1*X;
+	poly v0 = s0^2 - s0;
+	poly v1 = s1^2 - s1;
+	poly v2 = t0^2 - t0;
+	poly v3 = t1^2 - t1;
+	poly v4 = S^4 - S;
+	poly v5 = xi^2 - xi;
+	poly v6 = T^4 - T;
+//	poly f4 = S^2+(1+X)*S+X;
+
+	ideal I = f0, f1, f2, f3, v0, v1, v2, v3, v4, v5, v6;
+	ideal J = slimgb(I);
+	J = sort(J)[1];

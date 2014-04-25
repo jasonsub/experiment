@@ -1,0 +1,101 @@
+LIB "general.lib";
+LIB "poly.lib";
+
+proc tran(ideal array_A, ideal array_B, poly r_in, number beta)
+{
+	ideal I = array_A[1]+array_A[4]+c1, array_A[3]+array_A[4]+c2, array_A[3]+array_A[1]+c3, 
+		  array_A[3]*array_B[1]+r3+R0, c1*array_B[3]+r0+R1, c2*array_B[1]+r1+R2, c3*array_B[3]+r2+R3,
+		  A+a0*beta+a1*beta^2+a2*beta^4+a3*beta^8,
+		  B+b0*beta+b1*beta^2+b2*beta^4+b3*beta^8,
+		  r+r0*beta+r1*beta^2+r2*beta^4+r3*beta^8,
+		  R+R0*beta+R1*beta^2+R2*beta^4+R3*beta^8,  //THIS IS DIFFERENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		  a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, 
+		  b0^2+b0, b1^2+b1, b2^2+b2, b3^2+b3, 
+		  r0^2+r0, r1^2+r1, r2^2+r2, r3^2+r3,
+		  R0^2+R0, R1^2+R1, R2^2+R2, R3^2+R3, 
+		  c1^2+c1, c2^2+c2, c3^2+c3,
+		  A^16+A, B^16+B, r^16+r, R^16+R,
+		  /*a+beta^4+beta^2+beta, b+beta^3+1,*/ r_in;
+	ideal J = slimgb(I);
+	J = sort(J)[1];
+	return (J[3]/leadcoef(J[3]));
+}
+
+proc anotran(ideal array_A, ideal array_B, poly r_in, number beta)
+{
+	ideal I = array_A[1]+array_A[4]+c1, array_A[3]+array_A[4]+c2, array_A[3]+array_A[1]+c3,
+		  array_A[3]*array_B[1]+r3+R0, c1*array_B[3]+r0+R1, c2*array_B[1]+r1+R2, c3*array_B[3]+r2+R3,
+		  A+a0*beta+a1*beta^2+a2*beta^4+a3*beta^8,
+		  B+b0*beta+b1*beta^2+b2*beta^4+b3*beta^8,
+		  r+r0*beta+r1*beta^2+r2*beta^4+r3*beta^8,
+		  R+R3*beta+R0*beta^2+R1*beta^4+R2*beta^8,   // BU YI YANG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		  a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, 
+		  b0^2+b0, b1^2+b1, b2^2+b2, b3^2+b3, 
+		  r0^2+r0, r1^2+r1, r2^2+r2, r3^2+r3,
+		  R0^2+R0, R1^2+R1, R2^2+R2, R3^2+R3, 
+		  c1^2+c1, c2^2+c2, c3^2+c3,
+		  A^16+A, B^16+B, r^16+r, R^16+R,
+		  /*a+X^4+X^2+X, b+X^3+1,*/ r_in;
+	ideal J = slimgb(I);
+	J = sort(J)[1];
+	return (J[3]/leadcoef(J[3]));
+}
+
+
+proc arrayshift(ideal I)
+{
+	ideal tmp;
+	for(int j = 1; j <= 4; j = j+1)
+	{
+		tmp[j] = I[((j+2) mod 4) + 1];
+	}
+	return (tmp);
+}
+
+/*
+proc va(poly f)
+{
+	ideal I = f, R^16+R;
+	poly g = slimgb(I)[1];
+	g = g/leadcoef(g);
+	return (g);
+}
+*/
+
+ring rr = (2,X), (c1,c2,c3,a0,a1,a2,a3,b0,b1,b2,b3,r0,r1,r2,r3,R0,R1,R2,R3,r,R,A,B), lp;
+minpoly = X^4 + X^3 + X^2 + X + 1;
+//minpoly = X^4 + X + 1;
+
+number beta = X;
+
+int i = 1;
+ideal from, to;
+ideal A_in = a0, a1, a2, a3;
+ideal B_in = b0, b1, b2, b3;
+from[1] = r;
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+for (i = 1; i <= 3; i= i+1)
+{
+	to[i+1] = tran(A_in, B_in, from[i], beta);
+	"Calc Done!";
+	A_in = arrayshift(A_in);
+	B_in = arrayshift(B_in);
+	"Shift Done!";
+	from[i+1] = subst(to[i+1],R,r);
+	"Subst Done!";
+}
+"I'm Out!";
+from[4];
+to[5] = anotran(A_in, B_in, from[4], beta);
+"Final Calc Done!";
+to[5];
+int t1 = timer - t0;
+
+"Total time:";
+t1;
+;
+
