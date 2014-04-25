@@ -140,3 +140,5 @@ poly f_all = f0/(s0*s1*s2);  // coeff poly for term: s0*s1*s2
 
 list num = X;
 ideal cp = diff_X(low,num);
+/* currently diff_X cannot split "coeff" like (1+X+X^2) 
+* possible solution could be using string detection */
