@@ -1,0 +1,142 @@
+LIB "teachstd.lib";
+
+proc relative_prime(ideal I)
+{
+  int i;
+  for(i=2; i<= size(I); i=i+1)
+  {
+    if(gcd(lead(I[i-1]),lead(I[i])) != 1)
+    {
+	"Repeating: Poly #",i-1,": ",I[i-1]," AND ",I[i];
+    }
+  }
+}
+
+proc verify(poly f, ideal I1, ideal I0)
+{
+  int k = size(I0);
+  int m = size(I1);
+  int i;
+  for(i=1;i<=m;i=i+1)
+  {
+	f = subst(f,I1[i],1);
+  }
+  for(i=1;i<=k;i=i+1)
+  {
+	f = subst(f,I0[i],0);
+  }
+  return (f);
+}
+
+/* this proc returns coeff poly wrt field element 1,X,X^2,etc.
+ note the tail of I[1] is always special, need to add on following polys */
+proc diff_X(poly f, list l)
+{
+  number c;
+  number n;
+  int i;
+  int k = size(l);
+  int flag;
+  poly t;
+  ideal I; /* poly I[1] is coeff poly for 1, I[2] is for X, I[3] is for X^2, etc. */
+  for(i=0;i<=k;i=i+1) /* init */
+  {
+	I[i+1] = 0;
+  }
+  while(lead(f) != 0)
+  {
+	t = lead(f);
+	f = f-t;
+	c = leadcoef(t);
+	flag = 0;
+	for(i=1;i<=k;i=i+1)
+	{
+	  n = l[i];
+	  if(n == c)
+	  {
+		flag = 1;
+		I[i+1] = I[i+1] + t/c;
+	  }
+	}
+	if(flag == 0)
+	{I[1] = I[1] + t;}
+  }
+  return (I);
+}
+
+/* this proc returns terms with degree 0 wrt PIs, such as s0, s1, s2, ... */
+proc deg0(poly f, ideal pi)
+{
+  poly g = 0;
+  int k = size(pi);
+  int i;
+  for(i=1;i<=k;i=i+1)
+  {
+	g = f/pi[i];
+	f = f - g*pi[i];
+  }
+  return (f);
+}
+
+ring rr = (2,X),(z0,z1,CO,t0,t1,d,g1,g0,p1,a0,b0,a1,b1,Z,ct0_z0,ct1_z1,ct0_z1,ct1_z0,c0_CO,c1_CO,cn0,cn1,
+		 pa0,pa1,pb0,pb1,c0_A0,c0_A1,c0_B0,c0_B1,c1_A0,c1_A1,c1_B0,c1_B1,c2_A0,c2_A1,c2_B0,c2_B1,s0,s1,s2),lp;
+		 
+	/* # of coeffs: 24 */
+/*
+ring rr = (2,X),(z0,z1,CO,t0,t1,d,g1,g0,p1,pa0,pa1,pb0,pb1,a0,b0,a1,b1,s0,s1,s2,Z,ct0_z0,ct1_z1,ct0_z1,ct1_z0,c0_CO,c1_CO,cn0,cn1,
+		 c0_A0,c0_A1,c0_B0,c0_B1,c1_A0,c1_A1,c1_B0,c1_B1,c2_A0,c2_A1,c2_B0,c2_B1),lp;
+*/
+
+minpoly = X^2+X+1;
+
+ideal I = Z+z0+z1*X, z0+ct0_z0*t0+ct1_z0*t1+c0_CO*CO+cn0, z1+ct0_z1*t0+ct1_z1*t1+c1_CO*CO+cn1,
+	t0+a0+b0, CO+d+g1+d*g1, d+g0*p1, t1+g0+p1, g0+a0*b0, g1+a1*b1, p1+a1+b1,
+	a0+pa0+c0_A0*s0+c1_A0*s1+c2_A0*s2,
+	a1+pa1+c0_A1*s0+c1_A1*s1+c2_A1*s2,
+	b0+pb0+c0_B0*s0+c1_B0*s1+c2_B0*s2,
+	b1+pb1+c0_B1*s0+c1_B1*s1+c2_B1*s2, Z^4+Z, a0^2+a0, b0^2+b0, a1^2+a1, b1^2+b1, z0^2+z0, z1^2+z1,
+		CO^2+CO, s0^2+s0, s1^2+s1, s2^2+s2, d^2+d, g1^2+g1, g0^2+g0, p1^2+p1,
+		t0^2+t0, t1^2+t1, ct0_z0^2+ct0_z0, ct0_z1^2+ct0_z1, ct1_z0^2+ct1_z0, ct1_z1^2+ct1_z1, c0_CO^2+c0_CO, c1_CO^2+c1_CO,
+		cn0^2+cn0, cn1^2+cn1, pa0^2+pa0, pa1^2+pa1, pb0^2+pb0, pb1^2+pb1, c0_A0^2+c0_A0, c0_A1^2+c0_A1,
+		c0_B0^2+c0_B0, c0_B1^2+c0_B1, c1_A0^2+c1_A0, c1_A1^2+c1_A1, c1_B0^2+c1_B0, c1_B1^2+c1_B1,
+		c2_A0^2+c2_A0, c2_A1^2+c2_A1, c2_B0^2+c2_B0, c2_B1^2+c2_B1;
+I = sort(I)[1];
+
+ideal Ip = Z+z0+z1*X, z0+ct0_z0*t0+ct1_z0*t1+c0_CO*CO+cn0, z1+ct0_z1*t0+ct1_z1*t1+c1_CO*CO+cn1,
+	t0+a0+b0, CO+d+g1+d*g1, d+g0*p1, t1+g0+p1, g0+a0*b0, g1+a1*b1, p1+a1+b1,
+	a0+pa0+c0_A0*s0+c1_A0*s1+c2_A0*s2,
+	a1+pa1+c0_A1*s0+c1_A1*s1+c2_A1*s2,
+	b0+pb0+c0_B0*s0+c1_B0*s1+c2_B0*s2,
+	b1+pb1+c0_B1*s0+c1_B1*s1+c2_B1*s2;
+	
+relative_prime(Ip);
+
+poly f = Z+s0*s1*s2+(X+1)*s0*s1+s1*s2+(X+1)*s1+(X+1)*s2+(X+1);
+
+poly tmp = spoly(Ip[1],Ip[2]);
+tmp = reduce(tmp,I);
+Ip[15] = tmp;
+relative_prime(Ip);
+I[56]=tmp;
+poly f0 = reduce(f,I);
+//f0;
+
+ideal varlist = ct0_z0,ct1_z1,ct0_z1,ct1_z0,c0_CO,c1_CO,cn0,cn1,
+		 pa0,pa1,pb0,pb1,c0_A0,c0_A1,c0_B0,c0_B1,c1_A0,c1_A1,c1_B0,c1_B1,c2_A0,c2_A1,c2_B0,c2_B1;
+ideal eq1 = ct1_z1,c2_A1,pb0,ct1_z1,c1_A0,pb1,c0_B0,c0_CO,cn0; // vars should be assigned to 1
+verify(f0,eq1,varlist);
+
+poly low = ct0_z0*pa0+ct0_z0*pb0+(X)*ct1_z1*pa0*pb0+(X)*ct1_z1*pa1+(X)*ct1_z1*pb1+(X)*ct0_z1*pa0+(X)*ct0_z1*pb0+ct1_z0*pa0*pb0+ct1_z0*pa1+ct1_z0*pb1+c0_CO*pa0*pa1*pb0+c0_CO*pa0*pb0*pb1+c0_CO*pa1*pb1+(X)*c1_CO*pa0*pa1*pb0+(X)*c1_CO*pa0*pb0*pb1+(X)*c1_CO*pa1*pb1+cn0+(X)*cn1+(X+1);
+
+ideal pi = s0,s1,s2;
+poly f_1 = deg0(f0,pi);  // coeff poly for degree 0
+poly f_s0 = deg0(f0/s0,pi);  // coeff poly for term: s0
+poly f_s1 = deg0(f0/s1,pi);  // coeff poly for term: s1
+poly f_s2 = deg0(f0/s2,pi);  // coeff poly for term: s2
+poly f_s0s1 = deg0(f0/(s0*s1),pi);  // coeff poly for term: s0*s1
+poly f_s0s2 = deg0(f0/(s0*s2),pi);  // coeff poly for term: s0*s2
+poly f_s1s2 = deg0(f0/(s1*s2),pi);  // coeff poly for term: s1*s2
+poly f_all = f0/(s0*s1*s2);  // coeff poly for term: s0*s1*s2
+
+list num = X;
+ideal cp = diff_X(low,num);

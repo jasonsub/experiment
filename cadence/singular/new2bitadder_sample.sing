@@ -1,0 +1,24 @@
+/* seems no need to change inputs bits */
+
+LIB "teachstd.lib";
+
+ring rr = (2,X),(z0,z1,t,p,g,s0,s1,s2,Z,pa0,pa1,pb0,pb1,
+		 c0_A0,c0_A1,c0_B0,c0_B1,c1_A0,c1_A1,c1_B0,c1_B1,c2_A0,c2_A1,c2_B0,c2_B1,a0,a1,b0,b1),lp;
+minpoly = X^2+X+1;
+
+ideal J = Z+z0+X*z1, 
+	    z1+1+s2+g, z0+1+t+s2+t*s2, t+p+g+p*g, p+s2*g, g+s1*(1+s0),
+	    a0+pa0+c0_A0*s0+c1_A0*s1+c2_A0*s2,
+	    a1+pa1+c0_A1*s0+c1_A1*s1+c2_A1*s2,
+	    b0+pb0+c0_B0*s0+c1_B0*s1+c2_B0*s2,
+	    b1+pb1+c0_B1*s0+c1_B1*s1+c2_B1*s2;
+ideal J0=
+	    Z^4+Z, z0^2+z0, z1^2+z1, t^2+t, p^2+p, g^2+g, s0^2+s0, s1^2+s1, s2^2+s2,
+	    pa0^2+pa0, pa1^2+pa1, pb0^2+pb0, pb1^2+pb1, c0_A0^2+c0_A0, c0_A1^2+c0_A1,
+		c0_B0^2+c0_B0, c0_B1^2+c0_B1, c1_A0^2+c1_A0, c1_A1^2+c1_A1, c1_B0^2+c1_B0, c1_B1^2+c1_B1,
+		c2_A0^2+c2_A0, c2_A1^2+c2_A1, c2_B0^2+c2_B0, c2_B1^2+c2_B1;
+
+//ideal J0 = slimgb(J);
+
+//J0 = sort(J0)[1];
+//J0[17];
