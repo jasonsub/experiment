@@ -1,0 +1,45 @@
+LIB "teachstd.lib";
+
+proc relative_prime(ideal I)
+{
+  int i;
+  for(i=2; i<= size(I); i=i+1)
+  {
+    if(gcd(lead(I[i-1]),lead(I[i])) != 1)
+    {
+	"Repeating: Poly #",i-1,": ",I[i-1]," AND ",I[i];
+    }
+  }
+}
+
+ring rr = (2,X), (G17, G10, G13, G11, G2, G9, G5, G15, G16, G12, G8, G3, G1, G7, G14, G6, G0, S, T), lp;
+minpoly = X^3 + X + 1;
+
+poly f1 = S;
+poly f2 = S^4+(X)*S^3+(X+1)*S^2+(X^2)*S+(X^2);
+poly f3 = S+(X^2+X);
+
+poly g1 = T^5+(X)*T^4+(X+1)*T^3+(X^2)*T^2+(X^2)*T;
+poly g2 = T^6+(X^2)*T^5+(X^2)*T^4+(X^2+1)*T^3+T^2+(X^2+1)*T;
+poly g3 = T^4+(X^2)*T^2+(X+1)*T+(X^2+X);
+
+ideal I0 = G14+1+G0, G17+1+G11, /* note we include 'PO' G17 here */ G8+G14*G6, G15+G12+G8+G12*G8, G16+G3+G8+G3*G8,
+	G9+1+G16*G15, G10+1+G14+G11+G14*G11, G11+1+G5+G9+G5*G9, G12+1+G1+G7+G1*G7, G13+1+G2+G12+G2*G12,
+	/* word level in/output */
+	T + G10 + X*G11 + X^2*G13,
+	S + G5 + X*G6 + X^2*G7,
+	/* vanishing polys */
+	G0^2+G0, G1^2+G1, G2^2+G2, G3^2+G3, G5^2+G5, G6^2+G6, G7^2+G7, G8^2+G8, G9^2+G9, 
+	G10^2+G10, G11^2+G11, G12^2+G12, G13^2+G13, G14^2+G14, G15^2+G15, G16^2+G16, G17^2+G17, 
+	S^8 + S, T^8 + T,
+	/* input state S */
+	f1;
+ideal Ip = G14+1+G0, G17+1+G11, /* note we include 'PO' G17 here */ G8+G14*G6, G15+G12+G8+G12*G8, G16+G3+G8+G3*G8,
+	G9+1+G16*G15, G10+1+G14+G11+G14*G11, G11+1+G5+G9+G5*G9, G12+1+G1+G7+G1*G7, G13+1+G2+G12+G2*G12,
+	/* word level in/output */
+	T + G10 + X*G11 + X^2*G13,
+	S + G5 + X*G6 + X^2*G7,
+	/* input state S */
+	f1;
+Ip = sort(Ip)[1];
+relative_prime(Ip);

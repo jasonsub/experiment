@@ -1,0 +1,64 @@
+LIB "teachstd.lib";
+
+proc tran(poly f_in) // State Transition Function in GB form
+{
+	ideal I = G14+1+G0, G17+1+G11, /* note we include 'PO' G17 here */ G8+G14*G6, G15+G12+G8+G12*G8, G16+G3+G8+G3*G8,
+	G9+1+G16*G15, G10+1+G14+G11+G14*G11, G11+1+G5+G9+G5*G9, G12+1+G1+G7+G1*G7, G13+1+G2+G12+G2*G12,
+	/* word level in/output */
+	T + G10 + X*G11 + X^2*G13,
+	S + G5 + X*G6 + X^2*G7,
+	/* vanishing polys */
+	G0^2+G0, G1^2+G1, G2^2+G2, G3^2+G3, G5^2+G5, G6^2+G6, G7^2+G7, G8^2+G8, G9^2+G9, 
+	G10^2+G10, G11^2+G11, G12^2+G12, G13^2+G13, G14^2+G14, G15^2+G15, G16^2+G16, G17^2+G17, 
+	S^8 + S, T^8 + T,
+	/* input state S */
+	f_in;
+	ideal J = slimgb(I);
+	J = sort(J)[1];
+	return (J[1]/leadcoef(J[1]));
+}
+
+proc cmp(poly r) // Compute ideal quotient (variety's complement)
+{
+	ideal U = T^8 + T;
+	ideal R = r;
+	return (quotient(U,R)[1]);
+}
+
+proc va(poly f) // reduce higher degree of word-level variable
+{
+	ideal I = f, T^8+T;
+	poly g = slimgb(I)[1];
+	g = g/leadcoef(g);
+	return (g);
+}
+
+ring rr = (2,X), (G17, G10, G13, G11, G2, G9, G5, G15, G16, G12, G8, G3, G1, G7, G14, G6, G0, S, T), lp;
+minpoly = X^3 + X + 1;
+
+poly cs = S; // "Current State" in first iteration, actually initial state
+// here initial state is S = X+1, i.e. {"11"}. Feel free to change the initial state(s)!
+poly reached = T; // "reached" record reached states from initial, it should be
+// initialized as the initial state (replace current state word "S" by next state word "T")
+int i = 1;
+ideal from,to,new;
+from[1] = cs;
+while(1)
+{
+	i++;
+	to[i] = tran(from[i-1]);
+	"Iteration #",i-2;
+	"Next State(s): ",to[i];
+	new[i] = va(to[i]+cmp(reached));
+	"Newly reached states: ",new[i];
+	if (va(new[i]) == 1)
+	{
+		"*************** TERMINATE! ***************";
+		break;
+	}
+	reached = va(reached * new[i]);
+	"Currently reached states: ",reached;
+	from[i] = subst(new[i],T,S);
+}
+"BFS depth: ",i-2;
+"Final reachable states: ",reached;
