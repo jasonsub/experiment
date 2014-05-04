@@ -110,10 +110,10 @@ int main(int argc, char *argv[])
 		cout<<"No news is good news!"<<endl;
 	else cout<<"Error: Loop detected!"<<endl;
 
-//	for(i=0;i<g.vexnum;i++){
-//		cout<<idx[i]<<" ";
-//	}
-//	cout<<endl;
+	for(i=0;i<g.vexnum;i++){
+		cout<<idx[i]<<" ";
+	}
+	cout<<endl;
 	fin.close();
 	return 0;
 }

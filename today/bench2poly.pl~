@@ -4,7 +4,7 @@ use 5.014;
 use strict;
 use warnings;
 
-open POLY, ">", "spares953.sing";  # change the name
+open POLY, ">", "s953.sing";  # change the name
 open TOPO, ">", "g953";
 my $cnt = 0;
 
@@ -41,8 +41,8 @@ while(<>){
 	  $tmp = &abstract($items[2]);
 	  push @inputs, $tmp;
 	  push @outputs, $items[0];
-	  $idx = &query($items[0]);
-	  $idx = &query($tmp);
+	  push @var, $tmp;
+	  push @var, $items[0];
 	  next;
 	}
 	if($read_in =~ /NAND\(/){  # because 'NAND' contains 'AND', so take this first. Directly write poly
