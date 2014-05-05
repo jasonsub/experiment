@@ -11,13 +11,10 @@ int INDEG[MAX], node, edge;
 
 vector<int> TOPOLOGICAL_SORT(int [][MAX]);
 
-int main(void)
+int main(int argc, char *argv[])
 {
     int i;
-	char fname[10];
-	cout<<"Input file: ";
-	cin>>fname;
-	ifstream fin(fname);
+	ifstream fin(argv[1]);
     int adjMatrix[MAX][MAX];
     for(i=0; i<MAX; i++)
         for(int j=0; j<MAX; j++) {
@@ -37,8 +34,9 @@ int main(void)
 		fin>>vname[i];
 	}
     for(i=0; i<orderedList.size(); i++) {
-        cout << vname[orderedList[i]-1] << ends;
+        cout << vname[orderedList[i]-1] << ",";
     }
+	cout<<endl;
     return 0;
 }
 

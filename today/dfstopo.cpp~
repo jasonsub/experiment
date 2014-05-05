@@ -1,68 +1,66 @@
+#include <cstdio>
 #include <iostream>
 #include <fstream>
-#include <cstring>
+#include <algorithm>
+#include <vector>
 #include <queue>
+#define MAX 501
 using namespace std;
-const int maxn = 501;
-int n, m;
-int indegree[maxn], gragh[maxn][maxn], res[maxn];
-string vname[maxn];
 
-void topologic(void) {
-	queue <int> q;
-	int cnt = 0;
-	for (int i = 0; i < n; i++) {
-	cout<<indegree[i]<<endl;
-		if (indegree[i] == 0){
-			q.push(i);
-}
-}
-	while (!q.empty()) {
-		int tmp = q.front();
-		q.pop();
-		res[cnt++] = tmp;
-		for (int i = 0; i < n; i++){
-			if (gragh[tmp][i] != 0){
-				if (--indegree[i] == 0)
-					q.push(i);
-}
-}
-	}//while
-		cout<<cnt<<endl;
-		for (int i = 0; i < n; i++)
-//			cout<<vname[res[i]]<<",";
-			cout<<res[i]<<",";
-		cout<<endl;
+int INDEG[MAX], node, edge;
+
+vector<int> TOPOLOGICAL_SORT(int [][MAX]);
+
+int main(int argc, char *argv)
+{
+    int i;
+	ifstream fin(argv[1]);
+    int adjMatrix[MAX][MAX];
+    for(i=0; i<MAX; i++)
+        for(int j=0; j<MAX; j++) {
+            adjMatrix[i][j] = 0;
+            INDEG[i] = 0;
+        }
+    int M, N;
+    fin >> node >> edge;
+    for(int e=1; e<=edge; e++) {
+        fin >> M >> N;
+        adjMatrix[M][N] = 1;
+        INDEG[N]++;
+    }
+    vector<int> orderedList = TOPOLOGICAL_SORT(adjMatrix);
+	char vname[MAX][20];
+	for(i=0; i<node;i++){
+		fin>>vname[i];
+	}
+    for(i=0; i<orderedList.size(); i++) {
+        cout << vname[orderedList[i]-1] << ",";
+    }
+	cout<<endl;
+    return 0;
 }
 
-int main(int argc, char *argv[]) {
-		ifstream fin(argv[1]);
-		int n,m;
-		fin>>n>>m;
-		for(int i=0;i<n;i++){
-			for(int j=0;j<n;j++){
-				gragh[i][j]=0;
-}
-}
-		for(int i=0;i<n;i++){
-			indegree[i]=0;
-}
-		int a, b;
-		for (int i = 0; i < m; i++) {
-			fin>>a>>b;
-			gragh[a-1][b-1] = 1;
-			indegree[b-1]++;
-		}//for input
-		
-		for (int i=0;i<n;i++)
-		{
-			fin>>vname[i];
-		}
-//for (int i = 0; i < n; i++)
-//			cout<<vname[res[i]]<<",";
-	//		cout<<vname[i]<<",";
-	//	cout<<endl;
-	topologic();
-	fin.close();
-	return 0;
+vector<int> TOPOLOGICAL_SORT(int S[][MAX]) {
+
+    queue<int> Q;
+
+    for(int n=1; n<=node; n++) {
+        if(INDEG[n] == 0) Q.push(n);
+    }
+
+    vector<int> topoList;
+
+    while( !Q.empty()) {
+        int N = Q.front(); Q.pop();
+        topoList.push_back(N);
+        for(int M=1; M<=node; M++) {
+            if(S[N][M] == 1) {
+                INDEG[M]--;
+                if(INDEG[M] == 0) {
+                    Q.push(M);
+                }
+            }
+        }
+    }
+    return topoList;
 }
