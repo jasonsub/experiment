@@ -1,0 +1,14 @@
+ring rr = 2, X, lp;
+ int i;
+int m = 89;
+poly q = 1;
+poly p = 1 + X;
+poly r;
+for (i = 1; i < m; i = i+1)
+{
+	r = q;
+	q = p;
+	p = X*q+r;
+}
+short = 0;
+p;
