@@ -1,0 +1,310 @@
+LIB "teachstd.lib";
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly r,fi = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r);  // Note this is a little different return value, only the remainder!!!!!!
+}
+
+proc bigPoly_gen(ideal A_in, number beta, int n)
+{
+  int i =2;
+  poly f =  A + a0*beta;
+  while(n>1)
+  {
+	beta = beta^2;
+	f = f + A_in[i]*beta;
+	n = n-1;
+	i = i+1;
+  }
+  return (f);
+}
+
+proc bigPoly_sub(ideal A_in, ideal S, poly f, int n, poly w)
+{
+  int i;
+  f = subst(f,A,w);
+  for(i=1;i<=n;i=i+1)
+  {
+	f = subst(f,A_in[i],S[i]);
+  }
+  return (f);
+}
+
+proc bigNumPower(number c, int k)
+{
+  if(k==0)
+  {
+	return (c);
+  }
+  while(k>0)
+  {
+	c = c^2;
+	k=k-1;
+  }
+  return (c);
+}
+
+proc getpower(poly f, poly rs)
+{
+  int i = 0;
+  while (f/rs != 0)
+  {
+	i = i+1;
+	f = f/rs;
+  }
+  return (i);
+}
+
+proc power_spec(poly f, int k, int n)
+{
+  poly g=0;
+  number c;
+  poly t;
+  int ka;
+  int kb;
+  while(lead(f) != 0)
+  {
+	t = lead(f);
+	f = f-t;
+	ka = getpower(t,A);
+	kb = deg(t) - ka;
+	c = leadcoef(t);
+	t = bigNumPower(c,k-1);
+	ka = ((ka+k-2) mod n) + 1;
+	kb = ((kb+k-2) mod n) + 1;
+	t =t*A^ka*B^kb;
+	g = g+t;
+  }
+  return (g);
+}
+
+proc subst_spec(poly f, poly rs, poly w, int n)
+{
+  poly g=0;
+  number c;
+  poly t;
+  int outer_k;
+  while(lead(f) != 0)
+  {
+	t = lead(f);
+	f = f - t;
+	if(t/rs != 0)
+	{
+	  c = leadcoef(t);
+	  outer_k = deg(t);
+	  t = power_spec(w,outer_k,n);
+	  t = t*c;
+	}
+	g =g + t;
+  }
+  return (g);
+}
+
+proc conv_word(poly origin, poly last_poly, ideal red_A, ideal red_B, ideal red_r) /* last_poly is r + g(A,B) */
+{
+  int n = size(red_A);
+  int i;
+  for(i = 1; i <= n; i = i + 1)
+  {
+	origin = subst(origin, lead(red_A[i]), red_A[i] - lead(red_A[i]));
+	origin = subst(origin, lead(red_B[i]), red_B[i] - lead(red_B[i]));
+	origin = subst(origin, lead(red_r[i]), red_r[i] - lead(red_r[i]));
+  }
+  origin = subst_spec(origin, r, last_poly - r, n);
+  return(origin/leadcoef(origin));
+}
+
+proc preprocess(poly f0, ideal vec_A, ideal vec_B, ideal vec_r)
+{
+  int len = size(vec_A);
+  ideal result;
+  poly f1,f2;
+  f2 = f0;
+  int i = 1;
+  int j;
+  result[1] = f0/leadcoef(f0);
+  poly t;
+  poly temp;
+  number c;
+
+  for(i = 1; i < len; i= i+1)
+  {
+	f0 = f2;
+	f1 = 0;
+	while(lead(f0) != 0)
+	{
+	  t = lead(f0);
+	  f0 = f0 - t;
+	  c = leadcoef(t);
+	  temp = t/c;
+	  c = c*c;
+	  temp = temp*c;
+	  if(t/A != 0)
+	  {
+		temp = temp * A;
+	  }
+	  f1 = f1 + temp;
+	}
+	f2 = f1 + f2*leadcoef(f1)/leadcoef(f2);
+	result[i+1] = f2/leadcoef(f2);
+  }
+  
+  poly tobesub;
+
+  for(i = len; i > 1; i= i-1)
+  {
+	tobesub = lead(result[i]);
+	temp = result[i]-tobesub;
+	for(j = i-1; j >= 1; j = j - 1)
+	{
+	  result[j] = subst(result[j], tobesub, temp);
+	}
+  }
+  
+  ideal result_B = result;
+  ideal result_r = result;
+  for(i = 1; i <= len; i=i+1)
+  {
+	result_B[i] = result_B[i] - vec_A[i] + vec_B[i]; /* because only leadmonom is a single bit var */
+	result_r[i] = result_r[i] - vec_A[i] + vec_r[i];
+  }
+  result_B = subst(result_B, A, B);
+  result_r = subst(result_r, A, r);
+  
+  return (result,result_B,result_r);
+}
+
+proc findspoly(ideal J)
+{
+  ideal J0 = sort(J)[1];
+  poly f1 = J0[size(J)];
+  poly f2 = J0[size(J)-1];
+  poly sp = spoly(f1,f2);
+  poly rem;
+  rem = multidiv(sp,J);   /* This is where F4-reduction can be used */
+  return (rem/leadcoef(rem));
+}
+
+proc fastgb(poly r_in, ideal I0, ideal I1, ideal I2, ideal I3)
+{
+  poly spoly1 = findspoly(I0);
+  return (conv_word(spoly1, r_in, I1, I2, I3));
+}
+
+proc tran(ideal array_A, ideal array_B, poly r_in, number beta, ideal I1, ideal I2, ideal I3, poly bigpoly_A, poly bigpoly_B, poly bigpoly_r, poly bigpoly_R)
+{ 
+  ideal I = 
+/************************************************************/
+
+/* Stick part 1 here */
+
+/************************************************************/
+	bigpoly_A, bigpoly_B, bigpoly_r, bigpoly_R;
+	return (fastgb(r_in,I,I1,I2,I3));
+}
+
+proc arrayshift(ideal I, int s)
+{
+	ideal tmp;
+	for(int j = 1; j <= s; j = j+1)
+	{
+		tmp[j] = I[((j+s-2) mod s) + 1];
+	}
+	return (tmp);
+}
+
+ring rr = (2,X),(/*Stick ring var here! */),lp;
+minpoly = /* Stick minpoly here */;
+
+number beta = X;
+int bSize = 100; // Note this is the size!!!!!!!!!!!!!!!!!!!
+
+int i = 1;
+ideal from, to;
+
+
+/*************************************/
+
+/* Stick Word vectors here! */
+
+/*************************************/
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+poly f0 = bigPoly_gen(A_in, beta, bSize);
+
+poly f0_B = bigPoly_sub(A_in, B_in, f0, bSize, B);
+poly f0_r = bigPoly_sub(A_in, vec_r, f0, bSize, r);
+poly f0_R = bigPoly_sub(A_in, vec_R, f0, bSize, R);
+vec_R = arrayshift(vec_R,bSize);
+poly f0_R_last = bigPoly_sub(A_in, vec_R, f0, bSize, R);
+
+ideal I1,I2,I3;
+(I1,I2,I3) = preprocess(f0, A_in, B_in, vec_r);
+int t1 = timer-t0; // time in ms
+"Preprocess Done!";
+
+from[1] = r;
+for (i = 1; i < bSize; i= i+1)
+{
+	to[i+1] = tran(A_in, B_in, from[i], beta, I1, I2, I3, f0, f0_B, f0_r, f0_R);
+	"Calc Done! This is iteration No.",i;
+	A_in = arrayshift(A_in,bSize);
+	B_in = arrayshift(B_in,bSize);
+	"Shift Done!";
+	from[i+1] = subst(to[i+1],R,r);
+	"Subst Done!";
+}
+"I'm Out!";
+//from[5];
+to[i+1] = tran(A_in, B_in, from[i], beta, I1, I2, I3, f0, f0_B, f0_r, f0_R_last);
+"Final Calc Done!";
+to[i+1];
+
+int t2 = timer - t1;
+int tt= timer - t0;
+
+"Pre-time:",t1;
+"Loop-time:",t2;
+"Total time:",tt;
+
+string sfile = ":w "+string(bSize)+"bit.out";
+link l=sfile;
+string stmp1 = "Pre-time: "+string(t1)+"ms, Total time: "+string(tt)+"ms";
+string stmp2 = "Result = "+string(to[bSize+1]);
+write(l,stmp1);
+write(l,stmp2);
+close(l);
+

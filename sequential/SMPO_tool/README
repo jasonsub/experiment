@@ -1,0 +1,18 @@
+1. Figure out what type of ONB multiplier you want to build, revise the "# Define M " line to the size you want from according type onb dot cpp file;
+
+2. Run following compiling lines:
+
+(for type1) $ g++ -o type1.o type1onb.cpp
+(for type2) $ g++ -o type2.o t2onb.cpp
+
+3. Run the binary you get, it will give out 2 things: first, a n*n matrix which is corresponding M^0 matrix for multiplication; then, an array denote the column No. for each row where entry equal to 1. Generally for ONB, there are 2 nonzero entries per row, except the first row, where the non-existed nonzero entry is set to "-1"
+
+4. Open "33bit_or_more.pl", change the output file name, $size, and the qw array (copy & paste the printout array from last step, delete "-1" term)
+
+5. Run "./33bit_or_more.pl" and get an output file
+
+6. Open the output file and "template.sing" file, copy & paste corresponding contents from output file into template file as comments indicate, and change the "bSize"
+
+6*. Note: if you are writing type2 ONB, use "$ Singular minpoly_type2.sing" to compute minpoly, do not use the one from output file
+
+7. Save the template as another file name, run with Singular
