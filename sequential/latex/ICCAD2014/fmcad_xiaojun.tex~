@@ -170,6 +170,8 @@ University \vspace{-0.25in}
 %\input{abstraction}
 %\input{fglm}
 \input{theory}
+\input{experiment_fmcad}
+\input{appendix_fmcad}
 %%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliographystyle{ieee}
 %\bibliography{oldlogic,logic}

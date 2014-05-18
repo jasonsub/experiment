@@ -1,0 +1,50 @@
+\section{Experimental Results}
+\label{sec:result}
+Using our approach described above, we have performed experiments to verify SMPO circuits over $\Fkk$ with \textsc{Singular} symbolic algebra computation system [v. 3-1-6]\cite{Singular}. 
+Bugs are also introduced into SMPO designs for runtime comparison. To show the advantages of our approach, experiments using traditional methods such as SAT, 
+BDD are also conducted. Our experiments run on a desktop with 3.5GHz Intel $\text{Core}^\text{TM}$ i7 Quad-core CPU, 16 GB RAM and 64-bit Linux.
+
+\subsection{Evaluation of SAT/BDD based methods}
+For every SMPO design, there is an equation in following form (this is a 5-bit example):
+\begin{align}
+R_i &= b_ia_{i+1} + b_{i+1}(a_i + a_{i+3}) + b_{i+2}(a_{i+3} + a_{i+4}) \nonumber\\
+&+ b_{i+3}(a_{i+1} + a_{i+2}) + b_{i+4}
+(a_{i+2} + a_{i+4}),\ 0\leq i\leq 4 \nonumber
+\end{align}
+This equation can be used as specification of SMPO circuit. For SAT/BDD based methods,
+we first unroll our SMPO design, then create a \emph{miter} with the unrolled design and
+circuit specification to check if it is unsatisfiable.
+
+The SAT solver we use is \emph{Lingeling}\cite{Lingeling}. Single-output miter circuit is written
+in DIMACS CNF\cite{dimacs} format and fed to Lingeling. For BDD based approach, we use the BDD module integrated
+with VIS tool. The miter is described by a BLIF file and read by VIS\cite{VIS}. After BDD is built, if there is
+no path to leaf "1", then the miter is unsatisfiable.
+
+The runtime results given in seconds include experiments for 11, 18, 23, 33 and 50 bits unrolled SMPO
+and their specifications. They show that both SAT and BDD based approach 
+cannot verify SMPO beyond 33 bits.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|} 
+\hline
+& \multicolumn{5}{|c|}{Word size of the operands $k$-bits}  \\
+\hline
+Solver & 11 & 18 & 23 & 33 & 50\\
+\hline
+\hline
+Lingeling & 0.5  & 12.9  & 157.4 & 5931.2 & \emph{TO}\\
+\hline
+\hline
+BDD & 0.02 & 5.7 & 237.9 & ?? & \emph{TO} \\
+\hline
+\end{tabular}
+\caption{Runtime for verification of bug-free SMPO circuits over $\Fkk$ for SAT and BDD based methods. \emph{TO} = timeout of 4 hrs}\label{table:satbdd}  
+\end{table}
+
+\subsection{Evaluation of Our Approach}
+Our approach requires only one time reduction for each clock cycle using RATO. If we use built-in function in \textsc{Singular} to directly
+compute Gr\"obner basis, the high-degree word definition polynomial will exceed \textsc{Singular}'s capacity, even for 11 bits SMPO.
+
+We also introduce bugs to our SMPO designs; these bugs are simply swapping an arbitrary pair of gate output signals, they will make the final result be
+a far more complicated polynomial instead of $R+A\cdot B$, so the runtime will be slightly longer than bug-free one.
