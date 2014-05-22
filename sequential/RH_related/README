@@ -1,0 +1,27 @@
+This folder contains following features:
+
+1. "unroll.pl" is for building unrolled k-bit Angew/naive SMPO .blif file. Remember to change the size and idx list; idx list can be attained by compiling and running "t2onb.cpp" (delete "-1" in result), note: it only works for type 2 ONB.
+
+2. "CEC_spec.pl" is for building .blif file from the specification of normal basis multiplier (you can treat it as a normal basis Mastrovito/naive multiplier). 
+
+3. "RHmulti.pl" is for building unrolled k-bit RH multiplier (AESMPO) .blif file. Also need to change the size and idx list; comiple and run "multitable.cpp", note it only works for type 2 ONB (still need a proof: for any type 2 ONB M0 matrix is same with multiplication table). If you want to do with type 1 ONB, revise it based on "type1onb.cpp" from another SMPO tool, and of course you should change the last part to let it really counting entries from multiplication table. Note: for some extreme situation (I think mostly will occur when you use type 1 ONB), a XOR gate larger than 2 inputs in the XOR array is needed, please revise and add corresponding large XOR gates manually.
+
+4. "RHmulti_X.pl" builds another kind of unrolled RH multiplier (XESMPO). Note: this is an incomplete script bacause it will use some uninitiated signals (they should be 0). If you really want to use it, please revise it based on "RHmulti.pl".
+
+5. For SAT and BDD experiment, I build a big miter circuit (miter each bit output then a big OR gate), mitering unrolled Angew/naive SMPO and unrolled RH multiplier (also a kind of SMPO). For BDD, just use VIS and run
+vis> read_blif miter_Xbit.blif
+vis> flt (* means flatten_hierarchy *)
+vis> so  (* means static_order *)
+vis> time;part inout;time (* part means build_partition_mdds *)
+You can get the runtime building a (partitioned) BDD for the miter output.
+
+6. As above, for SAT (such as Lingeling) solver, use ABC tool to transform .blif file into DIMACS CNF. Run
+abc> read_blif miter_Xbit.blif
+abc> strash (* Convert to cnf requires strashed network *)
+abc> write_cnf miter_Xbit.cnf
+And use SAT for the cnf file, seeking UNSAT.
+
+7. For ABC use, run cec (combinational equivalence checking) in ABC for 2 .blif file generated from "unroll.pl" and "RHmulti.pl" above:
+abc> time;cec unroll_Xbit.blif RH_Xbit.blif;time
+
+8. "autogen_RHmulti.pl" is for building polynomials for RH multiplier (AESMPO), change the size before using, and note if the STD output gives you correct "v" ( should be |_ size/2 _| ). Copy and paste corresponding contents into "templateRH.sing". For type 2 ONB, use "minpoly_type2.sing" to generate minpoly.

@@ -1,14 +1,17 @@
 ring rr = 2, X, lp;
  int i;
-int m = 89;
+int m = 11; // change your size here
 poly q = 1;
 poly p = 1 + X;
 poly r;
 for (i = 1; i < m; i = i+1)
 {
-	r = q;
-	q = p;
-	p = X*q+r;
+r = q;
+q = p;
+p = X*q+r;
 }
 short = 0;
 p;
+
+//11bit:
+// X^11+X^10+X^8+X^4+X^3+X^2+1
