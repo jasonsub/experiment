@@ -4,15 +4,17 @@ use 5.014;
 use strict;
 use warnings;
 
-my $size = 11; # remember to change the size!!
-open CEC, ">", "unroll_$size"."bit.blif";
+my $size = 18; # change the size
+open CEC, ">", "unroll_$size"."bit.blif"; # change the filename
 
-my @idx = qw /1 0 8 6 8 4 5 3 9 3 7 2 9 5 10 1 2 4 6 7 10/;
+my @idx = qw /1 0 8 5 8 14 16 7 13 2 9 12 16 4 17 1 2 5 14 11 12 10 15 6 10 4 15 3 9 11 13 3 6 7 17/;
 my @array;
+
 foreach(1..$size)
-{ 
-  push @array, $_-1;
-}
+{ push @array, $_-1; }
+
+#my @idx = qw /1 0 3 3 4 1 2 2 4/;
+#my @array = qw /0 1 2 3 4/;
 my $tmp;
 my $i;
 print CEC ".model unrollckt\n.inputs ";
