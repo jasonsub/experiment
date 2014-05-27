@@ -3,7 +3,7 @@
 #include <cmath>
 using namespace std;
 
-#define M 105
+#define M 99
 
 bool onb(double a, double b)
 {
