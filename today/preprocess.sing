@@ -1,0 +1,321 @@
+LIB "teachstd.lib";
+LIB "general.lib";
+LIB "poly.lib";
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly r,fi = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r);  // Note this is a little different return value, only the remainder!!!!!!
+}
+
+proc conv_word(poly origin, poly last_poly, ideal red_A, ideal red_B, ideal red_r) /* last_poly is r + g(A,B) */
+{
+  int n = size(red_A);
+  int i;
+  ideal word_red = A^(2^n)+A, B^(2^n)+B; // Note: How to present large as 2^233 ??
+  for(i = 1; i <= n; i = i + 1)
+  {
+	origin = subst(origin, lead(red_A[i]), red_A[i] - lead(red_A[i]));
+	origin = subst(origin, lead(red_B[i]), red_B[i] - lead(red_B[i]));
+	origin = subst(origin, lead(red_r[i]), red_r[i] - lead(red_r[i]));
+  }
+  origin = subst(origin, r, last_poly - r);
+  origin = multidiv(origin,word_red); // Note: Any trick to reduce ultra high order Word-level terms ??
+  return(origin/leadcoef(origin));
+}
+
+proc preprocess(poly f0, ideal va, ideal vec_A, ideal vec_B, ideal vec_r)
+{
+  int len = size(vec_A);
+  ideal result;
+  poly f1,f2,f3;
+  f3 = f0;
+  int i = 1;
+  int j;
+  result[1] = f0/leadcoef(f0);
+
+  for(i = 1; i < len; i= i+1)
+  {
+	f0 = f3;
+	f1 = f0^2;
+	f2 = f1 + f0*leadcoef(f1)/leadcoef(f0);
+	f3 = multidiv(f2, va);
+//	f3;
+	result[i+1] = f3/leadcoef(f3);
+  }
+  poly temp;
+  poly tobesub;
+
+  for(i = len; i > 1; i= i-1)
+  {
+	tobesub = lead(result[i]);
+	temp = result[i]-tobesub;
+	for(j = i-1; j >= 1; j = j - 1)
+	{
+	  result[j] = subst(result[j], tobesub, temp);
+	}
+  }
+  
+  /* This need to be revise bitwise */
+  /*  ideal result_B = subst(result, a0, b0, a1, b1, a2, b2, a3, b3, a4, b4, A, B);
+  ideal result_r = subst(result, a0, r0, a1, r1, a2, r2, a3, r3, a4, r4, A, r);  */
+
+  ideal result_B = result;
+  ideal result_r = result;
+  for(i = 1; i <= len; i=i+1)
+  {
+	result_B = subst(result_B, vec_A[i], vec_B[i]);
+	result_r = subst(result_r, vec_A[i], vec_r[i]);
+  }
+  result_B = subst(result_B, A, B);
+  result_r = subst(result_r, A, r);
+  
+  return (result,result_B,result_r);
+}
+
+proc findspoly(ideal J)
+{
+  ideal J0 = sort(J)[1];
+  poly f1 = J0[size(J)];
+  poly f2 = J0[size(J)-1];
+  poly sp = spoly(f1,f2);
+  poly rem;
+  rem = multidiv(sp,J);
+  return (rem/leadcoef(rem));
+}
+
+proc fastgb(ideal I, ideal I0, ideal I1, ideal I2, ideal I3)
+{
+  poly spoly1 = findspoly(I0);
+  return (conv_word(spoly1, I[size(I)], I1, I2, I3));
+}
+
+proc tran(ideal array_A, ideal array_B, poly r_in)
+{ 
+  ideal I = array_A[2]+array_A[10]+c1,
+	array_A[9]+array_A[11]+c2,
+	array_A[8]+array_A[9]+c3,
+	array_A[8]+array_A[3]+c4,
+	array_A[9]+array_A[2]+c5,
+	array_A[9]+array_A[5]+c6,
+	array_A[2]+array_A[7]+c7,
+	array_A[10]+array_A[11]+c8,
+	array_A[3]+array_A[5]+c9,
+	array_A[7]+array_A[10]+c10,
+/***************************************************/
+	array_A[2]*array_B[1]+r10+R0,
+	c1*array_B[3]+r0+R1,
+	c2*array_B[5]+r1+R2,
+	c3*array_B[7]+r2+R3,
+	c4*array_B[9]+r3+R4,
+	c5*array_B[11]+r4+R5,
+	c6*array_B[2]+r5+R6,
+	c7*array_B[4]+r6+R7,
+	c8*array_B[6]+r7+R8,
+	c9*array_B[8]+r8+R9,
+	c10*array_B[10]+r9+R10,
+/***************************************************/
+	A+a0*X^293+a1*X^586+a2*X^1172+a3*X^297+a4*X^594+a5*X^1188+a6*X^329+a7*X^658+a8*X^1316+a9*X^585+a10*X^1170,
+B+b0*X^293+b1*X^586+b2*X^1172+b3*X^297+b4*X^594+b5*X^1188+b6*X^329+b7*X^658+b8*X^1316+b9*X^585+b10*X^1170,
+r+r0*X^293+r1*X^586+r2*X^1172+r3*X^297+r4*X^594+r5*X^1188+r6*X^329+r7*X^658+r8*X^1316+r9*X^585+r10*X^1170,
+R+R0*X^293+R1*X^586+R2*X^1172+R3*X^297+R4*X^594+R5*X^1188+R6*X^329+R7*X^658+R8*X^1316+R9*X^585+R10*X^1170,
+	a0^2+a0, b0^2+b0, r0^2+r0, R0^2+R0,
+	a1^2+a1, b1^2+b1, r1^2+r1, R1^2+R1,
+	a2^2+a2, b2^2+b2, r2^2+r2, R2^2+R2,
+	a3^2+a3, b3^2+b3, r3^2+r3, R3^2+R3,
+	a4^2+a4, b4^2+b4, r4^2+r4, R4^2+R4,
+	a5^2+a5, b5^2+b5, r5^2+r5, R5^2+R5,
+	a6^2+a6, b6^2+b6, r6^2+r6, R6^2+R6,
+	a7^2+a7, b7^2+b7, r7^2+r7, R7^2+R7,
+	a8^2+a8, b8^2+b8, r8^2+r8, R8^2+R8,
+	a9^2+a9, b9^2+b9, r9^2+r9, R9^2+R9,
+	a10^2+a10, b10^2+b10, r10^2+r10, R10^2+R10,
+	A^2048+A, B^2048+B, r^2048+r, R^2048+R,
+	r_in;
+	ideal I0 = array_A[2]+array_A[10]+c1,
+	array_A[9]+array_A[11]+c2,
+	array_A[8]+array_A[9]+c3,
+	array_A[8]+array_A[3]+c4,
+	array_A[9]+array_A[2]+c5,
+	array_A[9]+array_A[5]+c6,
+	array_A[2]+array_A[7]+c7,
+	array_A[10]+array_A[11]+c8,
+	array_A[3]+array_A[5]+c9,
+	array_A[7]+array_A[10]+c10,
+/***************************************************/
+	array_A[2]*array_B[1]+r10+R0,
+	c1*array_B[3]+r0+R1,
+	c2*array_B[5]+r1+R2,
+	c3*array_B[7]+r2+R3,
+	c4*array_B[9]+r3+R4,
+	c5*array_B[11]+r4+R5,
+	c6*array_B[2]+r5+R6,
+	c7*array_B[4]+r6+R7,
+	c8*array_B[6]+r7+R8,
+	c9*array_B[8]+r8+R9,
+	c10*array_B[10]+r9+R10,
+/***************************************************/
+	A+a0*X^293+a1*X^586+a2*X^1172+a3*X^297+a4*X^594+a5*X^1188+a6*X^329+a7*X^658+a8*X^1316+a9*X^585+a10*X^1170,
+B+b0*X^293+b1*X^586+b2*X^1172+b3*X^297+b4*X^594+b5*X^1188+b6*X^329+b7*X^658+b8*X^1316+b9*X^585+b10*X^1170,
+r+r0*X^293+r1*X^586+r2*X^1172+r3*X^297+r4*X^594+r5*X^1188+r6*X^329+r7*X^658+r8*X^1316+r9*X^585+r10*X^1170,
+R+R0*X^293+R1*X^586+R2*X^1172+R3*X^297+R4*X^594+R5*X^1188+R6*X^329+R7*X^658+R8*X^1316+R9*X^585+R10*X^1170;
+	return (fastgb(I,I0,I1,I2,I3));
+}
+
+proc anotran(ideal array_A, ideal array_B, poly r_in)
+{ 
+  ideal I = array_A[2]+array_A[10]+c1,
+	array_A[9]+array_A[11]+c2,
+	array_A[8]+array_A[9]+c3,
+	array_A[8]+array_A[3]+c4,
+	array_A[9]+array_A[2]+c5,
+	array_A[9]+array_A[5]+c6,
+	array_A[2]+array_A[7]+c7,
+	array_A[10]+array_A[11]+c8,
+	array_A[3]+array_A[5]+c9,
+	array_A[7]+array_A[10]+c10,
+/***************************************************/
+	array_A[2]*array_B[1]+r10+R0,
+	c1*array_B[3]+r0+R1,
+	c2*array_B[5]+r1+R2,
+	c3*array_B[7]+r2+R3,
+	c4*array_B[9]+r3+R4,
+	c5*array_B[11]+r4+R5,
+	c6*array_B[2]+r5+R6,
+	c7*array_B[4]+r6+R7,
+	c8*array_B[6]+r7+R8,
+	c9*array_B[8]+r8+R9,
+	c10*array_B[10]+r9+R10,
+/***************************************************/
+	A+a0*X^293+a1*X^586+a2*X^1172+a3*X^297+a4*X^594+a5*X^1188+a6*X^329+a7*X^658+a8*X^1316+a9*X^585+a10*X^1170,
+B+b0*X^293+b1*X^586+b2*X^1172+b3*X^297+b4*X^594+b5*X^1188+b6*X^329+b7*X^658+b8*X^1316+b9*X^585+b10*X^1170,
+r+r0*X^293+r1*X^586+r2*X^1172+r3*X^297+r4*X^594+r5*X^1188+r6*X^329+r7*X^658+r8*X^1316+r9*X^585+r10*X^1170,
+R+R10*X^293+R0*X^586+R1*X^1172+R2*X^297+R3*X^594+R4*X^1188+R5*X^329+R6*X^658+R7*X^1316+R8*X^585+R9*X^1170,
+	a0^2+a0, b0^2+b0, r0^2+r0, R0^2+R0,
+	a1^2+a1, b1^2+b1, r1^2+r1, R1^2+R1,
+	a2^2+a2, b2^2+b2, r2^2+r2, R2^2+R2,
+	a3^2+a3, b3^2+b3, r3^2+r3, R3^2+R3,
+	a4^2+a4, b4^2+b4, r4^2+r4, R4^2+R4,
+	a5^2+a5, b5^2+b5, r5^2+r5, R5^2+R5,
+	a6^2+a6, b6^2+b6, r6^2+r6, R6^2+R6,
+	a7^2+a7, b7^2+b7, r7^2+r7, R7^2+R7,
+	a8^2+a8, b8^2+b8, r8^2+r8, R8^2+R8,
+	a9^2+a9, b9^2+b9, r9^2+r9, R9^2+R9,
+	a10^2+a10, b10^2+b10, r10^2+r10, R10^2+R10,
+	A^2048+A, B^2048+B, r^2048+r, R^2048+R,
+	r_in;
+	ideal I0 = array_A[2]+array_A[10]+c1,
+	array_A[9]+array_A[11]+c2,
+	array_A[8]+array_A[9]+c3,
+	array_A[8]+array_A[3]+c4,
+	array_A[9]+array_A[2]+c5,
+	array_A[9]+array_A[5]+c6,
+	array_A[2]+array_A[7]+c7,
+	array_A[10]+array_A[11]+c8,
+	array_A[3]+array_A[5]+c9,
+	array_A[7]+array_A[10]+c10,
+/***************************************************/
+	array_A[2]*array_B[1]+r10+R0,
+	c1*array_B[3]+r0+R1,
+	c2*array_B[5]+r1+R2,
+	c3*array_B[7]+r2+R3,
+	c4*array_B[9]+r3+R4,
+	c5*array_B[11]+r4+R5,
+	c6*array_B[2]+r5+R6,
+	c7*array_B[4]+r6+R7,
+	c8*array_B[6]+r7+R8,
+	c9*array_B[8]+r8+R9,
+	c10*array_B[10]+r9+R10,
+/***************************************************/
+	A+a0*X^293+a1*X^586+a2*X^1172+a3*X^297+a4*X^594+a5*X^1188+a6*X^329+a7*X^658+a8*X^1316+a9*X^585+a10*X^1170,
+B+b0*X^293+b1*X^586+b2*X^1172+b3*X^297+b4*X^594+b5*X^1188+b6*X^329+b7*X^658+b8*X^1316+b9*X^585+b10*X^1170,
+r+r0*X^293+r1*X^586+r2*X^1172+r3*X^297+r4*X^594+r5*X^1188+r6*X^329+r7*X^658+r8*X^1316+r9*X^585+r10*X^1170,
+R+R10*X^293+R0*X^586+R1*X^1172+R2*X^297+R3*X^594+R4*X^1188+R5*X^329+R6*X^658+R7*X^1316+R8*X^585+R9*X^1170;
+	return (fastgb(I,I0,I1,I2,I3));
+}
+
+proc arrayshift(ideal I)
+{
+	ideal tmp;
+	for(int j = 1; j <= 11; j = j+1)
+	{
+		tmp[j] = I[((j+9) mod 11) + 1];
+	}
+	return (tmp);
+}
+
+ring rr = (2,X), (R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,r0,r1,r2,r3,r4,r5,r6,r7,r8,r9,r10,c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b10,a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,R,r,A,B), lp;
+minpoly = X^11 + X^7 + X^3 + X^2 + 1;
+
+int i = 1;
+ideal from, to;
+ideal A_in = a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10;
+ideal B_in = b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, b10;
+ideal vec_r = r0, r1, r2, r3, r4, r5, r6, r7, r8, r9, r10;
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+poly f0 = a0*X^293+a1*X^586+a2*X^1172+a3*X^297+a4*X^594+a5*X^1188+a6*X^329+a7*X^658+a8*X^1316+a9*X^585+a10*X^1170+A;
+ideal va = a0^2+a0, a1^2+a1, a2^2+a2, a3^2+a3, a4^2+a4, a5^2+a5, a6^2+a6, a7^2+a7, a8^2+a8, a9^2+a9, a10^2+a10, A^2048+A;
+ideal I1,I2,I3;
+(I1,I2,I3) = preprocess(f0, va, A_in, B_in, vec_r);
+int t1 = timer-t0; // time in ms
+
+
+from[1] = r;
+for (i = 1; i <= 10; i= i+1)
+{
+	to[i+1] = tran(A_in, B_in, from[i], I1, I2, I3);
+	"Calc Done!";
+	A_in = arrayshift(A_in);
+	B_in = arrayshift(B_in);
+	"Shift Done!";
+	from[i+1] = subst(to[i+1],R,r);
+	"Subst Done!";
+}
+"I'm Out!";
+//from[5];
+to[12] = anotran(A_in, B_in, from[11], I1, I2, I3);
+"Final Calc Done!";
+to[12];
+
+int t2 = timer - t1;
+int tt= timer - t0;
+
+"Pre-time:";
+t1;
+"Loop-time:";
+t2;
+"Total time:";
+tt;

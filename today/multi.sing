@@ -1,0 +1,82 @@
+LIB "teachstd.lib";
+
+proc nor3(poly n1, poly n2, poly n3)
+{
+    poly tmp = n1+n2+n1*n2;
+    poly tmp2 = tmp+n3+tmp*n3;
+    return (1+tmp2);
+}
+
+proc relative_prime(ideal I) // need sorting first
+{
+  int i;
+  for(i=2; i<= size(I); i=i+1)
+  {
+    if(gcd(lead(I[i-1]),lead(I[i])) != 1)
+    {
+	"Repeating: Poly #",i-1,": ",I[i-1]," AND ",I[i];
+    }
+  }
+}
+
+ring rr = (2,X), (t0, t1, g0, p0, g1, p1, s0, s1, T, S, x), lp;
+minpoly = X^2 + X + 1;
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+ideal I = g0 + nor3(x,s0,s1), p0+s0*s1, g1+(1+s0)*x, p1+s0*(1+s1),
+	    t0+g0+p0+g0*p0, t1+g1+p1+g1*p1,
+	    T+t0+t1*X, S+s0+s1*X, /* no need to specify initial */
+	    t0^2+t0, t1^2+t1, g0^2+g0, p0^2+p0, g1^2+g1, p1^2+p1,
+	    T^4+T, x^2+x, s0^2+s0, s1^2+s1;
+	    
+ideal Ip = g0 + nor3(x,s0,s1), p0+s0*s1, g1+(1+s0)*x, p1+s0*(1+s1),
+	    t0+g0+p0+g0*p0, t1+g1+p1+g1*p1, T+t0+t1*X, S+s0+s1*X;
+	    
+poly f = spoly(Ip[5],Ip[7]);
+f = reduce(f,I);
+f = subst(f, s1, S^2+S);
+f;
+int t1 = timer-t0; // time in ms
+/* f is the transition function: f(S,x) */
+ideal U = x^2+x, T^4+T;
+ideal from; /* ideal: current state */
+from = S+1+X, x^2+x; /* initial state "11" */
+ideal to;
+to = subst(from,S,T);
+ideal new;
+ideal reached = to;
+ideal reached_bar;
+int i = 1;
+while(1){
+i=i+1;
+to = slimgb(from+f);
+to = sort(to)[1];
+"iteration ", i-1;
+to;
+ideal tmp = to[1], to[3];
+to = tmp;
+reached_bar = quotient(U,reached);
+reached_bar;
+new = slimgb(to+reached_bar);
+new = sort(new)[1];
+new;
+if(new[1] == 1) {
+//new[1] = va[1];
+//reached = slimgb(reached*new);
+break;} /* assumption: correct "new" should contain only 2 polys, first is x^2+x, second is T+f(x) */
+
+reached = slimgb(reached*new);
+from = subst(new,T,S);
+}
+int t2 = timer - t1;
+int tt= timer - t0;
+
+"Pre-time:";
+t1;
+"Loop-time:";
+t2;
+"Total time:";
+tt;
