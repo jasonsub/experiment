@@ -1,0 +1,45 @@
+\documentclass[12pt,letterpaper]{article}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd}
+\usepackage{fullpage}
+\usepackage{fancyhdr}
+\usepackage{cases}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=1cm,bottom=2cm}
+\pagestyle{fancyplain}
+\headheight 15pt
+%\lhead{Xiaojun Sun\ (u0741290)}
+%\chead{\textbf{\Large Homework \asgnname}}
+%\rhead{\today}
+%\headsep 10pt
+
+\begin{document}
+
+\title{Conjecture on multivariate generator ideals' quotient}
+\author{Xiaojun Sun}
+\maketitle
+
+\section{Problem Description}
+From Prof. Enescu's last write-up, our conjecture on univariate generator ideals' quotient has been
+proved. Let $K = \mathbb F_q$, where $q=p^e$, $p$ is a prime number. We have:\par
+\indent \\
+\textbf{Lemma}\ \ Let $f,g\in K[x]$, then $(f:g) = (\frac{f}{gcd(f,g)})$.\par
+\indent \\
+\textbf{Proposition}\ \ Let $J$ be an ideal of $K[x]$ and $J_0 = (x^q - x)$. Then
+$$V_K(J_0:J) = V_K(J_0)\setminus V_K(J).$$
+\indent \par
+Note above assertions dealt with ideals $J_0, J$ with only 1 generator and this generator is limited
+to univariate polynomial about $x$. 
+Now we would like to extend this conjecture on ideals with multivariate polynomial generators. Of course
+those generators must be written in specific form. Here we give an example, which covers
+typical requirement for our verification theory.\par
+\indent\\
+\textbf{Conjecture}\ \  Assume we have 3 ring variables $x,y,z$, and an ideal $J$ composed by 3 generators:
+$J = \langle f, v_x, v_y\rangle$. Here $f$ has the form $f= z+\mathcal F(x,y)$, where $\mathcal F$
+is a 2-argument function, for example $f = z+(x^2y+xy^2)$. And $v_x, v_y$ are "vanishing polynomials" about
+$x, y$: $v_x = x^q - x, v_y = y^q - y$. Now we have another generator serving as "universal set"
+$J_0 = \langle v_z, v_x, v_y\rangle$, $v_z = z^q - z$. (If necessary, $J$ can also include $v_z$ as 4th generator)
+We conjecture that
+$$V_K(J_0:J) = V_K(J_0)\setminus V_K(J).$$
+And we believe this conjecture is scalable such that it is also valid for situation 
+$J = \langle f, v_x,v_y,v_u,v_w\rangle$, $f = z + \mathcal F (x,y,u,w)$.
+\end{document}
