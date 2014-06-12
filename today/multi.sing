@@ -40,35 +40,41 @@ ideal Ip = g0+nor3(x,s0,s1), p0+s0*s1, g1+(1+s0)*x, p1+s0*(1+s1),
 poly f = spoly(Ip[5],Ip[7]);
 f = reduce(f,I);
 f = subst(f, s1, S^2+S);
+/* f is the transition function: f(S,x) */
 
 int time1 = timer-time0; /* time in ms */
-/* f is the transition function: f(S,x) */
-ideal U = x^2+x, T^4+T;
+
+ideal U = x^2+x, T^4+T; /* Universal set */
 ideal from; /* ideal: current state */
 from = S+1+X, x^2+x; /* initial state "11" */
 ideal to; /* ideal: next state */
-to = subst(from,S,T);
+
 ideal new;
-ideal reached = to; /* init "reached" */
+ideal reached = subst(from,S,T); /* init "reached" */
 ideal reached_bar;
 int i = 1;
 while(1){
 i=i+1;
+/* Following part is line 4 in algorithm */
 to = slimgb(from+f);
 to = sort(to)[1];
 "iteration ", i-1;
-to;
 ideal tmp = to[1], to[3];
 to = tmp;
+to;
+/* Line 5 */
 reached_bar = quotient(U,reached);
 reached_bar;
+/* Line 6 */
 new = slimgb(to+reached_bar);
 new = sort(new)[1];
 new;
+/* Termination branch */
 if(new[1] == 1) {
-break;} /* assumption: correct "new" should contain only 2 polys, first is x^2+x, second is T+f(x) */
-
+break;} /* This means "new" is empty */
+/* Line 7 */
 reached = slimgb(reached*new);
+/* Line 8 */
 from = subst(new,T,S);
 }
 "final reached states:";
