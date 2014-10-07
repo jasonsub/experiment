@@ -33,7 +33,7 @@ proc va(poly f) // reduce higher degree of word-level variable
 	return (g);
 }
 
-ring rr = (2,X), (G17, G10, G13, G11, G2, G9, G5, G15, G16, G12, G8, G3, G1, G7, G14, G6, G0, T, S, PI), lp;
+ring rr = (2,X), (G17, G10, G13, G11, G2, G9, G5, G15, G16, G12, G8, G3, G1, G7, G14, G6, G0, PI, S, T), lp;
 minpoly = X^3 + X + 1;
 
 poly cs = S; // "Current State" in first iteration, actually initial state
@@ -51,7 +51,7 @@ while(1)
 	"Next State(s): ",to[i];
 	new[i] = va(to[i]+cmp(reached));
 	"Newly reached states: ",new[i];
-	if (va(new[i]) == 1)
+	if ((va(new[i]) == 1) or (i>5))
 	{
 		"*************** TERMINATE! ***************";
 		break;
