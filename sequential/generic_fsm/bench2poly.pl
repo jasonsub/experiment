@@ -4,8 +4,8 @@ use 5.014;
 use strict;
 use warnings;
 
-open POLY, ">", "news953.sing";  # change the name
-open TOPO, ">", "g953";
+open POLY, ">", "news27.sing";  # change the name
+open TOPO, ">", "s27.graph";
 #open RED, ">", "reduce953.singular";
 my $cnt = 0;
 

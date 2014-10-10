@@ -1,0 +1,28 @@
+Implicit state enumeration based on word-level BFS traversal tools
+
+1. You have a ".bench" file, use
+> ./bench2poly.pl XXX.bench
+to get a ".sing" output file and a ".graph" output file
+modify the output filename if you want
+
+NOTE: ".bench" only have AND/NAND/OR/NOR/NOT gates, and my script needs to be modified if you want to deal with a (N)OR gate with >5 fanins
+
+2. Modify the ".graph" file as instruction, count and add line # (edge #) and move to first line, run
+> ./revtopo.o XXX.graph
+there should be stdoutput showing reverse topological ordered variables. Copy and paste to ".sing" file as term order
+
+3. Modify the term order. If using RATO, search all Primary Inputs and move them to the end, add word-level O/I in the middle. If using ATO, just add word I/O at the end.
+
+4. Add minpoly, copy or2/relative_prime function etc from "template.sing", compute spoly, write spoly and ideal polys to XXX.reduce
+
+5. Following "template.reduce" to add var in RATO, word var list, etc. 
+Cd to f4reduce directory and use
+> ./cav XXX.reduce
+check the output remainder.
+
+6. Copy and paste remainder to "preprocess.sing", modify corresponding term order, minpoly etc.
+Compute one-step transition.
+
+7. If succeed, modify fsm_s27.sing correspondingly to finish the experiment. (NOT YET SUCCEEDED ;( )
+
+*. "multi.sing" is multivariate polynomial ideal quotient on FSM example, "conjecture.tex" is corresponding theory.
