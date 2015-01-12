@@ -1,0 +1,24 @@
+LIB "teachstd.lib";
+
+ring rr = (2,X), (t0, t1, t2, t3, p0, p1, T, P), lp;
+minpoly = X4+X+1;
+
+poly ft = T+t0+t1*X+t2*X^2+t3*X^3;
+poly fp = P+p0+p1*X^5;
+poly vp = P^4+P;
+int a,b,c,d;
+poly tmp;
+poly tk;
+for(a=0;a<=1;a=a+1){
+  for(b=0;b<=1;b=b+1){
+	for(c=0;c<=1;c=c+1){
+	  for(d=0;d<=1;d=d+1){
+		tmp = a+b*X+c*X^2+d*X^3;
+		tk = subst(vp,P,tmp);
+		if(tk == 0){
+		  tmp;
+		}
+	  }
+	}
+  }
+}

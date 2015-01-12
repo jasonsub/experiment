@@ -1,0 +1,18 @@
+LIB "teachstd.lib";
+
+ring rr = (2,X), (S,x,T),lp;
+minpoly = X^2+X+1;
+
+poly f=T+S^3*x+(X)*S^3+(X+1)*S^2*x+S^2+S*x+(X+1)*x+1;
+poly vx = x^2+x;
+poly ps = S+1+X;  /* Init state */
+int i = 0;
+ideal from = ps;
+ideal to = 0;
+ideal tmp = 0;
+poly reached = subst(ps,S,T);
+poly reached_not;
+// while(1)
+// {
+// 	i=i+1;
+// 	to[i] = subst(f,S,from[i]-S);
