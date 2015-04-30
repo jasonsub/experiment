@@ -1,0 +1,51 @@
+//ready to test the minimality of a core
+
+ring r = (2),(a,b,c,d),Dp;
+
+proc checkSat( ideal J)
+{
+    ideal J0 = a^2+a,b^2+b,c^2+c,d^2+d;
+    ideal Result = slimgb(J+J0);
+    // UNSAT if 1 in gb. If so, 1 will be the first and only element
+    if(Result[1]==1)
+    {
+        "UNSAT";
+    }
+    else
+    {
+        "SAT";
+    }
+}
+
+poly f1 = abc+ab+ac+bc+a+b+c+1;
+poly f2 = b;
+poly f3 = ac;
+poly f4 = ac+a;
+poly f5 = bc+c;
+poly f6 = abd+ad+bd+d;
+poly f7 = cd;
+poly f8 = abd+ab+ad+bd+a+b+d+1;
+poly f9 = abd+ab+bd+b;
+// All polys unsat
+ideal I = 
+//f1,
+f2,
+f3,
+f4,
+//f5,
+f6,
+//f7,
+f8;
+//f9;
+checkSat(I);
+
+
+// Now remove any other poly and will get sat
+int i;
+ideal J;
+for(i = 1; i <= size(I); i++)
+{
+    J = I;
+    J[i]=0; // Effectively remove the ith element
+    checkSat(J);
+}

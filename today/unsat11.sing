@@ -59,9 +59,8 @@ proc multidiv_q(poly f, ideal I)
 {
 	poly p = f;
 	poly fi,r = 0,0;
-	ideal J;
+	list J = 0;
 	int s = size(I);
-	J[s] = 0;
 	int i, divmark;
 	while (lead(p) != 0)
 	{
@@ -72,7 +71,7 @@ proc multidiv_q(poly f, ideal I)
 			fi = I[i];
 			if(lead(p)/lead(fi) != 0)
 			{
-				J[i] = J[i] + lead(p)/lead(fi);
+				J = insert(J, i, size(J));
 				p = p - lead(p)/lead(fi)*fi;
 				divmark = 1;
 			}
@@ -87,56 +86,66 @@ proc multidiv_q(poly f, ideal I)
 			p = p - lead(p);
 		}
 	}
-	return (r,J);
+	if(lead(r) == 0) {"Error!!";}
+	return (J);
 }
 
-proc myGB(ideal F)
+proc redundancy(poly r, ideal G)
+{
+	int s = size(G);
+	int i;
+	if(lead(r) == 0) {return (0);} // Also need to eliminate 0 remainder
+	for(i = 1; i<= s; i=i+1)
+	{
+		if(r == G[i])
+		{return (0);}
+	}
+	return (1);
+}
+
+proc myGB(ideal F, ideal J0)
 {
 	ideal G = F;
-	ideal G0;
 	int s = size(F);
-	int i;
+	int i, judge;
 	int j;
-	int jj = 2;
-	int jz = 2;
-	int n = s;
-	poly r;
-
-	while(1)
+	list l;
+	poly r,sp;
+	intvec p,v;
+	for(i = 1; i < s; i=i+1)
 	{
-		G0 = G;
-		n = size(G0);
-//		"n=",n;
-//		"jj=",jj;
-//		if(jj>n) {"Error!";}
-		jj = jz;
-		for (i=1; i<n; i=i+1)
+		for(j = i+1; j <= s; j=j+1)
 		{
-		  if(i > (jz - 1))
-		  {jj = i + 1;}
-			for (j=jj; j<=n; j=j+1)
-			{/* maybe should detect if i>j? */
-//			  if(i >= j) {continue;}
-//			  "report: (",i,",",j,")";
-				r = my_spoly(G0[i], G0[j]);
-				r = multidiv(r, G0);
-				if (lead(r) != 0)
-				{
-					if(lead(r) == 1) {"Void!!!",s+1," from pair (",i,",",j,")";
-					  "remainder =",r,", poly ",i," is",G0[i]," poly",j,"is ",G0[j];
-					}
-					else {"Add new",s+1," from pair (",i,",",j,")";}
-					s = s+1;
-					G[s] = r;
-				}
-			}
-		}
-		jz = n+1;
-		if (size(G) == size(G0))
-		{
-			return (G);
+			p = i,j;
+			l = insert(l,p,size(l));
 		}
 	}
+	while(size(l))
+	{
+		v = l[1];
+		l = delete(l,1);
+		sp = my_spoly(G[v[1]],G[v[2]]);
+//		sp;
+		r = multidiv(sp, G+J0);
+		judge = redundancy(r, G);
+		if (judge)
+		{
+			s = s+1;
+			G[s] = r;
+			if(lead(r) == 1) {"Void!!! from pair (",v[1],",",v[2],")";
+				"Spoly =",sp;
+				return (G);
+			}
+			else {"Add new",s," from pair (",v[1],",",v[2],")";}
+			for(i = 1; i < s; i=i+1)
+			{
+				p = i,s;
+				l = insert(l,p,size(l));
+			}
+		}
+	}
+	"Error! Given set is NOT UNSAT!!";
+	return (G);
 }
 
 proc miniGB(ideal G0)
@@ -165,49 +174,29 @@ proc miniGB(ideal G0)
 	return (G);
 }
 
-proc myRGB(ideal G0)
-{
-	int s = size(G0);
-	poly h0;
-	ideal q0,H;
-	for (int i = 1; i <= s; i = i + 1)
-	{
-		ideal F = G0;
-		F[i] = 0;
-		H = sort(F)[1];
-		h0,q0 = multidiv(G0[i],H);
-		G0[i] = h0;
-	}
-	return (G0);
-}
 
-proc noduplicate(ideal I)
-{
-	int i;
-	int s = size(I);
-	ideal J;
-	int j = 2;
-	I = sort(I)[1];
-	J[1] = I[1];
-	for(i=2;i<=s;i=i+1)
-	{
-		if(I[i] != I[i-1])
-		{J[j] = I[i]; j=j+1;}
-	}
-	return (J);
-}
+ring Q = 2, (a,b,c,d,e), Dp;
+/* I means original poly order */
+ideal I = 
+1+or3(a,b,c),
+b,
+1+or2(1+a,1+c),
+1+or2(1+a,c),
+1+or2(b,1+c),
+1+or3(a,b,1+d),
+1+or2(1+c,1+d),
+1+or3(a,b,d),
+1+or3(a,1+b,d);
 
-ring Q = 2, (x,b,y,a,z), lp;
-ideal f = 1+or2(x,y),  1+or3(a,x,(1+z)), 1+or2((1+a),(1+b)), 1+or2(a,b), 1+or2((1+a),b), 1+or2(a,(1+b)), 1+or2(y,z), 1+or2(b,(1+y));
-ideal va = a2+a, b2+b, x2+x, y2+y, z2+z;
-//ideal f = x2y - y+x, xy2-x;
-ideal G0 = myGB(f);
+ideal F = I[1],I[2],I[4],I[5],I[8],I[6],I[3],I[7],I[9];
+
+ideal J0 = a2+a,b2+b,c2+c,d2+d,e2+e;
+
+ideal G0 = myGB(F,J0);
 ideal mG = miniGB(G0);
-//ideal G = myRGB(mG);
+
 "Groebner Basis:";
 G0;
 "Minimum Groebner Basis:";
 mG;
-//"Reduced Groebner Basis:";
-//G;
-quit;
+//quit;
