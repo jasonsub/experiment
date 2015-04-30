@@ -1,0 +1,11 @@
+1. Change polys (and order of polys) accordingly in "template.sing" then run;
+
+2. Output file "co.dat" will be fed to script "GB2newick.pl". Feel free to add any comments in "co.dat" with line header "c". Details of format refer to the script;
+
+3. Change output filename then run the script. The output should be ".nh" file, i.e. a line of string denoting a newick tree;
+
+4. Edit and run "draw.py" to get a PNG file output.
+
+*. Read "counterexample.pdf" to understand what I am doing here. Source file can be found under "techwriting/UNSAT-CORE"
+
+**. "minimal_test.sing" can test if a core (in poly, of course) is minimal or not.
