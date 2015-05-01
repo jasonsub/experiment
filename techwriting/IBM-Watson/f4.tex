@@ -1,0 +1,343 @@
+\section{Improving Polynomial Division using $F4$-style Reduction}
+\label{sec:f4}
+
+The most intensive computational step in our approach is that of
+polynomial division $f \stackrel{F,F_0^{PI}}{\longrightarrow}_+
+r$. When the circuit $C$ is very large, the polynomial set
+$\{F, F_0^{PI}\}$ also becomes extremely large. This division
+procedure then becomes the bottleneck in verifying the equivalence.  
+In principle, this reduction can be performed using contemporary
+computer-algebra systems --- {\it e.g.},  the {\sc Singular}
+\cite{DGPS} tool, which is widely used within the verification
+community \cite{wienand:cav08} \cite{wedler:date11}
+\cite{lv:date2012}. In our work, we have also performed experiments 
+with {\sc Singular}. However, as in any ``general-purpose''
+computer algebra tool, the data-structures are not specifically
+optimized for circuit verification problems. Moreover, {\sc
+  Singular} also limits the number of variables ($d$) that it can
+accommodate in the system to $d < 32767$; this limits its
+application to large circuits. Therefore, to further improve our
+approach, we exploit the relatively recent concept of $F4$-style
+polynomial reduction \cite{f4} --- which implements polynomial division
+using row-reductions on a matrix --- to develop a custom
+verification tool to perform this Gr\"obner basis reduction
+efficiently.   
+
+$Faug\grave{e}re$'s $F4$ approach \cite{f4} presents a new algorithm to
+compute a Gr\"obner basis. It uses the same mathematical principles as
+Buchberger's algorithm. However, instead of computing and reducing one 
+$S$-polynomial at a time, it computes many $S$-polynomials in one
+step and reduces them simultaneously using sparse linear algebra on a
+matrix (triangulation). In our formulation, since we already have a
+Gr\"obner basis, no S-polynomials are computed. We only need to
+perform the subsequent Gr\"obner basis reduction, for which the $F4$
+technique can be very efficient.  We now show how our reduction problem
+$f\stackrel{F,F_0^{PI}}{\longrightarrow}_+r$ can be represented and
+solved on a matrix. 
+%, based on an $F4$-style approach. 
+First, let us consider the following example that demonstrates the
+main concepts behind the reduction approach of $F4$. 
+
+\begin{Example}
+{\it
+Consider the {\it lex} term order with $x>y>z$ on the ring
+${\mathbb{Q}}[x, y, z]$.  Given $F = \{f_1 = 2x^2 + y, f_2 = 3xy^2
+-xy, f_3 = 4y^3 -1\}$, consider one step of Buchberger's algorithm:
+$S(f_1, f_2) \xrightarrow{f_1, f_2, f_3}_+r$. We have, $Spoly(f_1,
+f_2) = \frac{1}{3}x^2y + \frac{1}{2}y^3 = f_4$. The reduction
+$Spoly(f_1, f_2)\stackrel{f_1, f_2, f_3}{\longrightarrow}_+
+(-\frac{1}{6}y^2 + \frac{1}{8})$ is done as follows: 
+Since $lt(f_1) ~|~ lt(f_4), ~f_4 \xrightarrow{f_1} h$ is computed as:
+\[
+h = f_4 - {{lt(f_4)} \over {lt(f_1)}} f_1 = f_4 - \frac{1}{6}y f_1 =
+\frac{1}{2}y^3 - \frac{1}{6}y^2; 
+\]
+Now $lt(f_2)$ does not divide any term in $h$, but $lt(f_3) ~|~ lt(h)$,
+so $f \xrightarrow{f_3} r$:
+\[
+r = h - {{lt(h)} \over {lt(f_3)}} f_3 =  \frac{1}{2}y^3 - \frac{1}{6}y^2 -
+\frac{1}{8}f_3 = -\frac{1}{6}y^2 + \frac{1}{8} 
+\]
+
+This reduction procedure can also be simulated on a matrix using
+Gaussian elimination. 
+%Matrix triangulation can also be used for this purpose. 
+The reduction above requires the computation of $\frac{1}{6}y f_1$ and 
+$\frac{1}{8}f_3$. Ignoring the coefficients $\frac{1}{6},
+\frac{1}{8}$, 
+we can generate all the monomials  required in the reduction process: 
+i.e.  monomials of $f_4, yf_1, f_3$, and setup the problem of
+cancellation of terms as Gaussian elimination on a matrix. Monomials
+of $f_4, yf_1, f_3$ are, respectively, $\{x^2y, y^3\}, \{x^2y, y^2\}, \{y^3, 1\}$.
+Let the rows of a matrix $M$ correspond to polynomials $\left[ f_4,
+  yf_1, f_3   \right]$, and columns correspond to all the monomials
+(in {\it lex} order) $\left[x^2y, y^3, y^2,  1 \right]$. Then the
+matrix $M$ shows the representation of these polynomials where
+the entry $M(i, j)$ is the coefficient of monomial of column $j$
+present in the polynomial of row $i$.
+
+\[
+%% M = \begin{pmatrix*}[l]
+%%  & x^2y & y^3 & y^2 & y\\
+%% f_4 & \frac{1}{3} & \frac{1}{2} & 0 & 0 \\
+%% yf_1 & 2 &0 & 1 & 0 \\
+%% yf_3 & 0 & 4 & 0 & -1
+%% \end{pmatrix*}
+M = \bordermatrix{
+~ & x^2y & y^3 & y^2 & 1\cr
+f_4 & \frac{1}{3} & \frac{1}{2} & 0 & 0 \cr
+yf_1 & 2 &0 & 1 & 0 \cr
+f_3 & 0 & 4 & 0 & -1 \cr
+}
+\]
+
+Now, reducing $M$ to a row echelon form using Gaussian elimination gives:
+\[
+M = \bordermatrix{
+~ & x^2y & y^3 & y^2 & 1\cr
+f_4 & \frac{1}{3} & \frac{1}{2} & 0 & 0 \cr 
+h = f_4 - \frac{1}{6}yf_1 & 0 &\frac{1}{3}  & -\frac{1}{6} & 0 \cr 
+r = h - \frac{1}{8}f_3 & 0 & 0 & -\frac{1}{6} & \frac{1}{8} \cr 
+}
+\]
+
+The last row $(0, 0, -\frac{1}{6}, \frac{1}{8})$ accounts for
+polynomial $-\frac{1}{6}y^2 + \frac{1}{8}y$ which is equal to the
+reduction result $r$ obtained before. 
+}
+\end{Example}
+
+This approach generates all the monomial terms that are required
+in the division process, 
+%i.e. $\frac{lm(f_i)}{lm(f_j)} f_j$, 
+and the coefficients required for cancellation of terms are accounted
+for by elementary row reductions in the subsequent Gaussian elimination. 
+Based on the above concepts, a matrix can be constructed for our
+problem: $f\stackrel{F,F_0^{PI}}{\longrightarrow}_+r$. 
+
+\begin{Definition}
+Let $L = \left [f_1, \dots, f_m \right]$ be a list of $m$ polynomials. Let
+$M_L$ be an ordered list of monomials of elements of $L$ and let $n$
+be the number of elements in $M_L$. Define $M$ as the $m \times n$
+matrix which associates the polynomials of $L$ to rows and monomials
+of $M_L$ to columns. Entry in row $i$, column $j$ is the coefficient of the
+$j^{th}$ element of $M_L$ in $f_i$. 
+\end{Definition}
+
+
+
+
+
+\begin{algorithm}[hbt]
+\SetAlgoNoLine
+
+ \KwIn{$f, F=\{f_1,\dots,f_s$\}, term order $>$ } %with $f_{1}>f_{2}>\dots>f_{s}$. }
+ \KwOut{A matrix $M$ representing $f \xrightarrow{f_1,\dots,f_s}_+r$}
+  %%%%%%%%%%%%%%%%%%%%
+        \CommentSty{/*$L=$ set of polynomials, rows of $M$*/\;}
+        L:=\{f\} \;{}
+%        \CommentSty{/*The index of polynomials in $L$*/\;}
+        i:=1\;
+%       \CommentSty{/*Initial remainder $r$ is set as $f$*/\;}
+%       r:=f\;
+        \CommentSty{/*$M_{L} = $ the set of monomials, columns of $M$ */\;}
+        $M_{L}$:=\{ monomials of f\} \;{}
+%       \CommentSty{/*Let $Done$ be the set of monomials that have been handled*/\;}
+%       $Done:=\{\}$\;
+%       \CommentSty{/*The first $i-1$ monomials of $M_{L}$ have been handled*/\;}
+        mon:= the $i^{th}$ monomial of $M_{L}$\;
+        \While { mon $\notin PrimaryInputs$ }
+                {
+                        Identify $f_{k} \in F$ satisfying: $lm(f_{k})$ can divide $mon$ \;
+                        \CommentSty{/*add polynomial $f_k$ to L as a
+                          new row in $M$ */\;}
+                        $L:=L \cup \frac{mon}{lm(f_{k})}\cdot f_{k}$ \;
+                        \CommentSty{/*Add monomials to $M_{L}$ as new
+                          columns in $M$  */\;}
+                        $M_{L}$:=$M_{L} \cup \{ \text{monomials of }
+                        \frac{mon}{lm(f_{k})}\cdot f_{k}\}$ \;{} 
+                        %\CommentSty{/*Cancel adjacent monomials if they are the same*/\;}
+                        %CancelAdjMons($M_{L}$)\;
+                        $i:=i+1$\;{}
+                        mon:= the $i^{th}$ monomial of $M_{L}$\;
+                }
+         Gaussian Elimination on $M$;\\
+         \Return $r =$ last row of $M$;
+\caption{Generating the Matrix for Polynomial Reduction}\label{alg:matrix}
+\end{algorithm}
+
+
+
+\begin{figure*}[hbt]
+\centering
+\subfloat[Matrix $M$ generated by Algorithm \ref{alg:matrix}]
+[Matrix $M$ generated by Algorithm \ref{alg:matrix}]
+{ \label{subfig:matrix}
+\begin{math}
+\bordermatrix{
+~ & Z  & AB & Ba_0 & Ba_1 & z_0 & z_1 & r_0 & a_0b_0 & a_0b_1 & a_1b_0& a_1b_1\cr
+f & 1 &1 &0 &0 &0 &0 &0 &0 &0 &0 &0\cr
+f_3 & 1 &0 &0 & 0 &1 &\alpha &0 &0 &0 &0 &0 \cr
+Bf_1 & 0 &1 &1 &\alpha &0 &0 &0 &0 &0 &0 &0\cr
+a_0f_2 &0  &0 &1 &0 &0 & 0& 0&1 &\alpha &0 &0\cr
+a_1f_2 &0  &0 &0 &1 &0 &0 &0 &0 &0 &1 &\alpha\cr
+f_5  & 0 &0 &0 &0 &1 &0 &0 &1 &0 &0 &1\cr
+f_6  & 0 &0 &0 &0 &0 &1 &1 &0 &0 &0 &1\cr
+f_4 & 0 &0 &0 &0 &0 &0 &1 &0 &1 &1 &0\cr
+}
+\end{math}
+}
+
+\ \\
+\subfloat[$M$ reduced to row echelon form via Gaussian Elimination]
+[$M$ reduced to row echelon form via Gaussian Elimination]
+{
+\begin{math}
+M = \bordermatrix{
+~ & Z  & AB & Ba_0 & Ba_1 & z_0 & z_1 & r_0 & a_0b_0 & a_0b_1 & a_1b_0& a_1b_1\cr
+row_1 = f & 1 &1 &0 &0 &0 &0 &0 &0 &0 &0 &0\cr
+row_2 = f_3 - row_1 & 0 &1 &0 & 0 &1 &\alpha &0 &0 &0 &0 &0 \cr
+row_3 = Bf_1 - row_2& 0 &0 &1 &\alpha &1 &\alpha &0 &0 &0 &0 &0\cr
+row_4 = a_0f_2 - row_3&0  &0 &0 &\alpha &1 & \alpha& 0&1 &\alpha &0 &0\cr
+row_5 = \alpha a_1f_2 - row_4&0  &0 &0 &0 &1 &\alpha &0 &1 &\alpha &\alpha &\alpha^2\cr
+row_6 = f_5 - row_5 & 0 &0 &0 &0 &0 &\alpha &0 &0 &\alpha &\alpha &\alpha^2+1\cr
+row_7 = \alpha f_6 -row_6 & 0 &0 &0 &0 &0 &0 &\alpha &0 &\alpha &\alpha &\alpha^2+\alpha+1\cr
+r = \alpha f_4 - row_7& 0 &0 &0 &0 &0 &0 &0 &0 &0 &0 &\alpha^2+\alpha+1\cr
+}
+\end{math}
+\label{subfig:triangular}
+}
+\label{fig:matrix}
+\caption{$F_4$-style Polynomial reduction on a matrix for Example \ref{ex:f4}.}
+\end{figure*}
+
+
+Algorithm \ref{alg:matrix} describes our procedure to generate the
+matrix $M$ of polynomials corresponding to our verification instance. 
+The main idea  is to setup the rows  and columns of the matrix in a
+way that polynomial division can be subsequently performed by
+applying Gaussian elimination on $M$. 
+%subtracting row $i$ from row $i-1$. 
+In the algorithm, the set of polynomials $F = \{f_1, \dots, f_s\}$ 
+correspond to the circuit constraints. The term ordering derived from
+the topological analysis of the circuit is imposed to represent the
+polynomials. The specification polynomial $f$ is to be reduced
+w.r.t. $F= \{f_1, \dots, f_s\}$. Initially, $L = \{f\}$ is inserted as
+the first row of the matrix and $M_L$ constitutes the (ordered) list
+of monomials of $f$. Then, in every iteration $i$, a polynomial $f_k \in
+F$ is identified such that $lm(f_k)$ divides the $i^{th}$ monomial
+($mon$) of $M_L$; this is to enable cancellation of the corresponding
+monomial term. The computation $L:=L \cup \frac{mon}{lm(f_{k})}\cdot
+f_{k}$ in the while-loop, generates the polynomials required for
+reduction\footnote{Recall that the division $\frac{f_i}{f_k} = f_i -
+  \frac{lt(f_i)}{lt(f_{k})}\cdot f_{k} = f_i - \frac{lc(f_i)}{lc(f_k)} \cdot
+  \frac{lm(f_i)}{lm(f_k)}\cdot f_k$. In the algorithm, the computation
+  $\frac{mon}{lm(f_{k})}\cdot f_{k}$ corresponds to
+  $\frac{lm(f_i)}{lm(f_k)}\cdot f_k$ used in the division.}.  
+The list $M_L$ is updated to include monomials of
+$\frac{mon}{lm(f_{k})}\cdot f_{k}$. Finally, the iteration in the
+loop terminates when monomial $mon$ consists solely of primary input
+variables. This is because primary inputs are never a leading term of
+any polynomial; therefore, no polynomial $f_k \in F$ exists which can
+divide $mon$. Moreover, due to our term order, once $mon$ consists of
+only primary inputs, all remaining monomials will also contain 
+only primary input variables. Clearly, no more polynomials $f_k$ need
+to be generated in $L$, and the loop terminates. 
+
+Using the set $L$ as rows and $M_L$ as columns, a matrix $M$ is
+constructed and Gaussian elimination is applied to reduce it to
+row-echelon form. The last row in the reduced matrix 
+corresponds to the reduction result $r$. 
+%Equation \ref{eqn:mat-red}. 
+Let us describe the approach using an example.
+
+
+\begin{Example}
+\label{ex:f4}
+{\it 
+Consider the reduction related to verification of the ${\mathbb{F}}_{2^2}$
+multiplier circuit of Fig. \ref{fig:2bitmul}. Given specification $f:
+Z + A B$, and the circuit polynomials $f_1:A + a_0 + a_1 \alpha,
+~f_2: B + b_0 + b_1 \alpha,
+~f_3: Z + z_0 + z_1 \alpha,
+~f_4: r_0 + a_0b_1 + a_1b_0,
+~f_5: z_0 + a_0b_0 + a_1b_1,
+~f_6: z_1 + r_0 +a_1b_1.$
+Here  $P(x) = x^2 + x + 1$, and  $P(\alpha) = 0$. We have to compute
+$f \xrightarrow{f_1, \dots, f_6}_+r$.  Note that, for simplicity, 
+variables $c_0, c_1, c_2, c_3$ from Fig. \ref{fig:2bitmul} have been
+substituted by functions on primary inputs. The imposed ordering
+corresponds to the one obtained due to Proposition
+\ref{prop:top-order}: i.e. {\it lex} with $Z > A > B > z_0 > z_1 > r_0
+> a_0 > a_1 > b_0 > b_1$. The algorithm constructs the matrix as
+follows:  
+
+\begin{enumerate}
+
+\item Initialization: $L = \{f\} = \{Z + AB\}. ~~M_L = \{Z, AB\}, i =
+  1, mon = Z$ ($i^{th}$ monomial of $M_L$).
+\item Iteration 1: Identify a polynomial $f_k \in F$ s.t. $lm(f_k) ~|~
+  mon$. Clearly, $f_k = f_3 = Z + z_0 + z_1 \alpha$. Then, $L = L \cup
+  \frac{mon}{lt(f_k)} \cdot f_k = L \cup f_3$. Therefore, $L = \{f,
+  f_3\}$ and $M_L = \{Z, AB, z_0, z_1\}$, $ i = 2$ and $mon = AB$.
+\item Iteration 2: $f_k = f_1 = A + a_0 + a_1\alpha$ because $lm(f_1) ~|~
+  mon$. Therefore, $L = L \cup \frac{AB}{A} \cdot f_1 = L \cup Bf_1 =
+  \{f, f_3, Bf_1\}$ and $M_L = \{Z, AB, Ba_0, Ba_1, z_0 , z_1\}, i =
+  3, mon = Ba_0$. 
+\item Iteration 3: $~f_k = f_2 = B + b_0 + b_1\alpha$ as $lt(f_2)
+  ~|~ mon$. Therefore, $L = L \cup \frac{mon}{lt(f_k)} \cdot f_k = L
+  \cup \frac{Ba_0}{B} \cdot f_2 = L \cup a_0f_2$. So, $L = \{f, f_3,
+  Bf_1, a_0f_2\}$ and the monomial set $M_L = \{Z, AB, Ba_0, Ba_1,
+  z_0, z_1, a_0b_0, a_0b_1\}, ~i = 4, mon = Ba_1$.
+\item Continuing in this fashion $\dots$
+
+%% \begin{center}
+%% $\vdots$
+%% \end{center}
+
+\item Iteration 7: $L = \{f, f_3, Bf_1, a_0f_2, a_1f_2, f_5, f_6,
+  f_4\}, ~M_L = \{Z, AB, Ba_0, Ba_1, z_0, z_1, r_0, a_0b_0, a_0b_1,
+  a_1b_0, a_1b_1\}, i = 8, mon = a_0b_0$. 
+
+\item Iteration 8: Since $mon = a_0b_0$ contains only the
+  primary inputs, no polynomial in $F$ has a leading term that can
+  cancel $mon$, so the loop terminates. The matrix $M$ can be
+  constructed using $L$ as rows and $M_L$ as columns.
+
+\end{enumerate}
+
+Fig. \ref{subfig:matrix} shows the matrix $M$, and its subsequent
+Gaussian elimination is shown in Fig. \ref{subfig:triangular}. The
+last row of the reduced matrix corresponds to the reduction
+$f\stackrel{f_1, \dots,   f_s}{\longrightarrow}_+r$, where $r =
+(\alpha^2 + \alpha + 1)\cdot (a_1b_1)$. Note that since $\alpha$ is the
+root of the irreducible polynomial $P(x) = x^2 + x + 1$, we have that
+$\alpha^2 + \alpha + 1 = 0$ in ${\mathbb{F}}_{2^2}$, and hence $r =
+0$. In conclusion, $f\stackrel{f_1, \dots,
+  f_s}{\longrightarrow}_+0$, and the circuit correctly implements
+$f$. 
+}
+\end{Example}
+
+
+{\bf Other implementation issues:} Recall that in our problem, we also
+have to account for bit-level vanishing polynomials of primary input 
+variables: $F_0^{PI} = \{x_i^2 - x_i: x_i \in X_{PI}\}$. In our
+algorithm, if we encounter a bit-level variable $x_i$ with degree $n
+\geq 2$, we replace $x_i^n = x_i$. Consequently, no specific entries 
+for vanishing polynomials in the matrix need to be created. Moreover,
+it is also possible to encounter coefficients $\alpha^n$, where $n
+\geq k$ in $\Fkk$. We precompute $\alpha^k, \dots, \alpha^{2k-2}$
+modulo the primitive polynomial $P(x)$, store them in a table, and use
+these reduced values as coefficients in the matrix for reduction.   
+
+
+The above approach is implemented as a standalone, custom verification
+tool, which inputs a Boolean gate-level circuit netlist $C$ and a
+specification polynomial $f$. The tool performs a reverse topological
+traversal of the circuit and derives the term order to represent
+polynomials. Then, Algorithm \ref{alg:matrix} is invoked to construct
+the matrix $M$; Gaussian elimination is finally performed on $M$ to
+obtain the verification result via reduction:
+$f\stackrel{F,F_0^{PI}}{\longrightarrow}_+r$. Our tool is written in
+C++.  

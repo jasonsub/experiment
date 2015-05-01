@@ -1,0 +1,60 @@
+\section{Review of Previous Work}
+\label{sec:prev}
+
+Verification of a combinational GF arithmetic circuit $C$ against a
+polynomial specification $\F$ has been previously addressed \cite{ibm:blueveri}
+\cite{lv:tcad2013} \cite{pruss:dac14}. Verification problems in
+\cite{ibm:blueveri} \cite{lv:tcad2013} are formulated using
+Nullstellensatz and decided using the \Grobner basis algorithm.
+%% Moreover, in \cite{lv:tcad2013} the authors show that by analyzing the
+%% given circuit $C$, a term order ($>_1$) can be derived that renders
+%% the set of polynomials itself a \Grobner basis. Consequently, a
+%% \Grobner basis computation is not required, and the verification test
+%% can be performed simply by dividing the specification polynomial $\F$
+%% by polynomials of $C$ (when represented using $>_1$). 
+
+The paper 
+\cite{pruss:dac14} performs verification by deriving a canonical
+word-level polynomial representation $\F$ from the circuit $C$. Their
+approach views any arbitrary Boolean function (circuit) $f: \B^k
+\rightarrow \B^k$ as a polynomial function $f: \Fkk \rightarrow \Fkk$,
+and derives a canonical polynomial representation $\F$ over
+$\Fkk$. They show that this can be achieved by computing a reduced 
+\Grobner basis w.r.t. an {\it abstraction term order} derived from the
+circuit. Subsequently, they propose a \underline{r}efinement of this
+\underline{a}bstraction \underline{t}erm \underline{o}rder (called
+RATO), that enables to compute the \Grobner basis of a smaller subset
+of polynomials. The authors show that their approach can prove
+correctness of up to 571-bit combinational GF multipliers. 
+
+Since we are also interested in deriving a polynomial representation
+of the computation performed by the sequential circuit $S$, we draw
+inspirations from \cite{pruss:dac14} -- particularly the use of RATO
+-- for sequential verification. However, the approach of
+\cite{pruss:dac14} suffers from a few limitations: i) When the GF
+polynomial implemented by the circuit is dense (say,  due to the
+presence of a bug in the design), their approach is computationally
+infeasible; ii) The use of RATO still requires a \Grobner basis
+computation (even though on a subset of polynomials) to derive the
+polynomial $\F$, which can lead to a memory explosion. Experiments in
+\cite{pruss:dac14} are only successful for hierarchically designed and
+bug-free GF circuits. {\it While we do employ RATO as the term order
+  for sequential verification, we further present an efficient
+  symbolic computation approach that does not suffer from these
+  limitations}. 
+
+The problem addressed in this paper is not suitable to be
+solved by conventional bit-level sequential equivalence
+\cite{coudert:iccad90} or (bounded) model checking frameworks
+based on interpolation \cite{mcmillan:interpolation_cav03} or property
+directed reachability \cite{IC3}. This is mostly due to the word-level
+and GF polynomial nature of the specification (property) $\F$, which 
+is also only valid in one state of the machine. The use of algebraic
+geometry has been proposed for model checking 
+\cite{Avrunin:CAV} \cite{Vardi:gb_bool_ring} \cite{polybori:2009};
+however, these approaches are a straight-forward application of {\it
+  bit-level} Boolean \Grobner basis engines in lieu of binary decision diagrams (BDDs) or 
+  satisfiability (SAT)
+solvers.  
+%computations to the model checking algorithm. 
+

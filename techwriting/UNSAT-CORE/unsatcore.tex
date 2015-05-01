@@ -1,0 +1,141 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IEEEsample.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%    More information: see the header of IEEEtran.sty
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%
+%%%%\documentclass[prodmode,acmtecs]{acmsmall}
+
+%\documentclass[journal]{IEEEtran}
+\documentclass{article}
+
+%\usepackage[ruled]{algorithm2e}
+\usepackage[ruled]{algorithm}
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+%%for algorithm2e package, label has to be following caption in the same line!!!
+%% \renewcommand{\algorithmcfname}{ALGORITHM}
+%% \SetAlFnt{\small}
+%% \SetAlCapFnt{\small}
+%% \SetAlCapNameFnt{\small}
+%% \SetAlCapHSkip{0pt}
+%% \IncMargin{-\parindent}
+
+% Metadata Information
+%\acmVolume{X}
+%\acmNumber{X}
+%\acmArticle{39}
+%\acmYear{2010}
+%\acmMonth{3}
+
+
+\usepackage{helvet}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage{comment}
+\usepackage{mathtools}
+%\usepackage{algorithm}
+%%indent in algorithm
+
+
+\setcounter{page}{1}
+
+
+% New command for the table notes.
+\def\tabnote#1{{\small{#1}}}
+
+% New command for the line spacing.
+\newcommand{\ls}[1]
+    {\dimen0=\fontdimen6\the\font
+     \lineskip=#1\dimen0
+     \advance\lineskip.5\fontdimen5\the\font
+     \advance\lineskip-\dimen0
+     \lineskiplimit=.9\lineskip
+     \baselineskip=\lineskip
+     \advance\baselineskip\dimen0
+     \normallineskip\lineskip
+     \normallineskiplimit\lineskiplimit
+     \normalbaselineskip\baselineskip
+     \ignorespaces
+    }
+
+
+
+
+%the following is for space before and after align or other equation environment.
+
+%%
+%\newtheorem{Algorithm}{Algorithm}[section]
+
+\newtheorem{Algorithm}{Algorithm}[section]
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Example}{Example}[section]
+\newtheorem{Proposition}{Proposition}[section]
+\newtheorem{Lemma}{Lemma}[section]
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}{Corollary}[section]
+\newtheorem{Problem}{Problem}[section]
+\newtheorem{Conjecture}{Conjecture}[section]
+\newtheorem{Result}{Result}[section]
+
+
+%%%%%% Some formula short hand (macros)
+\newcommand{\B}{{\mathbb{B}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\Q}{{\mathbb{Q}}}
+\newcommand{\N}{{\mathbb{N}}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\Zn}{{\mathbb{Z}}_{n}}
+\newcommand{\Zp}{{\mathbb{Z}}_{p}}
+\newcommand{\F}{{\mathbb{F}}}
+\newcommand{\FF}{{\mathcal{F}}}
+\newcommand{\Fbar}{{\overline{\mathbb{F}}}}
+\newcommand{\Fq}{{\mathbb{F}}_{q}}
+\newcommand{\Fqbar}{{\overline{{\mathbb{F}}_q}}}
+\newcommand{\Fkk}{{\mathbb{F}}_{2^k}}
+\newcommand{\Zkk}{{\mathbb{Z}}_{2^k}}
+\newcommand{\Fkkx}[1][x]{\ensuremath{\mathbb{F}}_{2^k}[#1]\xspace}
+\newcommand{\Grobner}{Gr\"{o}bner\xspace}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\ben}{\begin{enumerate}}
+\newcommand{\een}{\end{enumerate}}
+
+\newcommand{\idealj}{{J = \langle f_1, \dots, f_s\rangle}}
+\newcommand{\idealg}{{J = \langle g_1, \dots, g_t\rangle}}
+\newcommand{\vfqj}{{V_{\Fq}(J)}}
+\newcommand{\vfkkj}{{V_{\Fkk}(J)}}
+
+\newcommand{\blu}{\color{blue}}
+
+
+\newcommand{\debug}[1]{\textcolor{red}{[ #1 ]}}
+
+%%set spacing between table columns
+\setlength{\tabcolsep}{3pt}
+
+\begin{document}
+
+
+\title{Counterexample on longest-path conjecture of GB based UNSAT core extraction}
+\author{Xiaojun Sun, xiaojuns@ece.utah.edu}
+
+\maketitle
+
+
+%%%%%%%%%%%%%%%%%%%% Include your files here %%%%%%%%%%%%%%%%%%%%%
+\input{counterexample.tex}
+%%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \bibliographystyle{IEEEtran}
+% \bibliography{tim}
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%  End of IEEEsample.tex  %%%%%%%%%%%%%%%%%%%%%%%%%%%

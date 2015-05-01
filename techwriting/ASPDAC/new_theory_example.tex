@@ -1,0 +1,154 @@
+\section{Verification of Sequential GF Circuits}
+\label{sec:theory}
+
+We follow  the sequential GF circuit model of
+Fig. \ref{fig:sequential}, with word-level variables $A, B, R$
+denoting {\it present states (PS)} and $A', B', R'$ denoting {\it next
+  states (NS)} of the machine; where $A = \sum_{i=0}^{k-1} a_i \beta^{2^i}$
+for the PS variables and $A' = \sum_{i=0}^{k-1} a_i'
+\beta^{2^i}$ for NS variables, and so on. The normal element $\beta$ is
+given. Variables $R (R')$ correspond to those that 
+store the result, and $A, B (A', B')$ store input operands. {\it E.g.,}
+for a GF multiplier, $A_{init}, B_{init}$ (and $R_{init} =
+0$) are the initial values (operands) loaded into the registers,  and
+$R = \F(A_{init}, B_{init}) = A_{init} \times B_{init}$ is the final
+result after $k$-cycles. Our approach aims to find this polynomial
+representation for $R$.  
+
+Each gate in the combinational logic is represented by a Boolean
+polynomial. To 
+this set of Boolean polynomials, we append the polynomials that define
+the word-level to bit-level relations for PS and NS variables ($A =
+\sum_{i=0}^{k-1} a_i \beta^{2^i}$). We denote this set of polynomials
+as ideal $J = \langle 
+f_1, \dots, f_s \rangle \subset \Fkk[x_1, \dots, x_d, R, R', A, A', B,
+  B']$. The ideal of vanishing polynomials $J_0$ is also included, and
+then the implicit FSM unrolling problem is setup for abstraction. 
+
+The configurations of the flip-flops are the states of the
+machine. {\it Since the set of states is a finite set of points, we
+can consider it as the variety of an ideal related to the circuit
+(from Section \ref{sec:prelim})}. Moreover, since we are interested in
+the {\it function encoded} by the state variables (over $k$-time
+frames), we can {\it project this variety} on the word-level state
+variables, starting from the initial state $A_{init}, B_{init}$.
+Projection of varieties (geometry) corresponds to elimination ideals
+(algebra), and can be analyzed via \Grobner bases. Therefore, we
+employ a \Grobner basis computation with ATO: we use a {\it lex term
+  order} with {\it bit-level variables} 
+$>$ {\it word-level NS outputs} $>$ {\it word-level PS inputs}. This
+allows to eliminate all the bit-level variables 
+%(corresponding to the combinational logic and the state variables),
+%so as to 
+and derives a representation only in terms of words. 
+Consequently, $k$-successive \Grobner basis computations implicitly
+unroll the machine, and provide word-level algebraic $k$-cycle
+abstraction for $R'$ as $R' = \F(A_{init}, B_{init})$. 
+
+Algorithm
+\ref{alg:modified} describes our approach.  In the algorithm, $from^i$
+and $to^i$ are polynomial ideals whose varieties are the valuations of
+word-level variables $R, A, B$ and $R',A',B'$ in the $i$-th iteration;
+and the notation ``$\setminus$'' signifies that the $NS$ in iteration
+$(i)$ becomes the $PS$ in iteration $(i+1)$. 
+%The forward image
+%$to^{i}$ is computed using \Grobner bases with ATO.
+
+\vspace{-0.1in}
+\begin{algorithm}[hbt]
+\SetAlgoNoLine
+ \KwIn{Circuit polynomial ideal $J$, vanishing ideal $J_0$, initial
+   state ideal $R (=0), \mathcal{G}(A_{init}), \mathcal{H}(B_{init})$} 
+
+  $from^0(R,A,B) = \langle R, \mathcal{G}(A_{init}), \mathcal{H}(B_{init})\rangle$\;
+  $i = 0$\;
+  \Repeat{$i == k$}
+  {
+  	$i \gets i + 1$\;
+%	$to^i(R',A',B') \gets$  $GB( \langle J_{ckt}, J_0,
+%    from^{i-1}(R,A,B)\rangle )$ with abstraction term order\;
+	$G \gets$GB$( \langle J + J_0+ from^{i-1}(R,A,B) \rangle
+    )$ with ATO\;
+	$to^i(R',A',B')\gets G\cap \mathbb F_{2^k}[R',A',B',R,A,B]$\;
+	$from^i \gets to^i(\{R,A,B\}\setminus \{R',A',B'\})$\;
+  }
+\Return{$from^k(R_{final})$}
+\caption {Abstraction via implicit unrolling for Sequential GF circuit
+  verification}
+\label{alg:modified}
+\end{algorithm}
+
+\vspace{-0.1in}
+\begin{Example}
+\label{ex:RHSMPO}
+We demonstrate our approach to verify the 5-bit RH-SMPO circuit of
+Fig.\ref{fig:RHmulti}. The normal element $\beta$ in
+$\mathbb{F}_{2^5}$ is known to be $\beta = \alpha^5$, where $\alpha$
+is the primitive element. The circuit can be described by the ideal:
+\begin{align}
+J = & d_0+a_4b_4, c_1+a_0+a_4, c_2+b_0+b_4, d_1+c_1c_2, c_3+a_1a_4,\nonumber\\
+& c_4+b_1b_4, d_2+c_3c_4, e_0+d_0+d_1, e_3+d_1+d_2, e_4+d_2, \nonumber\\
+& R_0+r_4+e_0, R_1+r_0, R_2+r_1, R_3+r_2+e_3, R_4+r_3+e_4,\nonumber\\
+& A+a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18},\nonumber\\
+& B+b_0\alpha^5+b_1\alpha^{10}+b_2\alpha^{20}+b_3\alpha^9+b_4\alpha^{18},\nonumber\\
+& R'+r_0'\alpha^5+r_1'\alpha^{10}+r_2'\alpha^{20}+r_3'\alpha^9+r_4'\alpha^{18},\nonumber\\
+& R+r_0\alpha^5+r_1\alpha^{10}+r_2\alpha^{20}+r_3\alpha^9+r_4\alpha^{18};\nonumber
+\end{align}
+
+In the first iteration, $from^0 = \{R, 
+~A_{init}+a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18},
+~B_{init}+b_0\alpha^5+b_1\alpha^{10}+b_2\alpha^{20}+b_3\alpha^9+b_4\alpha^{18}\}$
+denotes the initial state.
+
+After the GB computation is performed with ATO,  we find
+$to^1 = \{R' (\alpha^4+\alpha^3+1) A_{init}^{16}
+B_{init}^{16}+(\alpha^4+\alpha^2) A_{init}^{16}
+B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+1)
+A_{init}^{16} B_{init}+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^8
+B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^8
+B_{init}^4+(\alpha^3+\alpha+1) A_{init}^8
+B_{init}^2+(\alpha^4+\alpha^2) A_{init}^8 B_{init}+(\alpha^4+\alpha^2)
+A_{init}^4 B_{init}^{16}+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4
+B_{init}^8+(\alpha^2) A_{init}^4
+B_{init}^4+(\alpha^3+\alpha^2+\alpha+1) A_{init}^4
+B_{init}^2+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4
+B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^3+\alpha+1)
+A_{init}^2 B_{init}^8+(\alpha^3+\alpha^2+\alpha+1) A_{init}^2
+B_{init}^4+(\alpha^3+\alpha^2+\alpha) A_{init}^2
+B_{init}^2+(\alpha^4+\alpha) A_{init}^2 B_{init}+(\alpha^4+\alpha^3+1)
+A_{init} B_{init}^{16}+(\alpha^4+\alpha^2) A_{init}
+B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}
+B_{init}^4+(\alpha^4+\alpha) A_{init} B_{init}^2+(\alpha^3+\alpha+1)
+A_{init} B_{init}\}$ --- a polynomial in variables $R', A_{init}, B_{init}$. 
+
+
+Continuing this way, in the 5$^{th}$ iteration: $from^4 =
+\{R+(\alpha^3+\alpha+1) A_{init}^{16} 
+B_{init}^{16}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^{16}
+B_{init}^8+(\alpha^4+\alpha) A_{init}^{16} B_{init}^4+(\alpha^3+1)
+A_{init}^{16} B_{init}^2+(\alpha^3+\alpha+1) A_{init}^{16}
+B_{init}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^8
+B_{init}^{16}+(\alpha^3+1) A_{init}^8
+B_{init}^8+(\alpha^4+\alpha^2+\alpha) A_{init}^8
+B_{init}^4+(\alpha^2+\alpha) A_{init}^8
+B_{init}^2+(\alpha^3+\alpha^2+1) A_{init}^8 B_{init}+(\alpha^4+\alpha)
+A_{init}^4 B_{init}^{16}+(\alpha^4+\alpha^2+\alpha) A_{init}^4
+B_{init}^8+(\alpha^4+\alpha^2+\alpha) A_{init}^4
+B_{init}^4+(\alpha^2+\alpha) A_{init}^4 B_{init}+(\alpha^3+1)
+A_{init}^2 B_{init}^{16}+(\alpha^2+\alpha) A_{init}^2
+B_{init}^8+(\alpha^4+\alpha^2) A_{init}^2
+B_{init}^2+(\alpha^3+\alpha^2+1) A_{init}^2
+B_{init}+(\alpha^3+\alpha+1) A_{init}
+B_{init}^{16}+(\alpha^3+\alpha^2+1) A_{init}
+B_{init}^8+(\alpha^2+\alpha) A_{init} B_{init}^4+(\alpha^3+\alpha^2+1)
+A_{init} B_{init}^2+(\alpha) A_{init} B_{init}, 
+~~A_{init}+a_1\alpha^5+a_2\alpha^{10}+a_3\alpha^{20}+a_4\alpha^9+a_0\alpha^{18},
+~~B_{init}+b_1\alpha^5+b_2\alpha^{10}+b_3\alpha^{20}+b_4\alpha^9+b_0\alpha^{18}\}$
+denotes the current state values. 
+
+Finally, by computing GB with ATO, we obtain: $to^5 = \{ \mathbf{R'+A_{init}B_{init},}
+~A_{init}+a_0'\alpha^5+a_1'\alpha^{10}+a_2'\alpha^{20}+a_3'\alpha^9+a_4'\alpha^{18},
+~B_{init}+b_0'\alpha^5+b_1'\alpha^{10}+b_2'\alpha^{20}+b_3'\alpha^9+b_4'\alpha^{18}\}$
+as the image. The final result is $from^5(R_{final}) = R_{final}+A_{init}\cdot
+B_{init}$, which verifies the multiplier. 
+\end{Example}

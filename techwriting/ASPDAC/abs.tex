@@ -1,0 +1,16 @@
+{\it Abstract -- Sequential Galois field ($\Fkk$) arithmetic circuits
+take $k$-bit inputs and produce a $k$-bit result, after $k$-clock
+cycles of operation. Formal verification of sequential
+arithmetic circuits with large datapath size is beyond the
+capabilities of contemporary verification techniques. To address this
+problem, this paper describes a verification method based on algebraic
+geometry that: i) implicitly unrolls the sequential arithmetic circuit
+by multiple ($k$) clock-cycles and ii) represents the function
+computed by the state-registers of the circuit, canonically, as a
+multi-variate word-level polynomial in $\Fkk$. Our approach employs
+the \Grobner basis theory with a specific elimination ideal. Moreover,
+an efficient implementation is described to identify the $k$-cycle
+computation performed  by the circuit at word-level. We demonstrate
+the feasibility of our approach by verifying up to 100-bit sequential
+Galois field multipliers, whereas conventional techniques fail beyond
+23-bit circuits.  }

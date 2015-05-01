@@ -1,0 +1,138 @@
+\begin{thebibliography}{10}
+
+\bibitem{timDAC}
+Tim Pruss, Priyank Kalla, and Florian Enescu,
+\newblock ``Equivalence verification of large galois field arithmetic circuits
+  using word-level abstraction via gr{\"o}bner bases'',
+\newblock {\em in} {\em Proceedings of the The 51st Annual Design Automation
+  Conference on Design Automation Conference}, pp. 1--6. ACM, 2014.
+
+\bibitem{jinpeng}
+Jinpeng Lv, Priyank Kalla, and Florian Enescu,
+\newblock ``Efficient gr{\"o}bner basis reductions for formal verification of
+  galois field arithmetic circuits'',
+\newblock {\em Computer-Aided Design of Integrated Circuits and Systems, IEEE
+  Transactions on}, vol. 32, pp. 1409--1420, 2013.
+
+\bibitem{BLUEVERI}
+Alexey Lvov, Luis~Alfonso Lastras-Montano, Viresh Paruthi, Robert Shadowen, and
+  Ali El-Zein,
+\newblock ``Formal verification of error correcting circuits using
+  computational algebraic geometry'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2012},
+  pp. 141--148. IEEE, 2012.
+
+\bibitem{PolyBoRi}
+Michael Brickenstein and Alexander Dreyer,
+\newblock ``Polybori: A framework for gr{\"o}bner-basis computations with
+  boolean polynomials'',
+\newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345, 2009.
+
+\bibitem{bradley2011sat}
+Aaron~R Bradley,
+\newblock ``Sat-based model checking without unrolling'',
+\newblock {\em in} {\em Verification, Model Checking, and Abstract
+  Interpretation}, pp. 70--87. Springer, 2011.
+
+\bibitem{bradley2011incremental}
+Aaron~R Bradley, Fabio Somenzi, Zyad Hassan, and Yan Zhang,
+\newblock ``An incremental approach to model checking progress properties'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2011},
+  pp. 144--153. IEEE, 2011.
+
+\bibitem{avrunin1996symbolic}
+George~S Avrunin,
+\newblock ``Symbolic model checking using algebraic geometry'',
+\newblock {\em in} {\em Computer Aided Verification}, pp. 26--37. Springer,
+  1996.
+
+\bibitem{tran2007groebner}
+Quocnam Tran and Moshe~Y Vardi,
+\newblock ``Groebner bases computation in boolean rings for symbolic model
+  checking'',
+\newblock {\em in} {\em Proceedings of IASTED 2007 Conference on Modeling and
+  Simulation}, 2007.
+
+\bibitem{ideal:book}
+D.~Cox, J.~Little, and D.~O'Shea,
+\newblock {\em {I}deals, {V}arieties and {A}lgorithms},
+\newblock Springer-Verlag, 1997.
+
+\bibitem{ideals:book}
+D.~Cox, J.~Little, and D.~O'Shea,
+\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
+  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
+\newblock Springer, 2007.
+
+\bibitem{KallaPartialScan}
+Priyank Kalla and Maciej Ciesielski,
+\newblock ``A comprehensive approach to the partial scan problem using implicit
+  state enumeration'',
+\newblock {\em Computer-Aided Design of Integrated Circuits and Systems, IEEE
+  Transactions on}, vol. 21, pp. 810--826, 2002.
+
+\bibitem{gao:qe-gf-gb}
+S.~Gao, A.~Platzer, and E.~Clarke,
+\newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
+  {B}ases'',
+\newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
+
+\bibitem{DGPS}
+Wolfram Decker, Gert-Martin Greuel, Gerhard Pfister, and Hans Sch\"onemann,
+\newblock ``{\sc Singular} {3-1-6} --- {A} computer algebra system for
+  polynomial computations'',
+\newblock http://www.singular.uni-kl.de, 2012.
+
+\bibitem{myDATE}
+Xiaojun Sun, Priyank Kalla, Tim Pruss, and Florian Enescu,
+\newblock ``Formal verification of sequential galois field arithmetic circuits
+  using algebraic geometry'',
+\newblock {\em in} {\em Design Automation and Test in Europe, DATE 2015.
+  Proceedings}. IEEE/ACM, 2015.
+
+\bibitem{RHmulti}
+Arash Reyhani-Masoleh and M~Anwar Hasan,
+\newblock ``Low complexity word-level sequential normal basis multipliers'',
+\newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
+
+\bibitem{clarke2000counterexample}
+Edmund Clarke, Orna Grumberg, Somesh Jha, Yuan Lu, and Helmut Veith,
+\newblock ``Counterexample-guided abstraction refinement'',
+\newblock {\em in} {\em Computer aided verification}, pp. 154--169. Springer,
+  2000.
+
+\bibitem{zhang2005design}
+Liang Zhang,
+\newblock {\em Design Verification for Sequential Systems at Various
+  Abstraction Levels},
+\newblock PhD thesis, Citeseer, 2005.
+
+\bibitem{biere1999symbolic}
+Armin Biere, Alcssandro Cimatti, Edmund Clarke, and Yunshan Zhu,
+\newblock ``Symbolic model checking without bdds'',
+\newblock {\em in} {\em Tools and Algorithms for the Construction of Analysis
+  of Systems: 5th International Conference, TACAS'99, Held as Part of the Joint
+  European Conferences on Theory and Practice of Software, ETAPS'99, Amsterdam,
+  The Netherlands, March 22-28, 1999, Proceedings}, number 1597, p. 193.
+  Springer, 1999.
+
+\bibitem{HimanshuDAC2005}
+Himanshu Jain, Daniel Kroening, Natasha Sharygina, and Edmund Clarke,
+\newblock ``Word level predicate abstraction and refinement for verifying rtl
+  verilog'',
+\newblock {\em in} {\em Proceedings of the 42nd annual Design Automation
+  Conference}, pp. 445--450. ACM, 2005.
+
+\bibitem{mcmillan2003interpolation}
+Kenneth~L McMillan,
+\newblock ``Interpolation and sat-based model checking'',
+\newblock {\em in} {\em Computer Aided Verification}, pp. 1--13. Springer,
+  2003.
+
+\bibitem{f4reduce}
+Christian Eder and John~Edward Perry,
+\newblock ``Signature-based algorithms to compute gr{\"o}bner bases'',
+\newblock {\em in} {\em Proceedings of the 36th international symposium on
+  Symbolic and algebraic computation}, pp. 99--106. ACM, 2011.
+
+\end{thebibliography}

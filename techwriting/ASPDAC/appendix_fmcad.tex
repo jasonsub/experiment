@@ -1,0 +1,147 @@
+\appendix
+\subsection{Normal Basis Multiplication and $\lambda$-Matrix}
+$\lambda$-Matrix is defined with cross-product terms from multiplication. That is 
+\begin{displaymath}
+Product\ C = (\sum_{i=0}^{n-1}a_i\beta^{2^i})(\sum_{j=0}^{n-1}b_j\beta^{2^j}) = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}a_ib_j\beta^{2^i}\beta^{2^j}
+\end{displaymath}
+The expressions $\beta^{2^i}\beta^{2^j}$ are referred to as cross-product terms, and can be represented by
+normal basis, i.e.
+\begin{displaymath}
+\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1}\lambda_{ij}^{(k)}\beta^{2^k}, \ \ \lambda_{ij}^{(k)} \in F_2.
+\end{displaymath}
+Substitution yields, get the expression for $k$-th digit of product:
+\begin{displaymath}
+c_k = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}\lambda_{ij}^{(k)}a_ib_j
+\end{displaymath}
+$\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ in $k$-th $\lambda$-Matrix.
+
+\begin{Example}
+$\lambda$-Matrix: A binary $n\times n$ matrix $M$ could be employed to describe the "function"
+ mentioned in Ex.\ref{ex:nb_multi}: $c_{n-1} = f(A, B) = A \cdot M \cdot B^T$, $B^T$ denotes vector transposition. 
+More specifically, denote the matrix by \emph{$k$-th $\lambda$-Matrix}: $c_k = A \cdot M^{(k)} \cdot B^T$.
+Then $c_{k-1} = A \cdot M^{(k-1)} \cdot B^T = rotate(A) \cdot M^{(k)} \cdot rotate(B)^T$, which means $M^{(k)}$ is generated
+by right and down cyclic shifting $M^{(k-1)}$.
+
+In $\mathbb{F}_{2^3}$ constructed by $\alpha^3 + \alpha + 1$, let $\beta = \alpha^3$, $N = \{ \beta, \beta^2, \beta^4\}$ 
+is a normal basis. $0$-th $\lambda$-Matrix
+\begin{displaymath}
+M^{(0)} = \left(
+\begin{array} {lcr}
+0 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} \right).
+\end{displaymath}
+i.e.,
+\begin{displaymath}
+c_0 = (a_0\  a_1\  a_2)\left(
+\begin{array} {lcr}
+0 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} \right)\left(
+\begin{array} {lcr}
+b_0\\
+b_1\\
+b_2
+\end{array} \right).
+\end{displaymath}
+\end{Example}
+\subsection{Optimal Normal Basis}
+\begin{Definition}
+The number of non-zero entries in $\lambda$-Matrix is known as  \emph{Complexity$(C_N)$}.
+\end{Definition}
+\begin{Theorem}
+If N is a normal basis for $\mathbb{F}_{p^n}$ with $\lambda$-matrix $M^{(k)}$, then non-zero entries in 
+matrix $C_N\geq 2n-1$.
+\end{Theorem}
+Proof omitted.
+\begin{Definition}
+If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal basis is named as
+\emph{Optimal Normal Basis (ONB)}.
+\end{Definition}
+There are 2 types of optimal normal basis existing.
+Rules for creating Type-I ONB over $\mathbb{F}_{2^n}$ are:
+\begin{itemize}
+\item n+1 must be prime.
+\item 2 must be primitive in $\mathbb{Z}_{n+1}$.
+\end{itemize}
+Rules for creating Type-II ONB over $\mathbb{F}_{2^n}$ are:
+\begin{itemize}
+\item 2n+1 must be prime. And either
+\item 2 must be primitive in $\mathbb{Z}_{2n+1}$, OR
+\item $2n+1 \equiv 3 \ \ mod\ \  4$ AND 2 generates the quadratic residues in $\mathbb{Z}_{2n+1}$
+\end{itemize}
+There are corresponding criteria for simply creating $\lambda$-Matrix for either type of ONB:
+\begin{Lemma}
+Type-I ONB implies a $\lambda$-Matrix that each nonzero entry $M_{i,j}$ satisfies
+\begin{numcases}{}
+2^i + 2^j = 1 \bmod  n+1\notag\\
+2^i + 2^j = 0 \bmod n+1\notag
+\end{numcases}
+Type-II ONB implies a $\lambda$-Matrix that each nonzero entry $M_{i,j}$ satisfies
+\begin{numcases}{}
+2^i + 2^j = 1\bmod\  2n+1\notag\\
+2^i + 2^j = -1 \bmod  2n+1\notag\\
+2^i - 2^j = 1 \bmod  2n+1\notag\\
+2^i - 2^j = -1 \bmod 2n+1\notag
+\end{numcases}
+\end{Lemma}
+Proof omitted. (Issues here: We knew type-I \& II definition can deduce corresponding $\lambda$-Matrix, how about
+reverse implication? i.e. can we prove the equivalence?)
+
+\subsection{Design Angew's SMPO using $\lambda$-Matrix}
+Imitating the structure of SMPO, just specify the gates' connections for the first clock cycle, then following cycles are
+automatically completed by cyclic shifting operands $A$ and $B$. The whole design procedure is based on a $n \times n$ $k$-th $\lambda$-Matrix.
+
+First figure out the first row (\emph{row} 0) in $\lambda$-Matrix, for any nonzero entry $M_{0,j}$ (there will be only 1 if taking $0$-th $\lambda$-Matrix), place an AND gate
+$a_j\land b_0$. Connect different $a_j$ with a XOR gate before place the AND gate if there are 2 or more nonzero entries in this row;
+
+Secondly, repeat this for each row. Note for nonzero entry $M_{i,j}$, corresponding index of $a_u$ and $b_v$ is incremented by $i$, i.e. $u = j + i \pmod n$, $v = i + i \pmod n$;
+
+Finally, connect the output of AND gate for row $i$ to one input of a XOR gate, then connect the output of XOR gate to a register/flip-flop. The output of register/flip-flop is connected
+to the other input of XOR gate, but at next row. All these gates and connections for row $i$ is called unit $R_i$. (Fig.\ref{fig:SMPO})
+
+\subsection{Find Optimal Normal Basis}
+This step is done by directly constructing the field using special primitive polynomial $P(x)$. Primitive element $\alpha$ which is root of that primitive polynomial( $P(\alpha)=0$),
+is also optimal normal element. i.e. $\beta = \alpha$.
+
+The special polynomial for type-I and type-II optimal normal basis can be computed from algorithms showed in page 108, IEEE standard 1363-2000 document.
+
+\subsection{Theory about RH-multiplier}
+\label{sec:RHmulti}
+Assume there are 3 word variables from $\mathbb F_{2^k}$: $A = (a_0,a_1,\dots,a_{k-1}), B = (b_0,b_1,\dots,b_{k-1})$
+and $C = (c_0,c_1,\dots,c_{k-1})$, they have relation $C = A\cdot B$. Define function
+$$F_i(A,B) = a_{i-g}b_{i-g}\beta +\sum_{j=1}^{v}z_{i,j}\delta_j, 0\leq i\leq k-1$$
+where $v = \lfloor \frac{k}{2}\rfloor, \delta_j = \beta^{1+2^j}, 1\leq j\leq v$, $\beta$ is normal element.
+$g$ is a binary variable which determines value of $z_{i,j}$ as follows:
+
+(i) $k$ is odd, for $1\leq j < \lceil \frac{k}{2} \rceil$
+\begin{displaymath}
+z_{i,j} = \left\{
+\begin{array}{ll}
+(a_i+a_{i+j})(b_i+b_{i+j}) & g=0\\
+a_ib_{i+j} + a_{i+j}b_i & g=1
+\end{array}\right.
+\end{displaymath}
+
+(2) $k$ is even, for $1\leq j < \lceil \frac{k}{2} \rceil$
+\begin{displaymath}
+z_{i,j} = \left\{
+\begin{array}{ll}
+b_i(a_i+a_{i+v}) & g=0\\
+a_ib_{i+v} & g=1
+\end{array}\right.
+\end{displaymath}
+
+Here $i+j$ and $i+v$ stands for $i+j \pmod k$ and $i+v\pmod k$. With the definition, we can
+introduce a theorem which serves as basic concept of RH-multiplier:
+\begin{Theorem}
+$$C = (((F_{k-1}^2 + F_{k-2})^2 + F_{k-3})^2 + \cdots + F_1)^2 + F_0$$
+where $F_i\in \mathbb F_{2^k}$ is a short form of $F_i(A,B)$ defined above.
+\end{Theorem}
+Proof omitted.
+
+In this paper we choose $g=1$ to build AESMPO. The definition of function $F$ shows exactly
+the way to construct a RH-multiplier, note multiplication in $\mathbb F_2$ is equivalent to
+AND gate in Boolean logic circuits, and addition is equivalent to XOR gate, respectively.

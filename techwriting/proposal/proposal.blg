@@ -1,0 +1,74 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: proposal.aux
+Case mismatch error between cite keys Jinpeng and jinpeng
+---line 87 of file proposal.aux
+ : \citation{Jinpeng
+ :                  }
+I'm skipping whatever remains of this command
+The style file: ieee.bst
+Database file #1: xiaojun.bib
+Database file #2: logic.bib
+Repeated entry---line 438 of file logic.bib
+ : @article {DGPS
+ :               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2266 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #3: oldlogic.bib
+You're missing a field name---line 303 of file oldlogic.bib
+ : 
+ : %   url = {http://dx.doi.org/10.1007/3-540-57936-2_31},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 1251 of file oldlogic.bib
+ : @inproceedings{gao:qe-gf-gb
+ :                            ,
+I'm skipping whatever remains of this entry
+Database file #4: normalbasis.bib
+Warning--there's a number but no series in biere1999symbolic
+You've used 21 entries,
+            1802 wiz_defined-function locations,
+            581 strings with 7584 characters,
+and the built_in function-call counts, 5755 in all, are:
+= -- 552
+> -- 215
+< -- 11
++ -- 80
+- -- 59
+* -- 399
+:= -- 832
+add.period$ -- 32
+call.type$ -- 21
+change.case$ -- 18
+chr.to.int$ -- 0
+cite$ -- 22
+duplicate$ -- 294
+empty$ -- 582
+format.name$ -- 59
+if$ -- 1369
+int.to.chr$ -- 0
+int.to.str$ -- 21
+missing$ -- 21
+newline$ -- 108
+num.names$ -- 21
+pop$ -- 106
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 139
+stack$ -- 0
+substring$ -- 353
+swap$ -- 109
+text.length$ -- 11
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 57
+width$ -- 23
+write$ -- 239
+(There were 5 error messages)

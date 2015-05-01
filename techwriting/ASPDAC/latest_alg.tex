@@ -1,0 +1,100 @@
+\section{Verification of Sequential Arithmetic Circuits}
+Fig.\ref{fig:seq_block} shows the basic structure of a sequential arithmetic circuit without primary inputs. 
+There are 3 register files representing input operands $A, B$ and result output $R$. After $k$ clock cycles,
+data stored in register file $R$ will be the result of an arithmetic operation. 
+
+The combinational logic block takes present state variable $A, B$ and $R$ as inputs, and next state variable 
+$A', B'$ and $R'$ as outputs. After $k$ clock cycles, the output $R_{final}$ equals to desired function of
+initial input operands $A_{init}, B_{init}$. Our approach aims to find a polynomial indicating
+this function without unrolling.
+An algorithm is used to describe how our approach works to verify this kind 
+of sequential arithmetic circuits.
+
+\begin{algorithm}[hbt]
+\SetAlgoNoLine
+ \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial 
+ $\F(R), \mathcal{G}(A_{init}), \mathcal{H}(B_{init})$}
+
+  $from^0(R,A,B) = \F(R), \mathcal{G}(A_{init}), \mathcal{H}(B_{init})$\;
+  $i = 0$\;
+  \Repeat{$i == k$}
+  {
+  	$i \gets i + 1$\;
+	$G \gets$GB$(J_{ckt}+ J_0+ from^{i-1}(R,A,B))$ w/ abstraction term order\;
+	$to^i(R',A',B')\gets G\cap \mathbb F_{2^k}[R',A',B',R,A,B]$\;
+	$from^i \gets to^i(\{R,A,B\}\setminus \{R',A',B'\})$\;
+  }
+\Return{$from^k(R_{final})$}
+\caption {Sequential arithmetic circuit inductive verification}\label{alg:modified}
+\end{algorithm}
+
+In this algorithm, $from^i$ and $to^i$ are polynomial ideals whose varieties are evaluations of word-level
+variables $R, A, B$ and $R',A',B'$ in $i$-th iteration. However in most cases, an arithmetic circuit should give the result $R_{final}$ in certain
+function of initial loaded operands $A_{init}$ and $B_{init}$ (they are fixed values during one calculation task);
+e.g. for a multiplier, $R_{final} = A_{init}\cdot B_{init}$. So in our approach we record all intermediate relations
+$R = \mathcal{F}(A_{init}, B_{init})$ for each clock cycle to evaluate output $R$.
+Run algorithm \ref{alg:modified}, the return value should be desired function $R_{final} = \mathcal{F}(A_{init},B_{init})$.
+
+\begin{Example}
+\label{ex:RHSMPO}
+Fig.\ref{fig:RHmulti} shows the detailed structure of a 5-bit RH-multiplier (AESMPO). The transition function for
+operands $A,B$ is doing cyclic shift, while transition function for $R$ has to be computed through Gr\"obner basis
+abstraction approach. Following ideal $J_{ckt}$ from line 5 in algorithm \ref{alg:modified} is the ideal for 
+all gates in combinational logic block and definition of word-level variables.
+\begin{align}
+J_{ckt} = & d_0+a_4b_4, c_1+a_0+a_4, c_2+b_0+b_4, d_1+c_1c_2, c_3+a_1a_4,\nonumber\\
+& c_4+b_1b_4, d_2+c_3c_4, e_0+d_0+d_1, e_3+d_1+d_2, e_4+d_2, \nonumber\\
+& R_0+r_4+e_0, R_1+r_0, R_2+r_1, R_3+r_2+e_3, R_4+r_3+e_4,\nonumber\\
+& A+a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18},\nonumber\\
+		 & B+b_0\alpha^5+b_1\alpha^{10}+b_2\alpha^{20}+b_3\alpha^9+b_4\alpha^{18},\nonumber\\
+		 & R'+r_0'\alpha^5+r_1'\alpha^{10}+r_2'\alpha^{20}+r_3'\alpha^9+r_4'\alpha^{18},\nonumber\\
+		 & R+R_0\alpha^5+R_1\alpha^{10}+R_2\alpha^{20}+R_3\alpha^9+R_4\alpha^{18};\nonumber
+\end{align}
+In our implementation here, since we only focus on the output variable $R$, evaluations of intermediate input 
+operands $A, B$ are unnecessary. Polynomials about $A$ and $B$ can be removed from $J_{ckt}$, and $R$ is directly
+evaluated by initial operands $A_{init}$ and $B_{init}$, which are associated with present state bit-level inputs
+$a_0,a_1,\dots,a_4$ and $b_0,b_1,\dots,b_4$ by polynomials in $from^i$.
+
+According to line 5 of algorithm \ref{alg:modified}, we merge $J_{ckt}$, $J_0$ and $from^i$, then compute its
+Gr\"obner basis with abstraction term order (copy details here). There is a polynomial in form of $R'+\F(A_{init},B_{init})$,
+which should be included by $to^{i+1}$. $to^{i+1}$ also exclude next state variable $A'$ and $B'$, instead we 
+redefine $A_{init}$ and $B_{init}$ using next state bit-level variables $\{a_i', b_j'\}$. Next state Bit-level variables
+$a_i' = a_{i-1\pmod k}, b_j' = b_{j-1\pmod k}$ according to definition of cyclic shift.
+
+Line 7 in algorithm \ref{alg:modified} is implemented by replacing $R'$ with $R$, $\{a_i', b_j'\}$ with $\{a_i,b_j\}$.
+
+All intermediate results for each clock cycle are listed below:
+\begin{itemize}
+\item Clock 1: $from^0 = \{R, A_{init}+a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18},
+B_{init}+b_0\alpha^5+b_1\alpha^{10}+b_2\alpha^{20}+b_3\alpha^9+b_4\alpha^{18}\}$, 
+	$to^1 = \{R'+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}^{16}+(\alpha^4+\alpha^2) A_{init}^{16} B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^8 B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^8 B_{init}^4+(\alpha^3+\alpha+1) A_{init}^8 B_{init}^2+(\alpha^4+\alpha^2) A_{init}^8 B_{init}+(\alpha^4+\alpha^2) A_{init}^4 B_{init}^{16}+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}^8+(\alpha^2) A_{init}^4 B_{init}^4+(\alpha^3+\alpha^2+\alpha+1) A_{init}^4 B_{init}^2+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^3+\alpha+1) A_{init}^2 B_{init}^8+(\alpha^3+\alpha^2+\alpha+1) A_{init}^2 B_{init}^4+(\alpha^3+\alpha^2+\alpha) A_{init}^2 B_{init}^2+(\alpha^4+\alpha) A_{init}^2 B_{init}+(\alpha^4+\alpha^3+1) A_{init} B_{init}^{16}+(\alpha^4+\alpha^2) A_{init} B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init} B_{init}^4+(\alpha^4+\alpha) A_{init} B_{init}^2+(\alpha^3+\alpha+1) A_{init} B_{init},
+	A_{init}+a_4'\alpha^5+a_0'\alpha^{10}+a_1'\alpha^{20}+a_2'\alpha^9+a_3'\alpha^{18},
+B_{init}+b_4'\alpha^5+b_0'\alpha^{10}+b_1'\alpha^{20}+b_2'\alpha^9+b_3'\alpha^{18}\}$
+\item Clock 2: $from^1 = \{R+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}^{16}+(\alpha^4+\alpha^2) A_{init}^{16} B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^8 B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^8 B_{init}^4+(\alpha^3+\alpha+1) A_{init}^8 B_{init}^2+(\alpha^4+\alpha^2) A_{init}^8 B_{init}+(\alpha^4+\alpha^2) A_{init}^4 B_{init}^{16}+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}^8+(\alpha^2) A_{init}^4 B_{init}^4+(\alpha^3+\alpha^2+\alpha+1) A_{init}^4 B_{init}^2+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^3+\alpha+1) A_{init}^2 B_{init}^8+(\alpha^3+\alpha^2+\alpha+1) A_{init}^2 B_{init}^4+(\alpha^3+\alpha^2+\alpha) A_{init}^2 B_{init}^2+(\alpha^4+\alpha) A_{init}^2 B_{init}+(\alpha^4+\alpha^3+1) A_{init} B_{init}^{16}+(\alpha^4+\alpha^2) A_{init} B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init} B_{init}^4+(\alpha^4+\alpha) A_{init} B_{init}^2+(\alpha^3+\alpha+1) A_{init} B_{init},
+	A_{init}+a_4\alpha^5+a_0\alpha^{10}+a_1\alpha^{20}+a_2\alpha^9+a_3\alpha^{18},
+B_{init}+b_4\alpha^5+b_0\alpha^{10}+b_1\alpha^{20}+b_2\alpha^9+b_3\alpha^{18}\}$,
+$to^2 = \{R'+(\alpha^3+\alpha+1) A_{init}^{16} B_{init}^{16}+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}^8+(\alpha^2) A_{init}^{16} B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+1) A_{init}^8 B_{init}^{16}+(\alpha^4+\alpha^2) A_{init}^8 B_{init}^8+(\alpha^4) A_{init}^8 B_{init}^4+(\alpha^4+\alpha^3+1) A_{init}^8 B_{init}^2+(\alpha^3+1) A_{init}^8 B_{init}+(\alpha^2) A_{init}^4 B_{init}^{16}+(\alpha^4) A_{init}^4 B_{init}^8+(\alpha^4) A_{init}^4 B_{init}^4+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}^2+(\alpha) A_{init}^4 B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^4+\alpha^3+1) A_{init}^2 B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^2 B_{init}^4+(\alpha^2) A_{init}^2 B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^2 B_{init}+(\alpha^3+1) A_{init} B_{init}^8+(\alpha) A_{init} B_{init}^4+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init} B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init} B_{init},
+A_{init}+a_3'\alpha^5+a_4'\alpha^{10}+a_0'\alpha^{20}+a_1'\alpha^9+a_2'\alpha^{18},
+B_{init}+b_3'\alpha^5+b_4'\alpha^{10}+b_0'\alpha^{20}+b_1'\alpha^9+b_2'\alpha^{18}\}$
+\item Clock 3: $from^2 = \{R+(\alpha^3+\alpha+1) A_{init}^{16} B_{init}^{16}+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}^8+(\alpha^2) A_{init}^{16} B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+1) A_{init}^8 B_{init}^{16}+(\alpha^4+\alpha^2) A_{init}^8 B_{init}^8+(\alpha^4) A_{init}^8 B_{init}^4+(\alpha^4+\alpha^3+1) A_{init}^8 B_{init}^2+(\alpha^3+1) A_{init}^8 B_{init}+(\alpha^2) A_{init}^4 B_{init}^{16}+(\alpha^4) A_{init}^4 B_{init}^8+(\alpha^4) A_{init}^4 B_{init}^4+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}^2+(\alpha) A_{init}^4 B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^4+\alpha^3+1) A_{init}^2 B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^2 B_{init}^4+(\alpha^2) A_{init}^2 B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^2 B_{init}+(\alpha^3+1) A_{init} B_{init}^8+(\alpha) A_{init} B_{init}^4+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init} B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init} B_{init},
+A_{init}+a_3\alpha^5+a_4\alpha^{10}+a_0\alpha^{20}+a_1\alpha^9+a_2\alpha^{18},
+B_{init}+b_3\alpha^5+b_4\alpha^{10}+b_0\alpha^{20}+b_1\alpha^9+b_2\alpha^{18}\}$, 
+$to^3 = \{R'+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}^{16}+(\alpha) A_{init}^{16} B_{init}^8+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^{16} B_{init}^4+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^{16} B_{init}+(\alpha) A_{init}^8 B_{init}^{16}+(\alpha+1) A_{init}^8 B_{init}^8+(\alpha^4) A_{init}^8 B_{init}^4+(\alpha^3+\alpha^2+1) A_{init}^8 B_{init}^2+(\alpha^4+\alpha^3+\alpha+1) A_{init}^8 B_{init}+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^4 B_{init}^{16}+(\alpha^4) A_{init}^4 B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}^4+(\alpha^3+\alpha+1) A_{init}^4 B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^4 B_{init}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^2 B_{init}^{16}+(\alpha^3+\alpha^2+1) A_{init}^2 B_{init}^8+(\alpha^3+\alpha+1) A_{init}^2 B_{init}^4+(\alpha^3+\alpha+1) A_{init}^2 B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+1) A_{init} B_{init}^{16}+(\alpha^4+\alpha^3+\alpha+1) A_{init} B_{init}^8+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init} B_{init}^4+(\alpha^4+\alpha) A_{init} B_{init},
+A_{init}+a_2'\alpha^5+a_3'\alpha^{10}+a_4'\alpha^{20}+a_0'\alpha^9+a_1'\alpha^{18},
+B_{init}+b_2'\alpha^5+b_3'\alpha^{10}+b_4'\alpha^{20}+b_0'\alpha^9+b_1'\alpha^{18}\}$
+\item Clock 4: $from^3 = \{R+(\alpha^4+\alpha^3+1) A_{init}^{16} B_{init}^{16}+(\alpha) A_{init}^{16} B_{init}^8+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^{16} B_{init}^4+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^{16} B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^{16} B_{init}+(\alpha) A_{init}^8 B_{init}^{16}+(\alpha+1) A_{init}^8 B_{init}^8+(\alpha^4) A_{init}^8 B_{init}^4+(\alpha^3+\alpha^2+1) A_{init}^8 B_{init}^2+(\alpha^4+\alpha^3+\alpha+1) A_{init}^8 B_{init}+(\alpha^4+\alpha^3+\alpha^2+1) A_{init}^4 B_{init}^{16}+(\alpha^4) A_{init}^4 B_{init}^8+(\alpha^4+\alpha^3+\alpha+1) A_{init}^4 B_{init}^4+(\alpha^3+\alpha+1) A_{init}^4 B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^4 B_{init}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^2 B_{init}^{16}+(\alpha^3+\alpha^2+1) A_{init}^2 B_{init}^8+(\alpha^3+\alpha+1) A_{init}^2 B_{init}^4+(\alpha^3+\alpha+1) A_{init}^2 B_{init}^2+(\alpha^4+\alpha^3+\alpha^2+1) A_{init} B_{init}^{16}+(\alpha^4+\alpha^3+\alpha+1) A_{init} B_{init}^8+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init} B_{init}^4+(\alpha^4+\alpha) A_{init} B_{init},
+A_{init}+a_2\alpha^5+a_3\alpha^{10}+a_4\alpha^{20}+a_0\alpha^9+a_1\alpha^{18},
+B_{init}+b_2\alpha^5+b_3\alpha^{10}+b_4\alpha^{20}+b_0\alpha^9+b_1\alpha^{18}\}$,
+$to^4 = \{R'+(\alpha^3+\alpha+1) A_{init}^{16} B_{init}^{16}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^{16} B_{init}^8+(\alpha^4+\alpha) A_{init}^{16} B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^3+\alpha+1) A_{init}^{16} B_{init}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^8 B_{init}^{16}+(\alpha^3+1) A_{init}^8 B_{init}^8+(\alpha^4+\alpha^2+\alpha) A_{init}^8 B_{init}^4+(\alpha^2+\alpha) A_{init}^8 B_{init}^2+(\alpha^3+\alpha^2+1) A_{init}^8 B_{init}+(\alpha^4+\alpha) A_{init}^4 B_{init}^{16}+(\alpha^4+\alpha^2+\alpha) A_{init}^4 B_{init}^8+(\alpha^4+\alpha^2+\alpha) A_{init}^4 B_{init}^4+(\alpha^2+\alpha) A_{init}^4 B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^2+\alpha) A_{init}^2 B_{init}^8+(\alpha^4+\alpha^2) A_{init}^2 B_{init}^2+(\alpha^3+\alpha^2+1) A_{init}^2 B_{init}+(\alpha^3+\alpha+1) A_{init} B_{init}^{16}+(\alpha^3+\alpha^2+1) A_{init} B_{init}^8+(\alpha^2+\alpha) A_{init} B_{init}^4+(\alpha^3+\alpha^2+1) A_{init} B_{init}^2+(\alpha) A_{init} B_{init},
+A_{init}+a_1'\alpha^5+a_2'\alpha^{10}+a_3'\alpha^{20}+a_4'\alpha^9+a_0'\alpha^{18},
+B_{init}+b_1'\alpha^5+b_2'\alpha^{10}+b_3'\alpha^{20}+b_4'\alpha^9+b_0'\alpha^{18}\}$
+\item Clock 5: $from^4 = \{R+(\alpha^3+\alpha+1) A_{init}^{16} B_{init}^{16}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^{16} B_{init}^8+(\alpha^4+\alpha) A_{init}^{16} B_{init}^4+(\alpha^3+1) A_{init}^{16} B_{init}^2+(\alpha^3+\alpha+1) A_{init}^{16} B_{init}+(\alpha^4+\alpha^3+\alpha^2+\alpha+1) A_{init}^8 B_{init}^{16}+(\alpha^3+1) A_{init}^8 B_{init}^8+(\alpha^4+\alpha^2+\alpha) A_{init}^8 B_{init}^4+(\alpha^2+\alpha) A_{init}^8 B_{init}^2+(\alpha^3+\alpha^2+1) A_{init}^8 B_{init}+(\alpha^4+\alpha) A_{init}^4 B_{init}^{16}+(\alpha^4+\alpha^2+\alpha) A_{init}^4 B_{init}^8+(\alpha^4+\alpha^2+\alpha) A_{init}^4 B_{init}^4+(\alpha^2+\alpha) A_{init}^4 B_{init}+(\alpha^3+1) A_{init}^2 B_{init}^{16}+(\alpha^2+\alpha) A_{init}^2 B_{init}^8+(\alpha^4+\alpha^2) A_{init}^2 B_{init}^2+(\alpha^3+\alpha^2+1) A_{init}^2 B_{init}+(\alpha^3+\alpha+1) A_{init} B_{init}^{16}+(\alpha^3+\alpha^2+1) A_{init} B_{init}^8+(\alpha^2+\alpha) A_{init} B_{init}^4+(\alpha^3+\alpha^2+1) A_{init} B_{init}^2+(\alpha) A_{init} B_{init},
+A_{init}+a_1\alpha^5+a_2\alpha^{10}+a_3\alpha^{20}+a_4\alpha^9+a_0\alpha^{18},
+B_{init}+b_1\alpha^5+b_2\alpha^{10}+b_3\alpha^{20}+b_4\alpha^9+b_0\alpha^{18}\}$,
+$to^5 = \{R'+A_{init}B_{init},
+A_{init}+a_0'\alpha^5+a_1'\alpha^{10}+a_2'\alpha^{20}+a_3'\alpha^9+a_4'\alpha^{18},
+B_{init}+b_0'\alpha^5+b_1'\alpha^{10}+b_2'\alpha^{20}+b_3'\alpha^9+b_4'\alpha^{18}\}$
+\end{itemize}
+The final result is
+$from^5(R_{final}) = R_{final}+A_{init}\cdot B_{init}$
+\end{Example}

@@ -1,0 +1,33 @@
+\section{Introduction}
+\label{sec:intro}
+
+Galois field (GF) arithmetic finds application in many areas such as 
+cryptography, error control coding, VLSI testing, etc. In most
+hardware applications, fields of the type $\Fkk$ are widely
+chosen. Such {\it binary} GFs are $k$-dimensional extensions
+of the base field ${\mathbb{F}}_2$; this allows for the design of
+efficient (AND-XOR) arithmetic architectures and algorithms for
+hardware design. For example, in elliptic curve cryptography, the
+operations of encryption, decryption and authentication rely on
+polynomial computations over $\Fkk$. In many applications, however,
+the datapath size (bit-vector operand size) $k$ can be very
+large. Therefore, for efficient implementation, many custom VLSI
+architectures for polynomial GF aritmetic have been devised
+\cite{wu:2002} \cite{acar:1998} \cite{agnew1991implementation}
+\cite{RHmulti}. Due to their deployment in communications and
+security-related applications, there is a critical need to {\it formally
+verify} the correctness of hardware implementations of GF arithmetic.  
+
+
+Formal verification of such specialized and custom GF arithmetic
+architectures remains a challenge. While there have been recent
+advancements in formal verification of {\it combinational} GF
+arithmetic circuits \cite{ibm:blueveri} \cite{lv:tcad2013}
+\cite{pruss:dac14}, formal verification of sequential GF circuits has
+not been addressed. 
+
+The high complexity
+
+ This introduce many
+design and verification challenges
+

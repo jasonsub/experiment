@@ -1,0 +1,185 @@
+%\documentclass[pdf,final,colorBG,slideColor]{prosper}
+\documentclass[xcolor=dvipsnames]{beamer}
+%%\usetheme{default}
+\usecolortheme[named=Maroon]{structure}
+%\usetheme{Boadilla}
+\usetheme{Madrid}
+\useoutertheme{default}%[footline=empty]{infolines}
+
+% \usepackage{helvet}
+% \usepackage{enumerate}
+% \usepackage{amsmath}
+% \usepackage{amsfonts}
+% \usepackage{graphicx}
+% \usepackage{ulem}
+% \usepackage{multirow}
+\usepackage{comment}
+\usepackage{xspace}
+
+\usepackage[absolute,overlay]{textpos}
+\usepackage[ruled]{./algorithm2e}
+%%for algorithm2e package, label has to be following caption in the same line!!!
+\renewcommand{\algorithmcfname}{ALGORITHM}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+\SetAlCapHSkip{0pt}
+\IncMargin{-\parindent}
+
+%\RequirePackage{algorithmic}
+%\RequirePackage{algorithm}
+% \renewcommand{\algorithmicrequire}{\textbf{Inputs:}}
+% \renewcommand{\algorithmicensure}{\textbf{Outputs:}}
+
+
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{lemma}
+%\newtheorem{corollary}{Corollary}
+%\newtheorem{proposition}{Proposition}
+%\newtheorem{Q}{Question}
+%\newtheorem{Exa}{Example}
+%\newtheorem{Definition}{Definition}
+
+
+\newcommand{\Fq}{{\mathbb{F}}_{q}}
+\newcommand{\Fkk}{{\mathbb{F}}_{2^k}}
+\newcommand{\Zkk}{{\mathbb{Z}}_{2^k}}
+\newcommand{\Fkkx}[1][x]{\ensuremath{\mathbb{F}}_{2^k}[#1]\xspace}
+\newcommand{\Grobner}{Gr\"{o}bner\xspace}
+%\newcommand{\Grobner}{Gr\"{o}bner}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\B}{{\mathbb{B}}}
+
+
+\title[Ph.D Proposal]{Sequential Circuit Verification at Word Level using Algebraic Geometry}
+
+\author[Xiaojun Sun]{Xiaojun Sun}
+
+%\email{rostamian@umbc.edu}
+\institute[Univ. of Utah]{
+%\includegraphics[height=17mm]{/Users/Kalla/teaching/Comp-Algebra-Course/lectures/old_ulogo.eps}\\
+Ph.D Candidate\\
+Electrical and Computer Engineering, University of Utah\\
+xiaojuns@ece.utah.edu\\
+\ \\
+\ \\
+{\bf Ph.D's Dissertation Proposal}\\
+}
+
+
+\date{}
+%\slideCaption{}
+
+%% Images
+%\pgfdeclareimage[width=.4in]{fg:logo}{/Users/Kalla/teaching/Comp-Algebra-Course/lectures/old_ulogo.eps} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+
+%----------- titlepage ----------------------------------------------%
+\begin{frame}[plain]
+  \titlepage
+
+\end{frame}
+
+%\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{frame}{\large{Agenda}}
+
+\begin{itemize}
+\item Focus
+	\begin{itemize}
+	\item Implicitly analyze the reachability of a sequential circuit at word level
+	\item Use algebraic geometry to assist in sequential circuits abstraction refinement
+	\end{itemize}
+\item Motivation
+	\begin{itemize}
+	\item Bit-level to word-level abstraction, BFS traversal of FSMs
+	\end{itemize}
+\item Target problems 
+	\begin{itemize}
+	\item Given a sequential FSM, with $k$-bit state variables,
+     perform an implicit state enumeration at word level, i.e. use word-level variables from $\Fkk$ to represent reachable states
+        \item Extract UNSAT cores efficiently from a given set of CNF clauses
+	\end{itemize}
+\item Approach: {\bf Algebraic geometry techniques}
+	\begin{itemize}
+	\item  \Grobner basis methods + Elimination ordering + BFS traversal
+        \item  Challenge: Discover efficient algorithmic techniques to implement image computations, 
+        set operations, UNSAT proofs, etc. at word level
+        \item  Proposed Contribution: Polynomial abstraction as well as algebraic geometry techniques 
+        is applied to reachability analysis; A new algorithm based on \Grobner basis computation is explored to extract UNSAT cores
+	\end{itemize}
+%\item Results \& Conclusions
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\large {Motivation}}
+\vspace{-0.2in}
+%\ptsize{10}
+
+\begin{itemize}
+\item Importance of reachability analysis in sequential circuits verification
+	\begin{itemize}
+	\item Circuits $\to$ state machines; errors $\to$ bad states
+	\item Bad states are reachable $implies$ errors affect circuit behavior
+	\end{itemize}	
+\end{itemize}
+
+\begin{itemize}
+\item Advantages exploiting word-level verification
+	\begin{itemize}
+	\item Many circuit datapaths/system models are described at word level
+	\item Reduce state space, avoid ``bit-blasting"
+	\end{itemize}	
+\end{itemize}
+% 
+% \bi
+% \item Bugs in hardware can leak secret keys [{\it Biham et al.}, ``Bug
+%   Attacks'', Crypto 2008] 
+% \ei
+
+% \begin{itemize}
+% \item Type of circuits in ECC
+% 	\begin{itemize}
+% 	\item Multiplication dominates Galois field computations
+% 	\item In cryptography: $99\%$ time in encryption and decryption
+% 	\item 
+% 	\end{itemize}
+% \end{itemize}	
+
+%  \begin{itemize}
+%  \item Data-path size in ECC crypto-systems can be very large
+%  	\begin{itemize}
+%         \item In $\mathbb{F}_{2^k}$, $k = 163, 233, \dots$ (NIST standard)
+%         \item ECC-point addition for encryption, decryption, authentication
+%  	\item Custom arithmetic architectures -- hard to verify
+%         \item Synthesized circuits are ``easier'' to verify
+%  	\end{itemize}
+%  \end{itemize}
+
+\begin{itemize}
+\item Why use algebraic geometry?
+	\begin{itemize}
+        \item Provide a symbolic representation for both bit and word level variables in one unified framework
+	\item Recent work shows it is practical to apply algebraic geometry to circuit verification
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+
+
+
+
+\end{document}

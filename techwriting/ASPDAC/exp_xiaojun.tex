@@ -1,0 +1,134 @@
+\section{Experimental Results}
+\label{sec:result}
+We have implemented our approach within the \textsc{Singular} symbolic
+algebra computation system [v. 3-1-6] \cite{DGPS}. Using our
+implementation, we have performed experiments to verify two SMPO
+architectures \cite{agnew1991implementation} \cite{RHmulti} over
+$\Fkk$, for various datapath/field sizes. Bugs are also introduced
+into the SMPO designs by modifying a few gates in the combinational
+logic block. Experiments using SAT-, BDD-, and AIG-based solvers are
+also conducted and results are compared against our approach. 
+Our experiments run on a desktop with 3.5GHz Intel
+$\text{Core}^\text{TM}$ i7 Quad-core CPU, 16 GB RAM and 64-bit Linux.  
+
+{\it Evaluation of SAT/ABC/BDD based methods:} 
+For Angew's SMPO
+design, there is an equation in following form (this is a 5-bit
+example): 
+\begin{align}
+R_i &= b_ia_{i+1} + b_{i+1}(a_i + a_{i+3}) + b_{i+2}(a_{i+3} + a_{i+4}) \nonumber\\
+&+ b_{i+3}(a_{i+1} + a_{i+2}) + b_{i+4}
+(a_{i+2} + a_{i+4}),\ 0\leq i\leq 4 \nonumber
+\end{align}
+This equation can be used as specification of any unrolled SMPO circuit. For SAT/ABC/BDD based methods,
+we first unroll our RH-SMPO design, then create a \emph{miter} with the unrolled design and
+circuit specification, which we use unrolled Angew's SMPO in this paper, to check if it is unsatisfiable.
+
+The SAT solver we use is \emph{Lingeling} \cite{biere2013lingeling}. Single-output miter circuit is written
+in DIMACS CNF \cite{DIMACSformat} format and fed to Lingeling. In ABC, we use the Combinational Equivalence Checking (CEC) engine 
+ to read and compare 2 networks from unrolled RH-SMPO and specification (both written in BLIF format). 
+ For BDD based approach, we use the BDD module integrated within VIS tool \cite{brayton1996vis}. The miter is described by a BLIF 
+ file and read by VIS. After BDD is built, if there is no path to leaf "1", then the miter is unsatisfiable.
+
+The runtime results given in seconds include experiments for 11, 18, 23 and 33 bits unrolled SMPO
+and their specifications. They show that all SAT, ABC and BDD based approach 
+cannot verify SMPO beyond 33 bits.
+
+\begin{table}[tb]
+\centering
+\caption{Runtime for verification of bug-free SMPO circuits over $\Fkk$ for SAT, ABC and BDD based methods. \emph{TO} = timeout of 14 hrs}
+\begin{tabular}{|c||c|c|c|c|} 
+\hline
+& \multicolumn{4}{|c|}{Word size of the operands $k$-bits}  \\
+\hline
+Solver & 11 & 18 & 23 & 33 \\
+\hline
+\hline
+Lingeling & 593  & \emph{TO}  & \emph{TO}  & \emph{TO}\\
+\hline
+\hline
+ABC & 6.24 & \emph{TO} & \emph{TO} & \emph{TO}\\
+\hline
+\hline
+BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
+\hline
+\end{tabular}
+\label{table:satbdd}  
+\end{table} 
+
+The CEC engine embedded within ABC tool \cite{brayton2010abc} combines multiple techniques such as AIG rewriting via structural hashing, simulation and
+SAT and has high efficiency when verifying structurally similar netlists, esp. comparing original design with its synthesized and optimized implementation.
+However, the RH-SMPO we verify has distinct structure from our specification (Angew's SMPO). We can approximately give the similarity between these 2 designs
+using information from networks before and after structural hashing. First, we read in the miter design created from unrolled RH-SMPO and specification,
+record the original number of nodes in this network as $N_1$; then we use command \emph{fraig\_sweep} in ABC to reduce this network, equivalent nodes in AIG
+are merged, record the number of nodes after reduction as $N_2$; $\frac{N_1-N_2}{N_1}$ reflects the portion of equivalent nodes in original miter, which is
+the \emph{similarity} between two designs.
+
+\begin{table}[tb]
+\centering
+\caption{Similarity between RH-SMPO and Angew's SMPO}
+\begin{tabular}{|c||c|c|c|c|} 
+\hline
+Size $k$ & 11 & 18 & 23 & 33 \\
+\hline
+$N_1$ & 734  & 2011  & 3285  & 6723\\
+\hline
+$N_2$ & 529 & 1450 & 2347 & 4852\\
+\hline
+Similarity & $27.9\%$ & $27.9\%$ & $28.6\%$ & $27.8\%$  \\
+\hline
+\end{tabular}\label{table:similarity}  
+\end{table} 
+
+\subsection{Evaluation of Our Approach}
+Our approach requires only one time reduction for each clock cycle using RATO. If we use built-in function in \textsc{Singular} to directly
+compute Gr\"obner basis, the high-degree word definition polynomial will exceed \textsc{Singular}'s capacity, even for 11 bits SMPO.
+
+We also introduce bugs to our SMPO designs; these bugs are simply swapping an arbitrary pair of gate output signals. Since our approach does not
+rely on arithmetic complexity of the design, the runtime for verifying buggy circuits has almost no difference from bug-free ones.
+
+\begin{table}[tb]
+\centering
+\caption{Runtime (given in seconds) for verification of bug-free and buggy RH-SMPO circuits over $\Fkk$ using our approach}
+\begin{minipage}{8cm}
+\def\arraystretch{1.5}\tabcolsep 2pt
+\begin{tabular}{|c||c|c|c|c|c|} 
+\hline
+Operand size $k$ & 33 & 51 & 65 & 81 & 89 \\
+\hline
+\#variables & 4785 & 11424 & 18265 & 28512 & 34354\\
+\hline
+\#polynomials & 3630 & 8721 & 13910 & 21789 & 26255\\
+\hline
+\#terms & 13629 & 32793 & 52845 & 82539 & 99591 \\
+\hline
+\hline
+Runtime(bug-free) & 112.6 & 1129 & 5243 & 20724 & 36096 \\
+\hline
+Runtime(buggy) & 112.7 & 1129 & 5256 & 20684 & 36120\\
+\hline
+\end{tabular}
+\end{minipage}
+\label{table:SMPO}  
+\end{table}
+
+%\begin{table}[h]
+%\centering
+%\begin{tabular}{|c||c|c|c|c|c|} 
+%\hline
+%Operand size $k$ & 36 & 66 & 82 & 89 & 100 \\
+%\hline
+%\#variables & 183 & 333 & 413 & 448 & 503\\
+%\hline
+%\#polynomials & 2700 & 8910 & 13694 & 16109 & 20300\\
+%\hline
+%\#terms & 12996 & 43626 & 67322 & 79299 & 100100 \\
+%\hline
+%\hline
+%Runtime(bug-free) & 113 & 3673 & 15117 & 28986 & 50692 \\
+%\hline
+%Runtime(buggy) & 118 & 4320 & 15226 & 31571 & 58861\\
+%\hline
+%\end{tabular}
+%\caption{Runtime (given in seconds) for verification of bug-free and buggy Angew's SMPO circuits over $\Fkk$ using our approach}\label{table:SMPO}  
+%\end{table}

@@ -1,0 +1,164 @@
+\section{Improving our Approach}
+\label{sec:improve}
+
+Computing \Grobner bases with elimination orders is infeasible for
+large circuits; the complexity of Buchberger's algorithm to compute
+$GB(J + J_0)$ in $\Fq$ is $q^{O(d)}$ \cite{lv:tcad2013}. 
+To overcome this complexity, \cite{pruss:dac14} proposed a
+\underline{r}efinement of ATO (called RATO), and simplified the
+\Grobner basis computation. They exploited Buchberger's product
+criteria \cite{productc:1979}, which states that: {\it If the leading  
+monomials of $f_i, f_j$ are relatively prime, then $Spoly(f_i, f_j)$
+reduces to zero modulo the generating set, i.e. $Spoly(f_i, f_j)
+\xrightarrow{F} _+ 0$.} This concept was exploited in RATO as follows: 
+
+Perform a reverse topological sorting of the nodes in the
+combinational logic, and define a {\it lex} term order by the
+following relation $>_{r}$: {\it bit-level circuit variables ordered
+  reverse topologically} $>$  {\it word-level output variables} $>$
+{\it word-level input   variables}. Representing the polynomial ideal
+$J$ in RATO has the effect that there exists {\it one and only one
+  pair of polynomials} in $J$ that do not have relatively prime
+leading terms (see  Section 5 in \cite{pruss:dac14} for details). All
+other polynomial pairs will have leading terms that are 
+relatively prime, so these polynomial pairs are not considered in
+Buchberger's algorithm.  The authors of \cite{pruss:dac14} exploited
+this concept and showed how the \Grobner basis of $(J + J_0)$ can be
+computed by a {\it subset} of polynomials, which  improves the
+scalability of their approach. Their approach, however, cannot
+circumvent the \Grobner basis computation altogether. Consequently, 
+their approach fails to derive a canonical polynomial abstraction when
+the representation is dense, and contains monomials of high-degrees
+(e.g. in case of buggy designs). 
+
+It turns out that RATO can be applied to sequential circuits in much
+the same way: {\it \{bit-level circuit variables ordered
+  reverse topologically} $x_1 > \dots x_d\}$ $>$  {\it \{word-level NS
+  variables} $R'> A'> B'\}$ $>$ {\it \{word-level PS variables}
+$R>A>B\}$. Importantly, {\it we show that using RATO, the polynomial
+abstraction can be derived without resorting to a \Grobner basis
+computation.} Perform the following operations: 
+
+\begin{enumerate}
+\item Represent the polynomials of the sequential circuit $S$ using RATO.
+\item Due to RATO, only one pair of polynomials ($f_i, f_j$) will have
+  leading terms that will not be relatively prime.
+\item Reduce $Spoly(f_i, f_j) \xrightarrow{F}_+ h$.
+\end{enumerate}
+As described in \cite{pruss:dac14}, remainder $h$ will contain:
+  i) the word-level variables, and ii) bit-level inputs to the
+  combinational logic, i.e. bit-level present-state variables. All
+  other internal circuit variables will not appear in $h$, as they
+  will be canceled by division due to RATO. 
+
+\begin{Example}
+\label{ex:newRATO}
+Let us re-visit Example \ref{ex:RHSMPO} and the RH-SMPO circuit of
+Fig. \ref{fig:RHmulti}. For this circuit, the term order under
+RATO is lex with: $\{r_0',r_1',r_2',r_3',r_4'\} > \{r_0, r_1, r_2,r_3,r_4\}
+> \{e_0,e_3,e_4\}, \{d_0,d_1,d_2\}, \{c_1,c_2,c_3,c_4\} 
+\{ a_0, a_1, a_2, a_3, a_4, \\
+b_0, b_1, b_2,  b_3, b_4 \} > R'>R>\{A,B\}$. 
+
+
+Among all the generators of the ideal $J$ from Ex.\ref{ex:RHSMPO},
+using RATO \textbf{we find only one pair of polynomials} whose leading  
+monomials are not relatively prime:
+$(f_i, f_j), f_i = r_0'+r_4+e_0, f_j
+=r_0'\alpha^5+r_1'\alpha^{10}+r_2'\alpha^{20}+r_3'\alpha^9+r_4'\alpha^{18}
++ R'$. Then: %Buchberger's algorithm will compute $Spoly(f_w,
+\vspace{-0.1in}
+{\small
+\begin{align}
+&Spoly(f_i,f_j) \xrightarrow{J+J_0}_{+}\nonumber\\
+&(\alpha^3+\alpha^2+\alpha) r_1+(\alpha^4+\alpha^3+\alpha^2) r_2+(\alpha^2+\alpha) r_3+(\alpha) r_4\nonumber\\
+&+(\alpha^3+\alpha^2) a_1 b_1+(\alpha^4+\alpha^3+\alpha^2+\alpha) a_1 b_2+(\alpha^2+\alpha) a_1 b_3\nonumber\\
+&+(\alpha^2+1) a_1 b_4+(\alpha^4+1) a_1 B+(\alpha^4+\alpha) a_2 b_1+(\alpha^4+\alpha^3+\alpha) a_2 b_2\nonumber\\
+&+(\alpha^3+1) a_2 b_3+(\alpha^3+\alpha^2+1) a_2 b_4+(\alpha^3+\alpha^2) a_2 B+(\alpha^2+\alpha) a_3 b_1\nonumber\\
+&+(\alpha^3+1) a_3 b_2+(\alpha+1) a_3 b_3+(\alpha^4+\alpha^2+\alpha) a_3 b_4\nonumber\\
+&+(\alpha^4+\alpha^3+\alpha) a_3 B+(\alpha^3+1) a_4 b_1+a_4 b_2+(\alpha^4+\alpha^2+\alpha) a_4 b_3\nonumber\\
+&+(\alpha^4+\alpha^3+1) a_4 b_4+(\alpha^2+\alpha) a_4 B+(\alpha^4+1) b_1 A+(\alpha^3+\alpha^2) b_2 A\nonumber\\
+&+(\alpha^4+\alpha^3+\alpha) b_3 A+(\alpha^2+\alpha) b_4 A+(\alpha^4+\alpha^2+\alpha+1) R'+A B\nonumber
+\end{align}
+}
+\end{Example}
+\vspace{-0.1in}
+As shown above, the remainder $h$ contains both bit-level variables and
+word-level {\it state variables} $a_i, b_i, r_i, R, A, B$. We desire
+a polynomial in only word 
+level variables (e.g. $R'+\mathcal{F}(A,B)$), without computing a
+\Grobner basis. This can be achieved if we  represent the
+bit-level state variables $a_i, b_i, r_i$ in terms of their word-level
+variables $A, B, R$, respectively. This can be achieved due to 
+the following property of finite fields:
+
+\begin{Lemma}
+\label{lemma:square}
+For $\alpha_1, \dots, \alpha_t \in \Fkk$, $(\alpha_1 + \alpha_2 +
+\dots + \alpha_t)^{2^i} = \alpha_1^{2^i} + \alpha_2^{2^i} + \dots +
+\alpha_t^{2^i}$, for $i = 1, 2, \ldots$. 
+\end{Lemma}
+
+Consider the polynomials that define the relationship between the
+word-level and bit-level variables. Let 
+$ A = a_0 \beta + a_1\beta^2 + \dots + a_{k-1}\beta^{2^{k-1}}$.
+Due to Lemma \ref{lemma:square}, we have $A^2 = a_0 \beta^{2}+ a_1
+\beta^{4} + \dots + a_{k-1} \beta^{2\cdot 2^{k-1}}$ (as
+$a_i^2 = a_i$). By repeated squaring:
+\begin{eqnarray}
+A & = & a_0 \beta + a_1\beta^2 + \dots + a_{k-1}\beta^{2^{k-1}}\nonumber\\
+A^2 & = & a_0 \beta^{2}+ a_1 \beta^{4} + \dots + a_{k-1}
+\beta^{2\cdot 2^{k-1}} \nonumber\\
+\vdots & \vdots& \vdots \nonumber\\
+A^{2^{k-1}} & = & a_0 \beta^{2^{k-1}}  +  a_1 \beta^{2^{k-1}\cdot 2} +
+\dots + a_{k-1}\beta^{2^{2(k-1)}} \nonumber
+\end{eqnarray}
+Consider the above as $k$ {\it linear equations} with $a_0, \dots, a_{k-1}$
+as $k$-unknowns, with $\beta$ and its powers as coefficients, and 
+$A, A^2, ... \dots, A^{2^{k-1}}$ as $k$ constants. Then, we can solve
+for the unknowns $a_0, \dots, a_{k-1}$ and obtain expressions for them
+in terms of $A$ and $\beta$. The problem can be setup in
+matrix form:
+
+\begin{displaymath}
+\begin{pmatrix}
+\beta & \beta^2 & \cdots & \beta^{2^{k-1}} \\
+\beta^2 & \beta^4 & \cdots & \beta^{2^{k-1}\cdot 2} \\
+\vdots & \vdots & \ddots & \vdots \\
+\beta^{2^{k-1}} & \beta^{2^{k-1}\cdot 2} & \cdots & \beta^{2^{2(k-1)}}
+\end{pmatrix}
+\begin{pmatrix}
+a_0\\
+a_1\\
+\vdots\\
+a_{k-1}
+\end{pmatrix}
+=
+\begin{pmatrix}
+A\\
+A^2\\
+\vdots\\
+A^{2^{k-1}}
+\end{pmatrix}
+\end{displaymath}
+
+Gaussian elimination on this system of equations can be 
+applied, and each bit-level variable $a_i$ can be represented as a
+function of the word-level variables: $a_i = g_i(A)$. These bit-level
+variables can be easily substituted in the remainder $h$ obtained by
+reduction due to RATO. What we will obtain is a word-level polynomial
+of the form $h: R' + \F(A, B)$ which canonically represents the
+$k$-cycle function of the circuit. It is also easy to show that this
+polynomial is a unique, canonical representation because it is reduced
+modulo $J + J_0$. 
+% = \langle x_1^2 - x_1, \dots, x_d^2 - x_d, R^q - R, A^q -
+%A, B^q - B\rangle$. 
+
+%% By replacing all bit-level variables by corresponding word-level
+%% variable polynomials, we transform the remainder of $Spoly$ reduction
+%% to the form of $R'+R+\mathcal F'(A,B)$. Note $R$ is present state
+%% notion of output, which equals to initial value $R=0$ in first clock
+%% cycle, or value of $R'$ from last clock cycle. By substituting $R$
+%% with its corresponding value ($0$ or a polynomial only about $A$ and
+%% $B$), we get the desired polynomial function $R'+\mathcal F(A,B)$. 
+ 

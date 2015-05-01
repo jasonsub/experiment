@@ -1,0 +1,274 @@
+\appendix
+
+\subsection{Abstract Algebra Concepts}
+Let $q = 2^k$ and $\mathbb F_{q}[x_1,\dots, x_d]$ be the polynomial
+ring with indeterminates $x_1,\dots,x_d$. A polynomial $f = c_1 X_1 +
+c_2 X_2 + \dots + c_t X_t$ is a finite sum of terms, where $c_1,
+\dots, c_t$ are coefficients and $X_1, \dots, X_t$ are monomials. A
+monomial ordering $X_1 > X_2 \dots > X_t$ is imposed on the
+polynomials to process them systematically. Then, $LT(f) = c_1 X_1,
+LM(f) = X_1$ denote the leading term and the leading monomial of $f$,
+respectively. Given polynomials $f, g$, if $cX$ is a term in $f$ that
+is divisible by $LT(g)$, 
+then $f \xrightarrow{g} r$ denotes a one-step reduction (division) of
+$f$ by $g$, resulting in remainder $r = f - {{cX} \over {LT(g)}} \cdot
+g$. Similarly, $f$ reduces to $r$ modulo the set of polynomials $F =
+\{f_1, \dots, f_s\}$, denoted $f \stackrel{F} {\textstyle
+  \longrightarrow}_+ r$, such that no term in $r$ is divisible by the
+$LT(f_i)$ of any polynomial in $ f_i \in F$.   
+
+Let $f_1,\dots, f_s$ be polynomials in $\mathbb F_q[x_1,\dots,x_d]$,
+then we set $J = \langle f_1,\dots, f_s\rangle = \left\{\sum_{i=1}^s
+h_if_i:h_1,\dots,h_s \in \mathbb F_q[x_1,\dots,x_d]\right\}$.  $J =
+\langle f_1,\dots, f_s\rangle$ forms an ideal in $\mathbb
+F_{q}[x_1,\dots, x_d]$, and $f_1,\dots, f_s$ are its generators.  
+Let $\mathbf{a} = (a_1, \dots, a_d) \in \Fq^d$ be a point. For any
+ideal $J = \langle f_1, \dots, f_s \rangle \subseteq 
+\Fq[x_1,\dots, x_d]$, the {\it affine variety} of $J$ over
+$\Fq$ is: 
+$V(J) = \{\mathbf{a} \in \Fq^d: \forall f \in
+J, f(\mathbf{a}) = 0\}.$ The variety $V(J)$ corresponds to
+the set of all solutions to $f_1 = \dots = f_s = 0$. Any finite set of
+points can be construed as the variety of an ideal --- a concept we
+exploit to model the  set of (finite) states of the machine. 
+
+An ideal may have many generating sets. The set $G = \{g_1, \dots,
+g_t\}$ is called a \Grobner basis of $J$ if and only if the
+leading term of all polynomials in $J$ is divisible be the leading
+term of some polynomial $g_i$ in $G$: i.e. $\forall f \in J, \exists
+g_i \in G \ s.t. \ LT(g_i) ~|~ LT(f)$. The famous Buchberger's
+algorithm, given in textbook \cite{ideals:book}, is used to compute a
+\Grobner basis (GB). Operating on  input $F = \{f_1, \dots, f_s\}$,
+and subject to the imposed term order $>$, it derives $G = GB(J) = \{
+g_1, \dots, g_t \}$. Buchberger's algorithm repeatedly computes
+$S$-polynomials. For pairs $(f_i, f_j) \in F$, $Spoly(f_i, f_j) =
+\frac{L}{lt(f_i)}\cdot f_i - \frac{L}{lt(f_j)}\cdot f_j$, where $L =
+LCM(LM(f_i), LM(f_j))$. Reducing $Spoly(f_i, f_j) \xrightarrow{F}_+ r$
+cancels the leading terms of $f_i, f_j$ and gives a polynomial $r$
+with a new leading term. This remainder $r$ is added to the current
+basis and $Spoly(f_i, f_j)$ computations are repeated for all pairs of
+polynomials until all $S$-polynomials reduce to 0.  
+
+\subsection{Normal Basis Theory}
+Let $\beta$ be a element in the Galois field $F_{2^n}$ constructed by primitive element $\alpha$ and minimal polynomial 
+$f(\alpha)$. Then a basis in the form $\{\beta, \beta^2, \beta^4, \beta^8, ... ,\beta^{2^{n-1}}\}$ is a
+\emph{Normal Basis}; here $\beta$ is called \emph{Normal Element}.\\
+
+For arithmetic in Galois fields, multiplication (with modulus) can be greatly simplified if Normal Basis representation 
+is adopted to represent operands, especially in element square and multiplication:\\
+
+\textit{Example B.1:}\ \ Element square: In $F_{2^n}$, we have relation $(a+b)^2 = a^2 + b^2$. Then 
+$(b_0\beta + b_1\beta^2 + b_2\beta^4 + \dots + b_{n-1}\beta^{2^{n-1}})^2 = 
+b_0^2\beta^2 + b_1^2\beta^4 + b_2^2\beta^8 + \dots + b_{n-1}^2\beta = 
+b_{n-1}^2\beta + b_0\beta^2 + b_1\beta^4 + \dots + b_{n-2}\beta^{2^{n-1}}$, which means a simple right-cyclic rotation.
+One the other hand, standard basis representation do not have this benefit:\\
+In $F_{2^3}$ constructed by $\alpha^3 + \alpha + 1$, standard basis is $\{ 1, \alpha, \alpha^2\}$.
+Let $\beta = \alpha^3$, $N = \{ \beta, \beta^2, \beta^4\}$ is a normal basis. Write down an element with both representations:
+$E = a_0 + a_1\alpha + a_2\alpha^2 = b_0\beta + b_1\beta^2 + b_2\beta^4$, and its square in standard basis:
+$E^2 = a_0 + a_1\alpha^2 + a_2\alpha^4 = a_0 + a_2\alpha + (a_1 + a_2)\alpha^2$. When it is written in normal basis:
+$E^2 = b_2\beta + b_0\beta^2 + b_1\beta^4$.
+
+\textit{Example B.2:}\ \ Normal basis multiplication: Assume there are 2 binary vectors representing 2 operands in normal
+basis: $A = (a_0, a_1, \dots, a_{n-1}), B = (b_0, b_1, \dots, b_{n-1})$; similarly the product can also be written
+as: $C = A*B = (c_0, c_1, \dots, c_{n-1}).$\\
+Then the highest digit of product can be represented by a function: $c_{n-1} = f(a_0, a_1, \dots, a_{n-1}; b_0, b_1, 
+\dots, b_{n-1})$. Square both side: $C^2 = A^2*B^2$, i.e. the second highest digit $c_{n-2} = f(a_{n-1}, a_0, a_1, 
+\dots, a_{n-2}; b_{n-1}, b_0, b_1, \dots, b_{n-2}).$ By this method it is easy to get all digits of product $C$.\\
+
+\textit{Example B.3:}\ \ $\lambda$-Matrix: We can employ a binary $n\times n$ matrix $M$ to describe the "function"
+ mentioned above: $c_{n-1} = f(A, B) = A \cdot M \cdot B^T$, $B^T$ denotes vector transposition. 
+More specifically, we denote the matrix by \emph{$k$-th $\lambda$-Matrix}: $c_k = A \cdot M^{(k)} \cdot B^T$.
+Then $c_{k-1} = A \cdot M^{(k-1)} \cdot B^T = rotate(A) \cdot M^{(k)} \cdot rotate(B)^T$, which means
+by right and down shifting $M^{(k-1)}$ we can get $M^{(k)}$.\\
+In $F_{2^3}$ constructed by $\alpha^3 + \alpha + 1$, let $\beta = \alpha^3$, $N = \{ \beta, \beta^2, \beta^4\}$ 
+is a normal basis. $0$-th $\lambda$-Matrix
+\begin{equation}
+M^{(0)} = \left(
+\begin{array} {lcr}
+0 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} \right).
+\end{equation}
+i.e.,
+\begin{equation}
+c_0 = (a_0\  a_1\  a_2)\left(
+\begin{array} {lcr}
+0 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} \right)\left(
+\begin{array} {lcr}
+b_0\\
+b_1\\
+b_2
+\end{array} \right).
+\end{equation}
+
+\indent \\
+$\lambda$-Matrix is defined with cross-product terms from multiplication, which is 
+\begin{equation}
+Product C = (\sum_{i=0}^{n-1}a_i\beta^{2^i})(\sum_{j=0}^{n-1}b_j\beta^{2^j}) = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}a_ib_j\beta^{2^i}\beta^{2^j}
+\end{equation}
+The expressions $\beta^{2^i}\beta^{2^j}$ are referred to as cross-product terms, and can be represented by
+normal basis, i.e.
+\begin{equation}
+\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1}\lambda_{ij}^{(k)}\beta^{2^k}, \ \ \lambda_{ij}^{(k)} \in F_2.
+\end{equation}
+Substitution yields, result is an expression for k-th digit of product as showed in \textit{Example B.3}:
+\begin{equation}
+c_k = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}\lambda_{ij}^{(k)}a_ib_j
+\end{equation}
+$\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ in $k$-th $\lambda$-Matrix.\par
+
+\subsection{Optimal Normal Basis (ONB)}
+
+The number of non-zero entries in $\lambda$-Matrix is named as  \emph{Complexity$(C_N)$}. \\
+To define optimal normal basis, it is necessary to find out the minimum number
+of non-zero terms in $\lambda$-matrix.\\
+\textit{Theorem C.1}\ \ If N is a normal basis for $F_{p^n}$ with $\lambda$-matrix $M^{(k)}$, then non-zero entries in 
+matrix $C_N\geq 2n-1$.\\
+\begin{proof}
+Let $N = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, denote $\beta^{p^i}$ by $\beta_i$. 
+Then $\sum_{i=0}^{n-1} \beta_i = trace\ \beta$. \\
+Denote $trace\ \beta$ with $b$, consider $n\times n$ matrix $M^{(0)}$. Then\\
+$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$.\\
+Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
+So the first column must contain at least 1 nonzero element, and other columns must get a sum of zero 
+while keeping every row linearly independent so there should be at least 2 non-zero elements each column.
+\end{proof}
+If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal basis is named as
+\emph{Optimal Normal Basis}(ONB).\\
+%For $F_{2^n}$, easy to figure out the first row of multiplication table must contain one "1" because 
+%$\beta \beta^{2^0} = \beta^{2^1}$. for the rest rows $\beta \beta^{2^i} \neq \beta^{2^{i+1}}$,
+%so there must be at least 2 "1"s to fulfil the equation. So for multiplication table, $C_N\geq 2n-1$ also holds.\\
+
+\textit{Example C.1:}\ \ In $F_{2^4}$ constructed with $\alpha^4 + \alpha + 1$, 2 sets of normal basis can be found:
+$\beta = \alpha^3, N = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
+$\beta = \alpha^7, N = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. Multiplication table for $\beta = \alpha^3$:
+\begin{equation}
+T_1 = \left(
+\begin{array}{lccr}
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+1 & 1 & 1 & 1\\
+0 & 0 & 1 & 0
+\end{array} \right)
+\end{equation}
+Complexity $C_N$ = 7, this is optimal. For $\beta = \alpha^7$:
+\begin{equation}
+T_2 = \left(
+\begin{array}{lccr}
+0 & 1 & 0 & 0\\
+1 & 1 & 0 & 1\\
+1 & 0 & 1 & 0\\
+1 & 0 & 1 & 1
+\end{array} \right)
+\end{equation}
+Complexity $C_N$ = 9, this is NOT optimal.\\
+
+There is an efficient method to construct optimal normal basis by transforming minimal polynomials based on
+special property of optimal normal basis\cite{ECC}.
+
+\subsection{Construction of Type-I Optimal Normal Basis}
+Rules for constructing Type-I ONB in $F_{2^n}$ are:
+\begin{itemize}
+\item n+1 must be prime.
+\item 2 must be primitive in $\mathbb{Z}_{n+1}$.
+\end{itemize}
+Second rule means 2 raise to any power 0 $\sim$ n-1 (mod n+1) must cover every integer 1 $\sim$ n.\\
+$\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ from k-th $\lambda$-Matrix. Then the crossproduct
+term can be written as
+\begin{equation}
+\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1} \lambda_{ij}^{(k)} \beta^{2^k}
+\end{equation}
+Suppose we only care about k=0. So simplified to following equations:
+\begin{numcases}{}
+\beta^{2^i}\beta^{2^j} = \beta\\
+\beta^{2^i}\beta^{2^j} = 1 \ \ (if\ \  2^i \equiv 2^j\ \  mod\ \  n+1)
+\end{numcases}
+solution $(i,j)$ implies entries equal to "1" in matrix. If $\beta$ is already an optimal normal element, 
+$\beta^{2^i}$ counts through all powers of $\beta$ and generates our basis. So
+\begin{numcases}{}
+2^i + 2^j = 1 \ \ mod\ \  n+1\\
+2^i + 2^j = 0 \ \ mod \ \ n+1
+\end{numcases}
+have the same solution for $M^{(0)}$. Note this method can be applied even both primitive polynomial and normal element 
+are unkown (but existance and adoption of optimal normal basis must be guaranteed).\\
+By repeating above steps, equations for multiplication table can also be obtained. Using this multiplication table, 
+a transformation relation 
+between $\lambda$-Matrix and Multiplication table can be concluded.
+Example C.1 shows a type-I ONB in $F_{2^4}$.
+
+
+	\subsection{Construction of Type-II Optimal Normal Basis}
+Rules for constructing Type-II ONB over $F_{2^n}$ are:
+\begin{itemize}
+\item 2n+1 must be prime. And either
+\item 2 must be primitive in $\mathbb{Z}_{2n+1}$, OR
+\item $2n+1 \equiv 3 \ \ mod\ \  4$ AND 2 generates the quadratic residues in $\mathbb{Z}_{2n+1}$
+\end{itemize}
+The last rule means: The last 2 bits are set in the binary representation of prime 2n+1; even if $2^k \ \ mod\ \  2n+1$ does not
+generate every element in 0 $\sim$ 2n, we can at least take the square root $mod\ \  2n+1$ of $2^k$. \\
+To generate a Type-II ONB, first pick an element $\gamma$ of order 2n+1 in $F_{2^{2n}}$, then use this to find optimal normal 
+element from $F_{2^n}$: $\beta = \gamma + \gamma^{-1}$. Crossproduct terms
+\begin{equation}
+\begin{split}
+\beta^{2^i}\beta^{2^j} &= (\gamma^{2^i} + \gamma^{-2^i})(\gamma^{2^j} + \gamma^{-2^j})\\ &= 
+(\gamma^{2^i+2^j} + \gamma^{-(2^i+2^j)}) + (\gamma^{2^i-2^j} + \gamma^{-(2^i-2^j)})\\ &= 
+\begin{cases}
+\beta^{2^k} + \beta^{2^{k\prime}}\ \  if\ 2^i \neq 2^j \ \ mod\ \  2n+1\\
+\beta^{2^k}\ \  if\ 2^i \equiv 2^j \ \ mod\ \  2n+1
+\end{cases}
+\end{split}
+\end{equation}
+$k$ and $k\prime$ are the 2 possible solutions to multiplication of any 2 basis elements. That is why this normal basis
+ is optimal: it has the minimum number of possible terms. In the case of $2^i \neq 2^j \ \ mod\ \  2n+1$, at least one of these
+equations:
+\begin{equation}
+\begin{cases}
+2^i + 2^j = 2^k \ \ mod\ \  2n+1\\
+2^i + 2^j = -2^k \ \ mod \ \ 2n+1
+\end{cases}
+\end{equation}
+will have a solution, and at least one of these equations
+\begin{equation}
+\begin{cases}
+2^i - 2^j = 2^{k\prime} \ \ mod \ \ 2n+1\\
+2^i - 2^j = -2^{k\prime} \ \ mod \ \ 2n+1
+\end{cases}
+\end{equation}
+also has a solution.\\
+In the case of $2^i \equiv \pm 2^j \ \ mod\ \  2n+1$, at least one of the following 4 equations has a solution:
+\begin{equation}
+\begin{cases}
+2^i + 2^j = 2^k \ \ mod \ \ 2n+1\\
+2^i + 2^j = -2^k \ \ mod \ \ 2n+1\\
+2^i - 2^j = 2^k \ \ mod\ \  2n+1\\
+2^i - 2^j = -2^k \ \ mod \ \ 2n+1
+\end{cases}
+\end{equation}
+In the first set of equations, there are two possible solutions, and in the second set of equations,
+there is only one possible solution. It is easy to see that the equations are all similar, so instead of 
+working with 2 different sets we can combine them and work with just one group of 4 equations. To build 
+our $\lambda$-Matrix, we set $k=0$ and find solutions to:
+\begin{equation}
+\begin{cases}
+2^i + 2^j = 1 \ \mod\ \  2n+1\\
+2^i + 2^j = -1 \ \ mod \ \ 2n+1\\
+2^i - 2^j = 1 \ \ mod\ \  2n+1\\
+2^i - 2^j = -1 \ \ mod \ \ 2n+1
+\end{cases}
+\end{equation}
+
+\textit{Example E.1:} \ \ Following this criteria, easy to find $M^{(0)}$ for $F_{2^5}$:
+\begin{equation}
+M^{(0)} = \left(
+\begin{array}{lcccr}
+0 & 1 & 0 & 0 & 0\\
+1 & 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 & 1\\
+0 & 1 & 1 & 0 & 0\\
+0 & 0 & 1 & 0 & 1
+\end{array} \right)
+\end{equation}

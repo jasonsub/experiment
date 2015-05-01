@@ -1,0 +1,23 @@
+\section{Proposed Objectives}
+\begin{itemize}
+\item[-] Explore an implementation of algebraic geometry based reachability analysis for sequential circuits verification;
+\item[-] Currently our approach is implemented within the {\sc Singular} tool, which is not efficient enough to execute our
+proposed algorithms, because its data-structures are not efficient for circuit verification problems. We plan to design a standalone CAD tool implemented in C++, which specifically aims to solve word-level sequential
+verification problems. We will borrow techniques from \cite{timDAC}, \cite{jinpeng} and \cite{f4reduce}, and tailor them to sequential circuit analysis, to lower the computational
+complexity;
+\item[-] Fine-tune the tool for sequential Galois field arithmetic circuits verification, because arithmetic circuit
+verification greatly benefits from the abstraction of word-level operands in the datapath;
+\item[-] Explore a new abstraction-refinement paradigm, based on information from UNSAT cores, which is also 
+attained using a Gr\"obner basis approach.
+\end{itemize}
+
+\section{Proposed Timetable}
+\begin{itemize}
+\item[-] Current status: Experiments have been performed to run implicit state enumeration on sequential circuits benchmarks
+such as ISCAS'89 circuits. Current problem is the algorithm spends too much time on multivariate division procedure;
+\item[-] Spring 2015: Implement the tool which can efficiently do multivariate division and test the performance of 
+our tool based on T. Pruss et al's \cite{timDAC} approach;
+\item[-] Summer 2015: Integrate the refined multivariate division routine into our verification tool, test its
+performance on circuits with various sizes;
+\item[-] Fall 2015: Evaluate data and write the dissertation.
+\end{itemize}

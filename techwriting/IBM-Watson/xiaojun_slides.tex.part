@@ -1,0 +1,375 @@
+% please include this package
+\usepackage[ruled]{./algorithm2e}
+%%for algorithm2e package, label has to be following caption in the same line!!!
+\renewcommand{\algorithmcfname}{ALGORITHM}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+\SetAlCapHSkip{0pt}
+\IncMargin{-\parindent}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Typical Sequential Circuit}}
+\begin{figure}[hbt]
+\centerline{
+\includegraphics[scale=0.25]{sequential_fig.eps}
+}
+\end{figure}
+
+\begin{itemize}
+\item Primary input(s): x, primary output(s): Z
+\item Pseudo inputs: $\{s_0, s_1, \dots, s_{k-1}\}$
+\item Pseudo outputs: $\{t_0, t_1, \dots, t_{k-1}\}$
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{A FSM Example}}
+\begin{columns}
+
+\begin{column}{0.3\textwidth}
+
+\begin{figure}[hbt]
+\centerline{
+\includegraphics[scale=0.25]{stg_fig.ps}
+}
+\caption{State Transition Graph}
+\end{figure}
+
+\end{column}
+%%\end{minipage} \hfill \begin{minipage}[h]{3in}
+
+\begin{column}{0.3\textwidth}
+\begin{figure}[hbt]
+\centerline{
+\includegraphics[scale=0.35]{fsm_fig.eps}
+}
+\caption{Corresponding Gate-level Circuit}
+\end{figure}
+\end{column}
+
+\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Breadth-First Traversal Algorithm}}
+\begin{algorithm}[H]
+\SetAlgoNoLine
+ \KwIn{Transition functions $\Delta$, initial state $S^0$}
+  $from^0 = reached = S^0$\;
+  \Repeat{$new^i == 0$}
+  {
+  	$i \gets i + 1$\;
+	$to^i \gets$Img$(\Delta, from^{i-1})$\;
+	$new^i \gets to^i \cap \overline{reached}$\;
+  	$reached \gets reached \cup new^i$\;
+	$from^i \gets new^i$\;
+  }
+\Return{$reached$}
+\caption {Breadth-first Traversal Algorithm}\label{alg:BFS}
+\end{algorithm}
+\vspace{5mm}
+Image function, states intersection, union and complement in this algorithm
+will be implemented in computer algebra and algebraic geometry.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{\large{Implement Image Function in Computer Algebra}}
+\begin{itemize}
+\item State variables (word-level) $S, T$ and sets of states such as
+$from^i, to^i$ can always be represented as varieties of ideals.
+\item Boolean operators can always be converted to operations in $\mathbb F_2$
+\begin{table}
+\centering
+\begin{tabular}{|c|c|} \hline
+Boolean operator & operation in $\mathbb{F}_{2}$\\ \hline
+$\overline{a}$ & $1 + a$\\ \hline
+$a\ and\ b$ & $ab$\\ \hline
+$a\ or\ b$ & $a + b + ab$\\ \hline
+$a \oplus b$ & $a + b$\\
+\hline\end{tabular}
+\caption{Some Boolean operators and corresponding operations in $\mathbb{F}_{2}$}
+\label{table:booltogalois_op}
+\end{table}
+\item An \emph{elimination ideal} can be built from circuit gates, pseudo input/output
+word definition and vanishing polynomials
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Implement Image Function in Computer Algebra(2)}}
+Elimination ideal to model Image function for example STG:
+\begin{itemize}
+\item Transition functions (bit-level): \\ \vspace{-5mm}
+\begin{displaymath}
+\begin{array}{ll}
+f_1:& t_0 - (\overline{x}\ and\ \overline{s_0}\ and\ \overline{s_1})\ or\ (s_0\ and\ s_1) \\
+f_2:& t_1 - (\overline{s_0}\ and\ x)\ or\ (s_0\ and\ \overline{s_1})\
+\end{array}
+\end{displaymath}
+\item Word variable definitions:\\ \vspace{-5mm}
+\begin{displaymath}
+\begin{array}{ll}
+f_3:& S - s_0 - s_1\alpha \\
+f_4:& T - t_0 - t_1\alpha
+\end{array}
+\end{displaymath}
+\item Vanishing polynomials: $f_6: x^2 - x; f_7: t_0^2 - t_0; f_8: t_1^2 - t_1; f_9: S^4 - S; f_{10}: s_0^2 - s_0;
+f_{11}: s_1^2 - s_1; f_{12}: T^4 - T$
+\end{itemize}
+Add the current state (for example, add initial states in first iteration $f_5: S$), compute Gr\"obner basis
+for ideal $J = \langle f_1,\dots, f_{12}\rangle$ under elimination term order $$intermediate\ bit\text{-}level\ signals >\ bit\text{-}level\ primary\ inputs/outputs >\ S >\ T$$
+  result will include a univariate polynomial about \emph{next states} $T$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Algebraic Geometry Concepts}}
+\begin{Definition}
+\label{def:sum}
+({\bf Sum of Ideals}) If $I$ and $J$ are ideals in $k[x_1, \dots, x_n]$, then the 
+{\bf sum} of $I$ and $J$, denoted by $I + J$, is the set
+  \begin{equation}
+  I + J = \{f + g\ |\ f \in I \ and\  g \in J\}.\nonumber
+  \end{equation}
+Furthermore, if $I = \langle f_1, \dots, f_r\rangle$ and 
+$J = \langle g_1, \dots, g_s\rangle$, then 
+$I + J = \langle f_1, \dots, f_r, g_1, \dots, g_s\rangle$.
+\end{Definition}
+\begin{Definition}
+\label{def:prod}
+({\bf Product of Ideals}) If $I$ and $J$ are ideals in $k[x_1, \dots, x_n]$, then the
+{\bf product} of $I$ and $J$, denoted by $I \cdot J$, is defined to be the ideal generated 
+by all polynomials $f \cdot g$ where $f \in I$ and $g \in J$. Furthermore, let
+$I = \langle f_1, \dots, f_r\rangle$ and $J = \langle g_1, \dots, g_s\rangle$, then
+  \begin{equation}
+  I \cdot J = \langle f_ig_j\ |\ 1 \leq i \leq r, 1 \leq j \leq s\rangle .\nonumber
+  \end{equation}
+\end{Definition}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Algebraic Geometry Concepts(2)}}
+\begin{Definition}
+({\bf Quotient of Ideals}) If $I$ and $J$ are ideals in $k[x_1, \dots, x_n]$, then $I:J$
+is the set
+  \begin{equation}
+  \{f \in k[x_1, \dots, x_n]\ |\ f\cdot g \in I, \forall g \in J\}\nonumber
+  \end{equation}
+and is called the {\bf ideal quotient} of $I$ by $J$.
+\end{Definition}
+\vspace{5mm}
+Concepts are adopted by following theorems:
+\begin{Theorem}
+\label{thm:unionintersect}
+If $I$ and $J$ are ideals in $k[x_1, \dots, x_n]$, then ${\bf V}(I + J) = {\bf V}(I)
+\bigcap {\bf V}(J)$ and ${\bf V}(I \cdot J) = {\bf V}(I) \bigcup {\bf V}(J)$.
+\end{Theorem}
+\begin{Theorem}
+\label{thm:quotient}
+If $I, J$ are ideals with only one generator, then ${\bf V}(I:J) ={\bf V}(I) - {\bf V}(J)$.
+\end{Theorem}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{New Traversal Algorithm using Algebraic Geometry}}
+
+\begin{algorithm}[H]
+\SetAlgoNoLine
+ \KwIn{Input-output circuit characteristic polynomial ideal $I_{ckt}$, initial state polynomial $\mathcal F(S)$}
+
+  $from^0 = reached = \mathcal F(S)$\;
+  \Repeat{$new^i == 1$}
+  {
+  	$i \gets i + 1$\;
+	$to^i \gets$GB w/ elimination term order$\langle I_{ckt}, from^{i-1}\rangle$\;
+	$new^i \gets $generator of $\langle to^i\rangle + (\langle T^4-T\rangle:\langle reached\rangle)$\;
+  	$reached \gets $generator of $\langle reached\rangle \cdot \langle new^i\rangle$\;
+	$from^i \gets new^i(S\setminus T)$\;
+  }
+\Return{$reached$}
+\caption {Algebraic Geometry based Traversal Algorithm}\label{alg:modified}
+\end{algorithm}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Example Executing New Traversal Algorithm}}
+State encodings are mapped to varieties of ideals, e.g.:
+$$\{00,01\} \to \{0,1\} = V_{\mathbb F_{2^2}}(\langle T^2 + T\rangle)$$
+$$\{01,10,11\} \to \{1,\alpha, 1+\alpha\} = V_{\mathbb F_{2^2}}(\langle T^3 + 1\rangle)$$
+\begin{itemize}
+\item Iteration 0: Assume initial state is $\{00\} \to \{0\}$
+\item Iteration 1: $reached = from^0 = 0 = V_{\mathbb F_{2^2}}(\langle S\rangle), to^1 = \{1,\alpha\} = V_{\mathbb F_{2^2}}(\langle T^2+(1+\alpha)T+\alpha\rangle), 
+new^1 = to^1, reached = \{0,1,\alpha\} = V_{\mathbb F_{2^2}}(\langle T^3+(1+\alpha)T^2+\alpha T\rangle)$
+\item Iteration 2: $from^1 = new^1(S\setminus T) = \{1,\alpha\} = V_{\mathbb F_{2^2}}(\langle S^2+(1+\alpha)S+\alpha\rangle), to^2 = \{0,\alpha\}
+= V_{\mathbb F_{2^2}}(\langle T^2+\alpha T\rangle),new^2 = 1, \textbf{Terminate}$
+\item Return $reached = \{0,1,\alpha\} = V_{\mathbb F_{2^2}}(\langle T^3+(1+\alpha)T^2+\alpha T\rangle)$
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{An Application -- Sequential Galois Arithmetic Circuits Verification}}
+\begin{figure}[hbt]
+\centerline{
+\includegraphics[scale=0.35]{mySMPO.eps}
+}
+\caption{5-bit Normal Basis Angew's Sequential Multiplier with Parallel Output (SMPO)}
+\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{SMPO Protocol}}
+\begin{itemize}
+\item \textbf{Initial}\ \ $R_0 = R_1 = R_2 = R_3 = R_4 = 0$
+\item \textbf{Clock 1}\ \ $R_0 = a_1b_0, R_1 = b_2(a_1 + a_4), R_2 = b_4(a_0 + a_1), R_3 = b_1(a_4 + a_0), 
+			R_4 = b_3(a_1 + a_3)$
+\item \textbf{Clock 2}\ \ $R_0 = b_3(a_1 + a_3) + a_0b_4, R_1 = a_1b_0 + b_1(a_0 + a_3), R_2 = b_2(a_1 + a_4)
+			+ b_3(a_4 + a_0), R_3 = b_4(a_0 + a_1) + b_0(a_3 + a_4), R_4 = b_1(a_4 + a_0) + b_2(a_0 + a_2)$
+\item \textbf{$\dots$}
+\item \textbf{Clock 5}\ \ $R_0 = c_0, R_1 = c_1, R_2 = c_2, R_3 = c_3, R_4 = c_4$, i.e. $R = A\cdot B$.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Compose Elimination Ideal for 5-bit SMPO}}
+An elimination ideal for the first clock cycle:
+\begin{itemize}
+\item {\bf Gate descriptions:}
+$a_1+a_4+c_1, a_1+a_0+c_2, a_0+a_4+c_3, a_1+a_3+c_4,
+		  a_1b_0+r_4+R_0, c_1b_2+r_0+R_1, c_2b_4+r_1+R_2, c_3b_1+r_2+R_3, c_4b_3+r_3+R_4;$
+		  
+\item {\bf Word-level variables:}
+$A+a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18},
+		  B+b_0\alpha^5+b_1\alpha^{10}+b_2\alpha^{20}+b_3\alpha^9+b_4\alpha^{18},
+		  r+r_0\alpha^5+r_1\alpha^{10}+r_2\alpha^{20}+r_3\alpha^9+r_4\alpha^{18},
+		  R+R_0\alpha^5+R_1\alpha^{10}+R_2\alpha^{20}+R_3\alpha^9+R_4\alpha^{18};$
+		  
+\item {\bf Vanishing polynomials:}
+		 $ a_0^2+a_0, a_1^2+a_1, a_2^2+a_2, a_3^2+a_3, a_4^2+a_4,
+		  b_0^2+b_0, b_1^2+b_1, b_2^2+b_2, b_3^2+b_3, b_4^2+b_4,
+		  r_0^2+r_0, r_1^2+r_1, r_2^2+r_2, r_3^2+r_3, r_4^2+r_4,
+		  R_0^2+R_0, R_1^2+R_1, R_2^2+R_2, R_3^2+R_3, R_4^2+R_4,
+		  c_1^2+c_1, c_2^2+c_2, c_3^2+c_3, c_4^2+c_4,
+		  A^{32}+A, B^{32}+B, r^{32}+r, R^{32}+R;$
+		  
+\item	{\bf Feedback input:}	  $r_{in}$.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Fast Abstraction without GB computation}}
+\begin{Definition}
+A lexicographic order constrained by following relation $>_{r}$: "circuit variables ordered reverse topologically" $>$ 
+"designated word-level output" $>$ "word-level inputs" is called the \emph{Refined Abstraction Term Order (RATO)}.
+\end{Definition}
+\begin{Example}
+The elimination ideal for 5-bit SMPO could be rewritten under RATO:
+\begin{align}
+&(R_0,R_1,R_2,R_3,R_4)>(r_0,r_1,r_2,r_3,r_4)\nonumber\\&>(c_1,c_2,c_3,c_4,b_0,b_1,b_2,b_3,b_4)\nonumber\\
+&>(a_0,a_1,a_2,a_3,a_4)>R>r>(A,B)\nonumber
+\end{align}
+\end{Example}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+Under RATO, most polynomials
+have relatively prime leading terms/monomials (which means $Spoly \xrightarrow{J+J_0}_{+} 0$) except one pair:
+word-level polynomial corresponding to outputs and its leading bit-level variable's gate description polynomial.
+\begin{Example}
+Candidate pair for 5-bit SMPO is
+$(f_w,f_g), f_w = R_0+r_4+b_0\cdot a_1, f_g =R_0\alpha^5+R_1\alpha^{10}+R_2\alpha^{20}+R_3\alpha^9+R_4\alpha^{18} + R$.
+Result after reduction is an abstraction:
+\begin{align}
+&Spoly(f_w,f_g) \xrightarrow{J+J_0}_{+}\nonumber\\
+&r_1+(\alpha)r_2+(\alpha^4+\alpha^2)r_3+(\alpha^3+\alpha^2)r_4+(\alpha^3)b_1a_1\nonumber\\
++&(\alpha^4+\alpha^2)b_1a_2+(\alpha^3+\alpha+1)b_1a_3+(\alpha^3+\alpha)b_1a_4+(\alpha+1)b_1A\nonumber\\
++&(\alpha^4+\alpha^2+\alpha)b_2a_1+(\alpha^4+\alpha^3+\alpha^2+\alpha)b_2a_4+(\alpha^3+\alpha^2+1)b_3a_1\nonumber\\
++&(\alpha)b_3a_3+(\alpha^2+\alpha+1)b_4a_1+(\alpha+1)b_4a_2+(\alpha^4+\alpha^2)b_4a_3\nonumber\\
++&(\alpha^4+\alpha^3+\alpha+1)b_4a_4+(\alpha^3+1)b_4A+(\alpha^4+\alpha^3+\alpha^2+1)a_1B\nonumber\\
++&(\alpha^4+\alpha^3+\alpha^2+1)R\nonumber
+\end{align}
+\end{Example}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Bit-Level Variable Substitution (BLVS)}}
+Use Gaussian elimination style approach, eliminate other bit-level variables except for one.
+\begin{Example}
+{\bf Objective}:\ Abstract polynomial $a_i + \mathcal{G}_i(A)$ from $f_0: a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18}+A$.
+Eliminate variable $a_0$ by operation 
+\begin{align}
+f_1 =& f_0\times \alpha^5 + f_0^2: \nonumber\\
+&a_1+(\alpha)a_2+(\alpha^4+\alpha^2)a_3+(\alpha^3+\alpha^2)a_4\nonumber\\
++&(\alpha^4+\alpha^3+\alpha^2+1)A^2+(\alpha^2+\alpha)A\nonumber
+\end{align}
+Recursively eliminate $a_1$ from $f_1$, $a_2$ from $f_2$, etc. 
+\end{Example}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Bit-Level Variable Substitution (BLVS) (2)}}
+\begin{Example}
+For 5-bit SMPO example, the result is
+\begin{displaymath}
+\left\{
+  \begin{array}{lcl}
+  a_0 & = & (\alpha+1)A^{16}+(\alpha^4+\alpha^3+\alpha)A^8+(\alpha^3+\alpha^2)A^4\\&&+(\alpha^4+1)A^2+(\alpha^2+1)A\\
+  a_1 & = & (\alpha^2+1)A^{16}+(\alpha+1)A^8+(\alpha^4+\alpha^3+\alpha)A^4\\&&+(\alpha^3+\alpha^2)A^2+(\alpha^4+1)A\\
+  a_2 & = & (\alpha^4+1)A^{16}+(\alpha^2+1)A^8+(\alpha+1)A^4\\&&+(\alpha^4+\alpha^3+\alpha)A^2+(\alpha^3+\alpha^2)A\\
+  a_3 & = & (\alpha^3+\alpha^2)A^{16}+(\alpha^4+1)A^8+(\alpha^2+1)A^4\\&&+(\alpha+1)A^2+(\alpha^4+\alpha^3+\alpha)A\\
+  a_4 & = & (\alpha^4+\alpha^3+\alpha)A^{16}+(\alpha^3+\alpha^2)A^8+(\alpha^4+1)A^4\\&&+(\alpha^2+1)A^2+(\alpha+1)A
+  \end{array} \right.
+\end{displaymath}
+\end{Example}
+By substitution of bit-level variables in remainder from RATO, get next state abstraction $R+\mathcal F(A,B)$
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Results Comparing to SAT/ABC/BDD}}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|} 
+\hline
+& \multicolumn{4}{|c|}{Word size of the operands $k$-bits}  \\
+\hline
+Solver & 11 & 18 & 23 & 33 \\
+\hline
+\hline
+Lingeling & 593  & \emph{TO}  & \emph{TO}  & \emph{TO}\\
+\hline
+\hline
+ABC & 6.24 & \emph{TO} & \emph{TO} & \emph{TO}\\
+\hline
+\hline
+BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
+\hline
+\end{tabular}
+\caption{Runtime for verification of bug-free SMPO circuits over $\Fkk$ for SAT, ABC and BDD based methods. \emph{TO} = timeout of 14 hrs}\label{table:satbdd}  
+\end{table}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Results from our approach}}
+\begin{table}[H]
+\centering
+\begin{tabular}{|c||c|c|c|c|c|} 
+\hline
+Operand size $k$ & 36 & 66 & 82 & 89 & 100 \\
+\hline
+\#variables & 183 & 333 & 413 & 448 & 503\\
+\hline
+\#polynomials & 2700 & 8910 & 13694 & 16109 & 20300\\
+\hline
+\#terms & 12996 & 43626 & 67322 & 79299 & 100100 \\
+\hline
+\hline
+Runtime(bug-free) & 113 & 3673 & 15117 & 28986 & 50692 \\
+\hline
+Runtime(buggy) & 118 & 4320 & 15226 & 31571 & 58861\\
+\hline
+\end{tabular}
+\caption{Runtime (given in seconds) for verification of bug-free and buggy Angew's SMPO circuits over $\Fkk$ using our approach}\label{table:SMPO}  
+\end{table}
+\end{frame}
+

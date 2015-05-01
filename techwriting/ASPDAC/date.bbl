@@ -1,0 +1,152 @@
+\begin{thebibliography}{10}
+
+\bibitem{gao:phd_normal_basis}
+S.~Gao,
+\newblock {\em {N}ormal {B}asis over {F}inite {F}ields},
+\newblock PhD thesis, University of Waterloo, 1993.
+
+\bibitem{agnew1991implementation}
+Gordon~B. Agnew, Ronald~C. Mullin, IM~Onyszchuk, and Scott~A. Vanstone,
+\newblock ``An implementation for a fast public-key cryptosystem'',
+\newblock {\em Journal of CRYPTOLOGY}, vol. 3, pp. 63--79, 1991.
+
+\bibitem{RHmulti}
+Arash Reyhani-Masoleh and M~Anwar Hasan,
+\newblock ``Low complexity word-level sequential normal basis multipliers'',
+\newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
+
+\bibitem{ibm:blueveri}
+A.~Lvov, L.~Lastras-Monta\~{n}o, V.~Paruthi, R.~Shadowen, and A.~El-Zein,
+\newblock ``{F}ormal {V}erification of {E}rror {C}orrecting {C}ircuits using
+  {C}omputational {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Proc. Formal Methods in Computer-Aided Design (FMCAD)},
+  pp. 141--148, 2012.
+
+\bibitem{lv:tcad2013}
+J.~Lv, P.~Kalla, and F.~Enescu,
+\newblock ``{E}fficient {G}r\"obner {B}asis {R}eductions for {F}ormal
+  {V}erification of {G}alois {F}ield {A}rithmetic {C}ircuits'',
+\newblock {\em in} {\em IEEE Trans. on CAD}, vol.~32, pp. 1409--1420, 2013.
+
+\bibitem{pruss:dac14}
+T.~Pruss, P.~Kalla, and F.~Enescu,
+\newblock ``Equivalence verification of large galois field arithmetic circuits
+  using word-level abstraction via gr\"obner bases'',
+\newblock {\em in} {\em Proc. Design Automation Conference (DAC)}, 2014.
+
+\bibitem{coudert:iccad90}
+O.~Coudert and J.C. Madre,
+\newblock ``{A} {U}nified {F}ramework for the {F}ormal {V}erification of
+  {S}equential {C}ircuits'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, pp. 126--129, 1990.
+
+\bibitem{mcmillan:interpolation_cav03}
+K.~L. McMillan,
+\newblock ``Interpolation and {SAT} based {M}odel {C}hecking'',
+\newblock {\em in} {\em Computer-Aided Verification}, 2003.
+
+\bibitem{IC3}
+A.~Bradley,
+\newblock ``Sat-based {M}odel {C}hecking {W}ithout {U}nrolling'',
+\newblock {\em in} {\em Verification, Model Checking and Abstract
+  Interpretation (VMCAI)}, pp. 70--87, 2011.
+
+\bibitem{Avrunin:CAV}
+G.~Avrunin,
+\newblock ``Symbolic {M}odel {C}hecking using {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Computer Aided Verification Conference}, pp. 26--37,
+  1996.
+
+\bibitem{Vardi:gb_bool_ring}
+Q.~Tran and M.~Y. Vardi,
+\newblock ``{G}r\"obner {B}asis {C}omputation in {B}oolean {R}ings for
+  {S}ymbolic {M}odel {C}hecking'',
+\newblock {\em in} {\em IASTED Conf. on Modelling and Simulation}, 2007.
+
+\bibitem{polybori:2009}
+Michael Brickenstein and Alexander Dreyer,
+\newblock ``{P}olybori: {A} {F}ramework for {G}r{\"o}bner {B}asis
+  {C}omputations with {B}oolean {P}olynomials'',
+\newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345,
+  September 2009.
+
+\bibitem{ideals:book}
+D.~Cox, J.~Little, and D.~O'Shea,
+\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
+  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
+\newblock Springer, 2007.
+
+\bibitem{productc:1979}
+B.~Buchberger,
+\newblock ``A criterion for detecting unnecessary reductions in the
+  construction of a groebner bases'',
+\newblock {\em in} {\em EUROSAM}, 1979.
+
+\bibitem{DGPS}
+Wolfram Decker, Gert-Martin Greuel, Gerhard Pfister, and Hans Sch\"onemann,
+\newblock ``{\sc Singular} {3-1-6} --- {A} computer algebra system for
+  polynomial computations'',
+\newblock http://www.singular.uni-kl.de, 2012.
+
+\bibitem{mastro:1989}
+E.~Mastrovito,
+\newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
+  {GF($2^m$)}'',
+\newblock {\em Lecture Notes in Computer Science}, vol. 357, pp. 297--309,
+  1989.
+
+\bibitem{biere2013lingeling}
+Armin Biere,
+\newblock ``Lingeling, plingeling and treengeling entering the sat competition
+  2013'',
+\newblock {\em Proceedings of SAT Competition 2013; Solver and}, p.~51, 2013.
+
+\bibitem{abc}
+R.~Brayton and A.~Mishchenko,
+\newblock ``{ABC}: {A}n {A}cademic {I}ndustrial-{S}trength {V}erification
+  {T}ool'',
+\newblock {\em in} {\em Computer Aided Verification}, vol. 6174, pp. 24--40.
+  Springer, 2010.
+
+\bibitem{brayton1996vis}
+Robert~K Brayton, Gary~D Hachtel, Alberto Sangiovanni-Vincentelli, Fabio
+  Somenzi, Adnan Aziz, Szu-Tsung Cheng, Stephen Edwards, Sunil Khatri, Yuji
+  Kukimoto, Abelardo Pardo, et~al.,
+\newblock ``Vis: A system for verification and synthesis'',
+\newblock {\em in} {\em Computer Aided Verification}, pp. 428--432. Springer,
+  1996.
+
+\bibitem{F4reduce}
+Christian Eder and John~Edward Perry,
+\newblock ``Signature-based algorithms to compute gr{\"o}bner bases'',
+\newblock {\em in} {\em Proceedings of the 36th international symposium on
+  Symbolic and algebraic computation}, pp. 99--106. ACM, 2011.
+
+\bibitem{Gao}
+Shuhong Gao,
+\newblock {\em Normal bases over finite fields.},
+\newblock Citeseer, 1993.
+
+\bibitem{ECC}
+Michael Rosing,
+\newblock {\em Implementing elliptic curve cryptography},
+\newblock Manning New York, 1999.
+
+\bibitem{ONB}
+Ronald~C Mullin, Ivan~M Onyszchuk, Scott~A Vanstone, and Richard~M Wilson,
+\newblock ``Optimal normal bases in gf (p< sup> n</sup>)'',
+\newblock {\em Discrete Applied Mathematics}, vol. 22, pp. 149--161, 1989.
+
+\bibitem{SMPO}
+Arash Reyhani-Masoleh and M~Anwar Hasan,
+\newblock ``Low complexity word-level sequential normal basis multipliers'',
+\newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
+
+\bibitem{KAUST}
+Turki~F Al-Somani and Alaaeldin Amin,
+\newblock ``Hardware implementations of gf (2m) arithmetic using normal
+  basis'',
+\newblock {\em Journal of Applied Sciences}, vol. 6, pp. 1362--1372, 2006.
+
+\end{thebibliography}

@@ -1,0 +1,81 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: date.aux
+The style file: ieee.bst
+Database file #1: xiaojun.bib
+Database file #2: logic.bib
+Repeated entry---line 438 of file logic.bib
+ : @article {DGPS
+ :               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2266 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #3: oldlogic.bib
+You're missing a field name---line 303 of file oldlogic.bib
+ : 
+ : %   url = {http://dx.doi.org/10.1007/3-540-57936-2_31},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 833 of file oldlogic.bib
+ : @misc{ABC
+ :          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1361 of file oldlogic.bib
+ : @article{polybori:2009
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 11639 of file oldlogic.bib
+ : @inproceedings{coudert:iccad90
+ :                               ,
+I'm skipping whatever remains of this entry
+Database file #4: normalbasis.bib
+Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+while executing---line 987 of file ieee.bst
+Warning--can't use both volume and number fields in lv:tcad2013
+`volume' is a missing field, not a string, for entry biere2013lingeling
+while executing---line 987 of file ieee.bst
+You've used 25 entries,
+            1802 wiz_defined-function locations,
+            604 strings with 7551 characters,
+and the built_in function-call counts, 6248 in all, are:
+= -- 563
+> -- 227
+< -- 11
++ -- 87
+- -- 62
+* -- 440
+:= -- 916
+add.period$ -- 28
+call.type$ -- 25
+change.case$ -- 21
+chr.to.int$ -- 0
+cite$ -- 26
+duplicate$ -- 321
+empty$ -- 647
+format.name$ -- 62
+if$ -- 1464
+int.to.chr$ -- 0
+int.to.str$ -- 25
+missing$ -- 26
+newline$ -- 128
+num.names$ -- 25
+pop$ -- 111
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 160
+stack$ -- 0
+substring$ -- 390
+swap$ -- 111
+text.length$ -- 11
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 58
+width$ -- 27
+write$ -- 274
+(There were 8 error messages)

@@ -1,0 +1,66 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: aspdac_xiaojun.aux
+The style file: ieee.bst
+Database file #1: xiaojun.bib
+Database file #2: logic.bib
+Repeated entry---line 438 of file logic.bib
+ : @article {DGPS
+ :               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2201 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #3: oldlogic.bib
+You're missing a field name---line 303 of file oldlogic.bib
+ : 
+ : %   url = {http://dx.doi.org/10.1007/3-540-57936-2_31},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+`volume' is a missing field, not a string, for entry biere2013lingeling
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry DIMACSformat
+while executing---line 987 of file ieee.bst
+You've used 17 entries,
+            1802 wiz_defined-function locations,
+            559 strings with 6829 characters,
+and the built_in function-call counts, 5277 in all, are:
+= -- 528
+> -- 190
+< -- 11
++ -- 70
+- -- 53
+* -- 372
+:= -- 747
+add.period$ -- 27
+call.type$ -- 17
+change.case$ -- 17
+chr.to.int$ -- 0
+cite$ -- 17
+duplicate$ -- 262
+empty$ -- 500
+format.name$ -- 53
+if$ -- 1258
+int.to.chr$ -- 0
+int.to.str$ -- 17
+missing$ -- 16
+newline$ -- 88
+num.names$ -- 17
+pop$ -- 75
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 152
+stack$ -- 0
+substring$ -- 391
+swap$ -- 115
+text.length$ -- 11
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 56
+width$ -- 19
+write$ -- 197
+(There were 5 error messages)
