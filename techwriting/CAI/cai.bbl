@@ -1,0 +1,50 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+
+\bibitem{ideal:book}
+Cox, D., Little, J., O'Shea, D.: {I}deals, {V}arieties and {A}lgorithms.
+  Springer-Verlag (1997)
+
+\bibitem{ideals:book}
+Cox, D., Little, J., O'Shea, D.: {I}deals, {V}arieties, and {A}lgorithms: {A}n
+  {I}ntroduction to {C}omputational {A}lgebraic {G}eometry and {C}ommutative
+  {A}lgebra. Springer (2007)
+
+\bibitem{DGPS}
+Decker, W., Greuel, G.M., Pfister, G., Sch\"onemann, H.: {\sc Singular} {3-1-6}
+  --- {A} computer algebra system for polynomial computations.
+  http://www.singular.uni-kl.de (2012)
+
+\bibitem{gao:qe-gf-gb}
+Gao, S., Platzer, A., Clarke, E.: Quantifier {E}limination over {F}inite
+  {F}ields with {G}r\"obner {B}ases. In: Intl. Conf. Algebraic Informatics
+  (2011)
+
+\bibitem{KallaPartialScan}
+Kalla, P., Ciesielski, M.: A comprehensive approach to the partial scan problem
+  using implicit state enumeration. Computer-Aided Design of Integrated
+  Circuits and Systems, IEEE Transactions on  21(7),  810--826 (2002)
+
+\bibitem{jinpeng}
+Lv, J., Kalla, P., Enescu, F.: Efficient gr{\"o}bner basis reductions for
+  formal verification of galois field arithmetic circuits. Computer-Aided
+  Design of Integrated Circuits and Systems, IEEE Transactions on  32(9),
+  1409--1420 (2013)
+
+\bibitem{timDAC}
+Pruss, T., Kalla, P., Enescu, F.: Equivalence verification of large galois
+  field arithmetic circuits using word-level abstraction via gr{\"o}bner bases.
+  In: Proceedings of the The 51st Annual Design Automation Conference on Design
+  Automation Conference. pp. 1--6. ACM (2014)
+
+\bibitem{RHmulti}
+Reyhani-Masoleh, A., Hasan, M.A.: Low complexity word-level sequential normal
+  basis multipliers. Computers, IEEE Transactions on  54(2),  98--110 (2005)
+
+\bibitem{myDATE}
+Sun, X., Kalla, P., Pruss, T., Enescu, F.: Formal verification of sequential
+  galois field arithmetic circuits using algebraic geometry. In: Design
+  Automation and Test in Europe, DATE 2015. Proceedings. IEEE/ACM (2015)
+
+\end{thebibliography}

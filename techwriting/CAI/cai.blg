@@ -1,0 +1,67 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: cai.aux
+The style file: splncs03.bst
+Database file #1: xiaojun.bib
+Database file #2: logic.bib
+Repeated entry---line 438 of file logic.bib
+ : @article {DGPS
+ :               ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2266 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #3: oldlogic.bib
+You're missing a field name---line 303 of file oldlogic.bib
+ : 
+ : %   url = {http://dx.doi.org/10.1007/3-540-57936-2_31},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 1251 of file oldlogic.bib
+ : @inproceedings{gao:qe-gf-gb
+ :                            ,
+I'm skipping whatever remains of this entry
+You've used 9 entries,
+            2785 wiz_defined-function locations,
+            645 strings with 6123 characters,
+and the built_in function-call counts, 4687 in all, are:
+= -- 381
+> -- 153
+< -- 7
++ -- 64
+- -- 54
+* -- 286
+:= -- 616
+add.period$ -- 12
+call.type$ -- 9
+change.case$ -- 58
+chr.to.int$ -- 0
+cite$ -- 9
+duplicate$ -- 414
+empty$ -- 430
+format.name$ -- 63
+if$ -- 1018
+int.to.chr$ -- 0
+int.to.str$ -- 9
+missing$ -- 86
+newline$ -- 32
+num.names$ -- 18
+pop$ -- 166
+preamble$ -- 1
+purify$ -- 45
+quote$ -- 0
+skip$ -- 123
+stack$ -- 0
+substring$ -- 233
+swap$ -- 221
+text.length$ -- 7
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 32
+warning$ -- 0
+while$ -- 39
+width$ -- 10
+write$ -- 91
+(There were 4 error messages)

@@ -1,0 +1,136 @@
+% This is LLNCS.DEM the demonstration file of
+% the LaTeX macro package from Springer-Verlag
+% for Lecture Notes in Computer Science,
+% version 2.4 for LaTeX2e as of 16. April 2010
+%
+\documentclass[envcountsame]{llncs}
+%
+% \usepackage{makeidx}  % allows for indexgeneration
+
+\usepackage[vlined,boxed,ruled]{algorithm2e}
+%%for algorithm2e package, label has to be following caption in the same line!!!
+\renewcommand{\algorithmcfname}{ALGORITHM}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+\SetAlCapHSkip{0pt}
+\IncMargin{-\parindent}
+
+% \let\definition\relax
+
+%\usepackage{amsbsy}
+%\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{helvet}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage{comment}
+\usepackage{cases}
+\usepackage{xcolor}
+\usepackage{epstopdf}
+\usepackage[normalem]{ulem}
+%
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqarr}{\begin{eqnarray}}
+\newcommand{\eeqarr}{\end{eqnarray}}
+%\newcommand{\ov}{\overline}
+\newcommand{\ov}{\bar}
+\newcommand{\xor}{\bigoplus}
+\newcommand{\Fm}{{\mathbb{F}}}
+\newcommand{\myfontsize}{\fontsize{7}{9}\selectfont}
+
+% \newtheorem{Algorithm}{Algorithm}[section]
+% \newtheorem{Definition}{Definition}[section]
+% \newtheorem{Example}{Example}[section]
+% \newtheorem{Proposition}{Proposition}[section]
+% \newtheorem{Lemma}{Lemma}[section]
+% \newtheorem{Theorem}{Theorem}[section]
+% \newtheorem{Corollary}{Corollary}[section]
+% \newtheorem{Conjecture}{Conjecture}[section]
+% \newtheorem{Problem}{Problem}[section]
+% \newtheorem{Notation}{Notation}[section]
+% \newtheorem{Setup}{Problem Setup}[section]
+
+% \spnewtheorem{Example}{Example}[section]{\bfseries}{\rmfamily}
+% \spnewtheorem{definition}{Definition}[section]{\bfseries}{\rmfamily}
+% \spnewtheorem{Theorem}{Theorem}[section]{\bfseries}{\rmfamily}
+% \spnewtheorem{Lemma}{Lemma}[section]{\bfseries}{\rmfamily}
+% \spnewtheorem{Corollary}{Corollary}[section]{\bfseries}{\rmfamily}
+
+\newcommand{\Fq}{{\mathbb{F}}_{q}}
+\newcommand{\Fkk}{{\mathbb{F}}_{2^k}}
+\newcommand{\Ftwo}{{\mathbb{F}}_{2}}
+\newcommand{\Fkkx}[1][x]{\ensuremath{\mathbb{F}}_{2^k}[#1]\xspace}
+\newcommand{\Grobner}{Gr\"{o}bner\xspace}
+\newcommand{\B}{{\mathbb{B}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\G}{{\mathcal{G}}}
+
+\begin{document}
+%
+% \frontmatter          % for the preliminaries
+% %
+% \pagestyle{headings}  % switches on printing of running heads
+% \addtocmark{Hamiltonian Mechanics} % additional mark in the TOC
+% %
+% \chapter*{Preface}
+%
+% 
+% \tableofcontents
+
+%
+\mainmatter              % start of the contributions
+%
+\title{Word-level Finite State Machine Traversal using Gr\"obner Basis}
+%
+%
+\author{Xiaojun Sun\inst{1} \and Priyank Kalla\inst{1} \and Florian Enescu\inst{2}}
+%
+%
+\institute{University of Utah, Salt Lake City, UT, USA,\\
+\email{\{xiaojuns, kalla\}@ece.utah.edu},
+\and
+Georgia State University, Atlanta, GA, USA,\\
+\email{fenescu@gsu.edu}}
+
+\maketitle              % typeset the title of the contribution
+
+
+
+\begin{abstract}
+The abstract should summarize the contents of the paper
+using at least 70 and at most 150 words. It will be set in 9-point
+font size and be inset 1.0 cm from the right and left margins.
+There will be two blank lines before and after the Abstract. \dots
+\keywords{computational geometry, graph theory, Hamilton cycles}
+\end{abstract}
+%
+% ---- Main Content ----
+%
+\input{prelim}
+\input{reacha}
+
+
+
+
+% ---- Bibliography ----
+%
+\bibliographystyle{splncs03}
+\bibliography{xiaojun,logic,oldlogic}
+% \clearpage
+% \addtocmark[2]{Author Index} % additional numbered TOC entry
+% \renewcommand{\indexname}{Author Index}
+% \printindex
+% \clearpage
+% \addtocmark[2]{Subject Index} % additional numbered TOC entry
+% \markboth{Subject Index}{Subject Index}
+% \renewcommand{\indexname}{Subject Index}
+% \input{subjidx.ind}
+\end{document}
