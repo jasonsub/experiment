@@ -1,0 +1,177 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IEEEsample.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%    More information: see the header of IEEEtran.sty
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%
+
+\documentclass[10pt,twoside]{IEEEtran}
+%\documentclass[conference]{IEEEtran}
+
+%%%\IEEEoverridecommandlockouts
+
+\usepackage[ruled,linesnumbered]{./algorithm2e}
+%%for algorithm2e package, label has to be following caption in the same line!!!
+\renewcommand{\algorithmcfname}{ALGORITHM}
+\SetAlFnt{\small}
+\SetAlCapFnt{\small}
+\SetAlCapNameFnt{\small}
+\SetAlCapHSkip{0pt}
+\IncMargin{-\parindent}
+
+%% \RequirePackage{times}
+%% \RequirePackage{algorithmic}
+%% \PassOptionsToPackage{boxed}{algorithm}
+%% \RequirePackage{algorithm}
+%% \RequirePackage{multicol}
+%\renewcommand{\algorithmicrequire}{\textbf{Inputs:}}
+%\renewcommand{\algorithmicensure}{\textbf{Outputs:}}
+%\DeclareMathAlphabet{\mathtsl}{OT1}{ptm}{m}{sl}
+
+%\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em1
+%    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}{Lemma}
+%\newtheorem{example}{Example}
+%\newtheorem{corollary}{Corollary}
+
+\RequirePackage{amssymb, mathptm}
+\usepackage{amsbsy}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{helvet}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage{cases}
+\usepackage{comment}
+
+
+
+%%indent in algorithm
+
+
+%\setcounter{page}{1}
+
+
+% New command for the table notes.
+\def\tabnote#1{{\small{#1}}}
+
+% New command for the line spacing.
+\newcommand{\ls}[1]
+    {\dimen0=\fontdimen6\the\font
+     \lineskip=#1\dimen0
+     \advance\lineskip.5\fontdimen5\the\font
+     \advance\lineskip-\dimen0
+     \lineskiplimit=.9\lineskip
+     \baselineskip=\lineskip
+     \advance\baselineskip\dimen0
+     \normallineskip\lineskip
+     \normallineskiplimit\lineskiplimit
+     \normalbaselineskip\baselineskip
+     \ignorespaces
+    }
+%\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+%\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqarr}{\begin{eqnarray}}
+\newcommand{\eeqarr}{\end{eqnarray}}
+%\newcommand{\ov}{\overline}
+\newcommand{\ov}{\bar}
+\newcommand{\xor}{\bigoplus}
+\newcommand{\Fm}{{\mathbb{F}}}
+
+
+
+%the following is for space before and after align or other equation environment.
+
+%%
+\newtheorem{Algorithm}{Algorithm}[section]
+\newtheorem{Definition}{Definition}[section]
+\newtheorem{Example}{Example}[section]
+\newtheorem{Proposition}{Proposition}[section]
+\newtheorem{Lemma}{Lemma}[section]
+\newtheorem{Theorem}{Theorem}[section]
+\newtheorem{Corollary}{Corollary}[section]
+\newtheorem{Conjecture}{Conjecture}[section]
+\newtheorem{Problem}{Problem}[section]
+\newtheorem{Notation}{Notation}[section]
+\newtheorem{Setup}{Problem Setup}[section]
+
+%%%
+
+%%set spacing between table columns
+\setlength{\tabcolsep}{3pt}
+
+\begin{document}
+
+%\thispagestyle{empty}
+%\pagestyle{empty}
+
+%\ls{1.5}
+
+\title{\large{\textsc{Word-level Finite State Machine Traversal using Gr\"obner Basis}}}
+%\author{Tim Pruss\\
+%A Master's Thesis Proposal\\
+%Electrical \& Computer Engineering, University of Utah\\
+%Spring Semester 2013
+%}
+
+\author{
+
+\IEEEauthorblockN{Xiaojun Sun\IEEEauthorrefmark{1}, Priyank
+  Kalla\IEEEauthorrefmark{1}, Florian Enescu\IEEEauthorrefmark{2}\\}
+%\thanks{This work is sponsored in part by a grant from NSF \#CCF-546859.}
+\IEEEauthorblockA{\IEEEauthorrefmark{1}Electrical \& Computer
+  Engineering, University of Utah\\
+\IEEEauthorrefmark{2}Mathematics \& Statistics, Georgia State
+University \vspace{-0.25in}
+ \{xiaojuns, kalla\}@ece.utah.edu, fenescu@gsu.edu
+}
+%% \and
+%% \IEEEauthorblockN{Florian Enescu\\} 
+%% %\thanks{\normalsize  978-3-9810801-8-6/DATE12/$\copyright 2012$ EDAA}
+%% \IEEEauthorblockA{Mathematics \& Statistics, Georgia State University
+%% % fenescu@mathstat.gsu.edu
+%% } 
+}
+ 
+\maketitle
+
+%\markboth{MS Proposal by Tim Pruss}{}
+\newcommand{\Fq}{{\mathbb{F}}_{q}}
+\newcommand{\Fkk}{{\mathbb{F}}_{2^k}}
+\newcommand{\Fkkx}[1][x]{\ensuremath{\mathbb{F}}_{2^k}[#1]\xspace}
+\newcommand{\Grobner}{Gr\"{o}bner\xspace}
+\newcommand{\B}{{\mathbb{B}}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\F}{{\mathcal{F}}}
+\newcommand{\G}{{\mathcal{G}}}
+%%%
+
+\newcommand{\debug}[1]{\textcolor{gray}{[ #1 ]}}
+
+
+%\thispagestyle{empty}
+%\pagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%% Include your files here %%%%%%%%%%%%%%%%%%%%%
+\input{prelim}
+\input{reacha}
+\input{ref_alg}
+\input{application}
+%%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{ieee}
+\bibliography{oldlogic,logic,xiaojun}
+%\bibliography{xiaojun}
+
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%  End of IEEEsample.tex  %%%%%%%%%%%%%%%%%%%%%%%%%%%

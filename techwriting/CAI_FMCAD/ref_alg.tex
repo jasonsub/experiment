@@ -1,0 +1,128 @@
+\section{Refined Algorithm}
+Within the naive algorithm described in last section, Gr\"obner basis is computed for each
+iteration to attain the word-level next state polynomial representation. In practice, for 
+a sequential circuit with complicated structure and large datapath, Gr\"obner basis computation
+is intractable. To overcome the high computational complexity brought by GB computing, 
+we managed to find a method obviating directly computing GB; more specifically, we turn 
+GB computation into one-step multivariate polynomial division. In this way, our proposed 
+approach can be used on larger sequential circuit verification.
+
+
+\subsection{Refined abstraction term order (RATO)}
+A lexicographic order constrained by following relation $>_{r}$: "circuit variables ordered reverse topologically" $>$ 
+"designated word-level output" $>$ "word-level inputs" is called the \emph{Refined Abstraction Term Order (RATO)}.
+
+In Buchberger's algorithm, the specification polynomial (Spoly) for each pair is calculated. In RATO, most polynomials
+have relatively prime leading terms/monomials (which means $Spoly \xrightarrow{J+J_0}_{+} 0$) except one pair:
+word-level polynomial corresponding to outputs and its leading bit-level variable's gate description polynomial.
+Its remainder $r$ lets following lemma hold:
+
+\begin{Lemma}
+\label{lem:1}
+$r$ will only contain primary inputs (bit-level) and word-level output; furthermore, there will be one and
+only one term containing word-level output whose monomial is word-level output itself rather than higher order form.
+\end{Lemma}
+
+\begin{proof}
+First proposition is easy to prove by contradiction. Second part, the candidate pair of polynomials only have one term of
+single word-level output variable (say it is $R$) and this term is the last term under RATO, which means there is only one term with
+$R$ in Spoly. Meanwhile in other polynomials from $J+J_0$ there is no such term containing $R$, so this term will be
+kept to remainder $r$, in first degree.
+\end{proof}
+
+\begin{Example}
+After adding intermediate bit-level signal $a,b,c,d$, the elimination ideal for example circuit (Ex.\ref{ex:SMPO}) 
+could be rewritten under RATO:
+\begin{align}
+&(t_0,t_1)>(a,b,c,d)\nonumber\\&>T>(x,s_0,s_1)\nonumber
+\end{align}
+Thus the candidate pair is
+$(f_w,f_g), f_w = t_0+a\cdot b+a+b, f_g =t_0+t_1\alpha + T$.
+Result after reduction is:
+\begin{align}
+&Spoly(f_w,f_g) \xrightarrow{J+J_0}_{+}\nonumber\\
+&T + s_0 s_1 x+s_0 s_1 \alpha+(1+\alpha)s_0 x+(1+\alpha) s_0+s_1 x+s_1+(1+\alpha) x+1\nonumber
+\end{align}
+The remainder satisfies Lemma \ref{lem:1}.
+\end{Example}
+
+\subsection{Bit-level Variable Substitution (BLVS)}
+\label{sec:blvs}
+The remainder from \emph{Spoly} contains bit-level PS variables, and our objective is to get a polynomial contains only word-level PS variables
+. One possible method is to rewrite bit-level variables in term of function on word-level
+variables, i.e. $s_i = \mathcal{G}(S)$, then do substitution. A Gaussian-elimination-fashion approach could be applied to
+compute corresponding $\mathcal{G}(S)$ efficiently.
+
+\begin{Example}
+{\bf Objective}:\ Abstract polynomial $s_i + \mathcal{G}_i(S)$ from $f_0: s_0+s_1\alpha+S$.
+
+First, compute $f_0^2: s_0+s_1\alpha^2+S^2$. Apparently variable $s_0$ can be
+eliminated by operation 
+\begin{align}
+f_1 =& f_0 + f_0^2: \nonumber\\
+&(\alpha^2+\alpha)s_1+S^2+S\nonumber
+\end{align}
+Now we can solve univariate polynomial equation $f_1 = 0$ and get solution
+$$s_1 = S^2 + S$$
+Use this solution we can easily solve equation $f_0 = 0$. The result is
+$$s_0 = \alpha S^2+(1+\alpha)S$$
+\end{Example}
+In this approach it is easy to get word-level variable representation for each bit-level PS variables. By substitution, a new polynomial in word-level PS/NS variables
+could be attained.
+
+After processing with RATO and BLVS techniques, we get a polynomial in form of $f_T = T+\mathcal{F}(S,x)$
+denoting the transition function. We add a polynomial about $S$ to define the present states $f_S$,
+as well as a polynomial guarantee free-end signals for primary inputs $f_x = x^2+x$, using elimination term order $S>x>T$,
+we can generate a GB out of elimination ideal $\langle f_T,f_S,f_x\rangle$, which contains a univariate
+polynomial denoting next states. The new scalable algorithm can be depicted as following:
+
+\begin{algorithm}[hbt]
+\SetAlgoNoLine
+ \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\F(S)$}
+
+  $from^0 = reached = \F(S)$\;
+  $f_T = $Reduce w/ RATO$(J_{ckt})$\;
+  \Repeat{$new^i == 1$}
+  {
+  	$i \gets i + 1$\;
+	$to^i \gets$GB w/ elimination TO$\langle f_T, from^{i-1}, f_x\rangle$\;
+	$new^i \gets $generator of $\langle to^i\rangle + (\langle T^4-T\rangle:\langle reached\rangle)$\;
+  	$reached \gets $generator of $\langle reached\rangle \cdot \langle new^i\rangle$\;
+	$from^i \gets new^i(S\setminus T)$\;
+  }
+\Return{$reached$}
+\caption {Refined Algebraic Geometry based Traversal Algorithm}\label{alg:refined}
+\end{algorithm}
+
+\subsection{PI Partition}
+Using above techniques we can get a remainder polynomial with only word-level PS/NS variables. However in most 
+cases, the number of bit-level PIs will be too large for the last-step Gr\"obner basis computation. Therefore it is necessary
+to convert bit-level PIs to word-level PI variables. 
+
+Assume we have $k$-bit datapath and $n$-bit PIs. In Galois field, we need to carefully partition $n$ PIs
+to guarantee states of all partitions can be covered by single univariate polynomials.
+
+\begin{Proposition}
+Divide $n$-bit PIs to partitions $n_1,n_2,\dots, n_s$ and let $n_1,n_2,\dots,n_s$ bit word-level variables
+represent their evaluations in $\mathbb F_{2^k}$ accordingly. Then there always be $n_1,n_2,\dots,n_s~|~k$.
+\end{Proposition}
+
+Again, assume a partition $n_i~|~k$ and corresponding word-level variable is $P$. Then we can use polynomial
+$P^{2^n_i}-P$ to represent all signals at free-end PIs, according to following theorem about {\bf composite
+field}:
+\begin{Theorem}
+\label{thm:composite}
+Let $k = m\dot n_i$, such that $\mathbb F_{2^k} = \mathbb F_{(2^{n_i})^m}$. Let $\alpha$ be primitive root of 
+$\mathbb F_{2^k}$, $\beta$ be primitive root of the ground field $\mathbb F_{2^{n_i}}$. Then
+$$\beta = \alpha^\omega,~~\text{where}~~\omega = \frac{2^k-1}{2^{n_i}-1}$$
+\end{Theorem}
+\begin{Example}
+In a sequential circuit, PS/NS inputs/outputs are 4-bit signals, which means we will use $\mathbb F_{2^4}$
+as working field. PIs are partitioned to 2-bit vectors, which means the ground field is $\mathbb F_{2^2}$.
+In ground field we can represent all possible evaluations of this PI partition $\{p_0,p_1\}$ with
+$$P^4+P,~~\text{where}~~P=p_0+p_1\cdot\beta$$
+Using Thm.\ref{thm:composite} we get $\beta = \alpha^5$, so we can redefine word $P$ as element from $\mathbb F_{2^4}$:
+$$P = p_0 + p_1\cdot\alpha^5$$
+\end{Example}
+Using this method we can efficiently partition large size PIs to small number of word-level PI variables.
+One limitation of this approach is PIs cannot be partitioned when $k$ is prime.

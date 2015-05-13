@@ -1,0 +1,63 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: fmcad.aux
+The style file: ieee.bst
+Database file #1: oldlogic.bib
+You're missing a field name---line 303 of file oldlogic.bib
+ : 
+ : %   url = {http://dx.doi.org/10.1007/3-540-57936-2_31},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #2: logic.bib
+Repeated entry---line 826 of file logic.bib
+ : @inproceedings{gao:qe-gf-gb
+ :                            ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2266 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Database file #3: xiaojun.bib
+You've used 7 entries,
+            1802 wiz_defined-function locations,
+            499 strings with 4854 characters,
+and the built_in function-call counts, 1553 in all, are:
+= -- 133
+> -- 74
+< -- 1
++ -- 27
+- -- 20
+* -- 113
+:= -- 249
+add.period$ -- 9
+call.type$ -- 7
+change.case$ -- 5
+chr.to.int$ -- 0
+cite$ -- 7
+duplicate$ -- 77
+empty$ -- 162
+format.name$ -- 20
+if$ -- 353
+int.to.chr$ -- 0
+int.to.str$ -- 7
+missing$ -- 9
+newline$ -- 38
+num.names$ -- 7
+pop$ -- 36
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 20
+stack$ -- 0
+substring$ -- 63
+swap$ -- 15
+text.length$ -- 1
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 14
+width$ -- 8
+write$ -- 77
+(There were 3 error messages)
