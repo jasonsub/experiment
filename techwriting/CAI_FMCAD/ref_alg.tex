@@ -81,16 +81,24 @@ polynomial denoting next states. The new scalable algorithm can be depicted as f
  \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\F(S)$}
 
   $from^0 = reached = \F(S)$\;
-  $f_T = $Reduce w/ RATO$(J_{ckt})$\;
-  \Repeat{$new^i == 1$}
+  $f_T = $Reduce(spoly$(f_w,f_s), J_{ckt})$\;
+  \tcc{Compute S-poly for the critical pair, then reduce it with circuit ideal under RATO}
+  \Repeat{$\langle new^i\rangle == \langle 1\rangle$}
   {
   	$i \gets i + 1$\;
-	$to^i \gets$GB w/ elimination TO$\langle f_T, from^{i-1}, f_x\rangle$\;
-	$new^i \gets $generator of $\langle to^i\rangle + (\langle T^4-T\rangle:\langle reached\rangle)$\;
-  	$reached \gets $generator of $\langle reached\rangle \cdot \langle new^i\rangle$\;
+  	$G \gets$GB($\langle f_T ,f_x, from^{i-1}\rangle$)\;
+  	\tcc{Compute Gr\"obner basis with elimination term order: $T$ smallest; $f_x$ is polynomial covers all possible inputs from PIs}
+	$\langle to^i \rangle \gets G\cup \Fkk[T]$\;
+	\tcc{There will be a univariate polynomial in $G$ denoting next state in word-level variable $T$}
+	$\langle new^i\rangle \gets \langle to^i\rangle + (\langle T^{2^k}-T\rangle:\langle reached\rangle)$\;
+	\tcc{Use quotient of ideals to attain complement of reached states, then use sum of ideals to attain an intersection with next state}
+  	$\langle reached\rangle \gets \langle reached\rangle \cdot \langle new^i\rangle$\;
+  	\tcc{Use product of ideals to attain a union of newly reached states and formerly reached states}
 	$from^i \gets new^i(S\setminus T)$\;
+	\tcc{Start a new iteration by replacing variable $T$ in newly reached states with current state variable $S$}
   }
-\Return{$reached$}
+  \tcc{Loop until a fixpoint reached: newly reached state is empty}
+\Return{$\langle reached\rangle$}
 \caption {Refined Algebraic Geometry based Traversal Algorithm}\label{alg:refined}
 \end{algorithm}
 
