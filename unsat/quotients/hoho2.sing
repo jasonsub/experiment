@@ -1,0 +1,259 @@
+LIB "general.lib";
+LIB "poly.lib";
+
+proc my_spoly(poly f, poly g)
+{
+	poly M = lcm(leadmonom(f),leadmonom(g));
+	poly S = M/lead(f)*f - M/lead(g)*g;
+	return (S);
+}
+
+proc or2(poly f, poly g)
+{
+    return (f+g+f*g);
+}
+
+proc or3(poly f1, poly f2, poly f3)
+{
+    poly g = or2(f1,f2);
+    g = or2(g,f3);
+    return (g);
+}
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r);
+}
+
+proc multidiv_q(poly f, ideal I, ideal J0)  // have not yet added "reduce J0" function
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	list J;
+	int s = size(I);
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J = insert(J, i, size(J));
+				J = insert(J, lead(p)/lead(fi), size(J));
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+//	if(lead(r) == 0) {"Error!!";}
+	return (r,J);
+}
+
+proc relative_prime(poly f1, poly f2)
+{
+	poly t1 = leadmonom(f1);
+	poly t2 = leadmonom(f2);
+	poly tt = lcm(t1,t2);
+	poly tm = t1*t2;
+	if(tt == tm)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+proc redundancy(poly r, ideal G)
+{
+	int s = size(G);
+	int i;
+	if(lead(r) == 0) {return (0);} // Also need to eliminate 0 remainder
+	for(i = 1; i<= s; i=i+1)
+	{
+		if(r == G[i])
+		{return (0);}
+	}
+	return (1);
+}
+
+proc myGB(ideal F, ideal J0)
+{
+	ideal G = F;
+	int s = size(F);
+	int i, judge;
+	int j;
+	list l;
+	poly r,sp;
+	intvec p,v;
+	string cin;  // temp string attaching to cout
+	list cout;   // Record all lines of output
+	list qt;     // Temp quotient array, has order and duplicates
+	for(i = 2; i <= s; i=i+1)
+	{
+		for(j = 1; j < i; j=j+1)
+		{
+			if(relative_prime(F[i],F[j]) == 0)
+			{
+				p = j,i;
+				l = insert(l,p,size(l));
+			}
+		}
+	}
+	while(size(l))
+	{
+		v = l[1];
+		l = delete(l,1);
+		sp = my_spoly(G[v[1]],G[v[2]]);
+//		sp;
+		(r,qt) = multidiv_q(sp, G, J0);
+		judge = redundancy(r, G);
+		if (judge)
+		{
+			s = s+1;
+			G[s] = r;
+			if(lead(r) == 1) {"Void!!! from pair (",v[1],",",v[2],")";
+				"Spoly =",sp;
+				cin = "e "+string(v[1])+" 1 "+string(v[2])+ " 1";
+				if(size(qt)) 
+				{
+					for(i=1; i<= size(qt); i=i+1)
+					{
+						cin = cin+" "+string(qt[i]);
+					}
+				}
+				cout[s] = cin;
+				return (G,cout);
+			}
+			else {"Add new",s," from pair (",v[1],",",v[2],")";
+				cin = string(s)+" "+string(v[1])+" 1 "+string(v[2])+" 1";
+				if(size(qt))
+				{
+					for(i=1; i<= size(qt); i=i+1)
+					{
+						cin = cin+" "+string(qt[i]);
+					}
+				}
+				cout[s] = cin;
+			}
+			for(i = 1; i < s; i=i+1)
+			{
+				if(relative_prime(G[i],G[s]) == 0)
+				{
+					p = i,1,s,1;
+					l = insert(l,p,size(l));
+				}
+			}
+		}
+	}
+	"Error! Given set is NOT UNSAT!!";
+	return (G);
+}
+
+proc miniGB(ideal G0)
+{
+	int s = size(G0);
+	int i;
+	int j;
+	int k;
+	for (i = 1; i <= s; i = i + 1)
+	{
+		for (j = 1; j <= s; j = j +1)
+		{
+			if (lead(G0[j]) != 0)
+			{
+				if (lead(G0[i])/lead(G0[j]) != 0 and i != j)
+				{G0[i] = 0;}
+			}
+		}
+	}
+	ideal G = sort(G0)[1];
+	s = size(G);
+	for (k = 1; k <= s; k = k + 1)
+	{
+		G[k] = G[k]/leadcoef(G[k]);
+	}
+	return (G);
+}
+
+
+ring Q = 2, (a,b,c,d,e), Dp;
+/* I means original poly order */
+ideal I = 
+1+or3(a,b,c),
+b,
+1+or2(1+a,1+c),
+1+or2(1+a,c),
+1+or2(b,1+c),
+1+or3(a,b,1+d),
+1+or2(1+c,1+d),
+1+or3(a,b,d),
+1+or3(a,1+b,d);
+
+ideal F = I[1],I[2],I[6],I[4],I[5],I[3],I[7],I[8],I[9];
+//ideal F = I;
+
+ideal J0 = a2+a,b2+b,c2+c,d2+d,e2+e;
+
+list co;
+ideal G0;
+(G0,co) = myGB(F,J0);
+ideal mG = miniGB(G0);
+
+"Groebner Basis:";
+G0;
+"Minimum Groebner Basis:";
+mG;
+
+link l = ":w co2.dat";
+int i;
+int so = size(F);
+int st = size(G0);
+string tmp_st = "s "+string(so)+" "+string(st);
+write(l,tmp_st);
+for(i= 1+so; i <= size(co); i=i+1)
+{
+    write(l,co[i]);
+}
+close(l);
+quit;
