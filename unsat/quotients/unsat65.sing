@@ -1,0 +1,253 @@
+LIB "general.lib";
+LIB "poly.lib";
+
+proc my_spoly(poly f, poly g)
+{
+	poly M = lcm(leadmonom(f),leadmonom(g));
+	poly S = M/lead(f)*f - M/lead(g)*g;
+	return (S);
+}
+
+proc or2(poly f, poly g)
+{
+    return (f+g+f*g);
+}
+
+proc or3(poly f1, poly f2, poly f3)
+{
+    poly g = or2(f1,f2);
+    g = or2(g,f3);
+    return (g);
+}
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r);
+}
+
+proc multidiv_q(poly f, ideal I)
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	list J = 0;
+	int s = size(I);
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J = insert(J, i, size(J));
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	if(lead(r) == 0) {"Error!!";}
+	return (J);
+}
+
+proc redundancy(poly r, ideal G)
+{
+	int s = size(G);
+	int i;
+	if(lead(r) == 0) {return (0);} // Also need to eliminate 0 remainder
+	for(i = 1; i<= s; i=i+1)
+	{
+		if(r == G[i])
+		{return (0);}
+	}
+	return (1);
+}
+
+proc myGB(ideal F)
+{
+	ideal G = F;
+	int s = size(F);
+	int i, judge;
+	int j;
+	list l;
+	poly r,sp;
+	intvec p,v;
+	for(i = 1; i < s; i=i+1)
+	{
+		for(j = i+1; j <= s; j=j+1)
+		{
+			p = i,j;
+			l = insert(l,p,size(l));
+		}
+	}
+	while(size(l))
+	{
+		v = l[1];
+		l = delete(l,1);
+		sp = my_spoly(G[v[1]],G[v[2]]);
+//		sp;
+		r = multidiv(sp, G);
+		judge = redundancy(r, G);
+		if (judge)
+		{
+			s = s+1;
+			G[s] = r;
+			if(lead(r) == 1) {"Void!!! from pair (",v[1],",",v[2],")";
+				"Spoly =",sp;
+				return (G);
+			}
+			else {"Add new",s," from pair (",v[1],",",v[2],")";}
+			for(i = 1; i < s; i=i+1)
+			{
+				p = i,s;
+				l = insert(l,p,size(l));
+			}
+		}
+	}
+	"Error! Given set is NOT UNSAT!!";
+	return (G);
+}
+
+proc miniGB(ideal G0)
+{
+	int s = size(G0);
+	int i;
+	int j;
+	int k;
+	for (i = 1; i <= s; i = i + 1)
+	{
+		for (j = 1; j <= s; j = j +1)
+		{
+			if (lead(G0[j]) != 0)
+			{
+				if (lead(G0[i])/lead(G0[j]) != 0 and i != j)
+				{G0[i] = 0;}
+			}
+		}
+	}
+	ideal G = sort(G0)[1];
+	s = size(G);
+	for (k = 1; k <= s; k = k + 1)
+	{
+		G[k] = G[k]/leadcoef(G[k]);
+	}
+	return (G);
+}
+
+
+ring Q = 2, (a,b,c,d,e,f,g,h), lp;
+ideal F = 
+1+or3(b,1+g,1+h),
+1+or3(a,1+b,1+d),
+1+or3(1+a,d,f),
+1+or3(1+c,1+e,1+g),
+1+or3(1+c,f,g),
+1+or3(b,1+d,1+e),
+1+or3(b,1+e,g),
+1+or3(1+e,f,1+h),
+1+or3(1+b,1+d,1+h),
+1+or3(1+a,1+b,e),
+1+or3(1+a,1+c,e),
+1+or3(c,f,h),
+1+or3(d,1+g,h),
+1+or3(a,1+e,h),
+1+or3(c,1+d,1+g),
+1+or3(b,c,d),
+1+or3(b,1+c,d),
+1+or3(e,g,h),
+1+or3(1+a,g,h),
+1+or3(a,1+d,1+h),
+1+or3(1+a,d,1+e),
+1+or3(1+c,1+e,h),
+1+or3(d,1+e,h),
+1+or3(1+b,c,1+h),
+1+or3(1+a,1+c,1+f),
+1+or3(1+a,1+f,1+h),
+1+or3(f,1+g,h),
+1+or3(1+b,d,1+h),
+1+or3(1+b,1+c,h),
+1+or3(1+c,1+f,g),
+1+or3(a,f,g),
+1+or3(1+c,e,1+f),
+1+or3(d,g,1+h),
+1+or3(c,1+e,1+h),
+1+or3(1+b,e,1+g),
+1+or3(a,1+c,1+g),
+1+or3(1+c,d,1+h),
+1+or3(e,f,1+g),
+1+or3(b,1+e,1+f),
+1+or3(a,1+d,1+g),
+1+or3(1+e,1+g,1+h),
+1+or3(1+b,e,g),
+1+or3(1+c,1+e,g),
+1+or3(1+b,c,g),
+1+or3(d,e,1+f),
+1+or3(1+a,b,d),
+1+or3(a,1+b,f),
+1+or3(1+b,f,g),
+1+or3(1+b,1+c,1+d),
+1+or3(1+c,1+f,1+h),
+1+or3(1+a,e,1+h),
+1+or3(1+a,b,c),
+1+or3(b,e,1+h),
+1+or3(a,e,1+f),
+1+or3(c,1+f,g),
+1+or3(f,1+g,1+h),
+1+or3(1+c,1+d,f),
+1+or3(a,1+b,h),
+1+or3(b,1+e,h),
+1+or3(b,1+d,1+h),
+1+or3(1+b,d,1+e),
+1+or3(b,1+d,f),
+1+or3(1+b,1+d,1+g),
+1+or3(1+d,e,1+h),
+1+or3(b,e,1+f);
+
+ideal G0 = myGB(F);
+ideal mG = miniGB(G0);
+
+"Groebner Basis:";
+G0;
+"Minimum Groebner Basis:";
+mG;
+//quit;
