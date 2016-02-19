@@ -4,11 +4,17 @@ use 5.014;
 use strict;
 use warnings;
 
+# Update: 02/18/2016 by Xiaojun Sun
+# Note: Expand capability to 5-SAT
+# Note2: cancel alphabet, use v1 v2 v3... instead
+# Note3: add a line as list of vars for Singular use
+
 # Note: this is a simple version for 3-SAT CNF parser
 # Edit: 03/31/2015 by Xiaojun Sun
 # Objective: do scratch investigation on GB based UNSAT core extraction
 
-open POLY, ">", "unsat65.sing";  # change the name
+open CNF, "<", $ARGV[0];   # first argument as input
+open POLY, ">", $ARGV[1];  # second argument as output
 my $cnt = 0;
 
 my $i;
@@ -16,12 +22,16 @@ my $tmp;
 my $clauses;
 my $vars;
 
-my @alphabet = qw /a b c d e f g h/;
+#my @alphabet = qw /a b c d e f g h/;
 my @args;
 
-print POLY "ideal f = ";
+print POLY "ring Q = 2, (";
+foreach $i 1..($vars-1) {
+	print POLY "v$i,";
+}
+print POLY "$vars), Dp;\n\nideal f = ";
 
-while(<>){
+while(<CNF>){
 	chomp;
 	my $read_in = $_;
 	my @items = split /\s+/;
@@ -33,24 +43,25 @@ while(<>){
 	  $clauses = $items[3];
 	  next;
 	}
-	if($items[3] != 0) {  # for 3-SAT problems
+	if(defined($items[5]) && $items[5] != 0) {  # for max-5-SAT problems
 	  print "Error in Line$cnt!\n";
 	  next;
 	}
 	undef @args;
-	for($i = 0; $i < 3; $i++)
+	for($i = 0; $i < 5; $i++)
 	{
 	  if($items[$i] < 0)
 	  {
-		$tmp = 0 - $items[$i] -1;
+		$tmp = 0 - $items[$i];
 #		print "What is tmp?? It is $tmp!!!!!!!";
-		push @args, "1+".$alphabet[$tmp];
+		push @args, "1+v".$tmp;
 	  }
-	  else
+	  elsif($items[$i] > 0)
 	  {
-		$tmp = $items[$i] -1;
-		push @args, $alphabet[$tmp];
+		$tmp = $items[$i];
+		push @args, "v".$tmp;
 	  }
+	  else {break;} # when touch 0, clause ends
 	}
 	printf POLY "\n1+or%d(", 1+$#args; # $#args is NOT the number but the last index, which is 3-1=2 here
 	for($i = 0; $i <= $#args; $i++)
