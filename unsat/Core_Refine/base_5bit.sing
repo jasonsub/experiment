@@ -245,6 +245,8 @@ proc miniGB(ideal G0)
 }
 
 ring Q = 2, (v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30,v31,v32,v33,v34,v35,v36,v37,v38,v39,v40,v41,v42,v43,v44,v45,v46,v47,v48,v49,v50,v51,v52,v53,v54,v55,v56,v57,v58,v59,v60,v61,v62,v63,v64,v65,v66,v67), Dp;
+
+int nvar = 67;
 /* I means original poly order */
 ideal I = 
 1+or5(v2,v3,v12,1+v16,1+v30),
@@ -488,7 +490,9 @@ ideal I =
 1+or1(v67),
 1+or1(1+v2);
 
-//ideal F = I[2],I[1],I[3],I[4],I[5],I[6];
+// Re-order ID as intvec
+intvec rd = 1,2,3,4,5,6; 
+//ideal F = I[rd[1]],I[rd[2]],I[rd[3]],I[rd[4]],I[rd[5]],I[rd[6]];
 ideal F = I;
 
 ideal J0 = v1^2+v1, v2^2+v2, v3^2+v3;
@@ -507,7 +511,7 @@ link l = ":w out5bit.dat";
 int i;
 int so = size(F);
 int st = size(G0);
-string tmp_st = "s "+string(so)+" "+string(st);
+string tmp_st = "s "+string(so)+" "+string(st)+" "+string(nvar);
 write(l,tmp_st);
 for(i= 1+so; i <= size(co); i=i+1)
 {
