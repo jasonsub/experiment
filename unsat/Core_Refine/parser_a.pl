@@ -3,6 +3,7 @@
 use 5.014;
 use strict;
 use warnings;
+use List::MoreUtils qw(uniq);
 
 # Update: Xiaojun Sun, 02/19/2016
 # Change 1: Input format change, now first line add #var as 3rd arg, then each line index and coeff are alternating
@@ -11,6 +12,7 @@ use warnings;
 # involved with s-poly/reduction (not simplified), it is meant to be fed to Singular to check if any of
 # them reduced to 0. Excluding those, remaining nonzero coeffs represents the core. Note for fitting
 # the size of total poly, coeff[last] must be defined (if not used, then define as 0)
+# Change 3: add another output file for dist&freq
 
 # Note: read_in file format:
 # first line: start with "s", then a single number means # of original polys, then # of total GBs include "1" 
@@ -26,6 +28,7 @@ use warnings;
 
 open TREE, ">", $ARGV[0].".nh";  # auto-assign name
 open COEF, ">", "tmp.coef";
+open DIST, ">", "tmp.dist";
 my $cnt = 0;
 
 my $i;
@@ -34,6 +37,10 @@ my %lines;
 my $origin;
 my $n;
 my $nvars;
+my %olines;
+my %coefs;
+my %dist;
+my %freq;
 
 while(<>){
 	chomp;
@@ -57,6 +64,7 @@ while(<>){
 	  }
 	}
 	$lines{$items[0]} = $tmp;
+	$olines{$items[0]} = $read_in;
 	if($items[0] =~ /e/)
 	{
 	  my @keys = sort keys %lines;
@@ -65,22 +73,22 @@ while(<>){
 	  last;
 	}
 }
-
-$tmp = $lines{"e"}.":0.5;";
-for($i = $n-1; $i > $origin; $i--)
-{
-	my $op1 = $i.":";
-	my $op2 = $lines{$i}.":";
-	$tmp =~ s/$op1/$op2/g;
-}
+# 
+# $tmp = $lines{"e"}.":0.5;";
+# for($i = $n-1; $i > $origin; $i--)
+# {
+# 	my $op1 = $i.":";
+# 	my $op2 = $lines{$i}.":";
+# 	$tmp =~ s/$op1/$op2/g;
+# }
 
 print TREE $tmp;
-<<<<<<< HEAD
 close TREE;
+print "I am here!\n";
 
 # Analysis for coef, dist and freq starts here!
 $tmp = $olines{"e"};
-my @items = split /\s+/;
+my @items = split /\s+/, $tmp;
 my @newpoly;
 for($i = 1; $i <= $#items; $i=$i+2)
 {
@@ -105,6 +113,7 @@ while(1)
 	if(!defined($polytrace)) {last;}
 	print "$polytrace ";
 	$tmp = $olines{$polytrace};
+	if (!defined $tmp) {print "FATAL ERROR occurs when $polytrace is taken!!!!!";last;}
 	@items = split /\s+/, $tmp;
 	for($i = 1; $i <= $#items; $i=$i+2)
 	{
@@ -133,11 +142,19 @@ for($i = 1; $i < $origin; $i++) {
 	if(exists $coefs{$i}) {printf COEF "CF[%d] = %s;\n", $i, $coefs{$i}; }
 }
 if(exists $coefs{$origin}) {
-	printf COEF "CF[%d] = %s\n;", $origin, $coefs{$origin};
+	printf COEF "CF[%d] = %s;\n", $origin, $coefs{$origin};
 }
 else {
 	print COEF "CF[$i] = 0;\n";
 }
+
+# For reducing ^2 terms
+print COEF "ideal J0 = v1^2+v1";
+for($i = 2; $i <= $nvars; $i++) {
+	print COEF ", v$i^2+v$i";
+}
+print COEF ";\nCF = reduce(CF,J0);\n";
+
 print COEF "string st = \"\";\nfor(int i = 1; i <= $origin; i++)\n\{\n\tif(CF[i] != 0) \{\n\t\tst = st+string(i)+\" \";\n\t\}\n\}\n";
 print COEF "link l = \":w tmp.simp\";\nwrite(l,st);\nclose(l);\nquit;";
 close COEF;
@@ -147,6 +164,3 @@ print DIST "c idx dist freq\n";
 for($i = 1; $i <= $origin; $i++) {
 	if(exists $dist{$i}) {printf DIST "%d %d %d\n", $i, $dist{$i}, $freq{$i}; }
 }
-=======
-close TREE;
->>>>>>> parent of 6a8bef0... unsat core refine phase iv
