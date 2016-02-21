@@ -71,6 +71,11 @@ while(<CNF>){
 	}
 	print POLY "),";
 }
+print POLY ";\n\nideal J0 = v1^2+v1";
+for($i = 2; $i <= $vars; $i++) {
+	print POLY ", v$i^2+v$i";
+}
 print POLY ";\n";
+close POLY;
 if($cnt != $clauses + 1) 
 {print "Warning: # of clauses not match! May exist empty lines\n";}
