@@ -4,8 +4,6 @@ use 5.014;
 use strict;
 use warnings;
 
-use List::MoreUtils qw(uniq);
-
 # Update: Xiaojun Sun, 02/19/2016
 # Change 1: Input format change, now first line add #var as 3rd arg, then each line index and coeff are alternating
 # e.g. line "10 2 1 5 ab 4 c" means f_10 = 1*f_2 + ab*f_5 + c*f_4
@@ -13,7 +11,6 @@ use List::MoreUtils qw(uniq);
 # involved with s-poly/reduction (not simplified), it is meant to be fed to Singular to check if any of
 # them reduced to 0. Excluding those, remaining nonzero coeffs represents the core. Note for fitting
 # the size of total poly, coeff[last] must be defined (if not used, then define as 0)
-# Change 3: Add output file recording distance and frequency 
 
 # Note: read_in file format:
 # first line: start with "s", then a single number means # of original polys, then # of total GBs include "1" 
@@ -29,7 +26,6 @@ use List::MoreUtils qw(uniq);
 
 open TREE, ">", $ARGV[0].".nh";  # auto-assign name
 open COEF, ">", "tmp.coef";
-open DIST, ">", "tmp.dist";
 my $cnt = 0;
 
 my $i;
@@ -38,10 +34,6 @@ my %lines;
 my $origin;
 my $n;
 my $nvars;
-my %coefs;
-my %dist;
-my %freq;
-my %olines;
 
 while(<>){
 	chomp;
@@ -65,7 +57,6 @@ while(<>){
 	  }
 	}
 	$lines{$items[0]} = $tmp;
-	$olines{$items[0]} = $read_in;  # record original contents for later analysis
 	if($items[0] =~ /e/)
 	{
 	  my @keys = sort keys %lines;
@@ -84,6 +75,7 @@ for($i = $n-1; $i > $origin; $i--)
 }
 
 print TREE $tmp;
+<<<<<<< HEAD
 close TREE;
 
 # Analysis for coef, dist and freq starts here!
@@ -97,6 +89,7 @@ for($i = 1; $i <= $#items; $i=$i+2)
 	if(exists $coefs{$items[$i]}) {$coefs{$items[$i]} = $coefs{$items[$i]}."+".$items[$i+1];}
 	if(!exists $coefs{$items[$i]}) {$coefs{$items[$i]} = $items[$i+1];}
 	my $tmpdist = ( $i == 1 )?($#items/2 -1):( ($#items+1-$i)/2 ); # min distance = 1, spoly have same dist
+	print "Update dist: $items[$i] <= $tmpdist;\n";
 	if(exists $dist{$items[$i]}) {$dist{$items[$i]} = ($tmpdist < $dist{$items[$i]})?$tmpdist:$dist{$items[$i]}; }
 	if(!exists $dist{$items[$i]}) {$dist{$items[$i]} = $tmpdist; }
 	if(exists $freq{$items[$i]}) {$freq{$items[$i]} ++; }
@@ -121,11 +114,12 @@ while(1)
 		if(exists $coefs{$items[$i]}) {$coefs{$items[$i]} = $coefs{$items[$i]}."+(".$coefs{$polytrace}.")*".$items[$i+1];}
 		if(!exists $coefs{$items[$i]}) {$coefs{$items[$i]} = "(".$coefs{$polytrace}.")*".$items[$i+1];}
 		# local distance added to dist of current poly previously called
-		my $tmpdist = $dist{$polytrace} + ( $i == 1 )?($#items/2 -1):( ($#items+1-$i)/2 ); # min distance = 1, spoly have same dist
+		my $tmpdist = $dist{$polytrace} + (( $i == 1 )?($#items/2 -1):( ($#items+1-$i)/2 )); # min distance = 1, spoly have same dist
+		print "Update dist: $items[$i] <= $tmpdist;\n";
 		if(exists $dist{$items[$i]}) {$dist{$items[$i]} = ($tmpdist < $dist{$items[$i]})?$tmpdist:$dist{$items[$i]}; }
 		if(!exists $dist{$items[$i]}) {$dist{$items[$i]} = $tmpdist; }
-		if(exists $freq{$items[$i]}) {$freq{$items[$i]} ++; }
-		if(!exists $freq{$items[$i]}) {$freq{$items[$i]} = 1; }
+		if(exists $freq{$items[$i]}) {$freq{$items[$i]} += $freq{$polytrace}; }
+		if(!exists $freq{$items[$i]}) {$freq{$items[$i]} = $freq{$polytrace}; }
 	}
 }
 
@@ -153,3 +147,6 @@ print DIST "c idx dist freq\n";
 for($i = 1; $i <= $origin; $i++) {
 	if(exists $dist{$i}) {printf DIST "%d %d %d\n", $i, $dist{$i}, $freq{$i}; }
 }
+=======
+close TREE;
+>>>>>>> parent of 6a8bef0... unsat core refine phase iv
