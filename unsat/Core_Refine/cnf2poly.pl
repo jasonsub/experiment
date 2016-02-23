@@ -4,6 +4,11 @@ use 5.014;
 use strict;
 use warnings;
 
+# Minor Update: 02/22/2016 by Xiaojun
+# Note: Now support dummy 9-SAT (You should define or6+() proc in singular script separately)
+# Note2: Add an item output, printing init intvec "rd" for consistency
+# Note3: trim spaces at head
+
 # Update: 02/18/2016 by Xiaojun Sun
 # Note: Expand capability to 5-SAT
 # Note2: cancel alphabet, use v1 v2 v3... instead
@@ -28,7 +33,8 @@ my @args;
 while(<CNF>){
 	chomp;
 	my $read_in = $_;
-	my @items = split /\s+/;
+	$read_in =~ s/^\s+//; # remove spaces at head
+	my @items = split /\s+/, $read_in;
 	$cnt++;
 	if(!defined($items[0])) {next;}  # skip empty lines
 	if($items[0] =~ /c/) {next;}  # skip comments
@@ -42,12 +48,12 @@ while(<CNF>){
 	  print POLY "v$vars), Dp;\n\nideal I = ";
 	  next;
 	}
-	if(defined($items[5]) && $items[5] != 0) {  # for max-5-SAT problems
+	if(defined($items[9]) && $items[9] != 0) {  # for max-9-SAT problems
 	  print "Error in Line$cnt!\n";
 	  next;
 	}
 	undef @args;
-	for($i = 0; $i < 5; $i++)
+	for($i = 0; $i < 9; $i++)
 	{
 	  if($items[$i] < 0)
 	  {
@@ -74,6 +80,13 @@ while(<CNF>){
 print POLY ";\n\nideal J0 = v1^2+v1";
 for($i = 2; $i <= $vars; $i++) {
 	print POLY ", v$i^2+v$i";
+}
+print POLY ";\n";
+
+print POLY "\nintvec rd=1";
+for($i =2; $i <= $clauses; $i++)
+{
+	print POLY ",$i";
 }
 print POLY ";\n";
 close POLY;

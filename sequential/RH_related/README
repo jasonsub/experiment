@@ -4,7 +4,13 @@ This folder contains following features:
 
 2. "CEC_spec.pl" is for building .blif file from the specification of normal basis multiplier (you can treat it as a normal basis Mastrovito/naive multiplier). "bigmiter.pl" is to build a big miter for unrolled Angew/naive SMPO and specification circuit.
 
-3. "RHmulti.pl" is for building unrolled k-bit RH multiplier (AESMPO) .blif file. Also need to change the size and idx list; comiple and run "multitable.cpp", note it only works for type 2 ONB (still need a proof: for any type 2 ONB M0 matrix is same with multiplication table). If you want to do with type 1 ONB, revise it based on "type1onb.cpp" from another SMPO tool, and of course you should change the last part to let it really counting entries from multiplication table. Note: for some extreme situation (I think mostly will occur when you use type 1 ONB), a XOR gate larger than 2 inputs in the XOR array is needed, please revise and add corresponding large XOR gates manually.
+3. "RHmulti.pl" is for building unrolled k-bit RH multiplier (AESMPO) .blif file. Also need to change the size and idx list; comiple and run "multitable.cpp", note it only works for type 2 ONB (still need a proof: for any type 2 ONB M0 matrix is same with multiplication table). If you want to do with type 1 ONB, revise it based on "type1onb.cpp" from another SMPO tool, and of course you should change the last part to let it really counting entries from multiplication table. 
+
+(02/22/2016 Xiaojun: It is because RH design needs multiplication table, not M0! For Type2-ONB
+they are identical, but for Type-1 ONB you need to transform using equation M0_{i,j} = T_{j-i,-i}
+to calculate T somehow!)
+
+Note: for some extreme situation (I think mostly will occur when you use type 1 ONB), a XOR gate larger than 2 inputs in the XOR array is needed, please revise and add corresponding large XOR gates manually.
 
 4. "RHmulti_X.pl" builds another kind of unrolled RH multiplier (XESMPO). Note: this is an incomplete script bacause it will use some uninitiated signals (they should be 0). If you really want to use it, please revise it based on "RHmulti.pl", just swap some XOR gates and AND gates, change index a/b $size-1 to $size-2
 
