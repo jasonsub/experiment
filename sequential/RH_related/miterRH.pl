@@ -4,8 +4,11 @@ use 5.014;
 use strict;
 use warnings;
 
+# Update: 02/23/2016 by Xiaojun Sun
+# Note: Revised according to major update of autogen_RHmulti.pl
+# NOW support Type-1 ONB!!!!
 
-my $size = 33; # change this size
+my $size = 4; # change this size
 open MTR, ">", "miterRH$size.blif";
 
 my $v = int $size/2;
@@ -13,7 +16,7 @@ my $d = 1;
 my $c = 1;
 my $b = 1;
 my $i = 0;
-my @idx = qw /1 0 6 6 15 12 23 21 31 14 32 1 2 15 23 19 26 28 30 13 17 22 25 3 16 10 31 5 22 2 7 12 26 10 29 20 25 8 24 18 30 4 24 11 14 3 7 19 21 11 18 8 16 28 29 9 27 17 27 9 20 4 13 5 32/;
+my @idx = qw /2 2 3 0 1 1 3/; # this is M^0, by default first row only have 1 entry
 my @array;
 foreach(1..$size)
 {
@@ -24,7 +27,7 @@ my $j = 1;
 
 my $tmp;
 my $k;
-my $strid = 'head'; #new
+my $strid = 'head 0'; # e0 is always needed because of special beta monomial
 my @elist; #new
 my $cnt; #new
 
@@ -32,25 +35,32 @@ my (@Mat, @tmprow);
 foreach(1..$size)
 { push @tmprow, 0;}
 
-for($j = 0; $j <= $v; $j++){ # line 0 is for d0
+for($j = 0; $j < $size; $j++){ # init multitable
 	push @Mat, [@tmprow];
 }
-$Mat[0][0] = 1;
+# $Mat[0][0] = 1; # obsolete code now, because we take care of d0 separately
+# Following part we calculate multi table. If we use type-2 ONB, it is same with M^0
+# However for generalization with type-1 ONB, we calculate using general rule for all rows
+$i = 0; $j = $idx[0];
+$Mat[($j-$i)%$size][(0-$i)%$size] = 1;
+for($i = 1; $i < $size; $i++)
+{
+	$j = $idx[2*$i-1]; $Mat[($j-$i)%$size][(0-$i)%$size] = 1;
+	$j = $idx[2*$i]; $Mat[($j-$i)%$size][(0-$i)%$size] = 1;
+}
+# Check those one who need "e" layer
+push @elist, 0; # e0 is always needed...
 for($i = 1; $i <= $v; $i++)
 {
-	my $u = $idx[2*$i-1];
-	$Mat[$i][$u] = 1;
-	if($strid !~ /\b$u\b/)
+	for($j = 0; $j < $size; $j++)
 	{
-		$strid = $strid." $u";
-		push @elist, $u;
-	}
-	$u = $idx[2*$i];
-	$Mat[$i][$u] = 1;
-	if($strid !~ /\b$u\b/)
-	{
-		$strid = $strid." $u";
-		push @elist, $u;
+		if($Mat[$i][$j] == 1) {
+			if($strid !~ /\b$j\b/)
+			{
+				$strid = $strid." $j";
+				push @elist, $j;
+			}
+		}
 	}
 }
 
@@ -59,7 +69,7 @@ my $lastspec = $strid; # record DFF already used for propagation
 my $pass_specstr = $specstr; #temp recorder within one clock cycle
 my $pass_lastspec = $lastspec;
 
-print MTR ".model SMPOmiter\n.inputs ";
+print MTR ".model RHmiter\n.inputs ";
 for($i=0;$i<$size;$i++){
 print MTR "a$i b$i ";
 }
@@ -84,16 +94,22 @@ for($k = 0; $k < $size; $k++)
 	$c++;
     printf MTR ".names c%d\_ck%d c%d\_ck%d d%d\_ck%d\n11 1\n", $c-2, $k, $c-1, $k, $j, $k;
   }
-  for($j = 0; $j < $size; $j++)
-	{
+  # Now the hard part begins: deal with "e" layer!
+	for($j = 0; $j < $size; $j++) # the outer loop is for each item with monomial beta, beta^2 .. beta^{2^j}
+	{  # If we find a "1" match in the j-th column in multi table, it means corresponding row works as the coef to the monomial
 		my $tmpstr = '.names';
 		$cnt = 0;
-		for($i = 0; $i <= $v; $i++)
+		if ($j == 0) {$tmpstr .= " d0\_ck$k"; $cnt++; } # special case
+		for($i = 1; $i <= $v; $i++) # General case
 		{
 			if($Mat[$i][$j])
 			{$tmpstr .= " d$i\_ck$k";$cnt++;}
 		}
-		if($cnt>2) {print "Need size $cnt XOR!\n";}
+		if($cnt>3) { 
+			print MTR "$tmpstr e$j\_ck$k\nUNDERCONSTRUCTION! XOR size $cnt\n\n";
+			warn "Need Large XOR! Size is labeled in blif file with key word \"UNDERCONSTRUCTION\"\n";
+		}
+		elsif ($cnt == 3) {print MTR "$tmpstr e$j\_ck$k\n001 1\n010 1\n100 1\n111 1\n";}
 		elsif ($cnt == 2) {print MTR "$tmpstr e$j\_ck$k\n01 1\n10 1\n";}
 		elsif($cnt == 1) {print MTR "$tmpstr e$j\_ck$k\n1 1\n";}
 	}

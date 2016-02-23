@@ -4,18 +4,21 @@ use 5.014;
 use strict;
 use warnings;
 
-my $size = 99; # remember to change the size!!
+# Major Update: 02/22/2016 by Xiaojun
+# Add an important feature: Now can deal with type-1 ONB!
+
+my $size = 5; # remember to change the size!!
 open SING, ">", "RH$size"."bit.temp";
 my $v = int $size/2;
 say "V = $v";
 
-my @idx = qw /1 0 85 48 85 71 91 34 60 13 80 16 63 41 74 11 94 56 79 35 93 8 42 39 79 5 61 15 16 14 62 6 14 41 62 36 81 24 54 29 32 59 76 50 72 44 53 19 82 32 89 66 70 49 87 31 77 20 55 76 95 28 88 20 25 59 66 4 92 10 80 18 42 52 54 51 78 12 43 61 73 7 17 11 36 39 52 23 73 64 82 69 97 84 90 2 86 27 71 22 77 38 53 37 43 23 51 19 37 29 78 9 95 68 93 65 75 21 33 4 72 13 40 15 17 6 81 45 74 58 69 26 33 87 92 57 96 46 65 26 90 3 49 22 60 40 44 7 64 58 94 21 30 28 50 38 55 9 12 5 35 18 63 24 45 89 97 47 98 1 2 48 91 27 67 31 96 25 83 47 70 3 86 34 67 10 57 8 75 30 56 68 88 46 83 84 98/;
+my @idx = qw /1 0 3 3 4 1 2 2 4/; # Read-in M^0 for generating multi table
 my $tmp;
 my $i;
 my $j;
 my $c;
 my $k;
-my $strid = 'head'; #new
+my $strid = 'head 0'; # e0 is always needed because of special beta monomial
 my @elist; #new
 my $cnt; #new
 
@@ -28,25 +31,32 @@ foreach(1..$size)
   push @array, $_-1;
 }
 
-for($j = 0; $j <= $v; $j++){ # line 0 is for d0
+for($j = 0; $j < $size; $j++){ # init multitable
 	push @Mat, [@tmprow];
 }
-$Mat[0][0] = 1;
+# $Mat[0][0] = 1; # obsolete code now, because we take care of d0 separately
+# Following part we calculate multi table. If we use type-2 ONB, it is same with M^0
+# However for generalization with type-1 ONB, we calculate using general rule for all rows
+$i = 0; $j = $idx[0];
+$Mat[($j-$i)%$size][(0-$i)%$size] = 1;
+for($i = 1; $i < $size; $i++)
+{
+	$j = $idx[2*$i-1]; $Mat[($j-$i)%$size][(0-$i)%$size] = 1;
+	$j = $idx[2*$i]; $Mat[($j-$i)%$size][(0-$i)%$size] = 1;
+}
+# Check those one who need "e" layer
+push @elist, 0; # e0 is always needed...
 for($i = 1; $i <= $v; $i++)
 {
-	my $u = $idx[2*$i-1];
-	$Mat[$i][$u] = 1;
-	if($strid !~ /\b$u\b/)
+	for($j = 0; $j < $size; $j++)
 	{
-		$strid = $strid." $u";
-		push @elist, $u;
-	}
-	$u = $idx[2*$i];
-	$Mat[$i][$u] = 1;
-	if($strid !~ /\b$u\b/)
-	{
-		$strid = $strid." $u";
-		push @elist, $u;
+		if($Mat[$i][$j] == 1) {
+			if($strid !~ /\b$j\b/)
+			{
+				$strid = $strid." $j";
+				push @elist, $j;
+			}
+		}
 	}
 }
 @elist = sort {$a <=> $b} @elist;
@@ -56,24 +66,30 @@ say "@elist";
 # Preparation done, now output system polys
 print SING "ideal I = ";
 $c = 1;
-  print SING "d0+array_A[$size]*array_B[$size],\n";
-  for($j = 1; $j <= $v; $j++)
+  print SING "d0+array_A[$size]*array_B[$size],\n"; # d0 is special
+  for($j = 1; $j <= $v; $j++) # deal with "d" layer
   {
     printf SING "c%d+array_A[%d]+array_A[%d],\n", $c, $size, ($size-1+$j)%$size+1;
     $c++;
-    printf SING "c%d+array_B[%d]+array_B[%d],\n", $c, $size, ($size-1+$j)%$size+1;
+    # branch for m is odd or even
+    if ( ($j == $v) && ($size == $v*2) ) {printf SING "c%d+array_B[%d],\n", $c, $size; }
+    else {printf SING "c%d+array_B[%d]+array_B[%d],\n", $c, $size, ($size-1+$j)%$size+1; }
     $c++;
     printf SING "d%d+c%d*c%d,\n", $j, $c-2, $c-1;
   }
-	for($j = 0; $j < $size; $j++)
-	{
+  # Now the hard part begins: deal with "e" layer!
+	for($j = 0; $j < $size; $j++) # the outer loop is for each item with monomial beta, beta^2 .. beta^{2^j}
+	{  # If we find a "1" match in the j-th column in multi table, it means corresponding row works as the coef to the monomial
 		my $tmpstr = '';
 		$cnt = 0;
-		for($i = 0; $i <= $v; $i++)
+		if ($j == 0) {$tmpstr .= "d0+"; $cnt++; } # special case: a_i*b_i is always coef to beta^{2^0}, as in first part of F_i
+		for($i = 1; $i <= $v; $i++) # General case: only consider from 1 to v as second part in F_i (plz read the paper if not understand)
 		{
+		# we can also skip $i not in strid ... but whatever, the cost is trivial
 			if($Mat[$i][$j])
 			{$tmpstr .= "d$i+";$cnt++;}
 		}
+		# You can get info to expand XOR size capability here
 		if($cnt>2) {print "Need size $cnt XOR!\n";}
 		elsif ($cnt > 0) {print SING "$tmpstr"."e$j,\n";}
 	}

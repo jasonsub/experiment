@@ -1,3 +1,5 @@
+Note: Major update for miterRH.pl and autogen_RHmulti.pl, they are now supporting Type-1 ONB!!!
+
 This folder contains following features:
 
 1. "unroll.pl" is for building unrolled k-bit Angew/naive SMPO .blif file. Remember to change the size and idx list; idx list can be attained by compiling and running "t2onb.cpp" (delete "-1" in result), note: it only works for type 2 ONB.
