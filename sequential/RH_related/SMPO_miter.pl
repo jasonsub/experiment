@@ -4,17 +4,20 @@ use 5.014;
 use strict;
 use warnings;
 
-open MTR, ">", "miter_65bit.blif"; # change filename
+open MTR, ">", "SATmiter4.blif"; # change filename
 
-my $size = 65; # change this size
+my $size = 4; # change this size
 
 my $d = 1;
 my $c = 1;
 my $b = 1;
 my $i = 0;
-my @idx = qw /1 0 7 7 46 14 31 43 53 29 63 45 64 1 2 31 46 18 56 23 27 40 62 16 44 30 55 3 47 35 43 12 41 52 55 9 32 21 27 26 50 19 33 26 37 10 57 40 60 36 49 20 22 10 19 50 62 5 54 13 45 3 8 18 53 21 51 37 42 15 48 25 41 22 34 48 57 59 61 11 24 16 36 34 52 4 15 12 63 6 30 2 8 14 56 35 38 25 61 20 28 33 54 17 42 4 32 29 51 13 17 9 47 23 38 59 60 39 58 24 58 39 49 11 28 5 44 6 64/;
+my @idx = qw /2 2 3 0 1 1 3/;
 
-my @array = qw /0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64/;
+my @array = qw /0 1 2 3/;
+
+
+#my @array = qw /0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64/;
 
 #my @idx = qw /1 0 3 3 4 1 2 2 4/;
 my $j = 1;
@@ -23,15 +26,11 @@ print MTR ".model SMPOmiter\n.inputs ";
 for($i=0;$i<$size;$i++){
 print MTR "a$i b$i ";
 }
-print MTR "\n.outputs";
-for($i=0;$i<$size;$i++)
-{
-  print MTR " mo$i";
-}
-print MTR "\n";
+print MTR "\n.outputs Z\n";
+
 my $k;
 for($k = 0; $k < $size; $k++){
-printf MTR ".names b%d a%d d0\_r%d\n11 1\n", $k, ($k+1)%$size, $k;
+printf MTR ".names b%d a%d d0\_r%d\n11 1\n", $k, ($idx[0]+$k)%$size, $k;
 $j = 1; $b = 1; $c = 1; $d = 1;
 while ($j < $size) {
 printf MTR (".names a%d a%d c%d\_r%d\n01 1\n10 1\n", ($idx[$j*2-1]+$k)%$size, ($idx[$j*2]+$k)%$size, $c, $k); $c++;
@@ -113,5 +112,27 @@ for($j = 1; $j < $size - 1; $j++)
 for($i=0;$i<$size;$i++)
 {
   print MTR ".names Rs$i Ru$i mo$i\n01 1\n10 1\n";
+}
+
+# after generate miter for each bit, add following big OR gate:
+print MTR ".names ";
+for($k = 0; $k < $size; $k++)
+{
+	print MTR "mo$k ";
+}
+print MTR "Z\n";
+for($i = 0; $i < $size; $i++)
+{
+	for($j = 0; $j < $size; $j++)
+	{
+		if($j == $i){
+			print MTR "1";
+		}
+		else
+		{
+			print MTR "-";
+		}
+	}
+	print MTR " 1\n";
 }
 print MTR ".end";

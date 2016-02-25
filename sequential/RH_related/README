@@ -1,8 +1,10 @@
 Note: Major update for miterRH.pl and autogen_RHmulti.pl, they are now supporting Type-1 ONB!!!
 
+Note 2: Major update for SMPO_miter.pl, it now supports Type1-ONB too! (which means first row in M^0 may NOT = 1)
+
 This folder contains following features:
 
-1. "unroll.pl" is for building unrolled k-bit Angew/naive SMPO .blif file. Remember to change the size and idx list; idx list can be attained by compiling and running "t2onb.cpp" (delete "-1" in result), note: it only works for type 2 ONB.
+1. "unroll.pl" is for building unrolled k-bit Agnew/naive SMPO .blif file. Remember to change the size and idx list; idx list can be attained by compiling and running "t2onb.cpp" (delete "-1" in result), note: it only works for type 2 ONB.
 
 2. "CEC_spec.pl" is for building .blif file from the specification of normal basis multiplier (you can treat it as a normal basis Mastrovito/naive multiplier). "bigmiter.pl" is to build a big miter for unrolled Angew/naive SMPO and specification circuit.
 
@@ -22,9 +24,6 @@ vis> flt (* means flatten_hierarchy *)
 vis> so  (* means static_order *)
 vis> time;part inout;time (* part means build_partition_mdds *)
 You can get the runtime building a (partitioned) BDD for the miter output.
-
-Note*: if you wanna generate SMPO miters, use bigmiter.pl rather than SMPO_miter.pl. The later one
-does NOT have big OR for only 1 UNSAT output
 
 6. As above, for SAT (such as Lingeling) solver, use ABC tool to transform .blif file into DIMACS CNF. Run
 abc> read_blif miter_Xbit.blif
