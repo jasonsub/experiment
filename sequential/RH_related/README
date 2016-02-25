@@ -23,6 +23,9 @@ vis> so  (* means static_order *)
 vis> time;part inout;time (* part means build_partition_mdds *)
 You can get the runtime building a (partitioned) BDD for the miter output.
 
+Note*: if you wanna generate SMPO miters, use bigmiter.pl rather than SMPO_miter.pl. The later one
+does NOT have big OR for only 1 UNSAT output
+
 6. As above, for SAT (such as Lingeling) solver, use ABC tool to transform .blif file into DIMACS CNF. Run
 abc> read_blif miter_Xbit.blif
 abc> strash (* Convert to cnf requires strashed network *)
