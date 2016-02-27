@@ -261,4 +261,4 @@ for(i= 1+so; i <= size(co); i=i+1)
     write(l,co[i]);
 }
 close(l);
-quit;
+//quit;
