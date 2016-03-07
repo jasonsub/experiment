@@ -1,0 +1,18 @@
+Step 1: ./cnf2poly.pl input.cnf output.sing (for many-literal clauses, if larger than 5 plz specify "proc orX" separately)
+
+Step 2: copy n paste ring/var def, ideal I (original polys) def (!!note: remove excess "," at last)
+and ideal J0 for reduction (now only for post-process of coef), then list of init indices "rd"
+
+Step 3: Uncomment "ideal F=I" and comment "ideal F= I[rd[1]]..." for init F with original polys I, then revise "int nvar" according to #of vars
+
+Step 4: run Singular XXX.sing, will generate outXXX.dat file works as reduction record. Details can be found in "../quotients" directory (Note: will also generate .nh file, but right now it is buggy version so cannot be used)
+
+Step 5: run ./parser_a.pl outXXX.dat, will generate 2 files: tmp.coef for coef cancellation check, tmp.dist for distance record
+
+Step 6: run Singular tmp.coef to check if any poly cancelled because of quotients vanishment (ab+ab=0, etc.), will generate tmp.simp showing list of original polys
+
+Step 7: run ./reorder (I think no need to modify reorder.cpp), will generate reorder.dat which is the reordered indices. Copy n paste back to XXX.sing, comment "ideal F=I". Repeat step 4~7
+
+P.S.: For some experiments, step 4 will take very long time; for some other ones (esp those full-core random 3-SAT benchmarks) step 5 will generate huge tmp.coef (>16GB) may cause memory explosion. If we can actually incorporate coef cancellation check within step 5 maybe this could have better performance...(but I have no idea how to do that...)
+
+P.S.2: "./clim_cnf.pl input.cnf output.cnf" is for extract a subset of original cnf (to test if it is really UNSAT later)

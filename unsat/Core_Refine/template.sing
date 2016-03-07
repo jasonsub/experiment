@@ -1,0 +1,371 @@
+LIB "general.lib";
+LIB "poly.lib";
+
+proc singlestep_div(poly f, poly g)
+{
+	poly qt = lead(f)/lead(g);  // quotient
+	poly r = f+qt*g;  // remainder
+	return (r, qt);
+}
+
+proc my_spoly(poly f, poly g) // return not only spoly but also coeffs
+{
+	poly M = lcm(leadmonom(f),leadmonom(g));
+	poly S = M/lead(f)*f - M/lead(g)*g;
+	poly cf1 = M/lead(f);
+	poly cf2 = M/lead(g);
+	return (S,cf1,cf2);
+}
+
+proc or1(poly f)
+{
+    return (f);
+}
+
+proc or2(poly f, poly g)
+{
+    return (f+g+f*g);
+}
+
+proc or3(poly f1, poly f2, poly f3)
+{
+    poly g = or2(f1,f2);
+    g = or2(g,f3);
+    return (g);
+}
+
+proc or4(poly f1, poly f2, poly f3, poly f4)
+{
+    poly g = or3(f1,f2,f3);
+    g = or2(g,f4);
+    return (g);
+}
+
+proc or5(poly f1, poly f2, poly f3, poly f4, poly f5)
+{
+    poly g = or4(f1,f2,f3,f4);
+    g = or2(g,f5);
+    return (g);
+}
+
+proc multidiv(poly f, ideal I)
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	ideal J;
+	int s = size(I);
+	J[s] = 0;
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J[i] = J[i] + lead(p)/lead(fi);
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+	return (r);
+}
+
+proc multidiv_q(poly f, ideal I, ideal J0, intvec rd)  // have not yet added "reduce J0" function
+{
+	poly p = f;
+	poly fi,r = 0,0;
+	list J;
+	int s = size(I);
+	int i, divmark;
+	while (lead(p) != 0)
+	{
+		i = 1;
+		divmark = 0;
+		while (i <= s and divmark == 0)
+		{
+			fi = I[i];
+			if(lead(p)/lead(fi) != 0)
+			{
+				J = insert(J, rd[i], size(J));
+				J = insert(J, lead(p)/lead(fi), size(J));
+				p = p - lead(p)/lead(fi)*fi;
+				divmark = 1;
+			}
+			else
+			{
+				i = i+1;
+			}
+		}
+		if (divmark == 0)
+		{
+			r = r + lead(p);
+			p = p - lead(p);
+		}
+	}
+//	if(lead(r) == 0) {"Error!!";}
+	return (r,J);
+}
+
+proc relative_prime(poly f1, poly f2)
+{
+	poly t1 = leadmonom(f1);
+	poly t2 = leadmonom(f2);
+	poly tt = lcm(t1,t2);
+	poly tm = t1*t2;
+	if(tt == tm)
+	{
+		return (1);
+	}
+	return (0);
+}
+
+proc redundancy(poly r, ideal G) // the newly generated poly in GB must be diff from others
+{
+	int s = size(G);
+	int i;
+	if(lead(r) == 0) {return (0);} // Also need to eliminate 0 remainder
+	for(i = 1; i<= s; i=i+1)
+	{
+		if(r == G[i])
+		{return (0);}
+	}
+	return (1);
+}
+
+proc myGB(ideal F, ideal J0, intvec rd, int osize)
+{
+	ideal G = F;
+	int s = size(F);
+	int i, judge;
+	int j;
+	list l;
+	poly r,sp,cf1,cf2;
+	intvec p,v;
+	string cin;  // temp string attaching to cout
+	list cout;   // Record all lines of output
+	list qt;     // Temp quotient array, has order and duplicates
+	for(i = 2; i <= s; i=i+1)
+	{
+		for(j = 1; j < i; j=j+1)
+		{
+			if(relative_prime(F[i],F[j]) == 0)
+			{
+				p = j,i;
+				l = insert(l,p,size(l));
+			}
+		}
+	}
+	while(size(l))
+	{
+		v = l[1];
+		l = delete(l,1);
+		(sp,cf1,cf2) = my_spoly(G[v[1]],G[v[2]]);
+//		sp;
+		(r,qt) = multidiv_q(sp, G, J0, rd);
+		judge = redundancy(r, G);
+		if (judge)
+		{
+			s = s+1;
+			G[s] = r;
+			if(lead(r) == 1) {"Refute!!! from pair (",v[1],",",v[2],")";
+				"Spoly =",sp;
+				cin = "e "+string(rd[v[1]])+" "+string(cf1)+" "+string(rd[v[2]])+ " "+string(cf2);
+				if(size(qt)) 
+				{
+					for(i=1; i<= size(qt); i=i+1)
+					{
+						cin = cin+" "+string(qt[i]);
+					}
+				}
+				cout[s] = cin;
+				return (G,cout);
+			}
+			else {"Add new",s," from pair (",v[1],",",v[2],")";
+				rd[size(rd)+1] = s-size(F)+osize;
+				cin = string(s-size(F)+osize)+" "+string(rd[v[1]])+" "+string(cf1)+" "+string(rd[v[2]])+ " "+string(cf2);
+				if(size(qt))
+				{
+					for(i=1; i<= size(qt); i=i+1)
+					{
+						cin = cin+" "+string(qt[i]);
+					}
+				}
+				cout[s] = cin;
+			}
+			for(i = 1; i < s; i=i+1)
+			{
+				if(relative_prime(G[i],G[s]) == 0)
+				{
+					p = i,s;
+					l = insert(l,p,size(l));
+				}
+			}
+		}
+	}
+	"Error! Given set is NOT UNSAT!!";
+	return (G);
+}
+
+proc miniGB(ideal G0)
+{
+	int s = size(G0);
+	int i;
+	int j;
+	int k;
+	for (i = 1; i <= s; i = i + 1)
+	{
+		for (j = 1; j <= s; j = j +1)
+		{
+			if (lead(G0[j]) != 0)
+			{
+				if (lead(G0[i])/lead(G0[j]) != 0 and i != j)
+				{G0[i] = 0;}
+			}
+		}
+	}
+	ideal G = sort(G0)[1];
+	s = size(G);
+	for (k = 1; k <= s; k = k + 1)
+	{
+		G[k] = G[k]/leadcoef(G[k]);
+	}
+	return (G);
+}
+
+ring Q = 2, (v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13,v14,v15,v16,v17,v18,v19,v20,v21,v22,v23,v24,v25,v26,v27,v28,v29,v30,v31,v32,v33,v34,v35,v36,v37,v38,v39,v40,v41,v42,v43,v44,v45,v46,v47,v48,v49,v50,v51,v52,v53,v54,v55,v56,v57,v58,v59,v60,v61,v62,v63,v64,v65,v66,v67,v68,v69,v70,v71,v72,v73,v74,v75,v76,v77,v78,v79,v80,v81,v82,v83,v84,v85,v86,v87,v88,v89,v90,v91,v92,v93,v94,v95,v96,v97,v98,v99,v100), Dp;
+
+ideal I = 
+1+or3(v16,v23,v42),
+1+or3(1+v16,v23,v42),
+1+or3(v26,v41,1+v42),
+1+or3(1+v26,v41,1+v42),
+1+or3(v32,1+v41,1+v42),
+1+or3(1+v2,v73,1+v75),
+1+or3(v35,1+v73,v96),
+1+or3(1+v73,1+v75,1+v96),
+1+or3(1+v35,1+v70,1+v98),
+1+or3(v26,v72,v95),
+1+or3(v72,v79,v95),
+1+or3(v6,v15,1+v41),
+1+or3(1+v6,v15,1+v32),
+1+or3(1+v23,v33,v38),
+1+or3(1+v23,1+v33,v38),
+1+or3(v8,v22,v33),
+1+or3(v8,v22,1+v33),
+1+or3(1+v22,v37,1+v38),
+1+or3(v13,v36,1+v37),
+1+or3(v13,1+v22,1+v36),
+1+or3(1+v13,1+v22,1+v37),
+1+or3(v11,1+v23,v47),
+1+or3(1+v8,v11,1+v47),
+1+or3(1+v8,1+v11,v39),
+1+or3(1+v11,v27,1+v39),
+1+or3(1+v8,1+v11,1+v39),
+1+or3(1+v7,v26,v29),
+1+or3(1+v5,v15,1+v55),
+1+or3(v3,1+v19,1+v89),
+1+or3(1+v3,1+v31,1+v89),
+1+or3(v10,1+v42,v43),
+1+or3(v18,v24,v31),
+1+or3(1+v18,v34,1+v39),
+1+or3(v24,1+v34,1+v39),
+1+or3(v25,1+v30,v71),
+1+or3(1+v7,1+v26,v29),
+1+or3(1+v13,v20,v36),
+1+or3(1+v13,v17,v20),
+1+or3(v5,1+v17,v20),
+1+or3(v5,1+v19,1+v45),
+1+or3(1+v5,1+v10,1+v45),
+1+or3(v6,v25,v47),
+1+or3(1+v6,1+v10,v25),
+1+or3(1+v2,1+v27,v37),
+1+or3(1+v27,1+v36,v40),
+1+or3(v18,v39,1+v40),
+1+or3(v1,1+v32,v46),
+1+or3(1+v1,1+v32,v46),
+1+or3(1+v15,1+v41,1+v46),
+1+or3(1+v15,1+v21,1+v46),
+1+or3(1+v10,v19,1+v79),
+1+or3(1+v47,v81,v100),
+1+or2(v47,1+v90),
+1+or3(v44,1+v56,v91),
+1+or3(v13,1+v44,v88),
+1+or3(1+v64,1+v85,1+v99),
+1+or3(1+v2,1+v19,v31),
+1+or3(v5,v18,1+v30),
+1+or3(1+v31,1+v43,1+v50),
+1+or3(v10,1+v30,v43),
+1+or3(v10,1+v41,v43),
+1+or3(v19,v21,v29),
+1+or3(v37,v42,v45),
+1+or3(1+v20,v27,v40),
+1+or3(1+v21,1+v36,v48),
+1+or3(v31,1+v36,1+v48),
+1+or3(v3,1+v9,1+v18),
+1+or3(v16,1+v40,1+v47),
+1+or3(v1,1+v18,v21),
+1+or3(v2,v28,v32),
+1+or3(1+v1,1+v24,1+v50),
+1+or3(1+v12,v35,v49),
+1+or3(1+v6,1+v36,v45),
+1+or3(v7,v12,1+v43),
+1+or3(v7,v30,1+v43),
+1+or3(1+v5,v9,1+v17),
+1+or3(v3,v14,v50),
+1+or3(1+v12,v17,1+v49),
+1+or3(v24,v34,v49);
+"origin ideal created!";
+
+// Re-order ID as intvec
+intvec rd=1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79;
+
+ideal F = I[rd[1]],I[rd[2]],I[rd[3]],I[rd[4]],I[rd[5]],I[rd[6]],I[rd[7]],I[rd[8]],I[rd[9]],I[rd[10]],I[rd[11]],I[rd[12]],I[rd[13]],I[rd[14]],I[rd[15]],I[rd[16]],I[rd[17]],I[rd[18]],I[rd[19]],I[rd[20]],I[rd[21]],I[rd[22]],I[rd[23]],I[rd[24]],I[rd[25]],I[rd[26]],I[rd[27]],I[rd[28]],I[rd[29]],I[rd[30]],I[rd[31]],I[rd[32]],I[rd[33]],I[rd[34]],I[rd[35]],I[rd[36]],I[rd[37]],I[rd[38]],I[rd[39]],I[rd[40]],I[rd[41]],I[rd[42]],I[rd[43]],I[rd[44]],I[rd[45]],I[rd[46]],I[rd[47]],I[rd[48]],I[rd[49]],I[rd[50]],I[rd[51]],I[rd[52]],I[rd[53]],I[rd[54]],I[rd[55]],I[rd[56]],I[rd[57]],I[rd[58]],I[rd[59]],I[rd[60]],I[rd[61]],I[rd[62]],I[rd[63]],I[rd[64]],I[rd[65]],I[rd[66]],I[rd[67]],I[rd[68]],I[rd[69]],I[rd[70]],I[rd[71]],I[rd[72]],I[rd[73]],I[rd[74]],I[rd[75]],I[rd[76]],I[rd[77]],I[rd[78]],I[rd[79]],I[rd[80]],I[rd[81]],I[rd[82]],I[rd[83]],I[rd[84]],I[rd[85]],I[rd[86]],I[rd[87]],I[rd[88]],I[rd[89]],I[rd[90]],I[rd[91]],I[rd[92]],I[rd[93]],I[rd[94]],I[rd[95]],I[rd[96]],I[rd[97]],I[rd[98]],I[rd[99]],I[rd[100]],I[rd[101]],I[rd[102]],I[rd[103]],I[rd[104]],I[rd[105]],I[rd[106]],I[rd[107]],I[rd[108]],I[rd[109]],I[rd[110]],I[rd[111]],I[rd[112]],I[rd[113]],I[rd[114]],I[rd[115]],I[rd[116]],I[rd[117]],I[rd[118]],I[rd[119]],I[rd[120]],I[rd[121]],I[rd[122]],I[rd[123]],I[rd[124]],I[rd[125]],I[rd[126]],I[rd[127]],I[rd[128]],I[rd[129]],I[rd[130]],I[rd[131]],I[rd[132]],I[rd[133]],I[rd[134]],I[rd[135]],I[rd[136]],I[rd[137]],I[rd[138]];
+
+//ideal F = I;
+"core ideal created!";
+ideal J0 = v1^2+v1, v2^2+v2, v3^2+v3, v4^2+v4, v5^2+v5, v6^2+v6, v7^2+v7, v8^2+v8, v9^2+v9, v10^2+v10, v11^2+v11, v12^2+v12, v13^2+v13, v14^2+v14, v15^2+v15, v16^2+v16, v17^2+v17, v18^2+v18, v19^2+v19, v20^2+v20, v21^2+v21, v22^2+v22, v23^2+v23, v24^2+v24, v25^2+v25, v26^2+v26, v27^2+v27, v28^2+v28, v29^2+v29, v30^2+v30, v31^2+v31, v32^2+v32, v33^2+v33, v34^2+v34, v35^2+v35, v36^2+v36, v37^2+v37, v38^2+v38, v39^2+v39, v40^2+v40, v41^2+v41, v42^2+v42, v43^2+v43, v44^2+v44, v45^2+v45, v46^2+v46, v47^2+v47, v48^2+v48, v49^2+v49, v50^2+v50, v51^2+v51, v52^2+v52, v53^2+v53, v54^2+v54, v55^2+v55, v56^2+v56, v57^2+v57, v58^2+v58, v59^2+v59, v60^2+v60, v61^2+v61, v62^2+v62, v63^2+v63, v64^2+v64, v65^2+v65, v66^2+v66, v67^2+v67, v68^2+v68, v69^2+v69, v70^2+v70, v71^2+v71, v72^2+v72, v73^2+v73, v74^2+v74, v75^2+v75, v76^2+v76, v77^2+v77, v78^2+v78, v79^2+v79, v80^2+v80, v81^2+v81, v82^2+v82, v83^2+v83, v84^2+v84, v85^2+v85, v86^2+v86, v87^2+v87, v88^2+v88, v89^2+v89, v90^2+v90, v91^2+v91, v92^2+v92, v93^2+v93, v94^2+v94, v95^2+v95, v96^2+v96, v97^2+v97, v98^2+v98, v99^2+v99, v100^2+v100;
+
+int nvar = 100;
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+list co;
+ideal G0;
+(G0,co) = myGB(F,J0,rd,size(I));
+ideal mG = miniGB(G0);
+
+"Groebner Basis:";
+G0;
+"Minimum Groebner Basis:";
+mG;
+
+int tt= timer - t0;
+"Total time:",tt;
+
+link l = ":w outaim100.dat";
+int i;
+int so = size(I);
+int st = size(G0);
+string tmp_st = "s "+string(so)+" "+string(st)+" "+string(nvar);
+write(l,tmp_st);
+for(i= 1+size(F); i <= size(co); i=i+1)
+{
+    write(l,co[i]);
+}
+close(l);
+quit;
