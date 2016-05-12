@@ -1,0 +1,28 @@
+\section{UNSAT core extraction through CNF-SAT solvers}
+There are 2 major kinds of minimal UNSAT core extraction algorithms,
+one is based on deletion,  the other one is based on insertion. Both
+algorithms require multiple calls of SAT solver to verify if a clause
+is necessary,  so the major efforts to enhance efficiency are to
+reduce the number of calls. Currently a large portion of SAT solvers
+work on DPLL algorithm and its variations,  which use resolution --
+SAT solver can produce an UNSAT core by reading resolution refutation
+-- and are usually incremental,  thus it is possible to re-use
+previously learnt information from SAT solving. 
+
+One of the state-of-art MUS extractors based on resolution is
+Haifa-MUC \cite{Haifa2014}, it gives a proof of UNSAT to incremental
+SAT solver rather than the original formula. Moreover,  several
+optimizations are implemented within this tool to boost its
+performance: maintaining a partial resolution proof instead of whole
+proof can reduce processing time; applying Eager model rotation can
+mark multiple clauses as necessary without calling  SAT solver. AMUSE
+\cite{AMUSE} is a typical MUS extractor using insertion-based
+algorithm. It adds selector variables to original formula,  and
+constructs an unsatisfiable subformula by making assumptions. 
+
+Recently A. Belov et al. \cite{Joao2012} introduced hybrid MUS
+extraction algorithm combining methods from  both deletion-based and
+insertion-based extractors. It not only grows UNSAT core from small
+subsets but also call SAT solvers for its clause removing
+strategy. Recursive model rotation (RMR) technique is also used to
+learn transition clauses to save the cost of calling SAT solvers. 

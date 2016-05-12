@@ -1,0 +1,86 @@
+//ready to test the minimality of a core
+
+ring Q = 2, (a0,b0,Rs0,Ru0,a1,b1,Rs1,Ru1,a2,b2,Rs2,Ru2,d0_r0,c1_r0,d1_r0,c2_r0,d2_r0,tmp0_r0,d0_r1,c1_r1,d1_r1,c2_r1,d2_r1,tmp0_r1,d0_r2,c1_r2,d1_r2,c2_r2,d2_r2,tmp0_r2,c1_ph0,c2_ph0,r0_ph1,r1_ph1,r2_ph1,c1_ph1,c2_ph1,d0_ph1,r0_ph2,d1_ph1,r1_ph2,d2_ph1,r2_ph2,c1_ph2,c2_ph2,d0_ph2,d1_ph2,d2_ph2), Dp;
+
+proc checkSat( ideal J)
+{
+    ideal J0 = a0^2+a0,b0^2+b0,Rs0^2+Rs0,Ru0^2+Ru0,a1^2+a1,b1^2+b1,Rs1^2+Rs1,Ru1^2+Ru1,a2^2+a2,b2^2+b2,Rs2^2+Rs2,Ru2^2+Ru2,d0_r0^2+d0_r0,c1_r0^2+c1_r0,d1_r0^2+d1_r0,c2_r0^2+c2_r0,d2_r0^2+d2_r0,tmp0_r0^2+tmp0_r0,d0_r1^2+d0_r1,c1_r1^2+c1_r1,d1_r1^2+d1_r1,c2_r1^2+c2_r1,d2_r1^2+d2_r1,tmp0_r1^2+tmp0_r1,d0_r2^2+d0_r2,c1_r2^2+c1_r2,d1_r2^2+d1_r2,c2_r2^2+c2_r2,d2_r2^2+d2_r2,tmp0_r2^2+tmp0_r2,c1_ph0^2+c1_ph0,c2_ph0^2+c2_ph0,r0_ph1^2+r0_ph1,r1_ph1^2+r1_ph1,r2_ph1^2+r2_ph1,c1_ph1^2+c1_ph1,c2_ph1^2+c2_ph1,d0_ph1^2+d0_ph1,r0_ph2^2+r0_ph2,d1_ph1^2+d1_ph1,r1_ph2^2+r1_ph2,d2_ph1^2+d2_ph1,r2_ph2^2+r2_ph2,c1_ph2^2+c1_ph2,c2_ph2^2+c2_ph2,d0_ph2^2+d0_ph2,d1_ph2^2+d1_ph2,d2_ph2^2+d2_ph2;
+
+    ideal Result = slimgb(J+J0);
+    // UNSAT if 1 in gb. If so, 1 will be the first and only element
+    if(Result[1]==1)
+    {
+        return ("UNSAT");
+    }
+    else
+    {
+        return ("SAT");
+    }
+}
+
+ideal I = 
+b0*a1+d0_r0,
+a0+a2+c1_r0,
+b1*c1_r0+d1_r0,
+a1+a2+c2_r0,
+b2*c2_r0+d2_r0,
+d0_r0+d1_r0+tmp0_r0,
+tmp0_r0+d2_r0+Rs0,
+b1*a2+d0_r1,
+a1+a0+c1_r1,
+b2*c1_r1+d1_r1,
+a2+a0+c2_r1,
+b0*c2_r1+d2_r1,
+d0_r1+d1_r1+tmp0_r1,
+tmp0_r1+d2_r1+Rs1,
+b2*a0+d0_r2,
+a2+a1+c1_r2,
+b0*c1_r2+d1_r2,
+a0+a1+c2_r2,
+b1*c2_r2+d2_r2,
+d0_r2+d1_r2+tmp0_r2,
+tmp0_r2+d2_r2+Rs2,
+a1+a0+c1_ph0,
+a0+a1+c2_ph0,
+a1*b0+r0_ph1,
+c1_ph0*b2+r1_ph1,
+c2_ph0*b1+r2_ph1,
+a0+a2+c1_ph1,
+a2+a0+c2_ph1,
+a0*b2+d0_ph1,
+d0_ph1+r2_ph1+r0_ph2,
+c1_ph1*b1+d1_ph1,
+d1_ph1+r0_ph1+r1_ph2,
+c2_ph1*b0+d2_ph1,
+d2_ph1+r1_ph1+r2_ph2,
+a2+a1+c1_ph2,
+a1+a2+c2_ph2,
+a2*b1+d0_ph2,
+d0_ph2+r2_ph2+Ru1,
+c1_ph2*b0+d1_ph2,
+d1_ph2+r0_ph2+Ru2,
+c2_ph2*b2+d2_ph2,
+d2_ph2+r1_ph2+Ru0,
+Rs0+Ru0+1,
+Rs1+Ru1+1,
+Rs2+Ru2+1;
+
+intvec rd = 10,12,33,38,13,14,34,44,9,8,37,25,11,22,28;
+
+ideal F = I[rd[1]],I[rd[2]],I[rd[3]],I[rd[4]],I[rd[5]],I[rd[6]],I[rd[7]],I[rd[8]],I[rd[9]],I[rd[10]],I[rd[11]],I[rd[12]],I[rd[13]],I[rd[14]],I[rd[15]];
+
+"Whole set: ",checkSat(F);
+
+
+// Now remove any other poly and will get sat
+int i;
+ideal J;
+string resstr;
+for(i = 1; i <= size(F); i++)
+{
+    J = F;
+    J[i]=0; // Effectively remove the ith element
+ resstr = checkSat(J);
+    "POLY #",rd[i]," ",resstr;
+if(resstr == "UNSAT") {"We got an exception!!!";break;}
+}

@@ -1,0 +1,147 @@
+\section{Reduce the size of UNSAT core further}
+In some
+cases our iterative core refining algorithm cannot
+give us the minimal core when it hits the fixpoint.
+It indicates the limitation of using re-labelling 
+strategy, therefore a new method to identify the 
+redundancy in UNSAT core is needed.
+
+The UNSAT core we obtained through our algorithm
+is by nature a refutation polynomial that equals to 1:
+$$1 = \sum_{i=1}^s c_i\cdot f_i$$
+where $c_i \neq 0$ and $f_1,\dots,f_s$ form a core.
+If by any means we find a relation between $f_k$ and set $\{f_j\}$
+ ($f_k,f_j\in \{f_1,\dots,f_s\}$) and other polynomials
+ in the core such that:
+ $$f_k = \sum_{j\neq k} c_j'f_j$$
+ Then we can substitute $f_k$ with other polynomials
+ in the refutation polynomial. Thus, $f_k$ can be
+ recognized as redundant polynomial in the core.
+ 
+ Since coefficients $\{c_i\}$ are also polynomials in $\mathbb F[x_1,\dots,x_n]$, we can find 
+ enormous number of combinations of $\{f_i\}$. Consider finding an algorithmic solution to 
+ this problem without introducing extra search,
+ we propose to utilize the \emph{syzygies} generated during
+ executing the GB-core algorithm.
+ 
+ In Buchberger's algorithm, if the polynomial division
+ gives a nonzero remainder, then the information is 
+ recorded. However, if the polynomial division results
+ in a zero remainder nothing will be recorded. In order
+ to gather more information from one iteration, we
+ need to also record all quotients from s-polynomial
+ reductions with 0 remainder. Those quotients (as well 
+ as coefficients when pairing s-polynomials) form
+ a syzygy:
+\[
+ \begin{cases}
+ c_1^1f_1+c_2^1f_2+\cdots+c_s^1f_s = 0\\
+ c_1^2f_1+c_2^2f_2+\cdots+c_s^2f_s  = 0\\
+ \ \ \ \ \ \  \vdots \\
+ c_1^mf_1+c_2^mf_2+\cdots+c_s^mf_s = 0  
+ \end{cases}
+\]
+The matrix form of the syzygy is:
+\begin{center}
+\begin{align}
+\label{mat:syzygy}
+   \begin{bmatrix}
+           c_1^1 & c_2^1 & \cdots & c_s^1 \\
+           c_1^2 & c_2^2 & \cdots & c_s^2 \\
+           \vdots & \vdots & \ddots & \vdots \\
+           c_1^m & c_2^m & \cdots & c_s^m
+         \end{bmatrix}
+    \begin{bmatrix}
+           f_{1} \\
+           f_{2} \\
+           \vdots \\
+           f_{s}
+         \end{bmatrix}
+         &= 0
+  \end{align}
+
+\end{center}
+ Here $\{f_1,f_2,\dots,f_s\}$ is the given core.
+ Take one column of the syzygy matrix (e.g. $c_1^1, c_1^2, \dots, c_1^m$)
+ and compute its minimal Gr\"obner basis. If the result is 1, then there exists some polynomial vector
+ $r_1,r_2,\dots,r_m$ such that
+ $$1 = r_1c_1^1 + r_2c_1^2 + \cdots + r_mc_1^m = \sum_{i=1}^m r_ic_1^i$$
+ If we multiply the $i$-th row in above matrix with $r_i$ then add them up, 
+ we get following equation
+ \begin{center}
+\begin{align}
+   \begin{bmatrix}
+           1 & \sum_{i=1}^m r_ic_2^i & \cdots & \sum_{i=1}^m r_ic_s^i
+         \end{bmatrix}
+    \begin{bmatrix}
+           f_{1} \\
+           f_{2} \\
+           \vdots \\
+           f_{s}
+         \end{bmatrix}
+         &= 0
+  \end{align}
+
+\end{center}
+Which implies $f_1$ is a combination of $f_2,\dots,f_s$:
+ $$f_1 = \sum_{i=1}^m r_ic_2^if_2 + \sum_{i=1}^m r_ic_3^if_3
+ +\cdots + \sum_{i=1}^m r_ic_s^if_s$$
+ Then we can remove $f_1$ from the core. By repeating
+ this procedure, some redundant polynomials can be identified
+ and size of UNSAT core will get closer to minimal.
+ \begin{example}
+ Assume we are given 9 polynomials from Example\ref{ex:1},
+ execute GB-core algorithm and record syzygy. We
+ write the coefficients as entries in following matrix:
+ \[
+ \begin{blockarray}{cccccccccccc}
+  && f_1 & f_2 & f_3 & f_4 & f_5 & f_6 & f_7 & f_8 & f_9 & f_{10} \\
+  \begin{block}{cc(cccccccccc)}
+  Spoly(f_1,f_3)\ & & 1 & a+c+1 & b+1 &0&0&0&0&0&0&1\\
+  Spoly(f_2,f_3)\ & & 0 & ac & b &0&0&0&0&0&0&0\\
+  Spoly(f_1,f_4)\ & & 1 & c+1 & 1 &b&0&0&0&0&0&1\\
+  Spoly(f_2,f_4)\ & & 0 & ac+a & 0 &b&0&0&0&0&0&0\\
+  Spoly(f_1,f_5)\ & & 1 & a+c+1 & 0 &0&a&0&0&0&0&1\\
+  \end{block}
+  \end{blockarray}
+ \]
+ Usually we will get extra columns comparing to syzygy matrix in (\ref{mat:syzygy}).
+ In this example we add an extra column for coefficient of $f_{10}$
+ since some s-polynomial pairs require new generator $f_{10}$
+ as divisor during reduction. In order to remove this
+ extra column, we need to turn nonzero entries in this column
+ to 0 through matrix manipulations. Recall that
+ we record $f_{10}$ as nonzero remainder when reducing s-polynomial
+ pair $Spoly(f_1,f_2)$, we extract corresponding submatrix from the coefficient matrix $M$
+ $$(1 ac+a+c+1 1 0 0 0 0 0 0 )$$
+ It represents $f_{10}$ is a combination of $f_1$ to $f_9$:
+ $$f_{10} = f_1 + (ac+a+c+1)f_2 + f_3$$
+ It can be written in matrix with column $f_{10}$ as follows:
+  \[
+ \begin{blockarray}{cccccccccccc}
+  && f_1 & f_2 & f_3 & f_4 & f_5 & f_6 & f_7 & f_8 & f_9 & f_{10} \\
+  \begin{block}{cc(cccccccccc)}
+  Spoly(f_1,f_2)& & 1 & ac+a+c+1 & 1 &0&0&0&0&0&0&1\\
+  \end{block}
+  \end{blockarray}
+ \]
+ By adding this row to corresponding rows in the matrix,
+ we can get syzygy matrix only for polynomials
+ in the core:
+  \[
+ \begin{blockarray}{ccccccccccc}
+  && f_1 & f_2 & f_3 & f_4 & f_5 & f_6 & f_7 & f_8 & f_9  \\
+  \begin{block}{cc(ccccccccc)}
+  Spoly(f_1,f_3)\ & & 0 & ac & b &0&0&0&0&0&0\\
+  Spoly(f_2,f_3)\  && 0 & ac & b &0&0&0&0&0&0\\
+  Spoly(f_1,f_4)\  && 0 & ac+a & 0 &b&0&0&0&0&0\\
+  Spoly(f_2,f_4)\  && 0 & ac+a & 0 &b&0&0&0&0&0\\
+  Spoly(f_1,f_5)\  && 0 & ac & 1 &0&a&0&0&0&0\\
+  \end{block}
+  \end{blockarray}
+ \]
+ We find out there is a ``1" entry in column $f_3$, so 
+ its minimal GB equals to 1. Therefore $f_3$ can be
+ recognized as redundant polynomial and removed from the UNSAT core. 
+ 
+ \end{example}

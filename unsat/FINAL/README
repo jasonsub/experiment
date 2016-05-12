@@ -1,0 +1,33 @@
+TIMELINE: prototype --> visualization --> quotients --> Core_Refine --> FINAL
+"paper" directory does not include full paper submitted
+
+Usage:
+Step 1: get .sing file to start with.
+-- One way is translating from CNF file. Check ../Core_Refine/README
+-- Another way is directly generate polys from ckts. Use ./miterRH_poly.pl and ./SMPO_poly.pl
+Copy n paste similar to ../Core_Refine/README, except for COMMENT the syzygy part at last!
+
+Step 2: Execute following loop:
+> Singular XXX.sing
+> ./parser_nh_dist.pl outXXX.dat
+> ./reorder
+Copy contents from reorder.dat to XXX.sing
+
+Differences from ../Core_Refine: avoid huge dist file, process this within Singular (cannot avoid MO
+if it is large enough still...)
+
+Step 3: After you reach a fixpoint, uncomment "full_syzygy" part in XXX.sing, run and it will tell
+you which idx to remove, find it in idx list manually remove it (ideal F should also -1!), repeat
+until hit fixpoint. Another option is to use "partial_syzygy" which is NOT recommended! It can remove
+multiple idx at one run, but may lead you to a sub-optimal result! Only use when you want to get smaller
+core fast.
+
+*. If you get a core so small (sometimes smaller than state-of-art MUS extractors!) that you cant
+ stop suspecting if it is a real core, use 
+> ./slim_cnf <original.cnf> <core4test.cnf>
+dont forget copy n paste the idx list!
+
+**. If you get a fresh new benchmark and no info about its minimal core (because its non-CNF?),
+then right thing is first run our tool to make it small, then use
+> Singular minimal_test.sing
+to test if it is minimal, you can get info which one may be redundant so good for further iterations

@@ -1,0 +1,158 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  IEEEsample.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%    More information: see the header of IEEEtran.sty
+%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%
+
+\documentclass{llncs}
+
+%\usepackage[ruled]{algorithm}
+\usepackage{algorithmic}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
+\usepackage{helvet}
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage[ruled]{algorithm2e}
+%\RequirePackage{algorithmic}
+%\RequirePackage{algorithm}
+\usepackage{blkarray}
+\usepackage{cases}
+
+\renewcommand{\algorithmiccomment}[1]{/* #1 */}
+
+\input{epsf}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em1
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+%\newtheorem{Definition}{definition}[section]
+%\newtheorem{example}{Example}
+%\newtheorem{Lemma}{Lemma}
+
+% New command for the table notes.
+\def\tabnote#1{{\small{#1}}}
+
+% New command for the line spacing.
+\newcommand{\ls}[1]
+    {\dimen0=\fontdimen6\the\font
+     \lineskip=#1\dimen0
+     \advance\lineskip.5\fontdimen5\the\font
+     \advance\lineskip-\dimen0
+     \lineskiplimit=.9\lineskip
+     \baselineskip=\lineskip
+     \advance\baselineskip\dimen0
+     \normallineskip\lineskip
+     \normallineskiplimit\lineskiplimit
+     \normalbaselineskip\baselineskip
+     \ignorespaces
+    }
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\ov}{\overline}
+%\newcommand{\ov}{\bar}
+\newcommand{\xor}{\bigoplus}
+%%
+%\newtheorem{algorithm}{Algorithm}[section]
+
+
+%%%%%%%%
+%From Irina
+\usepackage[english]{babel}
+
+\newtheorem{defn}{Definition}[section]
+%\usepackage{datetime}
+\newtheorem{thm}[defn]{Theorem} % definition numbers are dependent on
+% theorem
+% %
+\newtheorem{prop}[defn]{Proposition} % definition numbers are dependent on
+\newtheorem{dem}[defn]{Proof} % definition numbers are dependent on
+              % numbers
+\newtheorem{exemp}{Example}[defn]
+\newtheorem{lema}{\bf Lemma}[defn]
+
+%%%%%
+%% \newtheorem{Algorithm}{Algorithm}[section]
+%% \newtheorem{Definition}{Definition}[section]
+%% \newtheorem{Example}{Example}[section]
+%% \newtheorem{Proposition}{Proposition}[section]
+%% \newtheorem{Lemma}{Lemma}[section]
+%% \newtheorem{Theorem}{Theorem}[section]
+%% \newtheorem{Corollary}{Corollary}[section]
+%% \newtheorem{Problem}{Problem}[section]
+%% \newtheorem{Conjecture}{Conjecture}[section]
+%% \newtheorem{Result}{Result}[section]
+%%%%%
+
+\newtheorem{Problem}{Problem}
+
+\def\opn#1#2{\def#1{\operatorname{#2}}} % to make operators
+
+\opn\Ker{Ker} \opn\Coker{Coker}  \opn\Hom{Hom} \opn\Im{Im}
+\opn\End{End} \opn\Aut{Aut} \opn\defect{def} \opn\ord{ord}
+\opn\id{id} \opn\dim{dim} \opn\det{det} \opn\tr{tr} \opn\grad{grad} \opn\lcm{LCM}
+\opn\min{min} \opn\max{max} \opn\det{det}
+%\def\Frob{{\mathcal F}}
+\opn\Span{Span}   \opn\rang{rang}  \opn\id{id} \opn\dim{dim} \opn\ad{ad} \opn\tr{tr} \opn\ker{ker}
+\opn\GL{GL} \opn\SL{SL} \opn\mod{mod} \opn\diag{diag}
+\opn\min{min} \opn\sgn{sgn} \opn\ini{in_<}  \opn\Mon{Mon} \opn\LC{LC_<}
+\opn\LT{LT_<}
+\opn\s{supp}  
+
+
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\F}{{\mathbb{F}}}
+\newcommand{\Fc}{\overline{\mathbb{F}}}
+\newcommand{\R}{{\mathbb{F}[x_1,\dots,x_d]}}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+%%%%%%%%
+\begin{document}
+
+\title{Finding Infeasible Cores of a Set of Polynomials using the Gr\"obner Basis Algorithm}
+
+\author{Xiaojun Sun\inst{1} \and Irina Ilioaea\inst{2} \and Priyank Kalla\inst{1} \and Florian Enescu\inst{2}}
+\institute{ 
+Electrical and Computer Engineering, University of Utah, Salt Lake City UT, USA \\
+\email{\{xiaojuns, kalla\}@ece.utah.edu}
+\and
+Mathematics and Statistics, Georgia State University, Atlanta GA, USA\\
+\email{iilioaea1@student.gsu.edu, fenescu@gsu.edu}
+}
+
+\maketitle
+
+\thispagestyle{plain}
+\pagestyle{plain}
+
+\input{abstract}
+%\input{irina.tex}
+\input{intro}
+\input{prelim}
+\input{core}
+\input{experiment}
+%% \input{setup}
+%% %\input{promodel}
+%% %\input{solve}
+%% \input{experiment_new}
+%% \input{conclusion}
+\input{syzygy}
+
+
+%%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\bibliographystyle{splncs03}
+\bibliographystyle{IEEEtran}
+%\bibliography{cf}
+\bibliography{tim,logic,oldlogic,cnfsat}
+\end{document} 
+
+
+
+

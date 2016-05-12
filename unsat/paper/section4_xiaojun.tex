@@ -1,0 +1,192 @@
+\section{Reducing the Size of the Infeasible Core $F_c$}
+
+The core $F_c$ obtained from the aforementioned procedure is not
+guaranteed to be minimal. For example, let us revisit the the core
+$F_c=\{f_1,\dots, f_5\}$ generated in the previous section. Note that
+while $F_c$ is a smaller infeasible core of $F$, it is not minimal. In
+fact, Example 1 shows that $F_{c4} =\{f_1,f_2,f_4,f_5\}$ is the
+minimal core where $F_{c4} \subset F_{c}$. Clearly, the polynomial
+$f_3 \in F_c$ is a redundant element of the core. It could be
+discarded. We will now describe how the size of this core could be
+reduced further.  For this purpose, we will have to perform a more
+systematic book-keeping of the data generated during the execution of
+Buchberger's algorithm and the refutation tree. 
+
+\subsection{Identifying redundant polynomials from the refutation tree}
+
+We will keep track of the S-polynomials that give a non-zero remainder
+when divided by the system of polynomials $F$ at that moment:
+\begin{equation}
+\label{eqn1}
+g_{ij}= S(f_i,f_j)+\displaystyle\sum_{k=1}^m c_kf_k,
+\end{equation}
+where $0\neq c_k\in\mathbb{F}[x_1,\ldots,x_n]$ and
+$\{f_1,\ldots,f_l\}$ is the ``current'' system of polynomials
+$F$. For each non-zero $g_{ij}$, we will record the following data: 
+
+\begin{equation}
+\label{data1}
+((g_{ij})(f_{i},h_{ij})(f_{j},h_{ji})| (c_{k1},f_{k1}),(c_{k2},f_{k2}),\dots,(c_{kl},f_{kl}))
+\end{equation}
+
+Note that in (\ref{eqn1}) and (\ref{data1}), $g_{ij}$ denotes the
+remainder of the $S$-polynomial $S(f_i,f_j)$ modulo the current system
+of polynomials $f_1,\ldots,f_m$, and we denote by  
+
+$$h_{ij}:=\displaystyle\frac{\lcm(lm(f_i),lm(f_j))}{lt(f_i)},
+h_{ji}:=\displaystyle\frac{\lcm(lm(f_i),lm(f_j))}{lt(f_j)}$$ 
+the coefficients of $f_i$, respectively $f_j$, in the $S$-polynomial
+$S(f_i,f_j)$. Furthermore, in (\ref{data1}), $(c_{k1}, \dots c_{kl})$ are the
+polynomial coefficients of $(f_{k1}, \dots,f_{kl})$ that appear in the
+division process. 
+
+\begin{example}
+Revisiting Example \ref{ex:1},  the data corresponding to
+$Spoly(f_1,f_2)\xrightarrow{F}_+  g_{12} = f_{10}$ reduction is
+obtained as the following sequence of computations:
+$$f_{10}=g_{12}=f_1-acf_2-af_2-f_3-cf_2-f_2.$$ As the coefficient
+field is $\mathbb{F}_2$ in this example, $-1 = +1$, so:
+$$f_{10}=g_{12}=f_1+acf_2+af_2+f_3+cf_2+f_2$$ is obtained.
+The data is recorded according to (\ref{data1}):
+
+\begin{center}
+$((f_{10}=g_{12}), (f_1,1)(f_2,ac)|(a,f_2),(1,f_3),(c,f_2),(1,f_2))$
+\end{center}
+
+\end{example}
+
+Of course, our approach and the book-keeping stops when we obtain
+1 as the remainder of the S-polynomial modulo the current system of
+generators. As an output of the Buchberger's algorithm, we can obtain
+not only the Gr\"obner bases,  $G = \{g_1,\ldots,g_t\}$, but also a
+matrix $M$ such that: 
+\begin{center}
+\begin{align}
+   \begin{bmatrix}
+           g_{1} \\
+           g_{2} \\
+           \vdots \\
+           g_{t}
+         \end{bmatrix}
+    &= M \begin{bmatrix}
+           f_{1} \\
+           f_{2} \\
+           \vdots \\
+           f_{s}
+         \end{bmatrix}
+  \end{align}
+
+\end{center}
+
+Each element $g_i$ of $G$ is a polynomial combination of $f_1, \dots,
+f_s\}$. Moreover, this matrix $M$ is constructed precisely using the
+data that is recorded in the form of (\ref{data1}). We now a condition
+when the matrix $M$ may identify some redundant elements. 
+
+
+\begin{theorem}
+\label{thm}
+With the notations above, we have that a core for the system of
+generators $F = \{f_1,\dots,f_s\}$ of the ideal $J$ is given by the
+union of those $f_i$'s from $F$ that appear in the data recorded above
+and correspond to the nonzero entries in the matrix $M$.  
+\end{theorem}
+
+\begin{proof}
+In our case, since the variety is empty, and hence the ideal is the
+unit ideal, we have that $G = \{g_1=1\}$ and $t=1$. Therefore $M=
+[a_1, \ldots, a_s]$ is a vector. Then the output of the algorithm
+gives:
+
+$$1 = a_1f_1+\cdots + a_s f_s.$$ Clearly, if $a_i=0$ for some $i$ then
+$f_i$ does not appear in this equation and should not be included in
+the infeasible core of $F$. 
+
+\end{proof}
+
+
+\begin{example}
+
+Corresponding to Example \ref{ex:1} and the refutation tree shown in
+Fig. \ref{fig:refute}, we discover that the polynomial $f_3$ is used
+only twice in the division process. In both occasions, the quotient of
+the division is 1. Therefore, from Fig. \ref{fig:refute}, it follows that:
+\begin{equation}
+1 = (f_2 + f_5) + \dots + \mathbf{1\cdot f_3} + \dots + \mathbf{1\cdot f_3}+ \dots (f_1
++ f_2)
+\end{equation}
+
+Since $1 + 1 = 0$ over $\F_2$, we have that the entry in $M$
+corresponding to $f_3$ is 0, and so $f_3$ can be discarded from the
+core. 
+\end{example}
+
+\subsection{The GB-Core Algorithm Outline}
+
+The following steps describe an algorithm (GB-Core) that allows us to compute a
+refutation tree of the polynomial set and corresponding matrix $M$. 
+
+{\bf Inputs:} Given a system of polynomials $F=\{f_1,\ldots,f_s\}$
+, a monomial order $>$ on $\mathbb{F}[x_1,\ldots,x_n]$. 
+
+{\bf S-polynomial reduction:} We start computing the S-polynomials of the system of
+generators $\{f_1,\ldots,f_s\}$, then divide each of them by the system of
+generators $G=\{f_1,\dots,f_s,\dots,f_m\}$ which is the intermediate result of Buchberger's algorithm. 
+In this way, we obtain the following expression:
+\begin{equation}
+\label{eqn:red}
+g_{ij}= h_{ij}f_{i}+h_{ji}f_{j}+\displaystyle\sum_{k=1}^m c_kf_k
+\end{equation}
+If the remainder $g_{ij}$ is non-zero, we will denote it by
+$f_{m+1}$ and we will add it to intermediate system of generators $G$. We
+will also record the data as (\ref{data1}): 
+\begin{displaymath}
+((f_{m+1}=g_{ij})(f_{i},h_{ij})(f_{j},h_{ji})| (c_{k1},f_{k1}),(c_{k2},f_{k2}),\dots,(c_{kl},f_{kl}))
+\end{displaymath}
+It forms a tree with root $f_{m+1}$.
+
+{\bf Coefficients recording:} In (\ref{eqn:red}) we get a coefficient vector including coefficients
+$c_k$ where $k>s$. These coefficients are associated with new generators in the Gr\"obner basis,
+which cannot benefit the UNSAT core extraction. Therefore we need to rewrite the vector to
+one with only $c_k, k=1\dots s$, which can be achieved by substituting $f_k,k>s$ by $f_1,\dots,f_s$:
+initially we have $f_{s+1}= c_1f_1 + c_2f_2 + \cdots + (h_{ij}+c_i)f_{i}+\cdots+(h_{ji}+c_j)f_{j}+\cdots+c_sf_s$,
+inductively if we can present $f_{s+1}$ to $f_{s+k-1}$ by $f_1,\dots,f_s$, we can also rewrite
+$f_{s+k} = d_1f_1+\cdots+d_sf_s$. Then we add a new row $ (d_1,\dots,d_s ) $ to coefficient matrix $M$.
+
+{\bf Termination and refutation tree construction:} By repeating S-polynomial reduction and coefficients 
+recording until we get remainder $f_m = 1$, the algorithm
+will generate a set of new generators $G$ and coefficient matrix $M$.
+Meanwhile we can construct the refutation tree with the recorded data.
+We start with 
+\begin{displaymath}
+((f_{m}=1)(f_{i},h_{ij})(f_{j},h_{ji})| (c_{k1},f_{k1}),(c_{k2},f_{k2}),\dots,(c_{kl},f_{kl}))
+\end{displaymath}
+It represents a tree start from leaves $f_{i}, f_j$ then internal nodes $f_{k1},\dots,f_{kl}$
+and ``1" as the root. Next we substitute nodes $f_{m-1}, f_{m-2}, \dots, f_{s+1}$ in order
+with corresponding subtrees. The algorithm returns the complete refutation tree as well as
+matrix $M$.
+
+The complete algorithm is concluded as pseudo code below:
+
+\begin{algorithm}[H]
+ \caption{GB-core algorithm (based on Buchberger's algorithm)}
+ \label{algo:gbcore}
+ \begin{algorithmic}[1]
+
+ \REQUIRE $F = \{f_1, \dots, f_s\} \in \F[x_1, \dots, x_n], f_i\neq 0$
+ \ENSURE Refutation tree $T$ and coefficients matrix $M$
+ \STATE{ {Initialize: list $G \gets F$; Dataset $D\gets \emptyset$; $M\gets s\times s$ unit matrix} }
+ \FOR {{ each pair $(f_i,f_j)\in G$  }}
+ 	\STATE  $f_{sp},(f_{i},h_{ij})(f_{j},h_{ji}) \gets$ spoly-pair($f_i,f_j$) \COMMENT{$f_{sp}$ is the S-polynomial}
+ 	\STATE{{ $g_{ij}|(c_{k1},f_{k1}),\dots,(c_{kl},f_{kl}) \gets (sp\xrightarrow{G}_+  g_{ij})$}}
+ 	\IF{{ $g_{ij} \neq 0$ }}
+ 		\STATE {{$G \gets G \cup g_{ij}$}}
+ 		\STATE {{Update $D$ and $M$}}
+ 	\ENDIF
+ 	\IF {{$g_{ij} = 1$}}
+ 		\STATE {{Construct $T$ from $D$}}
+ 		\STATE {{ Return($T,M$) }}
+ 	\ENDIF
+ \ENDFOR
+ \end{algorithmic}
+ \end{algorithm}

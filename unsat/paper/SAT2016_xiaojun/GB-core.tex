@@ -1,0 +1,51 @@
+\section{The GB-core algorithm}
+\begin{algorithm}[H]
+ \caption{GB-core algorithm (based on Buchberger's algorithm)}
+ \label{algo:gbcore}
+ \begin{algorithmic}[1]
+
+ \REQUIRE $F = \{f_1, \dots, f_s\} \in \F[x_1, \dots, x_n], f_i\neq 0$
+ \ENSURE List of coefficient-polynomial pairs $Q=\{(c_1,f_1), \dots, (c_m,f_m)\}, f_i\in F$ where $1\leq i\leq m$
+ \STATE{ {Initialize: list $G \gets F$; queue $P \gets \emptyset$; hash table $H \gets \emptyset$} }
+ \FOR {{$i\gets 2\dots s$}}
+ 	\FOR {{$j\gets 1\dots i-1$}}
+ 		\STATE {{$P$.push(pair $(f_i,f_j)$)}}
+ 	\ENDFOR
+ \ENDFOR
+ \WHILE {{ $P \neq \emptyset$  }}
+ 	\STATE {{list of poly-coefficient pairs $Q\gets \emptyset$}}
+ 	\STATE {{ $(f,g)\gets P$.pop() }}
+ 	\STATE {{ $sp,(c1,f),(c2,g) \gets$ spoly-pair($f,g$) }}
+ 	\STATE {{ $Q$.push($(c1,f),(c2,g)$) }}
+ 	\STATE{{ $r,Q \gets $Reduce($sp, G, Q$)}}
+ 	\IF{{ $r \neq 0$ }}
+ 		\STATE {{ $P \gets P \cup \{(g, r) ~|~ \forall g\in G\}$}}
+ 		\STATE {{$ H \gets H \cup$ key-value pair $( r,Q)$}}
+ 		\STATE {{$G \gets G \cup r$}}
+ 	\ENDIF
+ 	\IF {{$r = 1$}}
+ 		\STATE {{$Q\gets H$($key=1$)}}
+ 		\WHILE {{$(c,f) \in Q$ and $f\notin F$}}
+ 			\STATE {{Replace $(c,f)$ with $H$($key=f$)}}
+ 		\ENDWHILE
+ 		\STATE {{ Return($Q$) }}
+ 	\ENDIF
+ \ENDWHILE
+ \STATE {{  }}
+ \STATE {{Reduce(polynomial $f$, set of polys $G = \{g_1,\dots,g_m\}$, initial quotients list $Q$)}}
+ \STATE {{Initialize $r \gets f$}}
+ \WHILE {{$G \neq \emptyset$}}
+ 	\STATE {{poly $f \gets r$}}
+ 	\FOR{{ $i\gets 1\dots m$}}
+ 		\IF {{$LM(g_i) ~|~ LM(r)$}}
+ 			\STATE {{$Q$.push($( g_i, \frac{LT(r)}{LT(g_i)})$)}}
+ 			\STATE {{$r \gets r - \frac{LT(r)}{LT(g_i)}\cdot g_i$}}
+ 			\STATE {{Break;}}
+ 		\ENDIF
+ 	\ENDFOR
+ 	\IF {{$r = f$}}
+ 		\STATE {{Return ($r, Q$)}}
+ 	\ENDIF
+ \ENDWHILE
+ \end{algorithmic}
+ \end{algorithm}

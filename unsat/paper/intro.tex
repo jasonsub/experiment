@@ -1,0 +1,51 @@
+\section{Introduction}
+
+The Boolean Satisfiability Problem (SAT) is formulated as finding
+solutions satisfying a set of Boolean equations, or to show that no
+such solutions exist (unsat). Such problems are often represented in
+Conjunctive Normal Form (CNF), whereby sets of literal-disjunctions
+(clauses) must be simultaneously satisfied through some variable
+assignment. When no solutions exist, it is possible to identify a
+subset $C_c$ of the original set of clauses $C$ such that $C_c$ is
+unsat too. This set $C_c$ is called the unsat core of the
+problem. Unsat cores have various uses in system design and
+verification, where they can identify the causes of unsat in the
+problem and restore satisfiability. Various unsat core extractors are
+available \cite{Haifa2014} \cite{Joao2012} that can identify smaller
+cores -- and {\it minimal} unsat cores -- from very large unsat
+problems.  
+
+The problem has analogous manifestations in the polynomial algebra
+domain. Suppose that we are given a set of polynomials $F =
+\{f_1,\dots,f_s\}$ with coefficients from any field. Suppose, further,
+that the system of equations $f_1 = f_2 = \dots = f_s = 0$ has no
+common zero -- i.e. the system of polynomial constraints is infeasible
+(or unsat). Can we identify a subset $F_c \subseteq F$ such that the
+system of polynomials of $F_c$ also has no common
+zeros? In other words, we wish to devise algorithmic techniques to
+identify infeasible or unsat cores $F_c$ of $F$. 
+
+Clearly, computational algebraic geometry -- particularly the theory
+and technology of Gr\"obner bases -- provides a mechanism to answer
+the polynomial unsat core question. The given set of polynomials $F$
+generates an ideal, and the celebrated Hilbert's Nullstellensatz
+\cite{ideals:book} provides all the tools to characterize the zero-set
+(varieties) of polynomial ideals. Most Nullstellensatz-related
+polynomial decision questions can be answered by the Gr\"obner basis
+algorithm \cite{gb_book}. This motivates our investigation into
+extraction of infeasible cores of the set of polynomials $F$ using
+Gr\"obner basis techniques.
+
+
+
+\subsubsection{Previous Work:} 
+
+
+Moreover, as Gr\"obner basis techniques
+find more applications in SAT solving \cite{CEI:stoc-96} \cite{condrat-tacas07}
+\cite{zengler:GB-SAT}, unsat cores of polynomial systems will also find
+
+
+in hardware and software verification
+\cite{lv:tcad2013}, as well as 
+
