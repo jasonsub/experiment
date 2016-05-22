@@ -1,0 +1,38 @@
+Review 1:
+-- Originality issue?
+Our heuristics are original, and proved to be effective by our experiments.
+
+Review 2:
+-- Any kind of theoretical guarantees?
+No, because the procedure of computing a Groebner basis does not guarantee that we can deduce all polynomial dependences in the original set.
+--  In your experiments the GB-core algorithm runs only once and the syzygy heuristic does not provide further improvements?
+See above.
+-- It would be interesting to see how using the syzygy heuristic compares to re-running GB-core?
+Syzygy heuristic requires GB computation, which is inefficient. For example, single run of GB computation for 200 polynomials could be hours. So we use syzygy heuristic as complementation to re-running GB-core.
+
+Review 3:
+-- The paper addresses the problem of finding small unsatisfiable cores in the context of Boolean formulas presented in XNF? 
+Not exactly. Both Groebner basis and unsatisfiable cores are concepts not limited to XNF,  so our approach can be applied to any decision problem formalized by polynomials over any field.
+-- Benchmarks must have been translated in the opposite direction too, for use by picoMUS?
+The size of MUS for benchmarks not translated from CNF is not obtained by using picoMUS. Instead, we first get a smaller core using our approach, then reduce it to minimal using exhaustive deletion-based techniques.
+-- The result for GB-core without the post-processing?
+Okay.
+-- The result for subset-3 must be wrong, as it suggests the proposed method finds a core that is smaller than the optimal result?
+No, the smaller core obtained by our approach is not a subset of the core from picoMUS.
+-- Consider publishing all benchmarks used, including those that have been modified by adding redundant clauses. I assume StarExec is the right venue for this?
+Okay. But not StarExec.
+-- Page 14, mid: "translation to CNF" -> "translation from CNF"?
+Correct.
+-- (Important) Page 14 (mid) suggests that any scalability issues stem from translation to/from CNF, but in [12] those issues must have been overcome?
+(Need further discussion) Reference [12] does not overcome the scalability issue for GB computation. In that paper, the author divided the whole set of clauses into lots of small subsets, and GB computation is operated on small sets. In our case, partitioning is not helpful for identifying smaller cores because UNSAT problem is related to a global property rather than local ones.
+
+Review 4:
+-- Is the refutation tree really helpful in the construction? Is it used for storing the computed polynomials in a more efficient way?
+The refutation tree is a structure helpful in illustrating the resolution-style refutation when running the Buchberger's algorithm. We do not use a tree-like data structure to actually storing the data. We have introduced the data structure in section 4.2,  especially in Algorithm 2.
+-- What is the criterion used to stop the refinement procedure (besides considering the size of the unsat core computed by another tool)?
+We stop the refinement when the size of core do not decrease after more GB-core iterations are taken. It is a fixpoint detection mechanism that not rely on the MUS we learn in advance.
+-- How do the execution times compare with those of picoMUS?
+As the GB computation is hard and our tool is not well specialized,  the runtime is much larger than conventional tools -- their runtimes are usually less than 1 ms.
+-- Is picoMUS the only solver to compare with? Why?
+No,  we also compare the results from MUSer2 and HaifaMUC. They are identical for our benchmarks. We choose these 3 solvers because they have best performance on SAT 2011 competition,  which is the latest SAT competition with a MUS track.
+(URL for HaifaMUC: http://ie.technion.ac.il/~ofers/haifasolvers/)
