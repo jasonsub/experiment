@@ -1,3 +1,9 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!   WARNING    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+This tool is proved to be buggy. Do not use. Details refer to SAT2016/debug
+
+
+
+
 Step 1: ./cnf2poly.pl input.cnf output.sing (for many-literal clauses, if larger than 5 plz specify "proc orX" separately)
 
 Step 2: copy n paste ring/var def, ideal I (original polys) def (!!note: remove excess "," at last)
