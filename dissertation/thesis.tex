@@ -1,0 +1,179 @@
+%\documentstyle[11pt,thesis,diagram,tgrind]{uuthesis}
+\documentclass[Chicago]{uuthesis2e}
+%\includeonly{ch3,ch4,ch6,ch5}%  % BEWARE: First % kills white space
+%\includeonly{ch4,ch5,ch6}%  % BEWARE: First % kills white space
+%\includeonly{ch1,ch2,ch3,ch4,ch5,ch6}%  % BEWARE: First % kills white space
+%\includeonly{ch1,ch2,ch3}
+%\RequirePackage{times}
+%\RequirePackage{algorithmic}
+%\PassOptionsToPackage{boxed}{algorithm}
+%\RequirePackage{algorithm}
+%\RequirePackage{pseudocode}
+%% Algorithm
+\usepackage
+{
+    cite, 
+    epsfig,
+    epstopdf, 
+    graphicx, 
+    color, 
+    float,
+    subfig,
+    amsmath, 
+    amssymb,
+    xspace,
+    tabularx,
+    rotating,
+    lscape,
+    afterpage,
+    url,
+    listings,
+    multirow,
+    hhline,
+    placeins
+} 
+
+\usepackage[ruled]{./algorithm2e}
+%%for algorithm2e package, label has to be following caption in the same line!!!
+
+\RequirePackage{times}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+\setcounter{page}{1}
+
+% New command for the table notes.
+\def\tabnote#1{{\small{#1}}}
+
+% New command for the line spacing.
+\newcommand{\ls}[1]
+    {\dimen0=\fontdimen6\the\font
+     \lineskip=#1\dimen0
+     \advance\lineskip.5\fontdimen5\the\font
+     \advance\lineskip-\dimen0
+     \lineskiplimit=.9\lineskip
+     \baselineskip=\lineskip
+     \advance\baselineskip\dimen0
+     \normallineskip\lineskip
+     \normallineskiplimit\lineskiplimit
+     \normalbaselineskip\baselineskip
+     \ignorespaces
+    }
+
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\ov}{\bar}
+\newcommand{\xor}{\bigoplus}
+%\newtheorem{definition}{Definition}[section]
+\newcommand{\beqarr}{\begin{eqnarray}}
+\newcommand{\eeqarr}{\end{eqnarray}}
+\newcommand{\tab}{\xspace\ \ \ \ \xspace}
+\newcommand{\ttab}{\xspace\ \ \xspace}
+
+\newcommand{\eqntext}[1]{\text{\xspace\rm #1\xspace}}
+
+\newcommand{\Fq}{{\mathbb{F}}_{q}}
+\newcommand{\Fpk}{{\mathbb{F}}_{p^k}}
+\newcommand{\Fkk}{{\mathbb{F}}_{2^k}}
+\newcommand{\Z}{{\mathbb{Z}}}
+\newcommand{\Zkk}{{\mathbb{Z}}_{2^k}}
+\newcommand{\Fkkx}[1][x]{\ensuremath{\mathbb{F}}_{2^k}[#1]\xspace}
+\newcommand{\Grobner}{Gr\"{o}bner\xspace}
+%\newcommand{\Grobner}{Gr\"{o}bner}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\Func}{{\mathcal{F}}}
+\newcommand{\G}{{\mathcal{G}}}
+\newcommand{\F}{{\mathbb{F}}}
+\newcommand{\B}{{\mathbb{B}}}
+\newcommand{\C}{{\mathbb{C}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\K}{{\mathbb{K}}}
+
+\newtheorem{Theorem}{Theorem}[chapter]
+\newtheorem{Definition}{Definition}[chapter]
+\newtheorem{Example}{Example}[chapter]
+\newtheorem{Proposition}{Proposition}[chapter]
+\newtheorem{Lemma}{Lemma}[chapter]
+\newtheorem{Corollary}{Corollary}[chapter]
+
+%\newtheorem{Proof}{Proof}[chapter]
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\title{Word-Level Polynomial Abstraction of Galois Field Circuits using Gr\"obner Bases} 
+\title{Word-Level Abstraction from Combinational Circuits using Algebraic Geometry}
+\author{Tim Pruss} 
+\thesistype{dissertation}
+\degree{Doctor of Philosophy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chairtitle{Professor}
+\committeechair{Priyank Kalla}
+\firstreader{Ganesh Goplakrishnan}
+\secondreader{Chris Myers}
+\thirdreader{Kenneth Stevens}
+\fourthreader{Rongrong Chen}
+\graduatedean{David Kieda}
+\department{Department of Electrical and Computer Engineering}
+\departmentchair{Gianluca Lazzi}
+
+\submitdate{May 2015}
+\copyrightyear{2015}
+\dedication{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fourlevels
+
+%\input{BoxedEPS.tex}
+%\input{epsf}
+
+
+\begin{document}
+%\ls{1.5}
+%\linespread{0.9}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frontmatterformat
+%\setcounter{page}{1}
+\titlepage
+\copyrightpage
+\committeeapproval
+\readingapproval
+
+%\preface{abstract}{Abstract}
+%\dedicationpage
+\tableofcontents
+\listoffigures
+\listoftables
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\preface{acknowledge}{Acknowledgements}
+\maintext       % Start normal page numbering. Parts and chapters follow.
+
+\input{abstract}
+\input{intro}
+\include{prev}
+\include{gfprelim}
+\include{algprelim}
+\include{abstraction}
+\include{improve}
+\include{comp}
+\include{implement}
+%\include{equiv}
+%\include{applic}
+\include{conclude}
+\include{appendix}
+%\newpage
+
+%%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{ieee}
+\bibliography{logic}
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%  End of IEEEsample.tex  %%%%%%%%%%%%%%%%%%%%%%%%%%%

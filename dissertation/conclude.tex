@@ -1,0 +1,178 @@
+\chapter{Conclusions and Future Work}
+\label{ch:concl}
+
+A combinational circuit with $k$-inputs and $k$-outputs implements
+Boolean functions  $f: \B ^k \rightarrow \B ^k$, where $\B = \{0,
+1\}$. The function can also be construed as a mapping  $f: \Fkk
+\rightarrow \Fkk$, where $\Fkk$ denotes the Galois field of
+$2^k$ elements. A circuit with differing input and output sizes 
+computes $f: \B ^m \rightarrow \B ^n$, which can be represented
+as a function over Galois fields $f: \F_{2^m} \rightarrow \F_{2^n}$.
+This circuit can also be analyzed as the function 
+$f: \Fkk \rightarrow \Fkk$, where $\Fkk \supset \F_{2^m}$ 
+and $\Fkk \supset \F_{2^m}$.
+
+Every function $f$ over $\Fkk$ is a polynomial
+function --- i.e., there exists a unique,  minimal, canonical
+polynomial $\Func$ that describes $f$. This dissertation presented novel
+techniques based on computer-algebra and algebraic-geometry to
+derive the canonical (word-level) polynomial representation from the
+circuit as  $Z = \Func(A)$ over $\Fkk$, where $A$ and $Z$ denote, 
+respectively, the input and output bit-vectors of the circuit.
+
+A theory for word-level polynomial abstraction of bit-level circuits 
+over Galois fields is first developed.
+This theory is derived using techniques from computer-algebra, notably the theory of
+\Grobner basis. However, due to the computational complexity of computing a \Grobner
+basis, the solution is not scalable to large designs.
+In order to overcome these limitations, new symbolic computational
+algorithms are developed and refined. The algorithms employ techniques
+from the binomial expansion over $\Fkk$ and $\F_4$-style reduction and can exploit
+hierarchy in a given circuit. Finally, an efficient implementation of the algorithmic
+approach is presented.
+
+Experiments show that the proposed approach works exceptionally well
+for abstracting word-level Galois field arithmetic circuits. It has been
+shown that the approach can abstract and verify these types of circuits with up to 
+$1024$-bit datapaths. Other contemporary techniques
+cannot to verify these types for circuits beyond $163$-bits and fail to
+abstract them beyond $32$-bits.
+
+However, in cases of random logic, the abstraction approach
+can generate high-degree polynomials:
+\begin{equation}
+X^{q-1}+X^{q-2}\dots
+\end{equation}
+In these cases, the polynomials derived during the computation are dense, 
+and the computational complexity of manipulating such polynomials
+makes abstraction infeasible.
+
+\section{Future Work}
+
+Due to the modular nature of the proposed solution, there are many
+potential future research directions that can be explored.
+
+\subsection{Hardware Acceleration}
+The first reduction step, $f_Z\xrightarrow{F-f_{z_i},F_0}_+ r$
+is the most computationally complex part of the proposed abstraction approach. This
+reduction could be implemented using a hardware accelerator.
+Significant speed-ups have 
+been observed in GPU implementations of circuit simulation algorithms 
+\cite{PengLi:GPU}. 
+Furthermore, this work has shown cases where multiple, independent abstractions 
+need to be computed at the same time, such as when abstracting a word-level 
+representation of a composite field multiplier.
+
+These abstractions can be computed in parallel with one another, and this
+parallelism could then be exploited using a GPU. Furthermore, our 
+approach to compute the abstractions uses an $F4$-style reduction procedure, 
+which performs many complex computations over a large matrix. 
+Operations over matrices can be suitably implemented using a GPU.
+Lastly, the substitution by $a_i=\Func(A)$ is trivially parallelized. 
+Thus, further study is proposed to implement word-level abstraction 
+on a general purpose GPU.
+
+\subsection{Integration with EDA Tools} 
+The proposed canonical word-level abstraction approach is a full, 
+self-contained solution.
+It can thus be integrated into other EDA tools. There are direct
+applications of word-level abstractions to design synthesis. For instance, 
+the approach can compute a functional decomposition of a logic or it could 
+be used in high-level RTL synthesis. Since the derived abstraction 
+is canonical, it can also be used in verification engines such as SMT solvers.
+The abstraction approach most efficiently handles AND/XOR logic, so it
+could be used to complement approaches in the mentioned tools that are
+efficient over AND/OR logic.
+
+\subsection{Polynomial Reductions using Data-Structures}
+The abstraction approach poorly handles chains of OR gates
+due to their representation as polynomials of Galois fields.
+Other polynomial-based tools \cite{polybori:2009} have shown that it 
+can be beneficial to represent polynomials internally as decision diagrams.
+Thus, it is worthwhile to explore whether it is possible to
+implement the algorithmic approach in a different data-structure that
+is better-suited for handling this type of logic.
+One candidate data-structure is the And-Invert-Graph, as this structure efficiently
+handles OR gates. The widely-used tool ABC\cite{abc} provides a very efficient, 
+flexible, and open-source implementation of the AIG data structure.
+
+Recall that a one-step reduction  of the polynomial $f$ by polynomial $g$, 
+$f\xrightarrow{g} r$, is computed as:
+\begin{equation}
+r = f-\frac{LT(f)}{LT(g)}\cdot g
+\end{equation}
+Over Boolean circuits, $\B \equiv \F_2$. Since the leading term of
+any monomial in $\B$ is $1$, and $-1\equiv +1$, then
+\begin{equation}
+f-(\frac{LT(f)}{LT(g)}\cdot g)\equiv f+(\frac{LM(f)}{LM(g)}\cdot g)
+\end{equation}
+which computes an XOR operation
+\begin{equation}
+f\oplus(\frac{LM(f)}{LM(g)}\cdot g)
+\end{equation}
+while the $\cdot$ operator acts as an AND operation $\wedge$.
+So one step of the reduction procedure can be computed as the following 
+AND/XOR operation:
+\begin{equation}
+r = f \oplus \frac{LM(f)}{LM(g)}\wedge g
+\end{equation}
+
+Thus, we propose an investigation into implementing the algorithms presented
+in this dissertation over AIGs.
+
+\subsection{Application to Sequential Circuit Verification}
+Sequential Galois field arithmetic circuits over $\Fkk$
+take k-bit inputs and produce a k-bit result after k-clock cycles 
+of operation. Formal verification of sequential arithmetic
+circuits with large datapath sizes is beyond the capabilities of
+contemporary verification techniques. To address this problem,
+we described a verification method in \cite{sun:date15} 
+which uses the presented abstraction approach to implicitly 
+unroll the sequential arithmetic circuit over multiple (k) clock-cycles.
+The resulting function computed by the state-registers of the circuit 
+is represented canonically as a multi-variate word-level polynomial over
+$\Fkk$. While directly applicable to sequential Galois field arithmetic circuits, 
+this work needs to be further generalized in order to make applicable to
+any sequential state machine. 
+
+\subsection{Application to Formal Software Verification}
+Computer algebra techniques based on \Grobner basis theory have been used 
+in formal software verification \cite{manna:program}.
+In this work, a \Grobner basis computation is used to derive {\it loop invariants}.
+However, the derived invariants are not bit-precise, so not every invariant that is
+computed can be applied to the verification. As our approach maintains
+the input-output relationship in the abstraction, it could be applied to
+find bit-precise invariants.
+
+
+\subsection{Application to Integer Arithmetic Circuits}
+The abstraction approach derives a
+word-level representation of circuits over Galois fields, $\Fkk$. 
+In order to expand its usability, we conjecture whether it is possible to 
+apply concepts from this approach to {\bf abstract word-level representations 
+of circuits over integer rings}, $\Zkk$. 
+As any function over a Galois 
+field $\Fkk$ is a polynomial function, there exists a polynomial which 
+describes the word-level function of a given circuit over $\Fkk$. 
+%If the word-level 
+%input and output of the circuit is $A$ and $Z$, respectively, this 
+%polynomial exists in the form $Z=\Func(A)$.
+However, not every function over an integer ring $\Zkk$ is a polynomial 
+function. 
+Thus, a single polynomial which describes the function of a circuit over 
+$\Zkk$ is not guaranteed to exist. 
+%Instead, there could exist a set of
+%polynomials $\{f_1,\dots,f_n\}$ which describes this function.
+%These polynomials are in following form:
+%\begin{eqnarray}
+%f_1:Z=\Func_1(A) \nonumber \\
+%\vdots \nonumber \\
+%f_n:Z=\Func_n(A) \nonumber
+%\end{eqnarray}
+Even though there may not exist a single polynomial which describes the
+entire function over $\Zkk$, elimination theory and \Grobner basis still
+applies over this ring. Thus, it may be possible to modify the theory and 
+implementation of our word-level 
+abstraction approach in order to abstract a set of word-level 
+polynomials over $\Zkk$.
+

@@ -1,0 +1,85 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: prev.aux
+A level-1 auxiliary file: gfprelim.aux
+A level-1 auxiliary file: algprelim.aux
+A level-1 auxiliary file: abstraction.aux
+A level-1 auxiliary file: improve.aux
+A level-1 auxiliary file: comp.aux
+A level-1 auxiliary file: implement.aux
+A level-1 auxiliary file: conclude.aux
+A level-1 auxiliary file: appendix.aux
+The style file: ieee.bst
+Database file #1: logic.bib
+Repeated entry---line 235 of file logic.bib
+ : %@misc{ecc:software
+ :                    ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2153 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 2495 of file logic.bib
+ : @unpublished{blueveri:ita
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2554 of file logic.bib
+ : @inproceedings{Cryptol:fmcad09
+ :                               ,
+I'm skipping whatever remains of this entry
+`volume' is a missing field, not a string, for entry pruss:tcad15
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry alizadeh:tcad2010
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry ciesielski:flow
+while executing---line 987 of file ieee.bst
+Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+while executing---line 987 of file ieee.bst
+Warning--empty journal in DGPS
+`volume' is a missing field, not a string, for entry DGPS
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry PengLi:GPU
+while executing---line 987 of file ieee.bst
+You've used 110 entries,
+            1802 wiz_defined-function locations,
+            1021 strings with 20656 characters,
+and the built_in function-call counts, 25959 in all, are:
+= -- 2227
+> -- 1050
+< -- 35
++ -- 396
+- -- 286
+* -- 1832
+:= -- 3862
+add.period$ -- 118
+call.type$ -- 110
+change.case$ -- 95
+chr.to.int$ -- 0
+cite$ -- 111
+duplicate$ -- 1366
+empty$ -- 2741
+format.name$ -- 286
+if$ -- 6066
+int.to.chr$ -- 0
+int.to.str$ -- 110
+missing$ -- 107
+newline$ -- 553
+num.names$ -- 115
+pop$ -- 510
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 654
+stack$ -- 0
+substring$ -- 1360
+swap$ -- 424
+text.length$ -- 35
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 1
+while$ -- 218
+width$ -- 113
+write$ -- 1177
+(There were 10 error messages)

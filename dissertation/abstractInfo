@@ -1,0 +1,10 @@
+Show that only one valid spoly exists. LT must have common variable. Jinpeng's
+vanishing polys
+
+Show One spoly.
+Show that reduce this spoly = reduce word-level.
+Prove that reduce word-level = input bit level + word level output.
+Show that in the case of bug-free -> Word-level only!
+
+Show that regardless of representation, abstraction approach is applicable to
+Jinpeng's approach and can be used in equivalence checking.

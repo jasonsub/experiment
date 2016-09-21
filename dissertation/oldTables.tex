@@ -1,0 +1,145 @@
+All experiments were
+conducted on a Computation Server running Scientific Linux 6.2 x86\_64 
+with the following specs:
+\begin{itemize}
+\item 2 x 6 Core Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz total of 24 CPUs
+\item 96GB 1333MHZ DDR3 RAM
+\item 78GB SSD Swap
+\item 250GB SSD primary hard drive
+\end{itemize}
+
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Abstraction of bug-free Mastrovito multipliers. $TO$ = more than $24$ hours = $86,400$ seconds. Time is given in seconds. Memory is given in MB}
+\label{tab:absmasresults}
+\begin{tabular}{|c||c|c||c|c|} 
+\hline
+
+& \multicolumn{2}{c||}{Singular} & \multicolumn{2}{c|}{Custom Tool} \\
+	\hline
+
+Size    & Time (s)   & Memory (MB)& Time (s)   & Memory (MB)\\
+\hline
+32       & 177   & 1308 & 4   & 6\\
+\hline
+64      & 9,753   & 20,216 &66   & 22\\
+\hline
+128      & - & - & 1,759 & 86\\
+\hline
+163      & - &  - & 4,351 &  162\\
+\hline
+192      & -     &   -   & 21,884 &  334\\
+\hline
+233      & -     &   -   &5,777 &  168\\
+\hline
+283      & -     &   -   &40,114 &  381\\
+\hline
+409      & -     &   -   &72,708 &  509\\
+\hline
+571      & -     &   -   &TO & -  \\
+\hline
+
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Abstraction of bug-free Montgomery multipliers. $TO$ = more than $24$ hours = $86,400$ seconds. Time is given in seconds. Memory is given in MB}
+\label{tab:absmontflatresults}
+\begin{tabular}{|c||c|c||c|c|} 
+\hline
+
+& \multicolumn{2}{c||}{Singular} & \multicolumn{2}{c|}{Custom Tool} \\
+	\hline
+
+Size     & Time (s)   & Memory (MB)& Time (s)   & Memory (MB)\\
+\hline
+32       & 20   & 311 & 5   & 6\\
+\hline
+64       & 2,268   & 3,471 &136   & 19\\
+\hline
+128      & 36,761 & 15,674& 2,022 & 54\\
+\hline
+163      & TO &  - & 12,611 &  86\\
+\hline
+
+\end{tabular}
+\end{center}
+\end{table}
+
+
+
+\begin{table}[H]
+\begin{center}
+\caption{Abstraction of bug-free Montgomery blocks. $TO$ = more than $24$ hours = $86,400$ seconds. Time is given in seconds. Memory is given in MB}
+\label{tab:absmontresults}
+\begin{tabular}{|c|c||c|c||c|c|} 
+\hline
+
+\multicolumn{2}{|c|}{} & \multicolumn{2}{c||}{Singular} & \multicolumn{2}{c|}{Custom Tool} \\
+	\hline
+
+Size & Block    & Time (s)   & Memory (MB)& Time (s)   & Memory (MB)\\
+\hline
+\multirow{4}{*}{32} &
+$A,R^2$      & 3   & 93 & 1   & 2\\
+&$B,R^2$     & 3   & 93 &  1  & 2\\
+&$AR,BR$     & 3   & 136 & 1   & 2\\
+&$ABR,1$     & 3   & 90 & 1   & 2\\
+\hline
+\multirow{4}{*}{64} &
+$A,R^2$      & 132  & 972 & 3   & 5\\
+&$B,R^2$     & 117  & 972 & 3   & 5\\
+&$AR,BR$     & 95   & 1,536 & 6   & 7\\
+&$ABR,1$     & 126  & 952 & 3   & 5\\
+\hline
+\multirow{4}{*}{128} &
+$A,R^2$      & 5,688 & 13,722 & 40   & 17\\
+&$B,R^2$     & 5,184 & 13,517 & 32   & 17\\
+&$AR,BR$     & 5,292 & 22,426 & 124   & 25\\
+&$ABR,1$     & 5,544 & 13,414 & 51   & 17\\
+\hline
+\multirow{4}{*}{163} &
+$A,R^2$      & 22,860   & 36,659   & 145  & 20\\
+&$B,R^2$       & 19,476   & 35,841 & 101  & 20\\
+&$AR,BR$       & 18,010   & 58,266 & 264  & 34\\
+&$ABR,1$       & 17,604   & 36,147 & 126  & 20\\
+\hline
+\multirow{4}{*}{192} &
+$A,R^2$      & - & - & 145  & 36\\
+&$B,R^2$     & - & - & 141  & 36\\
+&$AR,BR$     & - & - & 384  & 52\\
+&$ABR,1$     & - & - & 129  & 35\\
+\hline
+\multirow{4}{*}{233} &
+$A,R^2$      & - & - & 322   & 39\\
+&$B,R^2$     & - & - & 306   & 39\\
+&$AR,BR$     & - & - & 1,014 & 71\\
+&$ABR,1$     & - & - & 267   & 39\\
+\hline
+\multirow{4}{*}{283} &
+$A,R^2$      & - & - & 1,011 & 70\\
+&$B,R^2$     & - & - & 1,058 & 70\\
+&$AR,BR$     & - & - & 5,085 & 104\\
+&$ABR,1$     & - & - & 1,032 & 70\\
+\hline
+\multirow{4}{*}{409} &
+$A,R^2$      & - & - & 5,084  & 147\\
+&$B,R^2$     & - & - & 5,381  & 144\\
+&$AR,BR$     & - & - & 20,294 & 224\\
+&$ABR,1$     & - & - & 3,243  & 145\\
+\hline
+\multirow{4}{*}{571} &
+$A,R^2$      & - & - & 14,228 & 306\\
+&$B,R^2$     & - & - & 12,298 & 306\\
+&$AR,BR$     & - & - & 60,364 & 477\\
+&$ABR,1$     & - & - & 13,508 & 301\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}

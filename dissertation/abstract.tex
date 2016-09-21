@@ -1,0 +1,99 @@
+%\begin{abstract}
+\begin{center}{\bf ABSTRACT}\end{center}
+
+
+Abstraction plays an important role in digital design,
+analysis, and verification, as it allows for the refinement of
+functions through different levels of conceptualization. This dissertation
+introduces a new method to compute a symbolic, canonical, word-level abstraction of the function implemented
+by a combinational logic circuit. This abstraction provides a
+representation of the function as a {\it polynomial} $Z = F (A)$
+over the Galois field $\Fkk$, expressed over the $k$-bit input to the circuit, $A$.
+This representation is easily utilized for formal verification (equivalence checking) of
+combinational circuits.
+
+The approach to abstraction is based upon concepts from
+commutative algebra and algebraic geometry, notably the
+\Grobner basis theory. It is shown that the polynomial $F(A)$ can
+be derived {\it by computing a \Grobner basis of the polynomials}
+corresponding to the circuit, using a specific elimination term
+order based on the circuit’s topology. However, computing \Grobner bases
+using elimination term orders is infeasible for large circuits.
+To overcome these limitations, this work introduces {\it an efficient symbolic
+computation} to derive the word-level polynomial. The presented algorithms
+exploit i) the structure of the circuit, ii) the properties of \Grobner bases,
+iii) characteristics of Galois fields $\Fkk$, and iv) modern algorithms from symbolic computation.
+
+While the concept is
+applicable to any arbitrary combinational logic circuit, it 
+is particularly powerful in verification and equivalence checking of 
+hierarchical, custom-designed and structurally dissimilar Galois field arithmetic circuits. 
+%These designs are prevalent in cryptography, error correction codes, and signal processing.
+In most applications, the field size and the data-path size $k$
+in the circuits is very large, up to $1024$ bits.
+%The U.S. National
+%Institute for Standards and Technology (\emph{NIST}), recommends Galois
+%fields corresponding to operand-sizes $k = 163, 233, 283, 409$ and
+%$571$ bits wide. 
+
+The proposed abstraction procedure can exploit the hierarchy of the
+given Galois field arithmetic circuits.
+% by computing the abstraction
+%of each block in parallel before combining the representations together. 
+A custom abstraction %software
+tool is designed to efficiently implement the abstraction procedure.
+Preliminary experiments show that, using the proposed approach, our
+tool can abstract and verify Galois field arithmetic circuits
+{\it up to $1024$ bits in size}. %, which is the largest NIST standard. 
+Contemporary
+techniques fail to verify these types of circuits beyond $163$ bits
+and cannot abstract a canonical representation beyond $32$ bits.
+
+%To efficiently implement the
+%procedure, we design a custom abstraction software tool. 
+%Modern abstraction techniques of
+%these circuits fail beyond $32$-bits.
+
+
+%Custom arithmetic circuits designed over Galois fields $\Fkk$ are
+%prevalent in cryptography, error correction codes, signal processing,
+%etc. In most applications, the field size and the data-path size $k$
+%in the circuits can be very large. For example, the U.S. National
+%Institute for Standards and Technology (NIST), recommends Galois
+%fields corresponding to operand-sizes $k = 163, 233, 283, 409$ and
+%$571$ bits wide. The complexity of such large architectures 
+%necessitates custom and hierarchical design. Custom design can raise
+%the potential for bugs in the implementation. As arithmetic bugs can
+%compromise the security of crypto-systems, formal verification of
+%Galois field circuits is an imperative.
+
+%This thesis presents an approach for formal verification and
+%equivalence checking of large Galois field arithmetic circuits based
+%on word-level canonical polynomial abstraction from gate-level
+%circuits. The word-level abstraction is based on concepts from
+%commutative algebra and algebraic geometry, and relies on the
+%following mathematical insights.
+
+%A combinational circuit with $k$-inputs and $k$-outputs implements
+%Boolean functions $f: \B^k \rightarrow \B^k$, where $\B = \{0, 1\}$.
+%Such functions can also be construed as a mapping $f: \Fkk
+%\rightarrow \Fkk$,  where $\Fkk$ denotes the Galois field of $2^k$
+%elements. Every function over $\Fkk$ is a polynomial function ---
+%i.e. there exists a unique, minimal, canonical polynomial
+%$\Func$ that describes $f$.  This thesis derives the polynomial
+%representation of the circuit as $Z = \Func(A)$ over $\Fkk$, where $A$
+%and $Z$ denote, respectively, the input and output bit-vectors of the
+%circuit. This can be achieved by computing a Gr\"obner basis of a set
+%of polynomials derived from the circuit, using a specific elimination
+%(abstraction) term order.
+
+%Computing Gr\"obner bases using elimination orders is, however,
+%practically infeasible for large circuits. To overcome this
+%limitation, we devise an approach to guide the Gr\"obner basis
+%computation to search for the abstraction polynomial. The approach is
+%implemented in a custom tool using modern $F_4$-style polynomial
+%reduction procedures. Using our approach, we are able to verify the
+%correctness of up to $571$-bit Galois field multiplier circuits,
+%whereas contemporary techniques prove to be infeasible beyond
+%$163$-bit circuits. 
+%\end{abstract}

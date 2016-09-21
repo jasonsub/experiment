@@ -1,0 +1,439 @@
+\chapter{Introduction} \label{ch:intro}
+There is an ever-increasing need for secure communication within information 
+technology. Security of sensitive information relies more and more heavily 
+on encryption methodologies implemented in hardware by cryptographic 
+circuits. One of the most prominent of these methodologies is Elliptical 
+Curve Cryptography (\emph{ECC}), which provides more strength per encryption bit 
+than other encryption methodologies.
+The main building blocks of ECC hardware implementations 
+are fast, \emph{custom-built Galois field arithmetic circuits}.
+These circuits are notoriously hard to verify, yet their correctness is 
+vitally important in critical applications. In \cite{crypto:bug_attacks}, 
+for example, it is shown that a bug in the hardware could lead to the full 
+leakage of the secret cryptographic key, which could compromise the entire
+system. Thus, formal verification is imperative in Electronic Design 
+Automation (\emph{EDA}) when dealing with cryptographic circuits.
+
+To facilitate this verification, it is highly desirable to obtain a {\it word-level 
+representation of the datapath of the ECC arithmetic block} from its 
+bit-level implementation. Ideally, this abstraction should be {\it canonical},
+as this allows the it to be directly applicable to equivalence checking. 
+Such a canonical, word-level abstraction of the 
+Galois field arithmetic block would not only make it easier to verify and 
+reason 
+about the cryptographic system as a whole, but also enable the use of 
+higher level abstraction and synthesis tools. 
+As arithmetic circuits are custom-designed, often modularly, using Galois field arithmetic blocks, 
+the abstraction should also exploit the hierarchical nature of the circuitry.
+Due to the modular circuit structure, abstraction of each arithmetic block
+becomes the key in verification of the full circuit. 
+Practical 
+applications of ECC dictate a datapath of a minimum of $163$-bits, up to 
+$571$-bits, as 
+designated by the National Institute for Standards and Technology (NIST).
+However abstraction of 
+Galois field arithmetic circuits has been infeasible for data-paths beyond 
+$16$ bits. 
+
+This dissertation proposes an algebraic geometry based approach to abstract canonical, 
+word-level representations of bit-level Galois field arithmetic circuits.
+The approach is able to abstract representations
+for circuits up to 571 bits in size, which is the largest NIST
+standard for datapath size in ECC. 
+Verification of circuits for which this abstraction has been computed is shown to 
+be trivial; thus, the focus is on deriving the abstraction quickly and efficiently.
+%Furthermore, we show how we can use these abstract representations to 
+%perform improved formal verification of these circuits.
+
+\section{Hardware Design and Verification Overview}
+The typical design flow of a hardware system, 
+as shown in Fig. \ref{fig:cadflow}, starts with a hardware system 
+specification, which describes the necessary functions and parameters that 
+the system must perform and adhere to. The specification is typically
+modelled using a transaction-level model (\emph{TLM}), which describes 
+communication details between large circuit modules. 
+The TLM is then translated 
+into a register-transfer-level (\emph{RTL}) description, which is composed of abstracted, 
+interconnected circuit blocks that compose the entire system. RTL is 
+typically implemented 
+in hardware description languages (\emph{HDL}) such as Verilog and VHDL, 
+which are the most popular choices in the industry.
+Next, the RTL is optimized and converted into a \emph{netlist}, i.e. a large 
+collection of small physical blocks (MOSFET, Boolean logic gates, etc.) and 
+the inter-connections (wires) between them. 
+Lastly, the netlist is further optimized and then mapped onto a physical space 
+on a chip, which is then sent off for fabrication. This entire design flow
+is automated by Computer-Aided Design (\emph{CAD}) tools. 
+
+{
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=0.5\textwidth]{./figures/designFlow}
+}
+\caption{Typical hardware design flow.}
+\label{fig:cadflow}
+\end{figure}
+}
+
+%\subsection{The Hardware Verification Imperative}
+When moving from one abstraction level of the hardware design process to the 
+next, an important issue arises: how can one ensure that the functionality of 
+the optimized design matches original spec? 
+Bugs in hardware design which are 
+not caught early can have costly effects later, such as the need for a 
+redesign. Bugs in arithmetic circuits can be especially catastrophic.
+One infamous example is the 1994 floating point division (FDIV)
+bug that affected the Intel Pentium chip \cite{nicely:FDIV}, 
+and subsequently cost the company \$475 million because it was  
+discovered after the chip's release. In another more fatal case, during the
+Gulf war, an American Patriot Missile battery failed to intercept an incoming
+enemy missile due to an arithmetic error \cite{arnold:patriot}.
+Since hardware bugs can have significant consequences, 
+there has been extensive work in field of hardware verification to find and
+eliminate bugs prior to fabrication.
+
+The two main methodologies used in hardware verification are simulation and 
+formal verification. \emph{Simulation} checks correctness by applying exhaustive 
+assignments to the circuit inputs and verifying correctness of the output. 
+This ensures that the circuit performs as designed under all possible 
+inputs. Such exhaustive testing is quite effective for smaller circuits. 
+However, as the size of the circuit increases, it becomes 
+computationally infeasible to simulate all possible test vectors. This is the 
+case with Galois field arithmetic circuits, which are commonly very large in 
+real-world applications. Often for such large circuits, simulations of a smaller and more 
+manageable subset of test vectors are employed to catch bugs. While these tests
+can increase confidence in the correctness of the design,  
+{\it they do not guarantee correctness} since every data-flow of the design hasn't
+been analyzed.
+%Such is the case with large Galois field arithmetic circuits, so we instead 
+%focus on formal verification. 
+
+\section{Formal Verification}
+Instead of simulating input vectors, \emph{formal verification} utilizes 
+mathematical theory to reason about the correctness of hardware designs.
+%which overcomes some limitations of simulation. 
+Formal verification has two main forms: property checking and equivalence 
+checking. 
+
+{\it Property checking} (or property verification) verifies
+that a design satisfies certain given properties. Property checking is done mainly 
+in the form of theorem proving, model checking, or approaches which 
+combine the two.
+\begin{enumerate}
+\item \emph{Theorem proving} \cite{theoremproving:91} requires the existence of
+mathematical descriptors of the specification and implementation of the 
+circuit. Theorem provers apply mathematical rules to these descriptors to
+derive new properties of the specification. In this way, the tool can reduce
+a proof goal to simpler sub-goals, which can be automatically verified.
+However, generating the initial proof-goal requires extensive guidance from
+the user, so there is an overall lack of automation in theorem 
+proving.
+\item \emph{Model checking} \cite{modelcheck:99} is an approach
+to verifying finite-state systems where specification 
+properties are modeled as a system of 
+logic formulas. The design is then traversed to check if the 
+properties hold. If the design is found to violate a
+particular property, a counter-example is generated which exercises the
+incorrect behavior in the design. Such counter-examples allow the designer
+to trace the behavior and find where the error in the design lies.
+Modern model checking techniques use the result to automatically refine
+the system and perform further checking.
+These tools are typically automated, and thus have found widespread 
+use in CAD tool suites.
+\end{enumerate}
+
+{\it Equivalence Checking} verifies that two different representations of
+a circuit design have equivalent functionality. An example of equivalence
+checking as it applies to the hardware design flow is shown in
+Fig. \ref{fig:equivflow}.
+
+{
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=0.5\textwidth]{./figures/designVerification}
+}
+\caption{Equivalence checking as applied to the hardware design flow.}
+\label{fig:equivflow}
+\end{figure}
+}
+
+There are two major
+equivalence checking techniques: graph-based
+and satisfiability-based.
+\begin{enumerate}
+\item \emph{Graph-based} techniques construct a canonical graph 
+representation, such as a Binary Decision Diagram (\emph{BDD}) or one of
+its many variants, of each circuit. A linear comparison is then conducted to 
+determine whether the two graphs are isomorphic. Since the graph 
+representation is canonical, the graphs of the two circuits will be 
+equivalent if and only if the circuits perform the same function.
+\item \emph{Satisfiability} techniques construct a miter of the two circuits,
+typically in a graph such as an And-Inverter graph (\emph{AIG}). A
+\emph{miter} is a combination of the two circuits with one bit-level output, which 
+is only in a "1" state when the outputs of the circuits differ given 
+the same given 
+input, as shown in Fig. \ref{fig:miter}. 
+A satisfiability (\emph{SAT}) tool \cite{csat} 
+is then employed to simplify the graph and find a solution to the miter, 
+i.e. find an input for which the 
+miter output is "1". If a solution is found, this solution acts as a 
+counter-example of when the circuit outputs differ; otherwise the circuits
+are functionally equivalent.
+\end{enumerate}
+
+
+{
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=0.8\textwidth]{./figures/betterMiter}
+}
+\caption{A miter of two circuits.}
+\label{fig:miter}
+\end{figure}
+}
+
+%\subsection{Computer-Algebra Based Formal Verification}
+Certain formal verification methods use \emph{computer-algebra} and \emph{algebraic
+geometry} techniques based on mathematical theories.
+Unlike SAT-based verification, modern algebraic geometry 
+techniques do not explicitly solve the constraints to find a solution; 
+rather, they reason about the presence or absence of solutions, or explore
+the geometry of the solutions.
+These methods \cite{Avrunin:CAV} \cite{condrat-tacas07} \cite{gbverify:2007} 
+transform the circuit design into a polynomial system. Typically, this system
+of polynomials is then used to compute a Gr\"obner basis \cite{gb_book}. 
+Computation of Gr\"obner bases allows for 
+the easy deduction of important properties of a polynomial system, 
+such as the presence or absence of 
+solutions. These properties are then leveraged to perform 
+verification. Unfortunately, such a computation 
+has been shown to be doubly 
+exponential in the worst case, and thus these methods have not been 
+practical for real-world applications. However, recent
+breakthroughs in computer-algebra hardware verification have shown
+that it is possible to overcome the complexity of this computation while
+still utilizing the beneficial properties of a Gr\"obner bases
+\cite{lv:phd}.
+
+\section{Importance of Word-level Abstraction}
+Most formal verification techniques can benefit from word-level abstractions 
+of the circuits they verify.
+Abstraction is defined as state-space reduction, i.e{\text . }abstraction
+reduces state-space by mapping the set of states of a system to a smaller 
+set of states. Because the new representation contains fewer states, it
+is easier to comprehend and thus easier to use. 
+Word-level abstraction focuses specifically on abstracting a word-level
+representation of a circuit out of a bit-level representation. For example,
+a bit-level representation of an integer multiplier is represented by a
+collection of Boolean inputs and outputs, whereas a word-level
+abstraction hides the underlying logic and represents the circuit as two 
+integer inputs and one integer output, e.g. $Z=A\cdot B$. As the bit-size of the
+multiplier increases, the logical implementation of the multiplier grows (typically
+exponentially) while the word-level abstraction stays the same.
+
+Word-level abstractions have a wide variety applications in formal 
+verification. Theorem proving techniques can leverage abstraction as an 
+automatic decision procedure or as a canonical reduction 
+engine. For example, since RTL is composed of circuit blocks that represent 
+the underlying circuit, RTL verification methods can exploit 
+abstractions of these blocks.
+This is seen in the following RTL verification methods:
+\begin{itemize}  
+\item Model checking \cite{kroening:model}, 
+where an approximation abstraction of RTL blocks is generated and then 
+refined.
+\item Graph-based equivalence 
+checking \cite{WLS} \cite{arditi:bmd}, where abstraction methods are used
+to generate a canonical word-level graph representation of the circuit.
+\item Satisfiability-based equivalence checking \cite{lpsat}, where 
+abstractions are used identify symmetrics and similarities in order to 
+minimize the amount of logic that is sent to the 
+SAT tool. 
+\end{itemize}
+
+Other equivalence checking techniques that employ abstractions 
+include satisfiability modulo theory ({\it SMT}) techniques \cite{boolector} \cite{bryant:tacas07}, 
+which are similar to SAT except they operate on higher-level data
+structures (integers, reals, bit vectors, etc.), as well as 
+constraint solving techniques \cite {ms:research} \cite{tew:iccad08}.
+In general, RTL equivalence checking approaches would ideally maintain a 
+high-level of abstraction while still retaining sufficient lower-level 
+functional details  (such as bit-vector size, precision, etc) 
+\cite{gupta_survey}.
+
+Word-level hardware abstractions also have applications in RTL and datapath 
+synthesis \cite{demicheli:iccad_98} \cite{demicheli:dac_99}
+\cite{demicheli:tcad_03}. 
+Abstractions of circuits allow for design reuse, which allows for tool-automated 
+synthesis of larger circuit blocks.
+Since hardware design specifications tend to be word-level, synthesis tools 
+can use these larger circuit blocks to generate and optimize the
+datapaths and create the RTL of the system. Thus, in order for a circuit to 
+be used by these automated synthesis tools, its word-level abstraction must
+be known.
+
+Finally, abstractions can also be applied to detect malicious 
+modifications to a circuit, potentially inserted as a hardware trojan horse.
+Hardware trojans, a relatively new security concern in the hardware 
+industry, use certain techniques to add incorrect behavior to a 
+design. 
+This behavior is only activated under certain rare circumstances that only 
+the mal-intent designer has knowledge of.
+The behavior is purposely hidden and is very difficult to encounter during 
+simulation of the design. A manufactured chip with a subsystem 
+that contains a hardware trojan could compromise the entire system in which 
+it is used.
+In some hardware trojan cases, formal verification techniques may be applied 
+to catch a bug in a design and provide a counter-example which exercises it. 
+However, it can be difficult to tell whether the bug in the design was 
+introduced intentionally of not. On the other hand, word-level abstractions 
+of bit-level circuits {\it effectively reverse-engineer the true function 
+implemented by the circuit}, which could be used to determine the designer's 
+true intention.
+
+\section{Dissertation Objective, Motivation, and Contributions}
+This dissertation focuses on abstracting a canonical, 
+word-level representation of hardware (bit-level) implementations of 
+combinational circuits. The proposed technique is a full abstraction solution which can be 
+applied to any arbitrary acyclic combinational circuit. 
+It is particularly efficient when applied to Galois field arithmetic circuits.
+Using this technique, if the abstraction of the circuit's implementation and its
+specification are found, they can be easily compared to determine equivalence.
+Implementation of a custom software tool, developed to compute the abstractions, is
+also described.
+
+\subsection{Motivating Application}
+The motivation for this work comes from applications of Galois field 
+arithmetic circuits in elliptical curve cryptography ({\it ECC}) hardware systems.
+The main operations of encryption, decryption, and 
+authentication in ECC rely on operations performed on elliptic curves, which 
+are implemented in hardware as polynomial functions over Galois fields. 
+To be applicable in real-world situations, ECC data-paths
+should be a minimum of $163$-bits wide, which is the minimum NIST standard, 
+up to a recommended size of $571$-bit operand widths. Many non-ECC cryptosystems
+have datapaths on the order of $1000$-bits.
+
+A Galois field arithmetic circuit with a datapath size of $k$ 
+is built as a Boolean function: $\mathbb{B}^k \rightarrow \mathbb{B}^k$. 
+This function is mapped to an operation 
+$f:\mathbb{F}_{2^k} \rightarrow \mathbb{F}_{2^k}$ 
+over the Galois field $\mathbb{F}_{2^k}$. 
+These circuits are custom-built, modular
+systems which cannot be synthesized due to their complex nature. Thus, 
+formal verification is needed to ensure they operate correctly.
+
+Recent computer-algebra based formal verification techniques have been
+able to perform verification of Galois field arithmetic circuits with
+a datapath size up to $163$-bits \cite{lv:phd}. Word-level abstractions 
+of Galois
+field arithmetic circuits could be used to further improve these formal 
+verification techniques to allow for verification of larger circuits, as
+well as provide the other benefits of word-level abstraction.
+However, there is currently no technique for computing word-level 
+abstractions of Galois field circuits of any practical size.
+
+{
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=0.5\textwidth]{./figures/interpolate}
+}
+\caption{Circuit with $k$-bit input $A$ and $k$-bit output $Z$. 
+Abstraction to be derived as $Z=\Func(A)$.}
+\label{fig:abstractA_Z}
+\end{figure}
+}
+
+While the motivation comes from the need to verify Galois field arithmetic
+circuits, the presented approach can be generalized to be applicable to any
+combinational acyclic circuit.
+Any such circuit with a $k$-bit input $A$ and a $k$-bit output $Z$, such
+as the one shown in Fig. \ref{fig:abstractA_Z}, computes 
+$f: \mathbb{B}^k \rightarrow \mathbb{B}^k$ and can thus be analyzed as the
+function $f: \Fkk \rightarrow \Fkk$. Over $\Fkk$ this function can be 
+represented as the polynomial $Z=\Func(A)$. This is trivially generalized
+when there are multiple $k$-bit inputs $A_1,A_2,\dots,A_i$, i.e. $Z=\Func(A_1,\dots,A_i)$.
+Now assume the word-size of the input differs from the output, that is the circuit
+computes $f: \mathbb{B}^m \rightarrow \mathbb{B}^n$ for $m \neq n$. This can 
+be represented as a function over Galois fields as $f: \F_{2^m} \rightarrow \F_{2^n}$.
+This function can be analyzed over the field $\Fkk$ such that $\Fkk \supset \F_{2^m}$ 
+and $\Fkk \supset \F_{2^m}$, where $k=LCM(m,n)$.
+
+\subsection{Dissertation Contributions}
+To solve the problem of word-level abstraction, this dissertation proposes 
+a full solution consisting of three main contributions.
+
+\begin{enumerate}
+\item A theory for finding the word-level abstraction from a bit-level circuit over Galois fields is created.
+The given bit-level circuit implementation is modelled as a system of
+polynomials over the field.
+This theory is derived using techniques from computer-algebra, notably the theory of
+\Grobner basis \cite{pruss:iwls13}.
+\item Using this theory, new algorithms based on symbolic computation are developed to 
+derive the word-level abstraction. The algorithms are designed to be applicable to 
+industry-size arithmetic circuits over Galois fields \cite{pruss:dac14}\cite{sun:date15}.
+A complexity analysis of the algorithmic approach is also presented. Furthermore, the
+approach is also generalized to make it applicable to arbitrary combinational circuits.
+Finally, we show how the approach can be used to exploit the hierarchical structure of
+large Galois field multipliers designed over composite fields.
+\item A custom software tool implementation of the algorithmic approach is described, including
+an analysis of efficient data structures designed for this purpose \cite{pruss:tcad15}.
+\end{enumerate}
+
+Experiments show that the proposed solution can abstract canonical, word-level, 
+polynomial representations of Galois field arithmetic circuits up to $1024$-bits in
+size, while other contemporary approaches are infeasible beyond a $32$-bit designs.
+
+
+%an 
+%approach based on computer-algebra, algebraic geometry - notably the theory of
+%{\it Gr\"obner bases} \cite{gb_book} \cite{buchberger_thesis}.
+%and {\it elimination ideals} \cite{ideals:book}, as our approach for 
+%abstracting canonical word-level representations from bit-level Galois 
+%field arithmetic circuits. 
+%Computer-algebra techniques easily integrate with 
+%Galois field theory and allow for polynomial abstraction of the circuit over 
+%the field itself. Thus, if the circuit computes a function over some field $
+%\mathbb{F}_{2^k}$, the resulting abstraction is a word-level polynomial 
+%function over the same field $\mathbb{F}_{2^k}$. 
+
+%The given bit-level circuit implementation is first modeled as a system of
+%polynomials over the field. Using the theory of elimination ideals, we 
+%derive an elimination term ordering and prove that by using this ordering we 
+%can obtain a canonical word-level representation of a circuit by 
+%computing a Gr\"obner basis of the polynomials. However, complexity 
+%of the computation of a Gr\"obner basis proves to be prohibitive for circuits
+%of practical size. Therefore, we employ a select sub-set of computations 
+%from the Gr\"obner basis theory to overcome this complexity and obtain the
+%abstraction. We prove that this simpler computation can be 
+%performed via a polynomial reduction process, and engineer a custom 
+%verification tool for this purpose. Using this approach, we are able to 
+%successfully 
+%abstract word-level representations of Galois field arithmetic circuits up 
+%to $571$-bits, which is the {\it largest recommended NIST standard} for ECC.
+
+
+\section{Dissertation Organization}
+The rest of this dissertation is organized as follows. Chapter
+\ref{ch:prev} reviews previous applicable work and highlights their
+drawbacks with respect to the canonical, word-level abstraction problem. 
+Chapter \ref{ch:prelim} describes the properties of Galois fields, 
+$\mathbb{F}_{2^k}$, and explains the process of constructing them.
+It also describes how to design arithmetic circuits over such fields, their 
+complexities, and the role of these circuits in Elliptic Curve Cryptography.
+Chapter \ref{ch:ideals} provides a theoretical background of 
+computer-algebra and Gr\"obner bases and explains their application
+to Galois fields. 
+Chapter \ref{ch:abstract} describes an approach to abstract 
+word-level polynomial representations of combinational circuits using a 
+Gr\"obner basis computation.
+Chapter \ref{ch:improv} improves on this word-level abstraction approach to 
+make it applicable to much larger circuits.
+Chapter \ref{ch:generalize} generalizes the abstraction approach to make
+it applicable to circuits with varying operand word-lengths. It also describes how the 
+approach can take advantage of the hierarchy of arithmetic circuits designed over
+composite fields.
+Chapter \ref{ch:implement} describes the implementation details of a 
+custom abstraction tool and gives experimental results of
+abstracting large Galois field multiplier circuits.
+Chapter \ref{ch:concl} concludes the dissertation and outlines potential future 
+research for continuation of this work. 

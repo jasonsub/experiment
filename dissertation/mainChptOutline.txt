@@ -1,0 +1,19 @@
+main chapter outline
+
+Abstraction
+1. Problem Statement
+2. Abstraction Setup and Modelling (Proofs go here?)
+3. Setup as GB calc, prove always ok, show slow results
+ 3.1 Show setup with F2^m -> F2^n
+4. One spoly reduction setup (DO WE HAVE ANY PROOFS HERE?)
+ 4.1 Show equivalence to Reduction of Output Poly
+5. Experimental Results, show with bug and without.
+6. Conclusions
+
+Using Abstraction in Verifiations
+1. Problem Statement
+2. Verification Setup using Jinpeng's approach
+3. Experimental results
+4. Conclusions
+
+Conclusions and Future work

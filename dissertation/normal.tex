@@ -1,0 +1,23 @@
+\chapter{Functional Verification of Sequential Normal Basis Multiplier}
+\label{ch:normal}
+In order to utilize our traversal algorithm, it is necessary to find out
+a sort of suitable circuit benchmarks which is easy to compute its
+Gr\"bner basis (GB). From the work of Lv et al. \cite{lv_dissertation},
+we learn that arithmetic circuits in Galois field (GF) is
+convertible to an ideal of circuit polynomials, and the 
+ideal generators form a GB itself with reverse topological
+term order. Furthermore, according to the work of Pruss et al.
+\cite{tim_dissertation}, with a limited computation complexity,
+we can abstract the word-level signature of an arithmetic 
+component working in GF. Thus, we consider the possibility 
+of applying our traversal algorithm on sequential Galois
+field circuits. In each frame, we can use the techniques 
+from \cite{tim_dissertation} to abstract the word-level
+signature of the combinational logic, which corresponds
+to the transition function in our traversal algorithm.
+As a result, we manage to find a type of sequential GF multiplier
+which we can apply our traversal algorithm to actually 
+verify its functional correctness.
+
+\section{Motivation}
+\label{sec:normal_motiv}

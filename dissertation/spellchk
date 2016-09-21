@@ -1,0 +1,7 @@
+#! /bin/bash
+if [ -z "$1" ];
+  then
+    echo "usage: $0 texfile"
+else
+  aspell -t -c $1
+fi

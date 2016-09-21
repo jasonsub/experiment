@@ -1,0 +1,678 @@
+\begin{thebibliography}{100}
+
+\bibitem{crypto:bug_attacks}
+E.~Biham, Y.~Carmeli, and A.~Shamir,
+\newblock ``{B}ug {A}ttacks'',
+\newblock {\em in} {\em Proceedings on Advances in Cryptology}, pp. 221--240,
+  2008.
+
+\bibitem{nicely:FDIV}
+Thomas~R. Nicely,
+\newblock ``{P}entium {FDIV} {F}law'',
+\newblock \url{http://www.trnicely.net/pentbug/pentbug.html}.
+
+\bibitem{arnold:patriot}
+Douglas~N. Arnold,
+\newblock ``The {P}atriot {M}issile {F}ailure'',
+\newblock \url{http://www.ima.umn.edu/~arnold/disasters/patriot.html}.
+
+\bibitem{theoremproving:91}
+Z.~Manna and A.~Pnueli,
+\newblock {\em The {T}emporal {L}ogic of {R}eactive and {C}oncurrent
+  {S}ystems},
+\newblock Springer-Verlag, {F}irst edition, 1991.
+
+\bibitem{modelcheck:99}
+E.~Clarke, O.~Grumberg, and D.~Peled,
+\newblock {\em The {T}emporal {L}ogic of {R}eactive and {C}oncurrent
+  {S}ystems},
+\newblock The MIT Press, 1999.
+
+\bibitem{csat}
+F.~Lu, L.~Wang, K.~Cheng, and R.~Huang,
+\newblock ``{A} {C}ircuit {SAT} {S}olver {W}ith {S}ignal {C}orrelation {G}uided
+  {L}earning'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, pp.
+  892--897, 2003.
+
+\bibitem{Avrunin:CAV}
+G.~Avrunin,
+\newblock ``Symbolic {M}odel {C}hecking using {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Computer Aided Verification Conference}, pp. 26--37,
+  1996.
+
+\bibitem{condrat-tacas07}
+C.~Condrat and P.~Kalla,
+\newblock ``{A} {G}r\"obner {B}asis {A}pproach to {CNF} formulae
+  {P}reprocessing'',
+\newblock {\em in} {\em International Conference on Tools and Algorithms for
+  the Construction and Analysis of Systems}, pp. 618--631, 2007.
+
+\bibitem{gbverify:2007}
+Y.~Watanabe and {\it et al},
+\newblock ``{A}pplication of {S}ymbolic {C}omputer {A}lgebra to {A}rithmetic
+  {C}ircuit {V}erification'',
+\newblock {\em in} {\em IEEE International Conference on Computer Design}, pp.
+  25--32, October 2007.
+
+\bibitem{gb_book}
+W.~W. Adams and P.~Loustaunau,
+\newblock {\em {A}n {I}ntroduction to {G}r\"obner {B}ases},
+\newblock American Mathematical Society, 1994.
+
+\bibitem{lv:phd}
+J.~Lv,
+\newblock {\em {S}calable {F}ormal {V}erification of {F}inite {F}ield
+  {A}rithmetic {C}ircuits using {C}omputer {A}lgebra {T}echniques},
+\newblock PhD thesis, Univ. of Utah, Aug. 2012.
+
+\bibitem{kroening:model}
+H.~Jain, D.~Kroening, N.~Sharygina, and E.~Clarke,
+\newblock ``{W}ord {L}evel {P}redicate {A}bstraction and {R}efinement
+  {T}echniques for {V}erifying {R}tl {V}erilog'',
+\newblock {\em in} {\em Design Automation Conf.}, 2005.
+
+\bibitem{WLS}
+S.~Horeth and Drechsler,
+\newblock ``{F}ormal {V}erification of {W}ord-{L}evel {S}pecifications'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, pp.
+  52--58, 1999.
+
+\bibitem{arditi:bmd}
+L.~Arditi,
+\newblock ``{*BMD}s can {D}elay the use of {T}heorem {P}roving for {V}erifying
+  {A}rithmetic {A}ssembly {I}nstructions'',
+\newblock in Srivas, editor, {\em In Proc. Formal methods in CAD}.
+  Springer-Verlag, 1996.
+
+\bibitem{lpsat}
+Z.~Zeng, P.~Kalla, and M.~J. Ciesielski,
+\newblock ``{LPSAT:} {A} {U}nified {A}pproach to {RTL} {S}atisfiability'',
+\newblock {\em in} {\em Proc. DATE}, 2001.
+
+\bibitem{boolector}
+R.~Brummayer and A.~Biere,
+\newblock ``{B}oolector: {A}n {E}fficient {SMT} {S}olver for {B}it-{V}ectors
+  and {A}rrays'',
+\newblock {\em in} {\em TACAS 09, Volume 5505 of LNCS}. Springer, 2009.
+
+\bibitem{bryant:tacas07}
+R.~Brant, D.~Kroening, and {\it et al},
+\newblock ``{D}eciding {B}it-{V}ector {A}rithmetic with {A}bstraction'',
+\newblock {\em in} {\em Proc. TACAS}, pp. 358--372, 2007.
+
+\bibitem{ms:research}
+D.~Babic and M.~Musuvathi,
+\newblock ``{M}odular {A}rithmetic {D}ecision {P}rocedure'',
+\newblock Technical Report TR-2005-114, Microsoft Research, 2005.
+
+\bibitem{tew:iccad08}
+N.~Tew, P.~Kalla, N.~Shekhar, and S.~Gopalakrishnan,
+\newblock ``{V}erification of {A}rithmetic {D}atapaths using {P}olynomial
+  {F}unction {M}odels and {C}ongruence {S}olving'',
+\newblock {\em in} {\em Proc. Intl. Conf. on Computer-Aided Design (ICCAD)},
+  pp. 122--128, 2008.
+
+\bibitem{gupta_survey}
+A.~Gupta,
+\newblock ``{F}ormal {H}ardware {V}erification {M}ethods: {A} {S}urvey'',
+\newblock {\em Formal Methods in System Design}, vol. 1, pp. 151--238, 1992.
+
+\bibitem{demicheli:iccad_98}
+J.~Smith and G.~DeMicheli,
+\newblock ``Polynomial methods for component matching and verification'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, 1998.
+
+\bibitem{demicheli:dac_99}
+J.~Smith and G.~DeMicheli,
+\newblock ``{P}olynomial {M}ethods for {A}llocating {C}omplex {C}omponents'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, 1999.
+
+\bibitem{demicheli:tcad_03}
+A.~Peymandoust and G.~DeMicheli,
+\newblock ``{A}pplication of {S}ymbolic {C}omputer {A}lgebra in {H}igh-{L}evel
+  {D}ata-{F}low {S}ynthesis'',
+\newblock {\em IEEE Transactions CAD}, vol. 22, pp. 1154--11656, 2003.
+
+\bibitem{pruss:iwls13}
+T.~Pruss, P.~Kalla, and F.~Enescu,
+\newblock ``{W}ord-{L}evel {A}bstraction from {B}it-{L}evel {C}ircuits using
+  {G}r\"obner {B}asis'',
+\newblock {\em in} {\em International Workshop on Logic and Synthesis}, 2013.
+
+\bibitem{pruss:dac14}
+T.~Pruss, P.~Kalla, and F.~Enescu,
+\newblock ``{E}quivalence {V}erification of {L}arge {G}alois {F}ield
+  {A}rithmetic {C}ircuits using {W}ord-{L}evel {A}bstraction via {G}r\"obner
+  {B}ases'',
+\newblock {\em in} {\em Design Automation Conference}, 2014.
+
+\bibitem{sun:date15}
+X.~Sun, P.~Kalla, T.~Pruss, and F.~Enescu,
+\newblock ``{F}quivalenceormal {V}erification of {S}equential {G}alois {F}ield
+  {A}rithmetic {C}ircuits using {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Design Automation for Test in Europe}, 2015.
+
+\bibitem{pruss:tcad15}
+T.~Pruss, P.~Kalla, and F.~Enescu,
+\newblock ``{E}fficient {S}ymbolic {C}omputation for {W}ord-{L}evel
+  {A}bstraction from {C}ombinational {C}ircuits for {V}erification over
+  {G}alois {F}ields'',
+\newblock {\em IEEE Transactions on CAD (in review)}, 2015.
+
+\bibitem{BRYA86}
+R.~E. Bryant,
+\newblock ``{G}raph {B}ased {A}lgorithms for {B}oolean {F}unction
+  {M}anipulation'',
+\newblock {\em IEEE Transactions on Computers}, vol. C-35, pp. 677--691, August
+  1986.
+
+\bibitem{brace}
+Randal E.~Bryant Karl S.~Brace, Richard L.~Rudell,
+\newblock ``Efficient implementation of a bdd package'',
+\newblock {\em in} {\em DAC, pp40-45}, 1990.
+
+\bibitem{okfdd}
+R.~Drechsler, A.~Sarabi, M.~Theobald, B.~Becker, and M.A. Perkowski,
+\newblock ``{E}fficient {R}epresentation and {M}anipulation of {S}witching
+  {F}unctions based on {O}rdered {K}ronecker {F}unctional {D}ecision
+  {D}iagrams'',
+\newblock {\em in} {\em Design Automation Conference}, pp. 415--419, 1994.
+
+\bibitem{add}
+I.~Bahar, E.~A. Frohm, C.~M. Gaona, G.~D. Hachtel, E.~Macii, A.~Pardo, and
+  F.~Somenzi,
+\newblock ``{A}lgebraic {D}ecision {D}iagrams and their {A}pplications'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, pp. 188--191, Nov. 93.
+
+\bibitem{mtbdd}
+E.~M. Clarke, K.~L. McMillan, X.~Zhao, M.~Fujita, and J.~Yang,
+\newblock ``{S}pectral {T}ransforms for {L}arge {B}oolean {F}unctions with
+  {A}pplications to {T}echnology {M}apping'',
+\newblock {\em in} {\em DAC}, pp. 54--60, 93.
+
+\bibitem{hdd}
+E.~M. Clarke, M.~Fujita, and X.~Zhao,
+\newblock ``{H}ybrid {D}ecision {D}iagrams - {O}vercoming the {L}imitation of
+  {MTBDD}s and {BMD}s'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, pp. 159--163, 1995.
+
+\bibitem{evbdd}
+Y-T. Lai, M.~Pedram, and S.~B. Vrudhula,
+\newblock ``{F}{G}{I}{L}{P}: {A}n {I}{L}{P} {S}olver based on {F}unction
+  {G}raphs'',
+\newblock {\em in} {\em ICCAD}, pp. 685--689, 93.
+
+\bibitem{bmd}
+R.~E. Bryant and Y-A. Chen,
+\newblock ``{V}erification of {A}rithmetic {F}unctions with {B}inary {M}oment
+  {D}iagrams'',
+\newblock {\em in} {\em Proceedings of Design Automation Conference}, pp.
+  535--541, 1995.
+
+\bibitem{kbmd}
+R.~Dreschler, B.~Becker, and S.~Ruppertz,
+\newblock ``{T}he {K*BMD}: {A} {V}erification {D}ata {S}tructure'',
+\newblock {\em IEEE Design \& Test of Computers}, vol. 14, pp. 51--59, 1997.
+
+\bibitem{phdd}
+Y.~A. Chen and R.~E. Bryant,
+\newblock ``{*PHDD}: {A}n {E}fficient {G}raph {R}epresentation for {F}loating
+  {P}oint {V}erification'',
+\newblock {\em in} {\em Proc. ICCAD}, 1997.
+
+\bibitem{ted_tcomp}
+M.~Ciesielski, P.~Kalla, and S.~Askar,
+\newblock ``{T}aylor {E}xpansion {D}iagrams: {A} {C}anonical {R}epresentation
+  for {V}erification of {D}ata-{F}low {D}esigns'',
+\newblock {\em IEEE Transactions on Computers}, vol. 55, pp. 1188--1201, 2006.
+
+\bibitem{namrata:phd}
+N.~Shekhar,
+\newblock {\em {E}quivalence {V}erification of {A}rithmetic {D}atapaths using
+  {F}inite {R}ing {Algebra}},
+\newblock PhD thesis, Univ. of Utah, Dept. of Electrical and Computer
+  Engineering, Aug. 2007.
+
+\bibitem{alizadeh:tcad2010}
+B.~Alizadeh and M.~Fujita,
+\newblock ``{M}odular {D}atapath {O}ptimization and {V}erification based on
+  {M}odular-{HED}'',
+\newblock {\em IEEE Transactions CAD}, pp. 1422--1435, Sept. 2010.
+
+\bibitem{modd}
+A.~Jabir and Pradhan D.,
+\newblock ``{MODD}: {A} {N}ew {D}ecision {D}iagram and {R}epresentation for
+  {M}ultiple {O}utput {B}inary {F}unctions'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, 2004.
+
+\bibitem{modd_tcomp}
+A.~Jabir, D.~Pradhan, T.~Rajaprabhu, and A.~Singh,
+\newblock ``A {T}echnique for {R}epresenting {M}ultiple {O}utput {B}inary
+  {F}unctions with {A}pplications to {V}erification and {S}imulation'',
+\newblock {\em IEEE Transactions on Computers}, vol. 56, pp. 1133--1145, 2007.
+
+\bibitem{BHEL96}
+R.~K. Brayton, G.~D. Hachtel, A.~Sangiovanni-Vencentelli, F.~Somenzi, A.~Aziz,
+  S-T. Cheng, S.~Edwards, S.~Khatri, Y.~Kukimoto, A.~Pardo, S.~Qadeer,
+  R.~Ranjan, S.~Sarwary, G.~Shiple, S.~Swamy, and T.~Villa,
+\newblock ``{VIS}: {A} {S}ystem for {V}erification and {S}ynthesis'',
+\newblock {\em in} {\em Computer Aided Verification}, 1996.
+
+\bibitem{SMV}
+K.~L. McMillan,
+\newblock {\em {S}ymbolic {M}odel {C}hecking},
+\newblock Kluwer Academic Publishers, 1993.
+
+\bibitem{cvc3}
+C.~Barrett and C.~Tinelli,
+\newblock ``{CVC3}'',
+\newblock {\em in} {\em Computer Aided Verification Conference}, pp. 298--302.
+  Springer, July 2007.
+
+\bibitem{z3}
+L.~Moura and N.~Bjørner,
+\newblock ``{Z3}: {A}n {E}fficient {SMT} {S}olver.'',
+\newblock {\em in} {\em International Conference on Tools and Algorithms for
+  the Construction and Analysis of Systems}, vol. 4963. Springer, 2008.
+
+\bibitem{bitvector98}
+C.~W. Barlett, D.~L. Dill, and J.~R. Levitt,
+\newblock ``{A} {D}ecision {P}rocedure for {b}it-{V}ector {A}rithmetic'',
+\newblock {\em in} {\em DAC}, June 1998.
+
+\bibitem{presburger}
+H.~Enderton,
+\newblock {\em A mathematical introduction to logic},
+\newblock Academic Press New York, 1972.
+
+\bibitem{bultan:mixed_verification}
+T.~Bultan and et~al,
+\newblock ``Verifying systems with integer constraints and boolean predicates:
+  a composite approach'',
+\newblock {\em in} {\em In Proc. Int'l. Symp. on Software Testing and
+  Analysis}, 1998.
+
+\bibitem{devadas:algebraic_manipulation_iccd91}
+S.~Devadas, K.~Keutzer, and A.~Krishnakumar,
+\newblock ``Design verification and reachability analysis using algebraic
+  manipulation'',
+\newblock {\em in} {\em Proc. ICCD}, 91.
+
+\bibitem{AST}
+Z.~Zhou and W.~Burleson,
+\newblock ``{E}quivalence {C}hecking of {D}atapaths {B}ased on {C}anonical
+  {A}rithmetic {E}xpressions'',
+\newblock {\em in} {\em DAC}, 95.
+
+\bibitem{ddd-csl99}
+J.~M{\o}ller, J.~Lichtenberg, H.~R. Andersen, and H.~Hulgaard,
+\newblock ``Difference decision diagrams'',
+\newblock {\em in} {\em Computer Science Logic}, The IT University of
+  Copenhagen, Denmark, Sep. 1999.
+
+\bibitem{ddd-mt-98}
+Jesper M{\o}ller and Jakob Lichtenberg,
+\newblock ``Dif\-feren\-ce decision dia\-grams'',
+\newblock Master's thesis, Department of Information Technology, Technical
+  University of Denmark, Building 344, DK-2800 Lyngby, Denmark, Aug. 1998.
+
+\bibitem{interval_dd}
+K.~Strehl,
+\newblock ``{I}nterval {D}iagrams: {I}ncreasing {E}fficiency of {S}ymbolic
+  {R}eal-{T}ime {V}erification'',
+\newblock {\em in} {\em Intl. Conf. on Real Time Computing systems and
+  Applications}, 1999.
+
+\bibitem{polynomial_sanchez99}
+P.~Sanchez and S.~Dey,
+\newblock ``{S}imulation-{B}ased {S}ystem-{L}evel {V}erification using
+  {P}olynomials'',
+\newblock {\em in} {\em High-Level Design Validation \& Test Workshop, HLDVT},
+  1999.
+
+\bibitem{Ritter99}
+G.~Ritter,
+\newblock ``{F}ormal {V}erification of {D}esigns with {C}omplex {C}ontrol by
+  {S}ymbolic {S}imulation'',
+\newblock in Springer~Verlag LCNS, editor, {\em Advanced Research Working Conf.
+  on Correct Hardware Design and Verification Methods (CHARME)}, 1999.
+
+\bibitem{hsat}
+F.~Fallah, S.~Devadas, and K.~Keutzer,
+\newblock ``{F}unctional {V}ector {G}eneration for {HDL} models using {L}inear
+  {P}rogramming and 3-{S}atisfiability'',
+\newblock {\em in} {\em Proc. DAC}, '98.
+
+\bibitem{brinkmann:asp-dac}
+R.~Brinkmann and R.~Drechsler,
+\newblock ``{RTL}-{D}atapath {V}erification using {I}nteger {L}inear
+  {P}rogramming'',
+\newblock {\em in} {\em Proc. ASP-DAC}, 2002.
+
+\bibitem{Huang:tcad01}
+C.-Y. Huang and K.-T. Cheng,
+\newblock ``{U}sing {W}ord-{L}evel {ATPG} and {M}odular {A}rithmetic
+  {C}onstraint {S}olving {T}echniques for {A}ssertion {P}roperty {C}hecking'',
+\newblock {\em IEEE Trans. CAD}, vol. 20, pp. 381--391, 2001.
+
+\bibitem{AIG:2002}
+A.~Kuehlmann, V.~Paruthi, F.~Krohm, and M.~K. Ganai,
+\newblock ``{R}obust {B}oolean {R}easoning for {E}quivalence {C}hecking and
+  {F}unctional {P}roperty {V}erification'',
+\newblock {\em IEEE Transactions on Computer-Aided Design of Integrated
+  Circuits and Systems}, vol. 21, pp. 1377--1394, Nov. 2006.
+
+\bibitem{alanmi:cec:iccad2006}
+A.~Mishchenko, S.~Chatterjee, R.~Brayton, and N.~Een,
+\newblock ``Improvements to {C}ombinational {E}quivalence {C}hecking'',
+\newblock {\em in} {\em Proc. Intl. Conf. on CAD (ICCAD)}, pp. 836--843, 2006.
+
+\bibitem{abc}
+R.~Brayton and A.~Mishchenko,
+\newblock ``{ABC}: {A}n {A}cademic {I}ndustrial-{S}trength {V}erification
+  {T}ool'',
+\newblock {\em in} {\em Computer Aided Verification}, vol. 6174, pp. 24--40.
+  Springer, 2010.
+
+\bibitem{mastro:1989}
+E.~Mastrovito,
+\newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
+  {GF($2^m$)}'',
+\newblock {\em Lecture Notes in Computer Science}, vol. 357, pp. 297--309,
+  1989.
+
+\bibitem{acar:1998}
+C.~Koc and T.~Acar,
+\newblock ``{M}ontgomery {M}ultiplication in {GF}($2^k$)'',
+\newblock {\em Designs, Codes and Cryptography}, vol. 14, pp. 57--69, Apr.
+  1998.
+
+\bibitem{Cryptol:fmcad09}
+L.~Erk\"ok, M.~Carlsson, and A.~Wick,
+\newblock ``{H}ardware/{S}oftware {C}o-verification of {C}ryptographic
+  {A}lgorithms using {C}ryptol'',
+\newblock {\em in} {\em Proc. Formal Methods in CAD (FMCAD)}, pp. 188--191,
+  2009.
+
+\bibitem{ciesielski:flow}
+M.~Ciesielski, W.~Brown, D.~Liu, and A.~Rossi,
+\newblock ``{F}unction {E}xtraction from {A}rithmetic {B}it-level {C}ircuits'',
+\newblock {\em ISVLSI}, 2014.
+
+\bibitem{gao:gf-gb-ms}
+S.~Gao,
+\newblock ``Counting {Z}eros over {F}inite {F}ields with {G}r\"{o}bner
+  {B}ases'',
+\newblock Master's thesis, Carnegie Mellon University, 2009.
+
+\bibitem{gao:qe-gf-gb}
+S.~Gao, A.~Platzer, and E.~Clarke,
+\newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
+  {B}ases'',
+\newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
+
+\bibitem{manna:program}
+S.~Sankaranarayanan, H.~B. Sipma, and Z.~Manna,
+\newblock ``{N}on-linear {L}oop {I}nvariant {G}eneration using {G}robner
+  {B}ases'',
+\newblock {\em SIGPLAN Not.}, vol. 39, pp. 318--329, 2004.
+
+\bibitem{ibm:ecc-ita11}
+L.~Lastras-Monta\~{n}o, P.~Meany, E.~Stephens, B.~Trager, J.~O'Conner, and
+  L.~Alves,
+\newblock ``{A} new class of array codes for memory storage'',
+\newblock {\em in} {\em Proc. Information Theory and Applications Workshop},
+  pp. 1--10, 2011.
+
+\bibitem{blueveri:ita}
+L.~Lastras, A.~Lvov, B.~Trager, S.~Winograd, V.~Paruthi, A.~El-Zhein,
+  R.~Shadowen, and G.~Janssen,
+\newblock ``New {F}ormal {V}erification {T}echniques for {A}lgorithms over
+  {F}inite {F}ields'',
+\newblock Presented at Intl. Workshop on Internation Theory and Applications.
+  Abstract of the paper available at: http://ita.ucsd.edu/workshop/12/talks,
+  2012.
+
+\bibitem{ibm:blueveri}
+A.~Lvov, L.~Lastras-Monta\~{n}o, V.~Paruthi, R.~Shadowen, and A.~El-Zein,
+\newblock ``{F}ormal {V}erification of {E}rror {C}orrecting {C}ircuits using
+  {C}omputational {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Proc. Formal Methods in Computer-Aided Design (FMCAD)},
+  pp. 141--148, 2012.
+
+\bibitem{DGPS}
+W.~Decker, G.-M. Greuel, G.~Pfister, and H.~Sch{\"o}nemann,
+\newblock ``{\sc Singular} {3-1-3} --- {A} computer algebra system for
+  polynomial computations'',
+\newblock 2011,
+\newblock http://www.singular.uni-kl.de.
+
+\bibitem{lv:tcad2013}
+J.~Lv, P.~Kalla, and F.~Enescu,
+\newblock ``{E}fficient {G}robner {B}asis {R}eductions for {F}ormal
+  {V}erification of {G}alois {F}ield {A}rithmetic {C}ircuits'',
+\newblock {\em IEEE Transactions CAD}, vol. 32, pp. 1409--1420, Sept. 2013.
+
+\bibitem{lv:date2012}
+J.~Lv, P.~Kalla, and F.~Enescu,
+\newblock ``{E}fficient {G}roebner {B}asis {R}eductions for {F}ormal
+  {V}erification of {G}alois {F}ield {M}ultipliers'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, 2012.
+
+\bibitem{lv:hldvt2011}
+J.~Lv, P.~Kalla, and F.~Enescu,
+\newblock ``Verification of {C}omposite {G}alois {F}ield {M}ultipliers over
+  {GF}($(2^m)^n$) using {C}omputer {A}lgebra {T}echniques'',
+\newblock {\em in} {\em IEEE High-Level Design Validation and Test Workshop},
+  pp. 136--143, 2011.
+
+\bibitem{lv:vlsi2012}
+J.~Lv, P.~Kalla, and F.~Enescu,
+\newblock ``{F}ormal {V}erification of {G}alois {F}ield {M}ultipliers using
+  {C}omputer {A}lgebra'',
+\newblock {\em in} {\em 25th IEEE International Conference on VLSI Design},
+  2012.
+
+\bibitem{wienand:cav08}
+O.~Wienand, M.~Wedler, D.~Stoffel, W.~Kunz, and G.~Gruel,
+\newblock ``An {A}lgebraic {A}pproach to {P}roving {D}ata {C}orrectness in
+  {A}rithmetic {D}atapaths'',
+\newblock {\em in} {\em Computer Aided Verification Conference}, pp. 473--486,
+  2008.
+
+\bibitem{shekhar:tcad07}
+N.~Shekhar, P.~Kalla, and F~Enescu,
+\newblock ``{E}quivalence {V}erification of {P}olynomial {D}atapaths using
+  {I}deal {M}embership {T}esting'',
+\newblock {\em IEEE Transactions on CAD}, vol. 26, pp. 1320--1330, July 2007.
+
+\bibitem{wedler:date11}
+E.~Pavlenko, M.~Wedler, D.~Stoffel, W.~Kunz, A.~Dreyer, F.~Seelisch, and G.-M.
+  Greuel,
+\newblock ``{STABLE:} {A} {N}ew {QBF-BV SMT} {S}olver for {H}ard {V}erification
+  {P}roblems {C}ombining {B}oolean {R}easoning with {C}omputer {A}lgebra'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe Conference},
+  pp. 155--160, 2011.
+
+\bibitem{zippel:interpolate}
+R.~Zippel,
+\newblock ``Probabilistic algorithms for sparse interpolation'',
+\newblock {\em in} {\em Proc. Symp. Symbolic and Algebraic Computation}, pp.
+  216--226, 1979.
+
+\bibitem{ben-or-tiwari:interpolate}
+M.~Ben-Or and P.~Tiwari,
+\newblock ``A deterministic algorithm for sparse multivariate polynomial
+  interpolation'',
+\newblock {\em in} {\em Proc. Symp. Theory of Computing}, pp. 301--309, 1988.
+
+\bibitem{monagan:interpolate}
+S.~Javadi and M.~Monagan,
+\newblock ``On sparse polynomial interpolation over finite fields'',
+\newblock {\em in} {\em Intl. Symp. Symbolic and Algebraic Computing}, 2010.
+
+\bibitem{zilic:interpolate}
+Z.~Zilic and Z.~Vranesic,
+\newblock ``A deterministic multivariate interpolation algorithm for small
+  finite fields'',
+\newblock {\em IEEE Trans. Computers}, vol. 51, Sept. 2002.
+
+\bibitem{galois_field:mceliece}
+Robert~J. McEliece,
+\newblock {\em Finite Fields for Computer Scientists and Engineers},
+\newblock Kluwer Academic Publishers, 1987.
+
+\bibitem{ftheory:2006}
+S.~Roman,
+\newblock {\em {F}ield {T}heory},
+\newblock Springer, 2006.
+
+\bibitem{ff:1997}
+R.~Lidl and H.~Niederreiter,
+\newblock {\em {F}inite {F}ields},
+\newblock Cambridge University Press, 1997.
+
+\bibitem{PT:1985}
+P.~Montgomery,
+\newblock ``{M}odular {M}ultiplication {W}ithout {T}rial {D}ivision'',
+\newblock {\em Mathematics of Computation}, vol. 44, pp. 519--521, Apr. 1985.
+
+\bibitem{wu:2002}
+H.~Wu,
+\newblock ``{M}ontgomery {M}ultiplier and {S}quarer for a {C}lass of {F}inite
+  {F}ields'',
+\newblock {\em IEEE Transactions On Computers}, vol. 51, May 2002.
+
+\bibitem{Knezevic:2008}
+M.~Kne\v{z}evi\'{c}, K.~Sakiyama, J.~Fan, and I.~Verbauwhede,
+\newblock ``{M}odular {R}eduction in {GF}($2^n$) {W}ithout
+  {P}re-{C}omputational {P}hase'',
+\newblock {\em in} {\em Proceedings of the International Workshop on Arithmetic
+  of Finite Fields}, pp. 77--87, 2008.
+
+\bibitem{singmaster}
+D.~Singmaster,
+\newblock ``{O}n {P}olynomial {F}unctions (mod m)'',
+\newblock {\em J. Number Theory}, vol. 6, pp. 345--352, 1974.
+
+\bibitem{chen_95}
+Z.~Chen,
+\newblock ``On polynomial functions from {Z}$_n$ to {Z}$_m$'',
+\newblock {\em Discrete Math.}, vol. 137, pp. 137--145, 1995.
+
+\bibitem{chen_96}
+Z.~Chen,
+\newblock ``On polynomial functions from {Z}$_{n_1}\times ${Z}$_{n_2}\times
+  \cdots \times ${Z}$_{n_r}$ to {Z}$_m$'',
+\newblock {\em Discrete Math.}, vol. 162, pp. 67--76, 1996.
+
+\bibitem{ST23}
+ST Microelectronics,
+\newblock {\em ST23YLxx series {M}icrocontroller for {S}mart {C}ards}.
+
+\bibitem{kobayashi}
+K.~Kobayashi,
+\newblock {\em Studies on {H}ardware {A}ssisted {I}mplementation of
+  {A}rithmetic {O}perations in {G}alois {F}ield},
+\newblock PhD thesis, Nagoya University, Japan, 2009.
+
+\bibitem{reed-solo-chip}
+S.~Morioka and Y.~Katayama,
+\newblock ``Design methodology for a one-shot reed-solomon encoder and
+  decoder'',
+\newblock {\em in} {\em IEEE International Conference on Computer Design}, pp.
+  60--67, 1999.
+
+\bibitem{ecc163}
+Y.~Lee, K.~Sakiyama, L.~Batina, and I.~Verbauwhede,
+\newblock ``{E}lliptic-{C}urve-{B}ased {S}ecurity {P}rocessor for {RFID}'',
+\newblock {\em IEEE Transactions on Computers}, vol. 57, pp. 1514--1527, Nov.
+  2008.
+
+\bibitem{ecc:software}
+Darrel Hankerson, Julio Hernandez, and Alfred Menezes,
+\newblock ``{S}oftware {I}mplementation of {E}lliptic {C}urve {C}ryptography
+  over {B}inary {F}ields'',
+\newblock in CetinK. Koc and Christof Paar, editors, {\em Cryptographic
+  Hardware and Embedded Systems — CHES 2000}, vol. 1965 of {\em Lecture Notes
+  in Computer Science}, pp. 1--24. Springer Berlin Heidelberg, 2000.
+
+\bibitem{ecc:1986}
+V.~Miller,
+\newblock ``{U}se of {E}lliptic {C}urves in {C}ryptography'',
+\newblock {\em in} {\em Lecture Notes in Computer Sciences}, pp. 417--426, New
+  York, NY, USA, 1986. Springer-Verlag New York, Inc.
+
+\bibitem{ecc:book}
+B.~A. Forouzan,
+\newblock {\em {C}ryptography and {N}etwork {S}ecurity.},
+\newblock A. R. Apt, 2008.
+
+\bibitem{eccld}
+J.~L\'{o}pez and R.~Dahab,
+\newblock ``{I}mproved {A}lgorithms for {E}lliptic {C}urve {A}rithmetic in
+  {GF}($2^n$)'',
+\newblock {\em in} {\em Proceedings of the Selected Areas in Cryptography}, pp.
+  201--212, London, UK, UK, 1999. Springer-Verlag.
+
+\bibitem{ideals:book}
+D.~Cox, J.~Little, and D.~O'Shea,
+\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
+  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
+\newblock Springer, 2007.
+
+\bibitem{buchberger_thesis}
+B.~Buchberger,
+\newblock {\em {E}in {A}lgorithmus zum {A}uffinden der {B}asiselemente des
+  {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
+\newblock PhD thesis, University of Innsbruck, 1965.
+
+\bibitem{productc:1979}
+B.~Buchberger,
+\newblock ``A criterion for detecting unnecessary reductions in the
+  construction of a groebner bases'',
+\newblock {\em in} {\em EUROSAM}, 1979.
+
+\bibitem{f4}
+J-C. Faug\~{e}re,
+\newblock ``{A} {N}ew {E}fficient {A}lgorithm for {C}omputing {G}r\"obner
+  {B}ases ({F}$_4$)'',
+\newblock {\em Journal of Pure and Applied Algebra}, vol. 139, pp. 61--88, June
+  1999.
+
+\bibitem{cf:2003}
+B.~Sunar, E.~Savas, and C.~Koç,
+\newblock ``{C}onstructing {C}omposite {F}ield {R}epresentations for
+  {E}fficient {C}onversion'',
+\newblock {\em IEEE Transactions on Computers}, vol. 52, pp. 1391--1398,
+  November 2003.
+
+\bibitem{phdpaar:1994}
+C.~Paar,
+\newblock {\em Efficient VLSI Architecture for Bit-Parallel Computation in
+  Galois Fields},
+\newblock PhD thesis, University of Essen, Germany, 1994.
+
+\bibitem{BigInt}
+McCutchen M.,
+\newblock ``C++ big integer library'',
+\newblock https://mattmccutchen.net/bigint/, 2010.
+
+\bibitem{PengLi:GPU}
+Z.~Feng, Z.~Zeng, and P.~Li,
+\newblock ``Parallel {O}n-{C}hip {P}ower {D}istribution {N}etwork {A}nalysis on
+  {M}ulticore {GPU} {P}latforms'',
+\newblock {\em IEEE Transactions VLSI}, 2011.
+
+\bibitem{polybori:2009}
+Michael Brickenstein and Alexander Dreyer,
+\newblock ``{P}olybori: {A} {F}ramework for {G}r{\"o}bner {B}asis
+  {C}omputations with {B}oolean {P}olynomials'',
+\newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345,
+  September 2009.
+
+\end{thebibliography}
