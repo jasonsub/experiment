@@ -5,7 +5,7 @@ a sort of suitable circuit benchmarks which is easy to compute its
 Gr\"bner basis (GB). From the work of Lv et al. \cite{lv_dissertation},
 we learn that arithmetic circuits in Galois field (GF) is
 convertible to an ideal of circuit polynomials, and the 
-ideal generators form a GB itself with reverse topological
+ideal generators form a GB themselves when applying reverse topological
 term order. Furthermore, according to the work of Pruss et al.
 \cite{tim_dissertation}, with a limited computation complexity,
 we can abstract the word-level signature of an arithmetic 
@@ -21,3 +21,52 @@ verify its functional correctness.
 
 \section{Motivation}
 \label{sec:normal_motiv}
+From the preliminaries (Chapter \ref{ch:prelim}) about FSMs, we learn that the
+Moore machine does not rely on inputs for state transitions. 
+As depicted in Figure \ref{fig:Moore}(a), a typical Moore machine implementation
+consists of combinational logic component and register files, where
+$r_0,\dots,r_k$ are present state (PS) variables 
+standing for state inputs (SI), and $r_0',\dots,r_k'$ are next state (NS) variables standing for
+state outputs (SO). Figure \ref{fig:Moore}(b) shows the state transition graph (STG) of 
+a Moore machine with $k+1$ distinct states. We notice that it forms a simple chain,
+with $k$ consecutive transitions the machine reaches final state $R_k$.
+
+\begin{figure}[H]
+\centering{
+\includegraphics[width=3.5in]{newfig/Moore.eps}
+\caption{A typical Moore machine and its state transition graph}
+\label{fig:Moore}}
+\end{figure}
+
+In practice,
+some arithmetic components are designed in sequential circuits similar to the structure in 
+Figure \ref{fig:Moore}(a). Initially the operands are loaded into the registers, 
+then the closed circuit executes without taking any additional information from outside,
+and store the results in registers after $k$ clock cycles. Its behavior can be described using
+STG in Figure \ref{fig:Moore}(b): state $R$ denotes the bits stored in registers. Concretely, $R_init$ is the initial
+state (usually reset to all zeros), $R_1$ to $R_{k-1}$ are intermediate results stored as SO of current state and SI
+for next state, and $R_k$ (or $R_{final}$) is the final result given by arithmetic circuits (and equals to the answer
+to arithmetic function when circuit is working functional correctly).
+This kind of design results in 
+reusing a smaller combinational logic component such that the area cost is greatly optimized.
+However, it also brings difficulties in verifying the the circuit functions.
+
+\begin{figure}[H]
+\centering{
+\includegraphics[width=3.5in]{newfig/convention.eps}
+\caption{Conventional verification techniques based on bit-level unrolling and equivalence checking}
+\label{fig:convention}}
+\end{figure}
+
+Conventional methods to such a sequential circuit may consist of unrolling the circuit for 
+$k$ time-frames, and performing an equivalence checking between the unrolled machine and
+the specification function. However, the number of gates will grow fast when doing unrolling
+on bit-level. Meanwhile the structural similarity based equivalence checking techniques 
+will fail when the sequential circuit is highly customized and optimized from the naive specification 
+function. As a result, conventional techniques is grossly inefficient for large circuits.
+Therefore, a new method based on our proposed word-level FSM traversal technique is worthy to be explored.
+
+\section{Galois Field multiplier and Normal Basis}
+\subsection{Multiplier in Galois Field}
+
+\subsection{Introduction to Normal Basis}
