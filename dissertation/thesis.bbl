@@ -631,37 +631,6 @@ B.~Buchberger,
   {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
 \newblock PhD thesis, University of Innsbruck, 1965.
 
-\bibitem{productc:1979}
-B.~Buchberger,
-\newblock ``A criterion for detecting unnecessary reductions in the
-  construction of a groebner bases'',
-\newblock {\em in} {\em EUROSAM}, 1979.
-
-\bibitem{f4}
-J-C. Faug\~{e}re,
-\newblock ``{A} {N}ew {E}fficient {A}lgorithm for {C}omputing {G}r\"obner
-  {B}ases ({F}$_4$)'',
-\newblock {\em Journal of Pure and Applied Algebra}, vol. 139, pp. 61--88, June
-  1999.
-
-\bibitem{cf:2003}
-B.~Sunar, E.~Savas, and C.~Koç,
-\newblock ``{C}onstructing {C}omposite {F}ield {R}epresentations for
-  {E}fficient {C}onversion'',
-\newblock {\em IEEE Transactions on Computers}, vol. 52, pp. 1391--1398,
-  November 2003.
-
-\bibitem{phdpaar:1994}
-C.~Paar,
-\newblock {\em Efficient VLSI Architecture for Bit-Parallel Computation in
-  Galois Fields},
-\newblock PhD thesis, University of Essen, Germany, 1994.
-
-\bibitem{BigInt}
-McCutchen M.,
-\newblock ``C++ big integer library'',
-\newblock https://mattmccutchen.net/bigint/, 2010.
-
 \bibitem{PengLi:GPU}
 Z.~Feng, Z.~Zeng, and P.~Li,
 \newblock ``Parallel {O}n-{C}hip {P}ower {D}istribution {N}etwork {A}nalysis on

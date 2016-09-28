@@ -1,12 +1,10 @@
-This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: prev.aux
 A level-1 auxiliary file: gfprelim.aux
 A level-1 auxiliary file: algprelim.aux
-A level-1 auxiliary file: abstraction.aux
-A level-1 auxiliary file: improve.aux
-A level-1 auxiliary file: comp.aux
-A level-1 auxiliary file: implement.aux
+A level-1 auxiliary file: normal.aux
 A level-1 auxiliary file: conclude.aux
 A level-1 auxiliary file: appendix.aux
 The style file: ieee.bst
@@ -28,6 +26,13 @@ Repeated entry---line 2554 of file logic.bib
  : @inproceedings{Cryptol:fmcad09
  :                               ,
 I'm skipping whatever remains of this entry
+Database file #2: xiaojun.bib
+Repeated entry---line 807 of file xiaojun.bib
+ : @misc {DGPS
+ :            ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "lv_dissertation"
+Warning--I didn't find a database entry for "tim_dissertation"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry alizadeh:tcad2010
@@ -41,45 +46,45 @@ Warning--empty journal in DGPS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry PengLi:GPU
 while executing---line 987 of file ieee.bst
-You've used 110 entries,
+You've used 105 entries,
             1802 wiz_defined-function locations,
-            1021 strings with 20656 characters,
-and the built_in function-call counts, 25959 in all, are:
-= -- 2227
-> -- 1050
+            997 strings with 20064 characters,
+and the built_in function-call counts, 25102 in all, are:
+= -- 2152
+> -- 1023
 < -- 35
-+ -- 396
-- -- 286
-* -- 1832
-:= -- 3862
-add.period$ -- 118
-call.type$ -- 110
-change.case$ -- 95
++ -- 384
+- -- 279
+* -- 1768
+:= -- 3721
+add.period$ -- 113
+call.type$ -- 105
+change.case$ -- 91
 chr.to.int$ -- 0
-cite$ -- 111
-duplicate$ -- 1366
-empty$ -- 2741
-format.name$ -- 286
-if$ -- 6066
+cite$ -- 106
+duplicate$ -- 1326
+empty$ -- 2645
+format.name$ -- 279
+if$ -- 5875
 int.to.chr$ -- 0
-int.to.str$ -- 110
-missing$ -- 107
-newline$ -- 553
-num.names$ -- 115
-pop$ -- 510
+int.to.str$ -- 105
+missing$ -- 104
+newline$ -- 528
+num.names$ -- 110
+pop$ -- 493
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 654
+skip$ -- 644
 stack$ -- 0
-substring$ -- 1360
-swap$ -- 424
+substring$ -- 1318
+swap$ -- 418
 text.length$ -- 35
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 218
-width$ -- 113
-write$ -- 1177
-(There were 10 error messages)
+while$ -- 211
+width$ -- 108
+write$ -- 1124
+(There were 11 error messages)

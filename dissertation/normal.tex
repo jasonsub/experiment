@@ -66,7 +66,49 @@ will fail when the sequential circuit is highly customized and optimized from th
 function. As a result, conventional techniques is grossly inefficient for large circuits.
 Therefore, a new method based on our proposed word-level FSM traversal technique is worthy to be explored.
 
-\section{Galois Field multiplier and Normal Basis}
-\subsection{Multiplier in Galois Field}
+\section{Normal Basis Multiplier over Galois Field}
+Given a Galois field (GF) $\Fkk$ is a finite field with  $2^k$ elements and characteristic equals to 2.
+Its elements can be written in polynomials of $\alpha$, when there is an irreducible polynomial $p(\alpha)$
+defined.
 
-\subsection{Introduction to Normal Basis}
+If we use a basis $(1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1})$, we can easily transform polynomial representations
+to binary bit-vector representations by recording the coefficients. For example,
+
+\begin{table}[H]
+\centering
+\caption{Bit-vector, Exponential and Polynomial representation of
+elements in  ${\mathbb{F}}_{2^4} = {\mathbb{F}}_2[x]
+\pmod{x^4+x^3+1}$}
+\begin{tabular}{|c|c||c|c|} 
+\hline
+$a_3a_2a_1a_0$ & Polynomial     &$a_3a_2a_1a_0$ & Polynomial  \\
+\hline
+$0000$        & $0$           & $1000$  &$\alpha^3$\\
+\hline
+$0001$        & $1$           & $1001$  & $\alpha^3 + 1$\\
+\hline
+$0010$        &  $\alpha$       & $1010$ & $\alpha^3 + \alpha$  \\
+\hline
+$0011$        &  $\alpha + 1$   & $1011$ &  $\alpha^3+\alpha+1$\\
+\hline
+$0100$        &  $\alpha^2$     &  $1100$ &  $\alpha^3 + \alpha^2$\\
+\hline
+$0101$        & $\alpha^2 + 1$ & $1101$  & $\alpha^3+\alpha^2+1$\\
+\hline
+$0110$        &  $\alpha^2 + \alpha$ & $1110$ &  $\alpha^3+\alpha^2+\alpha$\\
+\hline
+$0111$        & $\alpha^2+\alpha+1$ & $1111$ & $\alpha^3+\alpha^2+\alpha+1$\\
+\hline
+\end{tabular}
+\label{table:booltogalois}  
+\end{table}
+
+Basis $(1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1})$ is called {\bf standard basis} (StB), which results in
+a straightforward representation for elements, and operations of elements such as addition and subtraction.
+The addition/subtraction of GF elements in StB follows the rules of polynomial addition/subtraction
+where coefficients belong to $\mathbb F_2$. In other words, using the definition of {\it exclusive or} in
+Boolean algebra, element $A$ add/subtract by element $B$ in StB is defined as
+\begin{align}
+A+B = A-B &= (a_0,a_1,\dots,a_{k-1}) \xor (b_0,b_1,\dots,b_{k-1}) \nonumber\\
+&=(a_0\oplus b_0, a_1\oplus b_1,\dots,a_{k-1}\oplus b_{k-1}) 
+\end{align}

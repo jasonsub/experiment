@@ -1,10 +1,2 @@
 \contentsline {table}{\numberline {3.1}{\ignorespaces Bit-vector, Exponential and Polynomial representation of elements in $\mathbb {F}_{2^4} = \mathbb {F}_2[x] \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mux^4+x^3+1)$\relax }}{26}
-\contentsline {table}{\numberline {5.1}{\ignorespaces Run-time of Gr\"obner Basis Computation of Mastrovito Multipliers in Singular using Abstraction Term Order $>$.\relax }}{68}
-\contentsline {table}{\numberline {8.1}{\ignorespaces Steps to derive the inverse of $\alpha ^6+\alpha ^4+\alpha +1$ \relax }}{114}
-\contentsline {table}{\numberline {8.2}{\ignorespaces Abstraction of Mastrovito multipliers. Time given in seconds, memory given in MB. $TO$ = $3$ days ($259,200$ seconds.)\relax }}{123}
-\contentsline {table}{\numberline {8.3}{\ignorespaces Abstraction of flat Montgomery multipliers. Time given in seconds, memory given in MB. $TO$ = $3$ days ($259,200$ seconds.\relax }}{123}
-\contentsline {table}{\numberline {8.4}{\ignorespaces Abstraction of Montgomery blocks. Time given in seconds, memory is given in MB. TO = 3 days (259,200 seconds)\relax }}{124}
-\contentsline {table}{\numberline {8.5}{\ignorespaces Abstraction of bug-free Mastrovito multipliers over $\mathbb {F}_{(2^m)^n}$. Time is given in seconds. Memory is given in MB. $TO$ = more than $24$ hours = $86,400$ seconds. Note that abstractions of the $m$-bit blocks which compose the circuits are already known.\relax }}{125}
-\contentsline {table}{\numberline {8.6}{\ignorespaces Statistics of Designs over $\mathbb {F}_{(2^m)^n}$\relax }}{125}
-\contentsline {table}{\numberline {8.7}{\ignorespaces Bug-catching between a golden-model Mastrovito and buggy Montgomery circuit. Time given in seconds. TO = 3 days (259,200 seconds)\relax }}{125}
-\contentsline {table}{\numberline {8.8}{\ignorespaces Equivalence checking between a golden-model Mastrovito and a bug-free Montgomery circuit. TO = 3 days (259,200 seconds)\relax }}{126}
+\contentsline {table}{\numberline {5.1}{\ignorespaces Bit-vector, Exponential and Polynomial representation of elements in ${\mathbb {F}}_{2^4} = {\mathbb {F}}_2[x] \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mux^4+x^3+1)$\relax }}{60}
