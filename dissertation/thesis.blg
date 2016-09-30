@@ -33,6 +33,7 @@ Repeated entry---line 807 of file xiaojun.bib
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "lv_dissertation"
 Warning--I didn't find a database entry for "tim_dissertation"
+Warning--I didn't find a database entry for "MasseyOmura"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry alizadeh:tcad2010
@@ -48,7 +49,7 @@ while executing---line 987 of file ieee.bst
 while executing---line 987 of file ieee.bst
 You've used 105 entries,
             1802 wiz_defined-function locations,
-            997 strings with 20064 characters,
+            999 strings with 20086 characters,
 and the built_in function-call counts, 25102 in all, are:
 = -- 2152
 > -- 1023

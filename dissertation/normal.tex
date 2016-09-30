@@ -71,7 +71,7 @@ Given a Galois field (GF) $\Fkk$ is a finite field with  $2^k$ elements and char
 Its elements can be written in polynomials of $\alpha$, when there is an irreducible polynomial $p(\alpha)$
 defined.
 
-If we use a basis $(1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1})$, we can easily transform polynomial representations
+If we use a basis $\{1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1}\}$, we can easily transform polynomial representations
 to binary bit-vector representations by recording the coefficients. For example,
 
 \begin{table}[H]
@@ -103,12 +103,138 @@ $0111$        & $\alpha^2+\alpha+1$ & $1111$ & $\alpha^3+\alpha^2+\alpha+1$\\
 \label{table:booltogalois}  
 \end{table}
 
-Basis $(1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1})$ is called {\bf standard basis} (StB), which results in
+Basis $\{1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1}\}$ is called {\bf standard basis} (StdB), which results in
 a straightforward representation for elements, and operations of elements such as addition and subtraction.
-The addition/subtraction of GF elements in StB follows the rules of polynomial addition/subtraction
+The addition/subtraction of GF elements in StdB follows the rules of polynomial addition/subtraction
 where coefficients belong to $\mathbb F_2$. In other words, using the definition of {\it exclusive or} in
-Boolean algebra, element $A$ add/subtract by element $B$ in StB is defined as
-\begin{align}
-A+B = A-B &= (a_0,a_1,\dots,a_{k-1}) \xor (b_0,b_1,\dots,b_{k-1}) \nonumber\\
-&=(a_0\oplus b_0, a_1\oplus b_1,\dots,a_{k-1}\oplus b_{k-1}) 
+Boolean algebra, element $A$ add/subtract by element $B$ in StdB is defined as
+\begin{align}\label{eqn:StdB}
+A+B = A-B &= (a_0,a_1,\dots,a_{k-1})_{StdB} \xor (b_0,b_1,\dots,b_{k-1})_{StdB} \nonumber\\
+&=(a_0\oplus b_0, a_1\oplus b_1,\dots,a_{k-1}\oplus b_{k-1})_{StdB} 
 \end{align}
+
+Besides addition/subtraction, multiplication is also very common in arithmetic circuit design.
+The multiplication of GF elements in $\Fkk$ in StdB follows the rule of polynomial multiplication.
+However, it will result in $O(k^2)$ bitwise operations. In other words, if we implement GF multiplication
+in bit-level logic circuit, it will contain $O(k^2)$ gates. When the datapath size $k$ is large,
+the area and delay of circuit will be costly.
+
+In order to lower down the complexity of arithmetic circuit design, Massey and Omura \cite{MasseyOmura} % ref 7 in RH paper
+use a new basis to represent GF elements, which is called {\bf normal basis} (NB).
+A normal basis over $\Fkk$ is written in the form of
+\begin{equation*}
+N.B. ~~~ \N = \{\beta,\beta^2,\beta^4,\beta^8,\dots,\beta^{2^{k-1}}\}
+\end{equation*}
+Respectively, a field element in NB representation is actually
+\begin{align*}
+A &= (a_0,a_1,\dots,a_{k-1})_{NB} \\
+  &= a_0\beta+a_1\beta^2+\cdots+a_{k-1}\beta^{2^{k-1}} \\
+  &= \sum_{i=0}^{k-1} a_i\beta^{2^i}
+\end{align*}
+
+According to the definition, a normal basis is a vector where the next entry is the square of the former one.
+We note that the vector is cyclic, i.e. $\beta^{2^k} = \beta$ due to {\it Fermat's little theorem}.
+{\bf Normal element} $\beta$ is an element from the field which is used to construct the normal basis,
+and can be represent as a power of primitive element $\alpha$: 
+\begin{equation*}
+\beta = \alpha^t, ~~~ 1\leq t<2^k
+\end{equation*}
+
+The addition and subtraction of elements in NB representation are similar to equation \ref{eqn:StdB}.
+However, what makes NB powerful is its property when doing multiplications and exponentiations.
+The following lemmas and examples illustrate this fabulous property very well.
+\begin{Lemma}[Square of NB]
+In $\Fkk$, equation 
+\begin{equation*}
+(a+b)^2 = a^2 + b^2
+\end{equation*}
+has been proved. According to the \textbf{binomial theorem}, it can be extended to
+\begin{align*}
+&(b_0\beta + b_1\beta^2 + b_2\beta^4 + \dots + b_{n-1}\beta^{2^{k-1}})^2 \\
+&= b_0^2\beta^2 + b_1^2\beta^4 + b_2^2\beta^8 + \dots + b_{k-1}^2\beta \\
+&= b_{k-1}^2\beta + b_0\beta^2 + b_1\beta^4 + \dots + b_{k-2}\beta^{2^{k-1}}
+\end{align*}
+\end{Lemma}
+This lemma concludes that the square of an element in NB equals to a simple right-cyclic shift of the bit-vector.
+Obviously, StdB representation does not have this benefit.
+
+\begin{Example}[Square of NB]
+In GF $\mathbb F_{2^3}$ constructed by irreducible polynomial $x^3 + x + 1$, the standard basis is denoted as 
+$\{ 1, \alpha, \alpha^2\}$ where $\alpha^3+\alpha+1=0$.
+Let $\beta = \alpha^3$, then $\N = \{ \beta, \beta^2, \beta^4\}$ forms a normal basis. 
+Write down element $E$ using both representations:
+\begin{align*}
+E &= (a_0,a_1,a_2)_{StdB} = (b_0,b_1,b_2)_{NB} \\
+  &= a_0 + a_1\alpha + a_2\alpha^2 = b_0\beta + b_1\beta^2 + b_2\beta^4
+\end{align*}
+Compute the square of $E$ in StdB first:
+\begin{align*}
+E^2 &= a_0 + a_1\alpha^2 + a_2\alpha^4 \\
+    &= a_0 + a_2\alpha + (a_1 + a_2)\alpha^2 \\
+    &= (a_0,a_2,a_1+a_2)_{StdB}
+\end{align*}
+When it is computed in NB, we can make it very simple:
+\begin{align*}
+E^2 &= \overset{\xrightarrow{Cyclic~~shift}}{(b_0,b_1,b_2)}_{NB} \\
+	&= (b_2,b_0,b_1)_{NB}
+\end{align*}
+\end{Example}
+
+\begin{Example}
+\emph{NB multiplication:} Assume there are 2 binary vectors representing 2 operands in normal
+basis: $A = (a_0, a_1, \dots, a_{n-1}), B = (b_0, b_1, \dots, b_{n-1})$; similarly the product can also be written
+as: $C = A*B = (c_0, c_1, \dots, c_{n-1}).$
+
+Then the highest digit of product can be represented by a function: $c_{n-1} = f(a_0, a_1, \dots, a_{n-1}; b_0, b_1, 
+\dots, b_{n-1})$. Square both side: $C^2 = A^2*B^2$, i.e. the second highest digit $c_{n-2} = f(a_{n-1}, a_0, a_1, 
+\dots, a_{n-2}; b_{n-1}, b_0, b_1, \dots, b_{n-2}).$ By this method it is easy to get all digits of product $C$.
+\end{Example}
+
+\begin{Example}
+\emph{$\lambda$-Matrix:} We can employ a binary $n\times n$ matrix $M$ to describe the "function"
+ mentioned above: $c_{n-1} = f(A, B) = A \cdot M \cdot B^T$, $B^T$ denotes vector transposition. 
+More specifically, we denote the matrix by \emph{$k$-th $\lambda$-Matrix}: $c_k = A \cdot M^{(k)} \cdot B^T$.
+Then $c_{k-1} = A \cdot M^{(k-1)} \cdot B^T = rotate(A) \cdot M^{(k)} \cdot rotate(B)^T$, which means
+by right and down shifting $M^{(k-1)}$ we can get $M^{(k)}$.\\
+In $F_{2^3}$ constructed by $\alpha^3 + \alpha + 1$, let $\beta = \alpha^3$, $N = \{ \beta, \beta^2, \beta^4\}$ 
+is a normal basis. $0$-th $\lambda$-Matrix
+\begin{equation}
+M^{(0)} = \left(
+\begin{array} {lcr}
+0 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} \right).
+\end{equation}
+i.e.,
+\begin{equation}
+c_0 = (a_0\  a_1\  a_2)\left(
+\begin{array} {lcr}
+0 & 1 & 0\\
+1 & 0 & 1\\
+0 & 1 & 1
+\end{array} \right)\left(
+\begin{array} {lcr}
+b_0\\
+b_1\\
+b_2
+\end{array} \right).
+\end{equation}
+\end{Example}
+
+$\lambda$-Matrix is defined with cross-product terms from multiplication, which is 
+\begin{equation}
+Product C = (\sum_{i=0}^{n-1}a_i\beta^{2^i})(\sum_{j=0}^{n-1}b_j\beta^{2^j}) = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}a_ib_j\beta^{2^i}\beta^{2^j}
+\end{equation}
+The expressions $\beta^{2^i}\beta^{2^j}$ are referred to as cross-product terms, and can be represented by
+normal basis, i.e.
+\begin{equation}
+\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1}\lambda_{ij}^{(k)}\beta^{2^k}, \ \ \lambda_{ij}^{(k)} \in F_2.
+\end{equation}
+Substitution yields, result is an expression for k-th digit of product as showed in \textit{Example B.3}:
+\begin{equation}
+c_k = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}\lambda_{ij}^{(k)}a_ib_j
+\end{equation}
+$\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ in $k$-th $\lambda$-Matrix.
+
+% After fixing this, add a whole-piece StdB vs NB example, list their cost as the conclusion
