@@ -33,7 +33,7 @@ with $k$ consecutive transitions the machine reaches final state $R_k$.
 
 \begin{figure}[H]
 \centering{
-\includegraphics[width=3.5in]{newfig/Moore.eps}
+\includegraphics[width=5in]{newfig/Moore.eps}
 \caption{A typical Moore machine and its state transition graph}
 \label{fig:Moore}}
 \end{figure}
@@ -53,7 +53,7 @@ However, it also brings difficulties in verifying the the circuit functions.
 
 \begin{figure}[H]
 \centering{
-\includegraphics[width=3.5in]{newfig/convention.eps}
+\includegraphics[width=5in]{newfig/convention.eps}
 \caption{Conventional verification techniques based on bit-level unrolling and equivalence checking}
 \label{fig:convention}}
 \end{figure}
@@ -144,13 +144,14 @@ The addition and subtraction of elements in NB representation are similar to equ
 However, what makes NB powerful is its property when doing multiplications and exponentiations.
 The following lemmas and examples illustrate this fabulous property very well.
 \begin{Lemma}[Square of NB]
+\label{lem:squareNB}
 In $\Fkk$, equation 
 \begin{equation*}
 (a+b)^2 = a^2 + b^2
 \end{equation*}
 has been proved. According to the \textbf{binomial theorem}, it can be extended to
 \begin{align*}
-&(b_0\beta + b_1\beta^2 + b_2\beta^4 + \dots + b_{n-1}\beta^{2^{k-1}})^2 \\
+&(b_0\beta + b_1\beta^2 + b_2\beta^4 + \dots + b_{k-1}\beta^{2^{k-1}})^2 \\
 &= b_0^2\beta^2 + b_1^2\beta^4 + b_2^2\beta^8 + \dots + b_{k-1}^2\beta \\
 &= b_{k-1}^2\beta + b_0\beta^2 + b_1\beta^4 + \dots + b_{k-2}\beta^{2^{k-1}}
 \end{align*}
@@ -180,15 +181,49 @@ E^2 &= \overset{\xrightarrow{Cyclic~~shift}}{(b_0,b_1,b_2)}_{NB} \\
 \end{align*}
 \end{Example}
 
-\begin{Example}
-\emph{NB multiplication:} Assume there are 2 binary vectors representing 2 operands in normal
-basis: $A = (a_0, a_1, \dots, a_{n-1}), B = (b_0, b_1, \dots, b_{n-1})$; similarly the product can also be written
-as: $C = A*B = (c_0, c_1, \dots, c_{n-1}).$
+This example shows that convenience to use NB when computing $2^k$ power of an element.
+Multiplication is a bit complicated than squaring; but when it is decomposed as bit-wise
+operations, the property in lemma \ref{lem:squareNB} can be well utilized.
 
-Then the highest digit of product can be represented by a function: $c_{n-1} = f(a_0, a_1, \dots, a_{n-1}; b_0, b_1, 
-\dots, b_{n-1})$. Square both side: $C^2 = A^2*B^2$, i.e. the second highest digit $c_{n-2} = f(a_{n-1}, a_0, a_1, 
-\dots, a_{n-2}; b_{n-1}, b_0, b_1, \dots, b_{n-2}).$ By this method it is easy to get all digits of product $C$.
+\begin{Example}[Bit-wise NB multiplication]
+Assume there are 2 binary vectors representing 2 operands in NB over $\Fkk$: 
+$A = (a_0, a_1, \dots, a_{k-1}), B = (b_0, b_1, \dots, b_{k-1})$. Note that in this example, 
+by default we use normal basis representation so subscript ``NB" is skipped. Their product can also be written
+as: $$C = A\times B = (c_0, c_1, \dots, c_{k-1})$$
+
+Assume the most significant bit (MSB) of the product can be represented by a function $f_{mult}$: 
+\begin{equation}
+\label{eqn:multiMSB}
+c_{n-1} = f_{mult}(a_0, a_1, \dots, a_{n-1}; b_0, b_1, \dots, b_{n-1})
+\end{equation}
+Before discussing the details of the function $f_{mult}$, we can take 
+a square on both side of equation \ref{eqn:multiMSB}, i.e. $C^2 = A^2\times B^2$.
+Obviously, using the property in lemma \ref{lem:squareNB}, the original second most significant bit 
+becomes the new MSB because of right-cyclic shifting. 
+Concretely, 
+$$(c_{k-1},c_0,c_1,\dots,c_{k-2}) = (a_{k-1},a_0,a_1,\dots,a_{k-2})\times(b_{k-1},b_0,b_1,\dots,b_{k-2})$$
+Note $A^2, B^2$ and $C^2$ still belong to $\Fkk$, thus as a universal function implementing MSB multiplication
+over $\Fkk$, $f_{mult}$ still keeps the same. As a result, the new MSB can be written as 
+$$c_{k-2} = f_{mult}(a_{k-1}, a_0, a_1, 
+\dots, a_{k-2}; b_{k-1}, b_0, b_1, \dots, b_{k-2})$$ 
+Similarly, if we take a square again on the new equation, we can get $c_{k-3}$.
+Successively we can derive all bits of product $C$ using the same function $f_{mult}$, and the only
+adjustment we need to make is to right-cyclic shift 2 operands by 1 bit each time.
 \end{Example}
+
+From above example, it is proved that a universal structure that implements $f_{mult}$ can be reused
+for $k$ times in NB multiplication over $\Fkk$. Comparing to StdB, which requires distinct design 
+for every bit of multiplication, NB is less costly if we can prove $f_{mult}$ will not result in 
+a structure with $O(k^2)$ complexity. So our next mission is to explore the details of $f_{mult}$
+to prove it will be a relatively simple design with complexity lower than $O(k^2)$.
+
+If we want to make the complexity of $f_{mult}$ lower than $O(k^2)$, then the best choice is to try out 
+linear functions. As we know, matrix multiplication can simulate all possible combinations of 
+linear functions (which is also the reason it is used as basic model to simulate the behavior of a neuron
+in neural network machine learning algorithms). Imagine $A$ is a $k$-bit row vector and $B$ is a $k$-bit 
+column vector, then the single bit product can be written as the product of matrix multiplication
+$$c_{i} = A\times C\times B$$
+where $C$ is a $k\times k$ square matrix.
 
 \begin{Example}
 \emph{$\lambda$-Matrix:} We can employ a binary $n\times n$ matrix $M$ to describe the "function"
