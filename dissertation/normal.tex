@@ -2,7 +2,7 @@
 \label{ch:normal}
 In order to utilize our traversal algorithm, it is necessary to find out
 a sort of suitable circuit benchmarks which is easy to compute its
-Gr\"bner basis (GB). From the work of Lv et al. \cite{lv_dissertation},
+Gr\"obner basis (GB). From the work of Lv et al. \cite{lv_dissertation},
 we learn that arithmetic circuits in Galois field (GF) is
 convertible to an ideal of circuit polynomials, and the 
 ideal generators form a GB themselves when applying reverse topological
@@ -67,6 +67,7 @@ function. As a result, conventional techniques is grossly inefficient for large 
 Therefore, a new method based on our proposed word-level FSM traversal technique is worthy to be explored.
 
 \section{Normal Basis Multiplier over Galois Field}
+\subsection{Normal Basis}
 Given a Galois field (GF) $\Fkk$ is a finite field with  $2^k$ elements and characteristic equals to 2.
 Its elements can be written in polynomials of $\alpha$, when there is an irreducible polynomial $p(\alpha)$
 defined.
@@ -113,6 +114,7 @@ A+B = A-B &= (a_0,a_1,\dots,a_{k-1})_{StdB} \xor (b_0,b_1,\dots,b_{k-1})_{StdB} 
 &=(a_0\oplus b_0, a_1\oplus b_1,\dots,a_{k-1}\oplus b_{k-1})_{StdB} 
 \end{align}
 
+\subsection{Multiplication using Normal Basis}
 Besides addition/subtraction, multiplication is also very common in arithmetic circuit design.
 The multiplication of GF elements in $\Fkk$ in StdB follows the rule of polynomial multiplication.
 However, it will result in $O(k^2)$ bitwise operations. In other words, if we implement GF multiplication
@@ -204,8 +206,11 @@ Concretely,
 $$(c_{k-1},c_0,c_1,\dots,c_{k-2}) = (a_{k-1},a_0,a_1,\dots,a_{k-2})\times(b_{k-1},b_0,b_1,\dots,b_{k-2})$$
 Note $A^2, B^2$ and $C^2$ still belong to $\Fkk$, thus as a universal function implementing MSB multiplication
 over $\Fkk$, $f_{mult}$ still keeps the same. As a result, the new MSB can be written as 
-$$c_{k-2} = f_{mult}(a_{k-1}, a_0, a_1, 
-\dots, a_{k-2}; b_{k-1}, b_0, b_1, \dots, b_{k-2})$$ 
+\begin{equation}
+\label{eqn:shiftMSB}
+c_{k-2} = f_{mult}(a_{k-1}, a_0, a_1, 
+\dots, a_{k-2}; b_{k-1}, b_0, b_1, \dots, b_{k-2})
+\end{equation}
 Similarly, if we take a square again on the new equation, we can get $c_{k-3}$.
 Successively we can derive all bits of product $C$ using the same function $f_{mult}$, and the only
 adjustment we need to make is to right-cyclic shift 2 operands by 1 bit each time.
@@ -222,27 +227,43 @@ linear functions. As we know, matrix multiplication can simulate all possible co
 linear functions (which is also the reason it is used as basic model to simulate the behavior of a neuron
 in neural network machine learning algorithms). Imagine $A$ is a $k$-bit row vector and $B$ is a $k$-bit 
 column vector, then the single bit product can be written as the product of matrix multiplication
-$$c_{i} = A\times C\times B$$
+$$c_{l} = A\times C\times B$$
 where $C$ is a $k\times k$ square matrix.
 
-\begin{Example}
-\emph{$\lambda$-Matrix:} We can employ a binary $n\times n$ matrix $M$ to describe the "function"
- mentioned above: $c_{n-1} = f(A, B) = A \cdot M \cdot B^T$, $B^T$ denotes vector transposition. 
-More specifically, we denote the matrix by \emph{$k$-th $\lambda$-Matrix}: $c_k = A \cdot M^{(k)} \cdot B^T$.
-Then $c_{k-1} = A \cdot M^{(k-1)} \cdot B^T = rotate(A) \cdot M^{(k)} \cdot rotate(B)^T$, which means
-by right and down shifting $M^{(k-1)}$ we can get $M^{(k)}$.\\
-In $F_{2^3}$ constructed by $\alpha^3 + \alpha + 1$, let $\beta = \alpha^3$, $N = \{ \beta, \beta^2, \beta^4\}$ 
-is a normal basis. $0$-th $\lambda$-Matrix
+\begin{Definition}[$\lambda$-Matrix]
+A binary $k\times k$ matrix $M$ is used to describe the bit-wise normal basis multiplication function $f_{mult}$ where
 \begin{equation}
+\label{eqn:def_lambda}
+c_{l} = f_{mult}(A, B) = A \times M \times B^T
+\end{equation}
+$B^T$ denotes vector transposition. Matrix $M$ is called $\lambda$-Matrix of
+$k$-bit NB multiplication over $\Fkk$.
+\end{Definition} 
+
+When taking different bits $l$ of the product in equation \ref{eqn:def_lambda}, 
+we obtain a series of conjugate matrices of $M$. 
+Which means instead of shifting operands $A$ and $B$, we can also shift the 
+matrix.
+
+More specifically, we denote the matrix by \emph{$l$-th $\lambda$-Matrix} as 
+$$c_l = A \times M^{(l)} \cdot B^T$$
+Meanwhile, the operator shifting rule in equation \ref{eqn:shiftMSB} still holds. Then we have relation 
+$$c_{l-1} = A \cdot M^{(l-1)} \cdot B^T = shift(A) \cdot M^{(l)} \cdot shift(B)^T$$ which means
+by right and down cyclically shifting $M^{(l-1)}$, we can get $M^{(l)}$.
+
+\begin{Example}[NB multiplication using $\lambda$-Matrix]
+Over GF $\mathbb F_{2^3}$ constructed by irreducible polynomial $\alpha^3 + \alpha + 1$, let normal element $\beta = \alpha^3$, $N = \{ \beta, \beta^2, \beta^4\}$ 
+forms a normal basis. Corresponding $0$-th $\lambda$-Matrix is
+\begin{equation*}
 M^{(0)} = \left(
 \begin{array} {lcr}
 0 & 1 & 0\\
 1 & 0 & 1\\
 0 & 1 & 1
 \end{array} \right).
-\end{equation}
+\end{equation*}
 i.e.,
-\begin{equation}
+\begin{equation*}
 c_0 = (a_0\  a_1\  a_2)\left(
 \begin{array} {lcr}
 0 & 1 & 0\\
@@ -253,23 +274,153 @@ c_0 = (a_0\  a_1\  a_2)\left(
 b_0\\
 b_1\\
 b_2
-\end{array} \right).
-\end{equation}
+\end{array} \right)
+\end{equation*}
+From $0$-th $\lambda$-Matrix we can directly write down all remaining $\lambda$-Matrices:
+\begin{equation*}
+M^{(1)} = \left(
+\begin{array} {lcr}
+1 & 0 & 1\\
+0 & 0 & 1\\
+1 & 1 & 0
+\end{array} \right)~~~~~~
+M^{(2)} = \left(
+\begin{array} {lcr}
+0 & 1 & 1\\
+1 & 1 & 0\\
+1 & 0 & 0
+\end{array} \right)
+\end{equation*}
 \end{Example}
 
-$\lambda$-Matrix is defined with cross-product terms from multiplication, which is 
+If we generalize the definition and explore the nature of $\lambda$-Matrix, it is defined as cross-product terms from multiplication, which is 
 \begin{equation}
-Product C = (\sum_{i=0}^{n-1}a_i\beta^{2^i})(\sum_{j=0}^{n-1}b_j\beta^{2^j}) = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}a_ib_j\beta^{2^i}\beta^{2^j}
+Product~vector~C = (\sum_{i=0}^{k-1}a_i\beta^{2^i})(\sum_{j=0}^{k-1}b_j\beta^{2^j}) = \sum_{i=0}^{k-1}\sum_{j=0}^{k-1}a_ib_j\beta^{2^i}\beta^{2^j}
 \end{equation}
 The expressions $\beta^{2^i}\beta^{2^j}$ are referred to as cross-product terms, and can be represented by
-normal basis, i.e.
+NB, i.e.
 \begin{equation}
-\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1}\lambda_{ij}^{(k)}\beta^{2^k}, \ \ \lambda_{ij}^{(k)} \in F_2.
+\beta^{2^i}\beta^{2^j} = \sum_{l=0}^{k-1}\lambda_{ij}^{(l)}\beta^{2^l}, \ \ \lambda_{ij}^{(l)} \in \mathbb F_2.
 \end{equation}
-Substitution yields, result is an expression for k-th digit of product as showed in \textit{Example B.3}:
+Substitution yields, result is an expression for l-th digit of product as showed in equation \ref{eqn:multiMSB}:
 \begin{equation}
-c_k = \sum_{i=0}^{n-1}\sum_{j=0}^{n-1}\lambda_{ij}^{(k)}a_ib_j
+c_l = \sum_{i=0}^{k-1}\sum_{j=0}^{k-1}\lambda_{ij}^{(l)}a_ib_j
 \end{equation}
-$\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ in $k$-th $\lambda$-Matrix.
+$\lambda_{ij}^{(l)}$ is the entry with coordinate $(i,j)$ in $l$-th $\lambda$-Matrix.
+
+The $\lambda$-Matrix can be implemented with XOR and AND gates in circuit design.
+The very naive implementation requires $O(C_N)$ gates, where $C_N$ is the number of
+nonzero entries in $\lambda$-Matrix.
+There usually exists multiple NBs in $\Fkk, k>3$. If we employ a random NB, there is no mathematical
+guarantee that $C_N \sim o(k)$ (symbol $o$ denotes ``strictly lower than bound"). However,
+Mullin et al. \cite{mullinONB} % This citation is valid
+proves that in certain GF $\mathbb F_{p^{k_{opt}}}$, there always exists at least one NB such that 
+its corresponding $\lambda$-Matrix has $C_N = 2n-1$ nonzero entries. A basis with this property is
+called optimal normal basis (ONB), details are introduced in appendix.
+
+In practice, large size NB multipliers are usually designed in $\Fkk$ when ONB exists
+to minimized the number of gates. So in the following part of this chapter and our experiments,
+we only focus on ONB multipliers instead of general NB multipliers.
+
 
 % After fixing this, add a whole-piece StdB vs NB example, list their cost as the conclusion
+\subsection{Comparison between Standard Basis and Normal Basis}
+At the end of this section, a detailed example is used to make a comparison between StdB multiplication
+and NB multiplication.
+\begin{Example}[Rijndael's finite field]
+Rijndael uses a characteristic 2 finite field with 256 elements, which can also be called the GF $\mathbb F_{2^8}$.
+Let us define the primitive element $\alpha$ using irreducible polynomial 
+$\alpha^8+\alpha^7+\alpha^6+\alpha^4+\alpha^2+\alpha+1$. Coincidently, $\alpha$ is also a normal element,
+i.e. $\beta = \alpha$ can construct a NB $\{\alpha,\alpha^2,\alpha^4,\alpha^8,\alpha^{16},\alpha^{32},\alpha^{64},
+\alpha^{128}\}$.
+
+We pick a pair of elements from the Rijndael's field: $A=(0100~1011)_{StdB} = (4B)_{StdB},~B=(1100~1010)_{StdB} = (CA)_{StdB}$.
+First let us compute their product in StdB, the rule follows ordinary polynomial multiplication.
+
+\begin{align*}
+A\cdot B &= (\alpha^6+\alpha^3+\alpha+1)(\alpha^7+\alpha^6+\alpha^3+\alpha)\\
+&= (\alpha^{13}+\alpha^{10}+\alpha^8+\alpha^7)+(\alpha^{12}+\alpha^9+\alpha^7+\alpha^6)+
+	(\alpha^9+\alpha^6+\alpha^4+\alpha^3)\\
+	&~~~+(\alpha^7+\alpha^4+\alpha^2+\alpha) \\
+&= \alpha^{13}+\alpha^{12}+\alpha^{10}+\alpha^8+\alpha^7+\alpha^3+\alpha^2+\alpha
+\end{align*}
+Note that this polynomial is not the final form of the product because it needs to be
+reduced modulo irreducible polynomial $\alpha^8+\alpha^7+\alpha^6+\alpha^4+\alpha^2+\alpha+1$.
+This can be done using base-2 long division. Note the dividend and divisor are written in pseudo Boolean
+vectors, not real Boolean vectors in any kind of bases.
+
+% The folowing part is customized latex code mimicing binary long division
+% Note \divrule coordinates may not reflect the intuitive column # in tabular. Adjust by urself!!!
+
+\vspace{1cm}
+
+\newdimen\digitwidth
+\settowidth\digitwidth{0}
+\def~{\hspace{\digitwidth}}
+
+
+\def\divrule#1#2{%
+\noalign{\moveright#1\digitwidth%
+\vbox{\hrule width#2\digitwidth}}}
+111010111\,\begin{tabular}[b]{@{}r@{}}
+101001 \\ \hline
+\big)\begin{tabular}[t]{@{}l@{}}
+11010110001110 \\
+111010111 \\ \divrule{0}{14}
+~~111101101 \\
+~~111010111 \\ \divrule{2}{12}
+~~~~~111010110 \\
+~~~~~111010111 \\ \divrule{5}{9}
+~~~~~~~~~~~~~1
+\end{tabular}
+\end{tabular}
+\vspace{0.5cm}
+
+The final remainder is $1$, i.e. the product equals to 1 in StdB.
+
+On the other hand, operands $A$ and $B$ can be written in NB as
+$$A = (0010~1001)_{NB},~~B = (0100~0010)_{NB}$$
+The $\lambda$-Matrix for $\mathbb F_{2}[x] \pmod{x^8+x^7+x^6+x^4+x^2+x+1}$
+is
+(Computation of $\lambda$-Matrix refers to appendix)
+\begin{equation*}
+M^{(0)} = \left(\begin{array}{lccccccr}
+0 &0 &0 &0 &1 &0 &1 &1 \\
+0 &0 &1 &1 &1 &1 &0 &0 \\
+0 &1 &0 &0 &0 &0 &1 &0 \\
+0 &1 &0 &0 &1 &1 &0 &1 \\
+1 &1 &0 &1 &0 &1 &0 &0 \\
+0 &1 &0 &1 &1 &0 &0 &1 \\
+1 &0 &1 &0 &0 &0 &0 &0 \\
+1 &0 &0 &1 &0 &1 &0 &1
+\end{array}\right)
+\end{equation*}
+Taking matrix multiplication $c_0 = A\times M^{(0)}\times B^T$,
+the result is $c_0 = 1$. Then by cyclic shifting $A$ and $B$
+(or shifting $M^{(0)}$, either is applicable), we can successively
+obtain other bits of product. The final answer is
+$$C = (0000~0001)_{NB}$$
+It is equivalent to the result in StdB.
+\end{Example}
+
+From the intuition of humans, StdB multiplication is straightforward and easier to understand
+while NB is difficult to comprehend. However, if we implement both multiplications to 
+hardware multipliers, it will be clear which side a circuit designer prefers.
+
+% May consider providing details?
+
+Mastrovito multiplier and Montgomery multiplier are 2 common designs
+of GF multipliers using StdB. As a naive implementation of GF multiplication,
+Mastrovito multiplier uses most number of gates:
+$k^2$ AND gates plus $k^2-\Delta$ XOR gates \cite{Mastrovito}. Montgomery multiplier 
+applies lazy reduction techniques and results in a better latency performance, while the number of gates are about
+the same with Mastrovito multiplier:
+$k^2$ AND gates plus $k^2-k/2$ XOR gates \cite{Montgomery}. 
+Concretely, typical design of Mastrovito multiplier consists of 218 logic gates, while 
+Montgomery multiplier needs 198 gates. However, the NB multiplier reuses the $\lambda$-Matrix 
+logic, so this component will only need to be implemented for once. 
+Consider the definition of matrix multiplication, it needs $C_N$ AND gates to apply 
+bit-wise multiplication and $C_N-1$ XOR gates to sum them up. The number of nonzero entries
+in the $\lambda$-Matrix can be counted: $C_N = 27$.
+As a result, the most naive NB multiplier design (or Massey-Omura multiplier \cite{MasseyOmura})
+contains 53 gates in total, which is a great saving in area cost comparing to StdB multipliers.

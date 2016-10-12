@@ -33,7 +33,6 @@ Repeated entry---line 807 of file xiaojun.bib
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "lv_dissertation"
 Warning--I didn't find a database entry for "tim_dissertation"
-Warning--I didn't find a database entry for "MasseyOmura"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry alizadeh:tcad2010
@@ -47,45 +46,45 @@ Warning--empty journal in DGPS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry PengLi:GPU
 while executing---line 987 of file ieee.bst
-You've used 105 entries,
+You've used 109 entries,
             1802 wiz_defined-function locations,
-            999 strings with 20086 characters,
-and the built_in function-call counts, 25102 in all, are:
-= -- 2152
-> -- 1023
+            1023 strings with 20638 characters,
+and the built_in function-call counts, 25952 in all, are:
+= -- 2234
+> -- 1057
 < -- 35
-+ -- 384
-- -- 279
-* -- 1768
-:= -- 3721
-add.period$ -- 113
-call.type$ -- 105
-change.case$ -- 91
++ -- 397
+- -- 288
+* -- 1843
+:= -- 3857
+add.period$ -- 117
+call.type$ -- 109
+change.case$ -- 95
 chr.to.int$ -- 0
-cite$ -- 106
-duplicate$ -- 1326
-empty$ -- 2645
-format.name$ -- 279
-if$ -- 5875
+cite$ -- 110
+duplicate$ -- 1355
+empty$ -- 2726
+format.name$ -- 288
+if$ -- 6056
 int.to.chr$ -- 0
-int.to.str$ -- 105
-missing$ -- 104
-newline$ -- 528
-num.names$ -- 110
-pop$ -- 493
+int.to.str$ -- 109
+missing$ -- 107
+newline$ -- 548
+num.names$ -- 114
+pop$ -- 503
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 644
+skip$ -- 652
 stack$ -- 0
-substring$ -- 1318
-swap$ -- 418
+substring$ -- 1393
+swap$ -- 422
 text.length$ -- 35
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 211
-width$ -- 108
-write$ -- 1124
+while$ -- 221
+width$ -- 112
+write$ -- 1167
 (There were 11 error messages)

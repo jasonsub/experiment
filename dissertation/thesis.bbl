@@ -631,6 +631,27 @@ B.~Buchberger,
   {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
 \newblock PhD thesis, University of Innsbruck, 1965.
 
+\bibitem{MasseyOmura}
+Jimmy~K Omura and James~L Massey,
+\newblock ``Computational method and apparatus for finite field arithmetic'',
+  May~6 1986,
+\newblock US Patent 4,587,627.
+
+\bibitem{mullinONB}
+Ronald~C Mullin, Ivan~M Onyszchuk, Scott~A Vanstone, and Richard~M Wilson,
+\newblock ``Optimal normal bases in gf (p n)'',
+\newblock {\em Discrete Applied Mathematics}, vol. 22, pp. 149--161, 1989.
+
+\bibitem{Mastrovito}
+Alper Halbutogullari and {\c{C}}etin~K Ko{\c{c}},
+\newblock ``Mastrovito multiplier for general irreducible polynomials'',
+\newblock {\em IEEE Transactions on Computers}, vol. 49, pp. 503--518, 2000.
+
+\bibitem{Montgomery}
+Huapeng Wu,
+\newblock ``Montgomery multiplier and squarer for a class of finite fields'',
+\newblock {\em IEEE Transactions on Computers}, vol. 51, pp. 521--529, 2002.
+
 \bibitem{PengLi:GPU}
 Z.~Feng, Z.~Zeng, and P.~Li,
 \newblock ``Parallel {O}n-{C}hip {P}ower {D}istribution {N}etwork {A}nalysis on
