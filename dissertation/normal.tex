@@ -67,6 +67,10 @@ function. As a result, conventional techniques is grossly inefficient for large 
 Therefore, a new method based on our proposed word-level FSM traversal technique is worthy to be explored.
 
 \section{Normal Basis Multiplier over Galois Field}
+From algebraic view, a field is a space, and field elements are dots in the space. Those elements can be 
+represented with unique coordinates, which requires the pre-definition of a basis vector. In this
+section, we discuss a special basis called normal basis, as well as the advantages adopting it in 
+GF operations esp. multiplication.
 \subsection{Normal Basis}
 Given a Galois field (GF) $\Fkk$ is a finite field with  $2^k$ elements and characteristic equals to 2.
 Its elements can be written in polynomials of $\alpha$, when there is an irreducible polynomial $p(\alpha)$
@@ -420,7 +424,111 @@ Concretely, typical design of Mastrovito multiplier consists of 218 logic gates,
 Montgomery multiplier needs 198 gates. However, the NB multiplier reuses the $\lambda$-Matrix 
 logic, so this component will only need to be implemented for once. 
 Consider the definition of matrix multiplication, it needs $C_N$ AND gates to apply 
-bit-wise multiplication and $C_N-1$ XOR gates to sum them up. The number of nonzero entries
+bit-wise multiplication and $C_N-1$ XOR gates to sum the intermediate products up. The number of nonzero entries
 in the $\lambda$-Matrix can be counted: $C_N = 27$.
 As a result, the most naive NB multiplier design (or Massey-Omura multiplier \cite{MasseyOmura})
 contains 53 gates in total, which is a great saving in area cost comparing to StdB multipliers.
+
+\section{Design a Normal Basis Multiplier on Gate Level}
+The NB multiplier design consumes much less gates than ordinary StdB multiplier design, even if 
+we use the most naive design. However, the modern NB multiplier design has been improved a lot from the 
+very first design model proposed by Massey and Omura in 1986 \cite{MasseyOmura}. In order to 
+test our approach on practical contemporary circuits, it is necessary to learn the mechanism and design 
+routine of several kinds of modern NB multipliers.
+\subsection{Sequential Multiplier with Parallel Outputs}
+The major benefit of NB multiplier origins from the sequential design. A straightforward design implementing 
+the cyclic-shift of operands and $\lambda$-Matrix logic component is the Massey-Omura multiplier.
+
+% fig:MasseyOmura
+
+Figure \ref{fig:MasseyOmura} shows the basic architecture of a Massey-Omura multiplier. The operands
+$A$ and $B$ are 2 arrays of flip-flops which allow 1-bit right-cyclic shift every clock cycle.
+The logic gates in the boxes implements the matrix multiplication with $\lambda$-Matrix $M^{(0)}$, 
+while each AND gate corresponds to term $a_ib_j$ and each XOR gate corresponds to addition $a_ib_j+a_{i'}b_{j'}$. 
+The XOR layer has only 1 output, giving out 1 bit of product $C$ every clock cycle.
+
+The behavior of Massey-Omura multiplier can be concluded as: pre-load operands $A,B$ and reset $C$ to 0, after 
+executing for $k$ clock cycles, the data stored in flip-flop array $C$ is the product $A\times B$.
+We note that there is only one output giving 1 bit of the product each clock cycle, which matches the 
+definition of serial output to communication channel. Therefore this type of design is named as 
+sequential multiplier with serial output (SMSO).
+The SMSO architecture need $C_N$ AND gates and $C_N-1$ XOR gates, which equals to $2k-1$ AND gates and $2k-2$ XOR gates
+if it is designed using ONB. In fact, the number of gates can be reduced if the multiplication is 
+implemented using a conjugate of SMSO.
+
+The gate-level logic boxes are implementing following function:
+\begin{equation}
+\label{eqn:SMPOterms}
+c_l = row_1(A\times M^{(l)}) \times B + row_2(A\times M^{(l)}) \times B + \cdots + row_{k}(A\times M^{(l)}) \times B
+\end{equation}
+It can be decomposed into $k$ terms. If we only compute one term for each $c_l,~0\leq l\leq k-1$ in one 
+clock cycle, make $k$ outputs and add them up using shift register after $k$ clock cycles, 
+it will generate the same result with SMSO. This kind of architecture is named as 
+sequential multiplier with parallel outputs (SMPO). The basic SMPO, as a conjugate of Massey-Omura multiplier,
+is invented by Agnew et al. \cite{agnew1991implementation}.
+
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/mySMPO.eps}
+\caption{5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda$-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \pmod 5$. Index $w = 2i\pmod 5$}
+\label{fig:SMPO}}
+\end{figure}
+
+\begin{Example}[5-bit Agnew's SMPO]
+Given GF $\mathbb F_{2^5}$ and primitive element $\alpha$ defined by irreducible polynomial 
+$\alpha^5+\alpha^2+1=0$, normal element $\beta = \alpha^5$ constructs an ONB $\{\beta,\beta^2,\beta^4,\beta^8,\beta^{16}\}$.
+The $0$-th $\lambda$-Matrix for this ONB is
+\begin{equation*}
+M^{(0)} = \left(\begin{array}{lcccr}
+0 &1 &0 &0 &0 \\
+1 &0 &0 &1 &0 \\
+0 &0 &0 &1 &1 \\
+0 &1 &1 &0 &0 \\
+0 &0 &1 &0 &1
+\end{array}\right)
+\end{equation*}
+Then a typical design of 5-bit Agnew's SMPO is depicted in figure \ref{fig:SMPO}.
+
+The operands part of this circuit is the same with Massey-Omura multiplier. The differences are on 
+the matrix multiplication part, while it is implemented as separate logic blocks for 5 outputs,
+and the 5 blocks are connected in a shift register fashion. By analyzing the detailed function of 
+logic blocks, we can reveal the mechanism of Agnew's SMPO.
+
+Suppose we implement $M^{(0)}$ as the logic block in SMSO. In the first clock cycle, the output is
+\begin{equation}
+\label{eqn:5bitSMPO_c0}
+c_0 = a_1b_0+(a_0+a_3)b_1 + (a_3+a_4)b_2 + (a_1+a_2)b_3 + (a_2+a_4)b_4
+\end{equation}
+Note it is written in the form of equation \ref{eqn:SMPOterms}. In next clock cycles we can obtain 
+remaining bits of the product, which can be written in following general form polynomial:
+\begin{align}
+c_i =& b_ia_{i+1} + b_{i+1}(a_i + a_{i+3}) + b_{i+2}(a_{i+3} + a_{i+4}) \nonumber\\
+&+ b_{i+3}(a_{i+1} + a_{i+2}) + b_{i+4}
+(a_{i+2} + a_{i+4}),\ 0\leq i\leq 4 \nonumber
+\end{align}
+Note all index calculations are reduced modulo 5.
+
+Now let us observe the behavior of 5-bit Agnew's SMPO. Initially all DFFs are reset to 0. 
+In the first clock cycle,
+signal sent to the flip-flop in block $R_0$ denotes function:
+$$R_0^{(1)} = a_1b_0$$
+It equals to the first term of equation \ref{eqn:5bitSMPO_c0}. In the second clock cycle,
+this signal is sent to block $R_1$ through wire $r_0$, and this block also receives data 
+from operands (shifted by 1 bit), generating signal $a_u,a_v$ and $b_w$. Concretely,
+signal sent to flip-flop in block $R_1$ is:
+$$R_1^{(2)} = R_0^{(1)} + (a_0+a_3)b_1 = a_1b_0+(a_0+a_3)b_1$$
+which forms first 2 terms of equation \ref{eqn:5bitSMPO_c0}. Similarly, we track the signal 
+on $R_2$ in third clock cycle, signal on $R_3$ in fourth clock cycle, finally we can get 
+$$R_4^{(5)} = a_1b_0+(a_0+a_3)b_1 + (a_3+a_4)b_2 + (a_1+a_2)b_3 + (a_2+a_4)b_4$$
+which equals to $c_0$ in equation \ref{eqn:5bitSMPO_c0}.
+After the fifth clock cycle ends, this signal can be detected on wire $r_0$. It shows that 
+the result of $c_0$ is computed after 5 clock cycles and gives on $r_0$.
+
+If we track $R_1\to R_2\to R_3 \to \cdots \to R_0$, we can obtain $c_1$ respectively.
+Thus we conclude that Agnew's SMPO functions the same with Massey-Omura multiplier.
+\end{Example}
+
+The design of Agnew's SMPO guarantees that there is only one AND gate in each $R_i$ block.
+For ONB, adopting Agnew's SMPO will reduce the number of AND gates from $2k-1$ to $k$.
+
+\subsection{Multiplier not based on $\lambda$-Matrix}

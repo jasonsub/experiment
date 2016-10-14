@@ -652,6 +652,11 @@ Huapeng Wu,
 \newblock ``Montgomery multiplier and squarer for a class of finite fields'',
 \newblock {\em IEEE Transactions on Computers}, vol. 51, pp. 521--529, 2002.
 
+\bibitem{agnew1991implementation}
+Gordon~B. Agnew, Ronald~C. Mullin, IM~Onyszchuk, and Scott~A. Vanstone,
+\newblock ``An implementation for a fast public-key cryptosystem'',
+\newblock {\em Journal of CRYPTOLOGY}, vol. 3, pp. 63--79, 1991.
+
 \bibitem{PengLi:GPU}
 Z.~Feng, Z.~Zeng, and P.~Li,
 \newblock ``Parallel {O}n-{C}hip {P}ower {D}istribution {N}etwork {A}nalysis on
