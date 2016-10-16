@@ -46,45 +46,45 @@ Warning--empty journal in DGPS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry PengLi:GPU
 while executing---line 987 of file ieee.bst
-You've used 110 entries,
+You've used 111 entries,
             1802 wiz_defined-function locations,
-            1028 strings with 20819 characters,
-and the built_in function-call counts, 26191 in all, are:
-= -- 2256
-> -- 1071
+            1035 strings with 20975 characters,
+and the built_in function-call counts, 26413 in all, are:
+= -- 2279
+> -- 1079
 < -- 35
-+ -- 402
-- -- 292
-* -- 1867
-:= -- 3898
-add.period$ -- 118
-call.type$ -- 110
-change.case$ -- 96
++ -- 405
+- -- 294
+* -- 1887
+:= -- 3934
+add.period$ -- 119
+call.type$ -- 111
+change.case$ -- 97
 chr.to.int$ -- 0
-cite$ -- 111
-duplicate$ -- 1363
-empty$ -- 2745
-format.name$ -- 292
-if$ -- 6105
+cite$ -- 112
+duplicate$ -- 1371
+empty$ -- 2765
+format.name$ -- 294
+if$ -- 6152
 int.to.chr$ -- 0
-int.to.str$ -- 110
-missing$ -- 108
-newline$ -- 553
-num.names$ -- 115
-pop$ -- 504
+int.to.str$ -- 111
+missing$ -- 109
+newline$ -- 558
+num.names$ -- 116
+pop$ -- 505
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 653
+skip$ -- 655
 stack$ -- 0
-substring$ -- 1412
-swap$ -- 423
+substring$ -- 1434
+swap$ -- 424
 text.length$ -- 35
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 224
-width$ -- 113
-write$ -- 1178
+while$ -- 227
+width$ -- 114
+write$ -- 1189
 (There were 11 error messages)

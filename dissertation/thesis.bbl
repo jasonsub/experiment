@@ -657,6 +657,11 @@ Gordon~B. Agnew, Ronald~C. Mullin, IM~Onyszchuk, and Scott~A. Vanstone,
 \newblock ``An implementation for a fast public-key cryptosystem'',
 \newblock {\em Journal of CRYPTOLOGY}, vol. 3, pp. 63--79, 1991.
 
+\bibitem{RHmulti}
+Arash Reyhani-Masoleh and M~Anwar Hasan,
+\newblock ``Low complexity word-level sequential normal basis multipliers'',
+\newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
+
 \bibitem{PengLi:GPU}
 Z.~Feng, Z.~Zeng, and P.~Li,
 \newblock ``Parallel {O}n-{C}hip {P}ower {D}istribution {N}etwork {A}nalysis on
