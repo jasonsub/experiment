@@ -33,6 +33,7 @@ Repeated entry---line 807 of file xiaojun.bib
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "lv_dissertation"
 Warning--I didn't find a database entry for "tim_dissertation"
+Warning--I didn't find a database entry for "F4reduce"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry alizadeh:tcad2010
@@ -44,47 +45,49 @@ while executing---line 987 of file ieee.bst
 Warning--empty journal in DGPS
 `volume' is a missing field, not a string, for entry DGPS
 while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry biere2013lingeling
+while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry PengLi:GPU
 while executing---line 987 of file ieee.bst
-You've used 111 entries,
+You've used 115 entries,
             1802 wiz_defined-function locations,
-            1035 strings with 20975 characters,
-and the built_in function-call counts, 26413 in all, are:
-= -- 2279
-> -- 1079
-< -- 35
-+ -- 405
-- -- 294
-* -- 1887
-:= -- 3934
-add.period$ -- 119
-call.type$ -- 111
-change.case$ -- 97
+            1058 strings with 21941 characters,
+and the built_in function-call counts, 27625 in all, are:
+= -- 2386
+> -- 1143
+< -- 38
++ -- 428
+- -- 313
+* -- 1975
+:= -- 4115
+add.period$ -- 126
+call.type$ -- 115
+change.case$ -- 101
 chr.to.int$ -- 0
-cite$ -- 112
-duplicate$ -- 1371
-empty$ -- 2765
-format.name$ -- 294
-if$ -- 6152
+cite$ -- 116
+duplicate$ -- 1434
+empty$ -- 2877
+format.name$ -- 313
+if$ -- 6440
 int.to.chr$ -- 0
-int.to.str$ -- 111
-missing$ -- 109
-newline$ -- 558
-num.names$ -- 116
-pop$ -- 505
+int.to.str$ -- 115
+missing$ -- 113
+newline$ -- 578
+num.names$ -- 120
+pop$ -- 527
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 655
+skip$ -- 685
 stack$ -- 0
-substring$ -- 1434
-swap$ -- 424
-text.length$ -- 35
+substring$ -- 1486
+swap$ -- 450
+text.length$ -- 38
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 227
-width$ -- 114
-write$ -- 1189
-(There were 11 error messages)
+while$ -- 238
+width$ -- 118
+write$ -- 1235
+(There were 12 error messages)

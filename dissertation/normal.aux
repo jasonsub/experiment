@@ -46,10 +46,53 @@
 \newlabel{alg:RHmulti}{{4}{73}}
 \newlabel{eqn:5bitRHaux}{{5.12}{73}}
 \newlabel{eqn:multitable}{{5.13}{74}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Customized Galois Field for Optimal Normal Basis Multiplier Design}{75}}
+\citation{myDATE}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Full-Blown Verification Procedure for Normal Basis Multiplier Functional Correctness Checking}{75}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Implicit Unrolling based on Abstraction with ATO}{75}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {5}{\ignorespaces Abstraction via implicit unrolling for Sequential GF circuit verification\relax }}{76}}
+\newlabel{alg:modified}{{5}{76}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots  ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{76}}
+\newlabel{fig:sequential}{{5.4}{76}}
+\newlabel{ex:RHSMPO}{{5.7}{78}}
+\citation{TimDAC}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Overcome Computational Complexity using RATO}{81}}
+\newlabel{ex:newRATO}{{5.8}{81}}
+\newlabel{ex:BLVS}{{5.9}{82}}
+\newlabel{lem:bitlevelremainder}{{5.2}{84}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}Solving Linear System for Bit-to-Word Substitution}{84}}
+\newlabel{eqn:betamat}{{5.14}{84}}
+\newlabel{eqn:Cramer}{{5.15}{85}}
+\newlabel{eqn:Moore}{{5.17}{85}}
+\citation{DGPS}
+\newlabel{lemma:Moore}{{5.3}{86}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Software Implementation of Implicit Unrolling Approach}{86}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Architecture in Singular}{87}}
+\citation{DGPS}
+\citation{agnew1991implementation}
+\citation{RHmulti}
+\citation{mastro:1989}
+\citation{biere2013lingeling}
+\citation{abc}
+\citation{brayton1996vis}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Architecture in Customized C++ Toolset}{89}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Experimental Results}{89}}
+\newlabel{sec:result}{{5.6}{89}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time for verification of bug-free RH-SMPO circuits for SAT, ABC and BDD based methods. \emph  {TO} = timeout 14 hrs\relax }}{90}}
+\newlabel{tbl:equiv}{{5.2}{90}}
+\newlabel{table:satbdd}{{5.2}{90}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Similarity between RH-SMPO and Agnew's SMPO\relax }}{90}}
+\newlabel{tbl:fraig}{{5.3}{90}}
+\newlabel{table:similarity}{{5.3}{90}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time (seconds) for verification of bug-free and buggy RH-SMPO using our approach\relax }}{91}}
+\newlabel{tbl:exp1}{{5.4}{91}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time (seconds) for verification of bug-free and buggy Agnew's SMPO our approach\relax }}{91}}
+\newlabel{tbl:exp2}{{5.5}{91}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Conclusions and Further Work}{91}}
+\newlabel{sec:concl}{{5.7}{91}}
+\citation{F4reduce}
 \@setckpt{normal}{
-\setcounter{page}{76}
-\setcounter{equation}{13}
+\setcounter{page}{93}
+\setcounter{equation}{21}
 \setcounter{enumi}{3}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
@@ -58,8 +101,8 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{5}
-\setcounter{figure}{3}
-\setcounter{table}{1}
+\setcounter{figure}{4}
+\setcounter{table}{5}
 \setcounter{oldchapter}{0}
 \setcounter{oldtocdepth}{0}
 \setcounter{float@type}{8}
@@ -74,18 +117,18 @@
 \setcounter{parentequation}{0}
 \setcounter{r@tfl@t}{0}
 \setcounter{lstnumber}{1}
-\setcounter{AlgoLine}{0}
-\setcounter{algocfline}{4}
-\setcounter{algocfproc}{4}
-\setcounter{algocf}{4}
+\setcounter{AlgoLine}{9}
+\setcounter{algocfline}{5}
+\setcounter{algocfproc}{5}
+\setcounter{algocf}{5}
 \setcounter{Theorem}{1}
-\setcounter{Definition}{1}
-\setcounter{Example}{6}
+\setcounter{Definition}{2}
+\setcounter{Example}{10}
 \setcounter{Proposition}{0}
-\setcounter{Lemma}{1}
+\setcounter{Lemma}{3}
 \setcounter{Corollary}{0}
-\setcounter{section}{3}
-\setcounter{subsection}{3}
+\setcounter{section}{7}
+\setcounter{subsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subsubsection}{0}
 \setcounter{lstlisting}{0}
