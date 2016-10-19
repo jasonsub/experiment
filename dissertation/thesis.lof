@@ -9,7 +9,7 @@
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Montgomery multiplier over $\mathbb {F}_{2^k}$\relax }}{35}
 \contentsline {figure}{\numberline {3.5}{\ignorespaces $4$-bit composite multiplier designed over ${\mathbb {F}}_{(2^2)^2}$\relax }}{36}
 \contentsline {figure}{\numberline {3.6}{\ignorespaces Point addition over an Elliptic Curve (R=P+Q)\relax }}{38}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{59}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{60}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces 5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda $-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$. Index $w = 2i\penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$\relax }}{70}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{76}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{62}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{63}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces 5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda $-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$. Index $w = 2i\penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$\relax }}{73}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{80}

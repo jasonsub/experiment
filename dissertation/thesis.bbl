@@ -631,6 +631,13 @@ B.~Buchberger,
   {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
 \newblock PhD thesis, University of Innsbruck, 1965.
 
+\bibitem{KallaPartialScan}
+Priyank Kalla and Maciej Ciesielski,
+\newblock ``A comprehensive approach to the partial scan problem using implicit
+  state enumeration'',
+\newblock {\em Computer-Aided Design of Integrated Circuits and Systems, IEEE
+  Transactions on}, vol. 21, pp. 810--826, 2002.
+
 \bibitem{MasseyOmura}
 Jimmy~K Omura and James~L Massey,
 \newblock ``Computational method and apparatus for finite field arithmetic'',

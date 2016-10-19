@@ -1,0 +1,79 @@
+\chapter{Word-level Traversal of Finite State Machines using Algebraic Geometry}
+\label{ch:reacha}
+Reachability analysis is a basic component of sequential circuit verification, esp. for 
+formal equivalence checking and model checking techniques. Concretely, in modern synthesis 
+tools, in order to improve various performance indicators such as latency, clock skew or power
+density, some major refactoring and attachments are made on original designs. 
+Those modifications may introduce malfunctions or glitches to the whole logic. 
+In localized simulation or formal verification (esp. equivalence checking), the modifications may be 
+denied since the malfunctions or glitches are considered as ``faults" in this circuit.
+However, if the circuit behavior is carefully investigated, it may come to a verdict that 
+those ``faults" will never be activated/excitated during a restricted execution starting 
+from legal initial states and with legal inputs. Thus we will call those ``faults" as 
+{\bf spurious faults}, since they will not affect the circuit's normal behavior.
+
+Almost all practical sequential logic components can be modeled as finite state machines (FSMs). 
+If we apply constrains upon the machine to make it start from designated initial states and 
+take in specific legal inputs, a set of reachable states can be derived. 
+As long as the ``faults" can be modeled as ``bad states", we can judge whether they are 
+spurious faults by checking if they sit in the reachable states. From the spurious fault validation 
+perspective, reachability analysis is a must when developing full set of sequential circuit verification
+techniques.
+
+There are quite a few methods to perform reachability checking on FSMs. One among them is 
+state space traversal. Conventionally the algorithm is based on bit-level techniques such as
+binary decision diagrams (BDDs) and Boolean logic. We propose a new traversal algorithm on word-level,
+which bring critical advantages. In this chapter the approach will be described and discussed in depth, 
+with examples and experiments showing its feasibility when applied on general circuit benchmarks.
+
+\section{Motivation}
+The inspiration of this research mainly comes from a journal paper \cite{KallaPartialScan}. 
+In that paper, the author proposed an traversal algorithm using concept ``implicit state enumeration".
+Concretely, the algorithm is written as follows:
+
+\begin{algorithm}[H]
+\SetAlgoNoLine
+\LinesNumbered
+ \KwIn{Sequential circuit, number of registers to scan}
+ \KwOut{Scan registers listed in decreasing order of their non-controllability}
+
+  $from^0 = reached = S^0$\;
+  $i = 0$\;
+  \While{TRUE}
+  {
+  	$i++$\;
+	$to^i = $IMAGE$(\Delta,from^{i-1})$\;
+	$new^i = to^i \cdot \overline{reached}$\;
+	\For{each state variable $r_j$}
+	{
+		record\_if\_transitions\_present\_or\_missing$(r_j,new^i)$\;
+		compute\_degree\_of\_unsettability$(r_j,new^i)$\;
+	}
+	\If{$new^i == 0$}
+	{
+		break\;
+	}
+	$reached = reached + new^i$\;
+	$from^i = new^i$\;
+  }\
+  \tcc{\ \ \ \ \ \ \ \ \ \ \ \ \ \ FSM traversal completed}\
+  \For{each state variable $r_j$}
+  {
+	\If{missing transition for $r_j$}
+	{
+		scan state variable $r_j$\;
+	}
+  }
+  $illegal\_states = $bdd\_complement$(reached)$\;
+  \For{each state variable $r_j$}
+  {
+	compute\_degree\_of\_unateness$(r_j,illegal\_states)$\;
+	non-controllability$(r_j)=$degree\_of\_unsettability$(r_j)+$degree\_of\_unateness$(r_j)$\;
+  }
+  order state variables in terms of their non-controllabilities;\tcc{\ Sorting}\
+  output the required scan registers\;
+%\Return{$from_k(R_{final})$}
+\caption {SIMPSON: Scan Register Selection using Implicit State Enumeration\cite{KallaPartialScan}}
+\label{alg:SIMPSON}
+\end{algorithm}
+\DecMargin{1em}

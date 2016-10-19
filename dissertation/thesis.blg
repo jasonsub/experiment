@@ -4,6 +4,7 @@ The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: prev.aux
 A level-1 auxiliary file: gfprelim.aux
 A level-1 auxiliary file: algprelim.aux
+A level-1 auxiliary file: recha.aux
 A level-1 auxiliary file: normal.aux
 A level-1 auxiliary file: conclude.aux
 A level-1 auxiliary file: appendix.aux
@@ -49,45 +50,45 @@ while executing---line 987 of file ieee.bst
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry PengLi:GPU
 while executing---line 987 of file ieee.bst
-You've used 115 entries,
+You've used 116 entries,
             1802 wiz_defined-function locations,
-            1058 strings with 21941 characters,
-and the built_in function-call counts, 27625 in all, are:
-= -- 2386
-> -- 1143
+            1065 strings with 22190 characters,
+and the built_in function-call counts, 27856 in all, are:
+= -- 2410
+> -- 1151
 < -- 38
-+ -- 428
-- -- 313
-* -- 1975
-:= -- 4115
-add.period$ -- 126
-call.type$ -- 115
-change.case$ -- 101
++ -- 431
+- -- 315
+* -- 1996
+:= -- 4152
+add.period$ -- 127
+call.type$ -- 116
+change.case$ -- 102
 chr.to.int$ -- 0
-cite$ -- 116
-duplicate$ -- 1434
-empty$ -- 2877
-format.name$ -- 313
-if$ -- 6440
+cite$ -- 117
+duplicate$ -- 1442
+empty$ -- 2898
+format.name$ -- 315
+if$ -- 6489
 int.to.chr$ -- 0
-int.to.str$ -- 115
-missing$ -- 113
-newline$ -- 578
-num.names$ -- 120
-pop$ -- 527
+int.to.str$ -- 116
+missing$ -- 114
+newline$ -- 583
+num.names$ -- 121
+pop$ -- 528
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 685
+skip$ -- 687
 stack$ -- 0
-substring$ -- 1486
-swap$ -- 450
+substring$ -- 1511
+swap$ -- 451
 text.length$ -- 38
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 238
-width$ -- 118
-write$ -- 1235
+while$ -- 241
+width$ -- 119
+write$ -- 1246
 (There were 12 error messages)
