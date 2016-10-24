@@ -33,7 +33,12 @@
     placeins
 } 
 
+\usepackage{algorithmic}
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+
 \usepackage{polynom}
+\usepackage{blkarray}
 
 \usepackage[ruled]{./algorithm2e}
 %%for algorithm2e package, label has to be following caption in the same line!!!
@@ -164,8 +169,9 @@
 \input{abstract}
 \input{intro}
 \include{prev}
-\include{gfprelim}
-\include{algprelim}
+\include{prelim}
+%\include{gfprelim}
+%\include{algprelim}
 %\include{abstraction}
 %\include{improve}
 %\include{comp}
@@ -173,6 +179,7 @@
 
 \include{recha}
 \include{normal}
+\include{unsat}
 
 \include{conclude}
 \include{appendix}
@@ -181,7 +188,7 @@
 %%%%%%%%%%%%%%%%%%%% The bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \bibliographystyle{ieee}
-\bibliography{logic,xiaojun}
+\bibliography{logic,xiaojun,cnfsat}
 \end{document}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%  End of IEEEsample.tex  %%%%%%%%%%%%%%%%%%%%%%%%%%%

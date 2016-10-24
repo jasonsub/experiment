@@ -439,7 +439,12 @@ routine of several kinds of modern NB multipliers.
 The major benefit of NB multiplier origins from the sequential design. A straightforward design implementing 
 the cyclic-shift of operands and $\lambda$-Matrix logic component is the Massey-Omura multiplier.
 
-% fig:MasseyOmura
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/MasseyOmura.pdf}
+\caption{A typical SMSO structure of Massey-Omura multiplier}
+\label{fig:MasseyOmura}}
+\end{figure}
 
 Figure \ref{fig:MasseyOmura} shows the basic architecture of a Massey-Omura multiplier. The operands
 $A$ and $B$ are 2 arrays of flip-flops which allow 1-bit right-cyclic shift every clock cycle.
@@ -539,7 +544,12 @@ some of them jump out of the circle and are independent from $\lambda$-Matrix.
 One competitive multiplier design of this type is invented by Reyhani-Masoleh and Hasan 
 \cite{RHmulti}, which is therefore called RH-SMPO.
 
-% fig:5bitRH
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/5bitRH.pdf}
+\caption{5-bit RH-SMPO}
+\label{fig:5bitRH}}
+\end{figure}
 
 Figure \ref{fig:5bitRH} is a 5-bit RH-SMPO which is functionally equivalent to 5-bit Agnew's SMPO 
 in figure \ref{fig:SMPO}. A brief proof is as follows: 
@@ -646,7 +656,12 @@ It is a known fact that M-table $T$ can be converted from $\lambda$-Matrix $M$:
 $$M_{i,j}^{(0)} = T_{j-i,-i}$$
 with indices reduced modulo $k$ (proof refers to appendix \ref{append:ONB}). Thus we can write down the M-table of $\mathbb F_{2^5}$ with current NB $N$:
 
-% fig:multitable
+\begin{figure}[H]
+\centering{
+\includegraphics[width=3in]{newfig/multitable.pdf}
+\caption{A $5\times 5$ multiplication table}
+\label{fig:multitable}}
+\end{figure}
 
 Note that we only use row 1 and row 2 from the M-table since range $1\leq j \leq 2$.
 All nonzero entries in these 2 rows corresponds to the interconnections between $d$-layer and 

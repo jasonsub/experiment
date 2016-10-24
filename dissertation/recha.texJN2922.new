@@ -177,105 +177,13 @@ specifications:
 We can see that when checking a single part of the whole structure, the number of clauses 
 needed will increase to $k+1$ when using $k$-bit datapath. Considering the formula representing 
 carry-in will become longer and longer, the final conjunction of all clauses will contain 
-$O(2^k)$ Boolean operators. If by some means we can write the specification with only 3 variables
-\begin{equation}
-\label{eqn:wordspec}
-S=P_{1/2}+B
-\end{equation}
-The state space will be greatly reduced.
-\end{Example}
+$O(2^k)$ Boolean operators. If by some means we can write the specification as 
+$$S=P_{1/2}+B$$
 
-On the other hand, the user of conventional model checker will have to write all these clauses.
-These clauses contain cross-literals, e.g. $s_2$ may associate with $a_1, p_0$, etc. If the user 
-is not familiar with the implementation of this adder, those cross-literals will bring inconveniences
-and confusions. However, if word-level techniques allow specification like equation \ref{eqn:wordspec},
-the verification tool will be very user-friendly and straightforward.
+
+\end{Example}
 
 \subsection{Prerequisites of Word-level Techniques}
-When given a bit-level netlist, the prerequisites to use word-level techniques are to convert bit-level 
-to word-level first. This conversion is usually completed by abstraction techniques.
-
-An old but universally effective abstraction method is {\bf Lagrange's interpolation}. Instead of using 
-it in real algebra, it can also be extended to Galois field. Here we use an example to illustrate the 
-conversion in Galois field using Lagrange's interpolation.
-
-\begin{Example}[Lagrange's interpolation]
-
-\begin{figure}[H]
-\centering{
-\includegraphics[width=4in]{newfig/Lagrange.pdf}
-\caption{Gate-level netlist for Lagrange's interpolation example}
-\label{fig:Lagrange}}
-\end{figure}
-
-Assume we are given gate-level netlist shown in figure \ref{fig:Lagrange}. It can be written as 3 
-Boolean equations:
-\begin{align*}
-z_0 &= a_0 \lor a_1 \lor a_2 \\
-z_1 &= a_1 \land \neg a_2 \lor a_0 \land \neg a_1 \land a_2 \\
-z_2 &= a_1 \lor \neg a_0 \land a_2
-\end{align*}
-Define 2 word-level variables $A,Z$ as input and output:
-$$A = \{a_2a_1a_0\},~Z = \{z_2z_1z_0\}$$
-To convert bit-level to word-level, we need to find mapping $\mathbb{B}^3 \rightarrow \mathbb{B}^3$,
-or $\F_{2^3} \rightarrow \F_{2^3}$. The latter one, as mentioned in preliminaries, is a polynomial
-function in $\F_{2^3}$.
-
-For each element in $\F_{2^3}$, we write down the truth table as follows:
-\begin{table}[H]
-\label{tab:truthtable}
-\centering{\small
-\begin{tabular}{|c|ccc|c|}
-\hline
-$\{a_2a_1a_0\}\in\mathbb{B}^3$   & $A\in \F_{2^3}$ &$\rightarrow$& $\{z_2z_1z_0\}\in\mathbb{B}^3$  & $Z\in \F_{2^3}$ \\
-\hline
-000  &0 &$\rightarrow$&000 & 0 \\
-001  &1 &$\rightarrow$&001 & 1 \\
-010  &$\alpha$ & $\rightarrow$ & 111& $\alpha^2 + \alpha + 1$ \\
-011  &$\alpha + 1$ &$\rightarrow$& 111 & $\alpha^2 + \alpha + 1$ \\
-100  &$\alpha^2$ &$\rightarrow$& 101 &  $\alpha^2+1$ \\
-101  &$\alpha^2 + 1$ &$\rightarrow$&011 & $\alpha+1$ \\
-110  &$\alpha^2 + \alpha$&$\rightarrow$& 101 &$\alpha^2 + 1$ \\
-111  &$\alpha^2 + \alpha + 1$ &$\rightarrow$& 101 &$\alpha^2 + 1$\\
-\hline
-\end {tabular}
-}
-\caption{Truth table for mappings in $\mathbb{B}^3$ and $\F_{2^3}$}
-\end{table}
-Now our objective is to abstract a function over GF $\F_{2^3}$ about word-level variables, i.e. $Z = \Func(A)$.
-Recall the definition of Lagrange's interpolation:
-\begin{equation}
-\label{eqn:Lagrange}
-\Func(x) =  \sum_{k=1}^N \left[ \prod_{(0\leq j \leq k-1),(j\neq i)}\frac{x-x_j}{x_i-x_j} \cdot y_k \right]
-\end{equation}
-The geometry meaning of Lagrange's interpolation in real algebra is: given $N$ dots with coordinates $(x_i,y_i)$,
-they can always be fitted into a polynomial function with at most $N-1$ degree, and that function can be 
-written in the form of equation \ref{eqn:Lagrange}. In this example, although defined in Galois field instead of 
-real number field, the essential concept of Lagrange's interpolation keeps the same. We can get 8 ``dots":
-\begin{align*}
-Uni-form&: (a_2\alpha^2+a_1\alpha+a_0,z_2\alpha^2+z_1\alpha+z_0) \gets (A,Z) \\
-Dot~1&: (0, 0) \gets (000,000) \\
-Dot~2&: (1,1) \gets (001,001) \\
-Dot~3&:  (\alpha,\alpha^2 + \alpha + 1) \gets (010,111)\\
-Dot~4&:  (\alpha + 1,\alpha^2 + \alpha + 1)\gets (011,111) \\
-Dot~5&:  (\alpha^2,\alpha^2+1) \gets (100,101)\\
-Dot~6&:  (\alpha^2 + 1,\alpha+1)\gets (101,011)\\
-Dot~7&:  (\alpha^2 + \alpha,\alpha^2 + 1)\gets (110,101)\\
-Dot~8&:  (\alpha^2 + \alpha + 1,\alpha^2 + 1)\gets (111,101)
-\end{align*}
-Substitute 8 $(x_i,y_i)$ pairs in equation \ref{eqn:Lagrange} with these 8 ``dots" in $\F_{2^3}$.
-The result is a polynomial function with degree no greater than 7:
-\begin{align*}
-Z =& \Func(A) \\
-=& (\alpha^2+\alpha+1) A^7 + (\alpha^2+1) A^6 + \alpha A^5 + (\alpha+1) A^4 \\
-&+ (\alpha^2+\alpha+1)A^3+ (\alpha^2+1)A
-\end{align*}
-
-\end{Example}
-
-The Lagrange's interpolation theorem also proves the existence of a word-level abstraction for a bit-level netlist.
-In practice, Lagrange's interpolation is too weak on scalability. Our approach uses abstraction based on 
-Gr\"obner basis with abstraction term order (ATO), which is briefly introduced in preliminaries.
 
 \section{FSM Reachability using Algebraic Geometry}
 \label{sec:reach}
@@ -289,7 +197,6 @@ encoding the reachable state space of the FSM, is obtained through
 computing a GB over $\Fkk$ of the polynomials of the circuit using an
 elimination term order based on Theorem \ref{thm:elim}.  
 
-\subsection{Conventional Traversal Method}
 Conceptually, the state-space of a FSM is traversed in a breadth-first
 manner, as shown in Algorithm \ref{alg:BFS}. % \cite{KallaPartialScan}: 
 The algorithm operates on the FSM $\mathcal{M} = (\sum, O, S, S^0,
@@ -349,7 +256,7 @@ Here, $\exists x (f)$ represents the {\it existential quantification
 
 
 Let us describe the application of the algorithm on the  FSM circuit
-of figure \ref{fig:fsm}. {\it We will first describe its operation at the
+of Fig. \ref{fig:fsm}. {\it We will first describe its operation at the
 Boolean level, and then describe how this algorithm can be implemented
 using algebraic geometry at word level.} 
 
@@ -361,14 +268,14 @@ using algebraic geometry at word level.}
 \end{figure}
 
 In Line 1 of the BFS algorithm, assume that the initial state
-is $S_3$ in figure \ref{fig:fsm}(b), which is encoded as 
+is $S_3$ in Fig.\ref{fig:fsm}(b), which is encoded as 
 $S_3 = \{11\}$. Using Boolean variables $s_0, s_1$ for the present
 states, $from^0 = s_0\cdot s_1$ is represented as a Boolean formula. 
 
 
 
 \begin{Example}
-For the circuit in figure \ref{fig:fsm} (b), we have the transition
+For the circuit in Fig. \ref{fig:fsm} (b), we have the transition
 functions of the machine as:
 
 \begin{align*}
@@ -407,8 +314,8 @@ accomplished using the GB computation over $\Fkk$ using elimination
 ideals} \cite{gao:qe-gf-gb}. Finally, the set union, intersection and
 complement operations are also to be implemented in algebraic geometry.
 
-\subsection{FSM Traversal at word-level over $\Fkk$} 
-The state transition graph (STG) shown in figure \ref{fig:fsm}(a) uses a
+{\bf FSM Traversal at word-level over $\Fkk$:} 
+The state transition graph (STG) shown in Fig.\ref{fig:fsm}(a) uses a
 2-bit Boolean vector to represent 4 states $\{S_0, S_1, S_2,
 S_3\}$. We map these states to elements in $\mathbb{F}_{2^2}$, where
 $S_0 = 0, S_1 = 1, S_2 = \alpha, S_3 = \alpha+1$. Here, we take 
@@ -416,7 +323,7 @@ $P(X) = X^2+X+1$ as the irreducible polynomial to construct
 $\mathbb{F}_4$, and $P(\alpha) = 0$ so that $\alpha^2 + \alpha + 1 =
 0$.  
 
-{\it Initial state:} In Line 1 of algorithm \ref{alg:BFS}, the initial state is
+{\it Initial state:} In Line 1 of Alg.\ref{alg:BFS}, the initial state is
 specified by means of a corresponding polynomial $f = \mathcal{F}(S) =
 S - 1 - \alpha$. Notice that if we consider the ideal generated by the
 initial state polynomial, $I = \langle f\rangle$, then its variety
@@ -434,7 +341,7 @@ initial state.
 %reachability. 
 
 {\bf Set operations:} In Lines 5 and 6 of
-algorithm  \ref{alg:BFS}, we need  \textbf{union}, 
+Alg. \ref{alg:BFS}, we need  \textbf{union}, 
 \textbf{intersection} and \textbf{complement} of varieties over
 $\mathbb{F}_{2^k}$, for which we again use algebraic geometry concepts.
 
@@ -458,7 +365,7 @@ J) = {\bf V}(I) \bigcup {\bf V}(J)$.
 \end{Theorem}
 
 
-In Line 5 of algorithm  \ref{alg:BFS}, we need to compute the complement of a
+In Line 5 of Alg. \ref{alg:BFS}, we need to compute the complement of a
 set of states. Assume that $J$ denotes a polynomial ideal whose
 variety $V(J)$ denotes a set of states. We require the computation of
 another polynomial ideal $J'$, such that $V(J')=\overline{V(J)}$. We
@@ -503,7 +410,7 @@ results which are stated and proved below:
 Let $f,g\in \Fkk[x]$, then $\langle f:g\rangle = \left\langle\frac{f}{gcd(f,g)}\right\rangle$.
 \end{Lemma}
 
-\begin{Proof}
+\begin{proof}
 Let $d = gcd(f, g)$. So, $f = df_1 , g = dg_1$ with $gcd(f_1 , g_1 ) =
 1$. Note that $f_1 = \frac{f}{gcd(f,g)}$.
 
@@ -516,7 +423,7 @@ $f_1$ divides $h$. Hence $h \in \langle f_1\rangle$.
 Conversely, let $h \in \langle f_1 \rangle$. Then $h = s \cdot f_1$,
 where $s \in \Fkk[x]$. So, $hg = hdg_1 = sf_1 dg_1 = sg_1 f \in 
 \langle f \rangle$. Therefore, $h \in \langle f : g\rangle$.
-\end{Proof}
+\end{proof}
 
 
 \begin{Theorem}
@@ -528,7 +435,7 @@ $${ V}(J_0:J) = { V}(J_0) - { V}(J),$$ where all the varieties are
 considered over the field $\Fkk$. 
 \end{Theorem}
 
-\begin{Proof}
+\begin{proof}
 Since $\Fkk[x]$ is a principal ideal domain, $ J = \langle g\rangle$
 for some polynomial $ g \in \Fkk[x]$. Let $d = gcd(g, x^{2^k} -
 x)$. So, $g = dg_1 , x^{2^k} - x = df_1$, with $gcd(f_1 , g_1 ) =
@@ -556,7 +463,7 @@ $x^{2^k} - x = df_1$, we get that $x^{2^k} - x$ has a double root.
 But this is impossible since the derivative of $x^{2^k} - x$ is $-1$.
 
 So, $x \notin V(g)$ and this concludes the proof.
-\end{Proof}
+\end{proof}
 
 % Let $J_0 = \langle x_1^{2^k} - x_1, \dots, x_n^{2^k} - x_n \rangle$
 % denote the ideal of all vanishing polynomials in $\Fkk$. Then, we have
@@ -580,12 +487,23 @@ computed as $J' = J_0:J$. Then $$V(J') = \overline{V(J)} = {V}(J_0:J)$$
 
 With Corollary \ref{cor:complement}, we are ready to demonstrate the
 concept of word-level FSM traversal over $\Fkk$ using algebraic
-geometry. The algorithm is given in algorithm  \ref{alg:univa}. Note that in
+geometry. The algorithm is given in Alg. \ref{alg:univa}. Note that in
 the algorithm, $from^i, to^i, new^i$ are {\it univariate polynomials in variables $S$
 or $T$} only, due to the fact that they are the result of a GB
 computation with an elimination term order, where the bit-level 
 variables are abstracted and quantified away.
 
+
+%% Assume $I = \langle f\rangle  = \langle T^2 +
+%% (1+\alpha)\cdot T+\alpha\rangle $,  we can add vanishing polynomial
+%% $T^4 - T$ to this ideal such that its variety  $V(I) = \{a\ |\ a \in
+%% \mathbb{F}_{2^2}\ and\ f(a) = 0\} = \{1, \alpha\}$. For complement set
+%% of variety $\{1, \alpha\}$, the universal set is the variety of ideal
+%% of vanishing polynomial $V(\langle T^4-T\rangle ) =
+%% \{0,1,\alpha,1+\alpha\}$, 
+%% so $\overline{V(\langle T^2 + (1+\alpha)\cdot T+\alpha\rangle )} = V(\langle T^4-T\rangle ) - V(\langle T^2 + (1+\alpha)\cdot T+\alpha\rangle )$,
+%% which equals to $V(\langle T^4-T\rangle :\langle T^2 + (1+\alpha)\cdot T+\alpha\rangle ) = V(\langle T^2+(1+\alpha)\cdot T\rangle )$,
+%% the result is $\{0,1+\alpha\}$.
 
 
 \IncMargin{1em}
@@ -619,13 +537,11 @@ variables are abstracted and quantified away.
 \end{algorithm}
 \DecMargin{1em}
 
-\subsection{Word-level FSM Traversal Example}
-
 \begin{Example}
 \label{ex:SMPO}
 We apply Algorithm \ref{alg:univa} to the example shown in
-figure \ref{fig:fsm} to execute the FSM traversal. Let the initial state
-$from^0 = \{00\}$ in $\B^2$ or $0 \in \mathbb F_4$. Polynomially, it is
+Fig. \ref{fig:fsm} to execute the FSM traversal. Let the initial state
+$from^0 = \{00\}$ in $\B^2$ or $0 \in \mathbb F _4$. Polynomially, it is
 written as $from^0 = S - 0$. In the first iteration, we compose
 an ideal $J$ with 
 
@@ -704,392 +620,3 @@ elimination term order with ``bit-level variables'' $>$
 ``present-state word'' $S$ $>$ ``next-state word'' $T$, the set of
 reachable states are encoded, canonically, using a univariate
 polynomial in $T$, quantifying away the rest of the variables. 
-
-\section{Improving our Approach}
-Using ATO on computing GB for large set of polynomial is time-consuming, and usually 
-intractable. In order to make our approach scalable, we propose improvements from 
-two aspects: on the one hand, using another term ordering which can lower down the 
-computational complexity of obtaining GB; on the other hand, reducing the 
-polynomials by collecting bit-level primary inputs (PIs) and integrating them as word-level 
-variables which are compatible with our working GF.
-\subsection{Simplifying the Gr\"obner Basis Computation}
-In algorithm \ref{alg:univa}, a Gr\"obner basis is computed for each
-iteration to attain the word-level polynomial representation of the next states. In practice, for 
-a sequential circuit with complicated structure and large size, Gr\"obner basis computation
-is intractable. To overcome the high computational complexity of computing a GB, 
-we describe a method that computes a GB of a smaller subset of polynomials.
-The approach draws inspirations from \cite{pruss:tcad}. 
-According to proposition 2 in \cite{pruss:tcad}, if the GB is computed using {\it refined abstraction term
-order} (RATO), there will be only one pair of polynomials $\{f_w,f_g\}$ such that 
-their leading monomials are not relatively prime, i.e. 
-$$gcd(LM(f_w), LM(f_g)) \neq 1$$
-As a well-known fact from Buchberger's algorithm, the S-polynomial 
-(Spoly) pairs with relatively prime 
-leading monomials will always reduce to 0 modulo the basis and have no contribution to 
-the Gr\"obner basis computation.
-Therefore, by removing the relatively prime polynomials from $J_{ckt}$, 
-the Gr\"obner basis computation is transformed to the reduction of 
-$Spoly(f_w,f_g)$ modulo $J_{ckt}$. More specifically, we turn the
-GB computation into one-step multivariate polynomial division, and the obtained
-remainder $r$ will only contain bit-level inputs and word-level output. 
-
-\begin{Example}
-After adding intermediate bit-level signal $a,b,c,d$, the elimination ideal for example circuit 
-(example \ref{ex:SMPO}) can be rewritten LEX order with RATO:
-\begin{align}
-&(t_0,t_1)>(a,b,c,d)\nonumber\\&>T>(x,s_0,s_1)\nonumber
-\end{align}
-We can write down all polynomial generators of $J_{ckt}$:
-\begin{equation*}
-f_1: a+xs_0s_1+xs_0+xs_1+x+s_0s_1+s_0+s_1+1
-\end{equation*}
-\vspace{-0.8cm}
-\begin{alignat*}{3}
-& f_2: b+s_0s_1 &&~~~ f_3: c+x+xs_0 \\
-& f_4: d+s_0s_1+s_0 &&~~~ f_5: t_0+ab+a+1 \\
-& f_6: t_1+cd+c+d &&~~~ f_7: t_0+t_1\alpha+T 
-\end{alignat*}
-
-From observation, the only pair which is not relatively prime is
-$(f_5,f_7)$, thus the critical candidate polynomial pair is
-$(f_w,f_g)$, where $$f_w = t_0+a\cdot b+a+b, ~~f_g =t_0+t_1\alpha + T$$
-Result after reduction is:
-\begin{align}
-&Spoly(f_w,f_g) \xrightarrow{J+J_0}_{+}T + s_0 s_1 x+\alpha s_0 s_1 \nonumber\\
-&+(1+\alpha)s_0 x+(1+\alpha) s_0+s_1 x+s_1+(1+\alpha) x+1\nonumber
-\end{align}
-The remainder contains only bit-level inputs $(x,s_0,s_1)$ and word-level output $T$.
-\end{Example}
-
-
-The remainder from \emph{Spoly} reduction contains bit-level PS variables, and our objective is to get a polynomial 
-containing only word-level PS variables. One possible method is 
-to rewrite bit-level variables in term of word-level variables, i.e.
-\begin{equation}
-\label{eqn:BLVS_reacha}
-s_i = \mathcal{G}(S)
-\end{equation}
-
-Then we can substitute all bit-level variables with the word-level variable
-and obtain a word-level expression.
-The authors of \cite{pruss:tcad} propose a method to construct 
-a system of equations and solution to the system consists of equation \ref{eqn:BLVS_reacha}.
-One way to obtain  is to apply a Gaussian-elimination-fashion approach, which could 
-compute corresponding $\mathcal{G}(S)$ efficiently with time complexity $O(k^3)$.
-
-\begin{Example}
-{\bf Objective}:\ Abstract polynomial $s_i + \mathcal{G}_i(S)$ from $f_0: s_0+s_1\alpha+S$.
-
-First, compute $f_0^2: s_0+s_1\alpha^2+S^2$. Apparently variable $s_0$ can be
-eliminated by operation 
-\begin{align}
-f_1 =& f_0 + f_0^2 \nonumber\\
-=&(\alpha^2+\alpha)s_1+S^2+S\nonumber
-\end{align}
-Now we can solve univariate polynomial equation $f_1 = 0$ and get solution
-$$s_1 = S^2 + S$$
-Using this solution we can easily solve equation $f_0 = 0$. The result is
-$$s_0 = \alpha S^2+(1+\alpha)S$$
-\end{Example}
-
-More formally, polynomial expressions for $s_i$ in terms of $S$ can be
-obtained by setting up and solving the following system of equations:
-\begin{align}
-\label{eqn:betamat}
-\begin{bmatrix}
-S \\
-S^2 \\
-S^{2^2} \\
-\vdots \\
-S^{2^{k-1}}
-\end{bmatrix}
-&=
-\begin{bmatrix}
-1 & \alpha & \alpha^{2} & \cdots & \alpha^{{k-1}}\\
-1 & \alpha^{2} & \alpha^{4} & \cdots & \alpha^{2(k-1)} \\
-1 & \alpha^{4} & \alpha^{8} & \cdots & \alpha^{4(k-1)}\\
-\vdots & \vdots & \vdots & \ddots & \vdots \\
-1 & \alpha^{2^{k-1}} & \alpha^{2\cdot 2^{k-1}} & \cdots & \alpha^{(k-1)\cdot 2^{k-1}}
-\end{bmatrix}
-\begin{bmatrix}
-s_0\\
-s_1\\
-s_2\\
-\vdots\\
-s_{k-1}
-\end{bmatrix}
-\end{align}
-Treat ${\bf s}$ as a vector of $k$ unknowns $s_0,\dots,s_{k-1}$,
-then equation \ref{eqn:betamat} can be solved by using Cramer's rule or Gaussian elimination.
-In other words, we can obtain $s_i=\mathcal G(S)$ by solving equation \ref{eqn:betamat} symbolically.
-
-In this approach we get word-level variable representation for each bit-level PS variables. 
-By substitution, a new polynomial in word-level PS/NS variables could be obtained.
-
-After processing with RATO and bit-to-word conversions, we get a polynomial in the 
-form of $f_T = T+\mathcal{F}(S,x)$
-denoting the {\bf transition function}. We include a polynomial in $S$ to define the present states $f_S$,
-as well as the set of vanishing polynomials for primary inputs 
-$J_0^{PI} = \langle x_1^2-x_1,\dots,x_n^2-x_n\rangle$. Using elimination term order with $S>x_i>T$,
-we can compute a GB of the elimination ideal $\langle f_T,f_S\rangle + J_0^{PI}$. This GB contains a univariate
-polynomial denoting next states. The improved algorithm is depicted in Alg. \ref{alg:refined}.
-
-\IncMargin{1em}
-\begin{algorithm}[hbt]
-\SetAlgoNoLine
-\Indm
- \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\F(S)$}
-\Indp
-
-  $from^0 = reached = \F(S)$\;
-  $f_T = $Reduce($Spoly(f_w,f_g), J_{ckt})$\;
-  \tcc{Compute S-poly for the critical pair, then reduce it with circuit ideal under RATO}
-	Eliminate bit-level variables in $f_T$\;
-  \Repeat{$\langle new^i\rangle == \langle 1\rangle$}
-  {
-  	$i \gets i + 1$\;
-  	$G \gets$GB($\langle f_T , from^{i-1}\rangle+J_0^{PI}$)\;
-  	\tcc{Compute Gr\"obner basis with elimination term order: $T$ smallest; $J_0^{PI}$ covers all possible inputs from PIs}
-	$to^i \gets G\cup \Fkk[T]$\;
-	\tcc{There will be a univariate polynomial in $G$ denoting next state in word-level variable $T$}
-	$\langle new^i\rangle \gets \langle to^i\rangle + (\langle T^{2^k}-T\rangle:\langle reached\rangle)$\;
-	\tcc{Use quotient of ideals to attain complement of reached states, then use sum of ideals to attain an intersection with next state}
-  	$\langle reached\rangle \gets \langle reached\rangle \cdot \langle new^i\rangle$\;
-  	\tcc{Use product of ideals to attain a union of newly reached states and formerly reached states}
-	$from^i \gets new^i(S\setminus T)$\;
-	\tcc{Start a new iteration by replacing variable $T$ in newly reached states with current state variable $S$}
-  }
-  \tcc{Loop until a fixpoint reached: newly reached state is empty}
-\Return{$\langle reached\rangle$}
-\caption {Refined Algebraic Geometry based FSM Traversal}\label{alg:refined}
-\end{algorithm}
-\DecMargin{1em}
-
-\subsection{PI Partition}
-Using above techniques we can get a remainder polynomial with only word-level PS/NS variables. However in most 
-cases, the number of bit-level PIs will be too large for the last-step Gr\"obner basis computation. 
-Therefore it is necessary to convert bit-level PIs to word-level PI variables. 
-
-Assume we have $k$-bit datapath and $n$-bit PIs. In Galois field, we need to carefully partition $n$ PIs
-such that states of each partition can be covered by a univariate polynomial respectively.
-
-\begin{Proposition}
-Divide $n$-bit PIs to partitions $n_1,n_2,\dots, n_s$ and let $n_1$-bit, $n_2$-bit, $\dots$, $n_s$-bit word-level variables
-represent their evaluations in $\mathbb F_{2^k}$ respectively. Then $n_1,n_2,\dots,n_s~|~k$.
-\end{Proposition}
-
-Again, assume a partition $n_i~|~k$ and corresponding word-level variable is $P$. Then we can use polynomial
-$P^{2^{n_i}}-P$ to represent all signals at free-end PIs, according to following theorem about {\bf composite
-field}:
-\begin{Theorem}
-\label{thm:composite}
-Let $k = m\cdot n_i$, such that $\mathbb F_{2^k} = \mathbb F_{(2^{n_i})^m}$. Let $\alpha$ be primitive root of 
-$\mathbb F_{2^k}$, $\beta$ be primitive root of the ground field $\mathbb F_{2^{n_i}}$. Then
-$$\beta = \alpha^\omega,~~\text{where}~~\omega = \frac{2^k-1}{2^{n_i}-1}$$
-\end{Theorem}
-\begin{Example}
-\label{ex:PI}
-In a sequential circuit, PS/NS inputs/outputs are 4-bit signals, which means we will use $\mathbb F_{2^4}$
-as working field. PIs are partitioned to 2-bit vectors, which means the ground field is $\mathbb F_{2^2}$.
-In ground field we can represent all possible evaluations of this PI partition $\{p_0,p_1\}$ with
-$$P^4+P,~~\text{where}~~P=p_0+p_1\cdot\beta$$
-Using theorem \ref{thm:composite} we get $\beta = \alpha^5$, so we can redefine word $P$ as element from $\mathbb F_{2^4}$:
-$$P = p_0 + p_1\cdot\alpha^5$$
-\end{Example}
-Using this method we can efficiently partition large size PIs to small number of word-level PI variables.
-One limitation of this approach is PIs cannot be partitioned when $k$ is prime.
-
-\section{Implementation of Word-level FSM Traversal Algorithm}
-In this section, we will introduce the tool implementation of our approach.
-The architecture of our tool consists of 4 functional components.
-First, given circuit is synthesized to gate-level using state-of-art synthesizers.
-Secondly, the synthesized netlist is translated to polynomial form and variables are sorted in 
-RATO. This part is implemented using scripting language such as \emph{Perl}. Thirdly, 
-the polynomial reduction is executed using our customized reduction engine, which is dumped in C++.
-Finally, we utilize symbolic computation engine -- \textsc{Singular} \cite{DGPS} to code algorithm 
-\ref{alg:refined} and execute the BFS traversal. The result is given in a univariate polynomial 
-about NS word $T$, denoting the set of reachable states from given initial state.
-
-The following example illustrates the full-blown reachability analysis approach
-based on C++ and \textsc{Singular} implementation.
-
-\begin{Example}[Full Blown Reachability Analysis Walk-through]
-Usually FSM designs can be described in behavior/structural hybrid languages.
-One of these languages is Berkeley logic interchange format (BLIF) \cite{BLIF},
-it allows state behavior representation and logic component representation.
-
-In this example, we use benchmark FSM ``lion9" from MCNC benchmark library.
-Figure \ref{fig:BLIF} is the truth table based structural BLIF representation of this FSM.
-
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/BLIF.pdf}
-\caption{Sample input BLIF file}
-\label{fig:BLIF}}
-\end{figure}
-
-In order to compose the polynomial set in elimination ideal, we need to synthesize it to 
-gate-level netlist. Modern synthesizers including ABC \cite{brayton2010abc} and SIS \cite{SIS} 
-can complete this work. Figure \ref{fig:BLIF_syn} shows a synthesized FSM given in 
-BLIF format. Note that for simplifying purposes in this example, we only use 2-input logic gates.
-
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/BLIF_syn.pdf}
-\caption{Synthesized BLIF file}
-\label{fig:BLIF_syn}}
-\end{figure}
-
-Using our interpreter, the synthesized BLIF file turns to a polynomial file customized for our 
-polynomial reduction engine as figure \ref{fig:ALG} depicts. Note the first line includes all variables in RATO, the second line 
-denotes the word-level variable. The third line is the irreducible polynomial of current GF $(\F_{2^4})$, the fourth line is the Spoly need to be reduced. The rest part has one polynomial in 
-the elimination ideal in each line.
-
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/ALG.pdf}
-\caption{Polynomial file prepared for polynomial reduction engine}
-\label{fig:ALG}}
-\end{figure}
-
-The result given by our reduction engine is in the format 
-$$T+\Func(s_0,\dots,s_{k-1},x_0,\dots,x_{n-1})$$ 
-where $s_i$ and $x_j$ denotes bit-level PS variables and PIs. Concretely in this example, the result is
-\begin{align*}
-T&+(\alpha^2+\alpha+1) x_0 x_1 s_1 s_3+(\alpha^3+\alpha) x_0 x_1 s_1+(\alpha+1) x_0 x_1 s_3 \\
-&+(\alpha^3+1) x_0 s_1 s_3+(\alpha^3+\alpha) x_0 s_1 +(\alpha+1) x_0 s_3+(\alpha^2) x_0 \\
-&+(\alpha^2+\alpha+1) x_1 s_1 s_3+(\alpha^3+\alpha) x_1 s_1+(\alpha^2+\alpha+1) x_1 s_3\\
-&+(\alpha) x_1+(\alpha^3+1) s_1 s_3+(\alpha^3+\alpha) s_1+(\alpha^3+1) s_3+\alpha^2
-\end{align*}
-This is the transition function of this FSM. We utilized \textsc{Singular} to integrat both 
-bit-word substitution and tranversal algorithm. In figure \ref{fig:SING}, ``tran" is the transition
-function we just obtained. ``init\_S" is the initial state, note it equals to ``0100" register 
-reset values in figure \ref{fig:BLIF}. Moreover, 2 bits PIs $x_0,x_1$ are combined to a word-level 
-PI variable $P$ using our conclusion in example \ref{ex:PI}: ``def\_X" is the definition of 2-bit 
-word, and ``red\_X" denotes the vanishing polynomial for word $P$.
-
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/SING.pdf}
-\caption{Singular script for executing bit-to-word substitution and traversal loop}
-\label{fig:SING}}
-\end{figure}
-
-After the script is executed, the trversal finishes after 4 
-transition iterations, which denotes BFS depth equals to 4. The final reachable states 
-is a degree-9 polynomial about $T$, indicating final reachable states set contains 9 states.
-And state encodings can be obtained by solving this polynomial equation.
-
-\begin{figure}[H]
-\centering{
-\includegraphics[width=\textwidth]{newfig/Recha_result.pdf}
-\caption{The output given by our traversal tool}
-\label{fig:Recha_result}}
-\end{figure}
-
-\end{Example}
-
-\section{Experiment Results}
-We have implemented our traversal algorithm in 3 parts:
-the first part implements polynomial reductions (division) of the
-Gr\"obner basis computations, under the term order derived from the
-circuit as Line 2 in Alg. \ref{alg:refined}. This is implemented 
-with our customized data structure in
-C++. The second part implements the bit-level to word-level
-abstraction to attain transition functions at the word-level 
-%$T+\mathcal{F}(S,PIs)$ 
-using the \textsc{Singular} symbolic
-algebra computation system [v. 3-1-6] \cite{DGPS}, as Line 3 in 
-Alg. \ref{alg:refined}; and the third part
-executes the reachability checking iterations using 
-\textsc{Singular} as well. With our
-tool implementation, we have performed experiments to analyze reachability
-of several FSMs. Our experiments run on a desktop with
-3.5GHz Intel $\text{Core}^\text{TM}$ i7-4770K Quad-core CPU, 32 GB RAM and
-64-bit Ubuntu Linux OS. The experiments are shown in Table \ref{tab:recha_result}. 
-
-There are 2 bottlenecks which restricts the performance of our tool:
-one bottleneck is that the polynomial reduction engine is slow when the number of
-gates (especially OR gates) is large; the other one is the high computational complexity
-of Gr\"obner basis engine in general. Therefore, we pick 10 FSM
-benchmarks of reasonable size for testing our tool. Among them ``b01,
-b02, b06" come from ITC'99 benchmarks, %\cite{ITC99}, 
-``s27, s208, s386" are from  ISCAS'89 benchmarks %\cite{yang1991logic}
- and ``bbara, beecount, dk14, donfile" are from MCNC benchmarks. %\cite{yang1991logic}.
-ISCAS benchmarks are given as {\it bench} format so we can directly read gate information,
-where ITC/MCNC FSMs are given in unsynthesized {\it blif} format so we first turn them
-into gate-level netlists using AIG based synthesizer ABC. % \cite{brayton2010abc}.
-Since the number of primary inputs $(m)$ is relatively small, in our experiments we partition
-primary inputs as $m$ single bit-level variables. To verify the
-correctness of our techniques and implementations, we compare the
-number of reachable states obtained from our tool against the results
-obtained from the VIS tool \cite{brayton1996vis}. 
-
-\begin{table}[H]
-\centering
-\caption{Results of running benchmarks using our tool. 
-\small{Parts I to III denote the time taken by polynomial divisions,
-  bit-level to word-level abstraction and iterative reachability
-  convergence checking part of our approach, respectively.}}
-{\small 
-\begin{tabular}{|c||c|c|c|c|c|c|c|c|c|}
-\hline
-\multirow{3}{*}{\centering Benchmark} 
-& \multirow{3}{0.9cm}{\centering \# Gates} 
-& \multirow{3}{1.1cm}{\centering \# Latches} 
-& \multirow{3}{*}{\centering \# PIs}
- & \multirow{3}{0.9cm}{\centering \# States}
- & \multirow{3}{1.3cm}{\centering \# iterations}
- & \multicolumn{3}{c|}{\multirow{2}{2.0cm}{\centering Runtime (sec)}}
- & \multirow{3}{1.8cm}{\centering Runtime of VIS (sec)} \\
-  & & & & & &\multicolumn{3}{c|}{}& \\
-  \cline{7-9}
-    & & & & & & I & II & III & \\
-\hline
-\hline
-b01 & 39  & 5  & 2 & 18  & 5  & $<0.01$ & 0.01 & 0.02 & $<0.01$\\
-b02 & 24  & 4  & 1 & 8 & 5 & $<0.01$  & 0.01 & $<0.01$ & $<0.01$ \\
-b06 & 49  & 9  & 2 & 13 & 4 & $<0.01$ & 0.07 & 5.0 & $<0.01$ \\
-s27 & 10 & 3 & 4 & 6 & 2 & $<0.01$ & 0.01 & 0.02  & $<0.01$  \\
-s208 & 61 & 8 & 11 & 16 & 16 & $<0.01$ & 0.32 & 2.4 & $<0.01$ \\
-s386 & 118 & 6 & 13 & 13  & 3 & 1.0 & 7.6 & 8.2  & $<0.01$ \\
-bbara & 82 & 4 & 4 & 10 & 6 & 0.04 & 0.01 & 0.04  & $<0.01$ \\
-beecount & 48  & 3  & 3 & 7  & 3  &$<0.01$ & 0.01 & 0.01 & $<0.01$ \\
-dk14 & 120  & 3  & 3 & 7  & 2  & 45 & $<0.01$ & 0.08 & $<0.01$\\
-donfile & 205  & 5  & 2 & 24 & 3  & 12316 & 0.02 & 1.7  & $<0.01$\\
-\hline
-\end{tabular}
-}
-\label{tab:recha_result}  
-\end{table} 
-
-In Table \ref{tab:recha_result}, \# States denotes the final reachable states
-starting from given reset state, which given by our tool is the same with
-the return value of {\it compute\_reach} in VIS. Meanwhile, from observation
-of the experiment run-times, we find the reduction runtime increases
-as the number of gates grows. Also, iterative reachability convergence
-check's runtime reflects both the size of present state/next state
-words ($k$) and the number of final reached states, which corresponds
-to the degree of polynomial {\it reached} in Alg.\ref{alg:univa}. 
-Although the efficiency of our initial implementation fails to compete
-with the BDD based FSM analyzer VIS, the experiment
-demonstrates the power of abstraction of algebraic geometry techniques
-for reachability analysis applications. Currently, we are
-investigating techniques that
-can help us overcome the complexity of the GB computation with elimination
-orders and speed-up our approach. 
-
-%\vspace{-0.1in}
-
-\section{Conclusion} \label{sec:conc}
-This paper has presented a new approach to perform reachability
-analysis of finite state machines at the word-level. This is achieved
-by modeling the transition relations and sets of states by way of
-polynomials over finite fields $\Fkk$, where $k$ represents the size
-of the state register bits. Subsequently using the concepts of
-elimination ideals, Gr\"obner bases, and quotients of ideals, we show
-that the set of reachable states can be encoded, canonically, as the
-variety of a univariate polynomial. This polynomial is computed using
-the Gr\"obner basis algorithm w.r.t. an elimination term
-order. Experiments are conducted with a few FSMs that validate the
-concept of word-level FSM traversal using algebraic geometry. 

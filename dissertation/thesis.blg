@@ -1,94 +1,88 @@
-This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: prev.aux
-A level-1 auxiliary file: gfprelim.aux
-A level-1 auxiliary file: algprelim.aux
+A level-1 auxiliary file: prelim.aux
 A level-1 auxiliary file: recha.aux
 A level-1 auxiliary file: normal.aux
+A level-1 auxiliary file: unsat.aux
 A level-1 auxiliary file: conclude.aux
 A level-1 auxiliary file: appendix.aux
 The style file: ieee.bst
 Database file #1: logic.bib
-Repeated entry---line 235 of file logic.bib
- : %@misc{ecc:software
- :                    ,
+You're missing a field name---line 236 of file logic.bib
+ : 
+ : %  author = {D. Hankerson and J. Hernandez and A. Menezes},
+(Error may have been on previous line)
 I'm skipping whatever remains of this entry
 You're missing a field name---line 2153 of file logic.bib
  : 
  : %address = {Los Alamitos, CA, USA},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-Repeated entry---line 2495 of file logic.bib
- : @unpublished{blueveri:ita
- :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2554 of file logic.bib
- : @inproceedings{Cryptol:fmcad09
- :                               ,
-I'm skipping whatever remains of this entry
 Database file #2: xiaojun.bib
 Repeated entry---line 807 of file xiaojun.bib
  : @misc {DGPS
  :            ,
 I'm skipping whatever remains of this entry
+Database file #3: cnfsat.bib
+Warning--I didn't find a database entry for "tim:phd"
+Warning--I didn't find a database entry for "pruss:tcad"
 Warning--I didn't find a database entry for "lv_dissertation"
 Warning--I didn't find a database entry for "tim_dissertation"
 Warning--I didn't find a database entry for "F4reduce"
-`volume' is a missing field, not a string, for entry pruss:tcad15
-while executing---line 987 of file ieee.bst
-`volume' is a missing field, not a string, for entry alizadeh:tcad2010
-while executing---line 987 of file ieee.bst
-`volume' is a missing field, not a string, for entry ciesielski:flow
-while executing---line 987 of file ieee.bst
-Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+Warning--I didn't find a database entry for "SMPO"
+Warning--I didn't find a database entry for "kalla:fmcad_tut2015"
+Warning--I didn't find a database entry for "rolf:date16"
+`volume' is a missing field, not a string, for entry AppleA10
 while executing---line 987 of file ieee.bst
 Warning--empty journal in DGPS
 `volume' is a missing field, not a string, for entry DGPS
 while executing---line 987 of file ieee.bst
+Warning--empty journal in SIS
+`volume' is a missing field, not a string, for entry SIS
+while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-`volume' is a missing field, not a string, for entry PengLi:GPU
-while executing---line 987 of file ieee.bst
-You've used 116 entries,
+You've used 33 entries,
             1802 wiz_defined-function locations,
-            1065 strings with 22190 characters,
-and the built_in function-call counts, 27856 in all, are:
-= -- 2410
-> -- 1151
-< -- 38
-+ -- 431
-- -- 315
-* -- 1996
-:= -- 4152
-add.period$ -- 127
-call.type$ -- 116
-change.case$ -- 102
+            670 strings with 8999 characters,
+and the built_in function-call counts, 7285 in all, are:
+= -- 661
+> -- 309
+< -- 8
++ -- 118
+- -- 85
+* -- 551
+:= -- 1158
+add.period$ -- 38
+call.type$ -- 33
+change.case$ -- 25
 chr.to.int$ -- 0
-cite$ -- 117
-duplicate$ -- 1442
-empty$ -- 2898
-format.name$ -- 315
-if$ -- 6489
+cite$ -- 35
+duplicate$ -- 345
+empty$ -- 703
+format.name$ -- 85
+if$ -- 1638
 int.to.chr$ -- 0
-int.to.str$ -- 116
-missing$ -- 114
-newline$ -- 583
-num.names$ -- 121
-pop$ -- 528
+int.to.str$ -- 33
+missing$ -- 34
+newline$ -- 169
+num.names$ -- 33
+pop$ -- 120
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 687
+skip$ -- 133
 stack$ -- 0
-substring$ -- 1511
-swap$ -- 451
-text.length$ -- 38
+substring$ -- 406
+swap$ -- 89
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 1
-while$ -- 241
-width$ -- 119
-write$ -- 1246
-(There were 12 error messages)
+warning$ -- 2
+while$ -- 70
+width$ -- 35
+write$ -- 360
+(There were 7 error messages)

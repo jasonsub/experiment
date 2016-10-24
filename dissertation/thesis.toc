@@ -1,76 +1,91 @@
-\contentsline {chapter}{LIST OF FIGURES}{iv}
-\contentsline {chapter}{LIST OF TABLES}{v}
+\contentsline {chapter}{LIST OF FIGURES}{v}
+\contentsline {chapter}{LIST OF TABLES}{vi}
 \contentsline {groupheader}{CHAPTERS}{2}
 \contentsline {chapter}{\numberline {1.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Introduction}}{2}
 \contentsline {groupheader}{\vspace {-22pt}}{2}
-\contentsline {section}{\numberline {1.1}Hardware Design and Verification Overview}{3}
-\contentsline {section}{\numberline {1.2}Formal Verification}{5}
-\contentsline {section}{\numberline {1.3}Importance of Word-level Abstraction}{7}
-\contentsline {section}{\numberline {1.4}Dissertation Objective, Motivation, and Contributions}{9}
-\contentsline {subsection}{\numberline {1.4.1}Motivating Application}{9}
-\contentsline {subsection}{\numberline {1.4.2}Dissertation Contributions}{11}
-\contentsline {section}{\numberline {1.5}Dissertation Organization}{11}
-\contentsline {chapter}{\numberline {2.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Previous Work}}{13}
-\contentsline {groupheader}{\vspace {-22pt}}{13}
-\contentsline {section}{\numberline {2.1}Canonical Decision Diagrams}{13}
-\contentsline {section}{\numberline {2.2}Word-Level Techniques in RTL Synthesis and Verification}{15}
-\contentsline {section}{\numberline {2.3}Combinational Equivalence Checking}{15}
-\contentsline {section}{\numberline {2.4}Verification of Galois Field Circuits}{16}
-\contentsline {section}{\numberline {2.5}Verification of Integer Arithmetic Circuits using Gr\"obner Bases}{17}
-\contentsline {section}{\numberline {2.6}Polynomial Interpolation in Symbolic Computation}{18}
-\contentsline {section}{\numberline {2.7}Concluding Remarks}{19}
-\contentsline {chapter}{\numberline {3.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Galois Fields Preliminaries and Application in Hardware Design}}{20}
-\contentsline {groupheader}{\vspace {-22pt}}{20}
-\contentsline {section}{\numberline {3.1}Rings, Fields and Polynomials}{20}
-\contentsline {section}{\numberline {3.2}Galois Fields}{23}
-\contentsline {subsection}{\numberline {3.2.1}Containment of Galois Fields}{27}
-\contentsline {subsection}{\numberline {3.2.2}Polynomial Interpolation over Galois Fields}{29}
-\contentsline {section}{\numberline {3.3}Hardware Implementations of Arithmetic Operations Over Galois Fields}{31}
-\contentsline {subsection}{\numberline {3.3.1}Montgomery Multipliers}{35}
-\contentsline {subsection}{\numberline {3.3.2}Circuit Designs over Composite Fields}{36}
-\contentsline {subsection}{\numberline {3.3.3}Applications to Elliptic Curve Cryptography}{36}
-\contentsline {chapter}{\numberline {4.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Computer Algebra Fundamentals}}{40}
-\contentsline {groupheader}{\vspace {-22pt}}{40}
-\contentsline {section}{\numberline {4.1}Monomials, Polynomials, and Term Orderings}{40}
-\contentsline {section}{\numberline {4.2}Varieties and Ideals}{44}
-\contentsline {section}{\numberline {4.3}Gr\"{o}bner\xspace Bases}{48}
-\contentsline {section}{\numberline {4.4}Elimination Theory}{54}
-\contentsline {section}{\numberline {4.5}Hilbert's Nullstellensatz}{55}
-\contentsline {section}{\numberline {4.6}Concluding Remarks}{57}
-\contentsline {chapter}{\numberline {5.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Word-level Traversal of Finite State Machines using Algebraic Geometry}}{58}
-\contentsline {groupheader}{\vspace {-22pt}}{58}
-\contentsline {section}{\numberline {5.1}Motivation}{59}
-\contentsline {subsection}{\numberline {5.1.1}Limitations of Full Scan Algorithms}{59}
-\contentsline {subsection}{\numberline {5.1.2}Word-level Data Flow on Modern Datapaths}{61}
-\contentsline {subsection}{\numberline {5.1.3}Prerequisites of Word-level Techniques}{61}
-\contentsline {section}{\numberline {5.2}FSM Reachability using Algebraic Geometry}{61}
-\contentsline {chapter}{\numberline {6.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Functional Verification of Sequential Normal Basis Multiplier}}{70}
-\contentsline {groupheader}{\vspace {-22pt}}{70}
-\contentsline {section}{\numberline {6.1}Motivation}{70}
-\contentsline {section}{\numberline {6.2}Normal Basis Multiplier over Galois Field}{72}
-\contentsline {subsection}{\numberline {6.2.1}Normal Basis}{72}
-\contentsline {subsection}{\numberline {6.2.2}Multiplication using Normal Basis}{73}
-\contentsline {subsection}{\numberline {6.2.3}Comparison between Standard Basis and Normal Basis}{78}
-\contentsline {section}{\numberline {6.3}Design a Normal Basis Multiplier on Gate Level}{80}
-\contentsline {subsection}{\numberline {6.3.1}Sequential Multiplier with Parallel Outputs}{81}
-\contentsline {subsection}{\numberline {6.3.2}Multiplier not based on $\lambda $-Matrix}{84}
-\contentsline {section}{\numberline {6.4}Full-Blown Verification Procedure for Normal Basis Multiplier Functional Correctness Checking}{87}
-\contentsline {subsection}{\numberline {6.4.1}Implicit Unrolling based on Abstraction with ATO}{87}
-\contentsline {subsection}{\numberline {6.4.2}Overcome Computational Complexity using RATO}{94}
-\contentsline {subsection}{\numberline {6.4.3}Solving Linear System for Bit-to-Word Substitution}{97}
-\contentsline {section}{\numberline {6.5}Software Implementation of Implicit Unrolling Approach}{99}
-\contentsline {subsection}{\numberline {6.5.1}Architecture in Singular}{99}
-\contentsline {subsection}{\numberline {6.5.2}Architecture in Customized C++ Toolset}{102}
-\contentsline {section}{\numberline {6.6}Experimental Results}{102}
-\contentsline {section}{\numberline {6.7}Conclusions and Further Work}{104}
-\contentsline {chapter}{\numberline {7.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Conclusions and Future Work}}{106}
-\contentsline {groupheader}{\vspace {-22pt}}{106}
-\contentsline {section}{\numberline {7.1}Future Work}{107}
-\contentsline {subsection}{\numberline {7.1.1}Hardware Acceleration}{107}
-\contentsline {subsection}{\numberline {7.1.2}Integration with EDA Tools}{107}
-\contentsline {subsection}{\numberline {7.1.3}Polynomial Reductions using Data-Structures}{108}
-\contentsline {subsection}{\numberline {7.1.4}Application to Sequential Circuit Verification}{108}
-\contentsline {subsection}{\numberline {7.1.5}Application to Formal Software Verification}{109}
-\contentsline {subsection}{\numberline {7.1.6}Application to Integer Arithmetic Circuits}{109}
-\contentsline {chapter}{\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {APPENDIX: }}{110}
-\contentsline {chapter}{REFERENCES}{111}
+\contentsline {section}{\numberline {1.1}Design, Test and Verification of Modern Sequential Circuit Components}{2}
+\contentsline {section}{\numberline {1.2}Formal Verification Techniques}{2}
+\contentsline {subsection}{\numberline {1.2.1}Conventional Formal Verification}{2}
+\contentsline {subsection}{\numberline {1.2.2}Word-level Verification Techniques}{2}
+\contentsline {section}{\numberline {1.3}Objective, Motivation and Contribution of this Dissertation}{2}
+\contentsline {section}{\numberline {1.4}Dissertation Organization}{2}
+\contentsline {chapter}{\numberline {2.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Previous Work}}{3}
+\contentsline {groupheader}{\vspace {-22pt}}{3}
+\contentsline {section}{\numberline {2.1}SAT,DD,AIG-based Sequential Circuit Verification}{3}
+\contentsline {section}{\numberline {2.2}Bounded Model Checking}{3}
+\contentsline {section}{\numberline {2.3}Model Checking with Abstraction Refinement}{3}
+\contentsline {section}{\numberline {2.4}Word-level Techniques in Sequential Circuit Verification}{3}
+\contentsline {section}{\numberline {2.5}Verification of Galois Field Circuits}{3}
+\contentsline {section}{\numberline {2.6}Conventional UNSAT Core Extraction}{3}
+\contentsline {section}{\numberline {2.7}Conclusion Remarks}{3}
+\contentsline {chapter}{\numberline {3.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Preliminaries}}{4}
+\contentsline {groupheader}{\vspace {-22pt}}{4}
+\contentsline {section}{\numberline {3.1}Commutative Algebra}{4}
+\contentsline {subsection}{\numberline {3.1.1}Group, ring and field}{4}
+\contentsline {subsection}{\numberline {3.1.2}Galois Field}{6}
+\contentsline {subsection}{\numberline {3.1.3}Monomials, Polynomials and Polynomial Arithmetics}{11}
+\contentsline {section}{\numberline {3.2}Algebraic Geometry}{16}
+\contentsline {subsection}{\numberline {3.2.1}Varieties and Ideals}{16}
+\contentsline {subsection}{\numberline {3.2.2}Gr\"{o}bner\xspace Bases}{20}
+\contentsline {section}{\numberline {3.3}Elimination and Abstraction Theory}{24}
+\contentsline {subsection}{\numberline {3.3.1}Elimination Theory}{24}
+\contentsline {subsection}{\numberline {3.3.2}Abstraction using Nullstellensatz and Gr\"obner Basis}{26}
+\contentsline {section}{\numberline {3.4}Conclusion Remarks}{29}
+\contentsline {chapter}{\numberline {4.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Word-level Traversal of Finite State Machines using Algebraic Geometry}}{31}
+\contentsline {groupheader}{\vspace {-22pt}}{31}
+\contentsline {section}{\numberline {4.1}Motivation}{32}
+\contentsline {subsection}{\numberline {4.1.1}Limitations of Full Scan Algorithms}{32}
+\contentsline {subsection}{\numberline {4.1.2}Word-level Data Flow on Modern Datapath Designs}{34}
+\contentsline {subsection}{\numberline {4.1.3}Prerequisites of Word-level Techniques}{36}
+\contentsline {section}{\numberline {4.2}FSM Reachability using Algebraic Geometry}{38}
+\contentsline {subsection}{\numberline {4.2.1}Conventional Traversal Method}{39}
+\contentsline {subsection}{\numberline {4.2.2}FSM Traversal at word-level over ${\mathbb {F}}_{2^k}$}{41}
+\contentsline {subsection}{\numberline {4.2.3}Word-level FSM Traversal Example}{43}
+\contentsline {section}{\numberline {4.3}Improving our Approach}{46}
+\contentsline {subsection}{\numberline {4.3.1}Simplifying the Gr\"obner Basis Computation}{47}
+\contentsline {subsection}{\numberline {4.3.2}PI Partition}{49}
+\contentsline {section}{\numberline {4.4}Implementation of Word-level FSM Traversal Algorithm}{51}
+\contentsline {section}{\numberline {4.5}Experiment Results}{59}
+\contentsline {section}{\numberline {4.6}Conclusion}{60}
+\contentsline {chapter}{\numberline {5.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Functional Verification of Sequential Normal Basis Multiplier}}{62}
+\contentsline {groupheader}{\vspace {-22pt}}{62}
+\contentsline {section}{\numberline {5.1}Motivation}{62}
+\contentsline {section}{\numberline {5.2}Normal Basis Multiplier over Galois Field}{64}
+\contentsline {subsection}{\numberline {5.2.1}Normal Basis}{64}
+\contentsline {subsection}{\numberline {5.2.2}Multiplication using Normal Basis}{65}
+\contentsline {subsection}{\numberline {5.2.3}Comparison between Standard Basis and Normal Basis}{70}
+\contentsline {section}{\numberline {5.3}Design a Normal Basis Multiplier on Gate Level}{72}
+\contentsline {subsection}{\numberline {5.3.1}Sequential Multiplier with Parallel Outputs}{73}
+\contentsline {subsection}{\numberline {5.3.2}Multiplier not based on $\lambda $-Matrix}{76}
+\contentsline {section}{\numberline {5.4}Full-Blown Verification Procedure for Normal Basis Multiplier Functional Correctness Checking}{81}
+\contentsline {subsection}{\numberline {5.4.1}Implicit Unrolling based on Abstraction with ATO}{81}
+\contentsline {subsection}{\numberline {5.4.2}Overcome Computational Complexity using RATO}{87}
+\contentsline {subsection}{\numberline {5.4.3}Solving Linear System for Bit-to-Word Substitution}{90}
+\contentsline {section}{\numberline {5.5}Software Implementation of Implicit Unrolling Approach}{92}
+\contentsline {subsection}{\numberline {5.5.1}Architecture in Singular}{92}
+\contentsline {subsection}{\numberline {5.5.2}Architecture in Customized C++ Toolset}{95}
+\contentsline {section}{\numberline {5.6}Experimental Results}{95}
+\contentsline {section}{\numberline {5.7}Conclusions and Further Work}{97}
+\contentsline {chapter}{\numberline {6.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Finding Unsatisfiable Cores Extraction for a Set of Polynomials using the Gr\"obner Basis Algorithm}}{99}
+\contentsline {groupheader}{\vspace {-22pt}}{99}
+\contentsline {section}{\numberline {6.1}Motivation}{99}
+\contentsline {subsection}{\numberline {6.1.1}Exploiting UNSAT cores for abstraction refinement}{99}
+\contentsline {subsection}{\numberline {6.1.2}A Demonstration of Motivating Example}{102}
+\contentsline {section}{\numberline {6.2}Formalize the Buchberger's Algorithm based UNSAT Core Identification}{103}
+\contentsline {subsection}{\numberline {6.2.1}The Refutation Tree of the GB Algorithm: Find $F_c$ from $F$}{105}
+\contentsline {section}{\numberline {6.3}Reducing the Size of the Infeasible Core $F_c$}{107}
+\contentsline {subsection}{\numberline {6.3.1}Identifying redundant polynomials from the refutation tree}{107}
+\contentsline {subsection}{\numberline {6.3.2}The GB-Core Algorithm Outline}{109}
+\contentsline {section}{\numberline {6.4}Iterative Refinement of the Unsat Core}{111}
+\contentsline {section}{\numberline {6.5}Refining the Unsat core using Syzygies}{113}
+\contentsline {section}{\numberline {6.6}Experiment results}{117}
+\contentsline {section}{\numberline {6.7}Conclusions}{119}
+\contentsline {chapter}{\numberline {7.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Conclusions and Future Work}}{120}
+\contentsline {groupheader}{\vspace {-22pt}}{120}
+\contentsline {section}{\numberline {7.1}Future Work}{120}
+\contentsline {subsection}{\numberline {7.1.1}Multivariate polynomial ideal based FSM Traversal}{120}
+\contentsline {subsection}{\numberline {7.1.2}New Diagram Structure accelerating Polynomial Reduction}{120}
+\contentsline {subsection}{\numberline {7.1.3}Interpolation extraction using GB Algorithm}{120}
+\contentsline {subsection}{\numberline {7.1.4}Verification of Integer Arithmetic Circuits}{120}
+\contentsline {chapter}{\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {APPENDIX: }}{121}
+\contentsline {chapter}{REFERENCES}{122}
