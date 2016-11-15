@@ -1,19 +1,18 @@
-\contentsline {figure}{\numberline {3.1}{\ignorespaces A 2-bit multiplier over ${\mathbb {F}}_{2^2}$.\relax }}{28}
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Gate-level netlist for Lagrange's interpolation example\relax }}{36}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces The example FSM and the gate-level implementation. \relax }}{40}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Sample input BLIF file\relax }}{53}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Synthesized BLIF file\relax }}{54}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Polynomial file prepared for polynomial reduction engine\relax }}{55}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Singular script for executing bit-to-word substitution and traversal loop\relax }}{57}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces The output given by our traversal tool\relax }}{58}
-\contentsline {figure}{\numberline {5.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{63}
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{64}
-\contentsline {figure}{\numberline {5.3}{\ignorespaces A typical SMSO structure of Massey-Omura multiplier\relax }}{73}
-\contentsline {figure}{\numberline {5.4}{\ignorespaces 5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda $-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$. Index $w = 2i\penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$\relax }}{74}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces 5-bit RH-SMPO\relax }}{77}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces A $5\times 5$ multiplication table\relax }}{79}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{82}
-\contentsline {figure}{\numberline {6.1}{\ignorespaces Abstraction by reducing latches\relax }}{100}
-\contentsline {figure}{\numberline {6.2}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{104}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{106}
-\contentsline {figure}{\numberline {6.4}{\ignorespaces Refutation trees of core refinement example\relax }}{113}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Gate-level netlist for Lagrange's interpolation example\relax }}{17}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces The example FSM and the gate-level implementation. \relax }}{21}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Sample input BLIF file\relax }}{34}
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Synthesized BLIF file\relax }}{35}
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Polynomial file prepared for polynomial reduction engine\relax }}{36}
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Singular script for executing bit-to-word substitution and traversal loop\relax }}{38}
+\contentsline {figure}{\numberline {4.7}{\ignorespaces The output given by our traversal tool\relax }}{39}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{44}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{45}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces A typical SMSO structure of Massey-Omura multiplier\relax }}{54}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces 5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda $-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$. Index $w = 2i\penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$\relax }}{55}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces 5-bit RH-SMPO\relax }}{58}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces A $5\times 5$ multiplication table\relax }}{60}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{63}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces Abstraction by reducing latches\relax }}{81}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{85}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{88}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces Refutation trees of core refinement example\relax }}{94}

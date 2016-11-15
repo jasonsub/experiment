@@ -15,23 +15,6 @@ R.~Lidl and H.~Niederreiter,
 \newblock {\em {F}inite {F}ields},
 \newblock Cambridge University Press, 1997.
 
-\bibitem{ideals:book}
-D.~Cox, J.~Little, and D.~O'Shea,
-\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
-  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
-\newblock Springer, 2007.
-
-\bibitem{gb_book}
-W.~W. Adams and P.~Loustaunau,
-\newblock {\em {A}n {I}ntroduction to {G}r\"obner {B}ases},
-\newblock American Mathematical Society, 1994.
-
-\bibitem{lv:phd}
-J.~Lv,
-\newblock {\em {S}calable {F}ormal {V}erification of {F}inite {F}ield
-  {A}rithmetic {C}ircuits using {C}omputer {A}lgebra {T}echniques},
-\newblock PhD thesis, Univ. of Utah, Aug. 2012.
-
 \bibitem{mastro:1989}
 E.~Mastrovito,
 \newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
@@ -63,11 +46,43 @@ M.~Kne\v{z}evi\'{c}, K.~Sakiyama, J.~Fan, and I.~Verbauwhede,
 \newblock {\em in} {\em Proceedings of the International Workshop on Arithmetic
   of Finite Fields}, pp. 77--87, 2008.
 
-\bibitem{buchberger_thesis}
-B.~Buchberger,
-\newblock {\em {E}in {A}lgorithmus zum {A}uffinden der {B}asiselemente des
-  {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
-\newblock PhD thesis, University of Innsbruck, 1965.
+\bibitem{lv:phd}
+J.~Lv,
+\newblock {\em {S}calable {F}ormal {V}erification of {F}inite {F}ield
+  {A}rithmetic {C}ircuits using {C}omputer {A}lgebra {T}echniques},
+\newblock PhD thesis, Univ. of Utah, Aug. 2012.
+
+\bibitem{normal_book}
+Alfred~J Menezes, Ian~F Blake, XuHong Gao, Ronald~C Mullin, Scott~A Vanstone,
+  and Tomik Yaghoobian,
+\newblock {\em Applications of finite fields}, vol. 199,
+\newblock Springer Science \& Business Media, 2013.
+
+\bibitem{gao:phd_normal_basis}
+S.~Gao,
+\newblock {\em {N}ormal {B}asis over {F}inite {F}ields},
+\newblock PhD thesis, University of Waterloo, 1993.
+
+\bibitem{mullinONB}
+Ronald~C Mullin, Ivan~M Onyszchuk, Scott~A Vanstone, and Richard~M Wilson,
+\newblock ``Optimal normal bases in gf (p n)'',
+\newblock {\em Discrete Applied Mathematics}, vol. 22, pp. 149--161, 1989.
+
+\bibitem{MasseyOmura}
+Jimmy~K Omura and James~L Massey,
+\newblock ``Computational method and apparatus for finite field arithmetic'',
+  May~6 1986,
+\newblock US Patent 4,587,627.
+
+\bibitem{agnew1991implementation}
+Gordon~B. Agnew, Ronald~C. Mullin, IM~Onyszchuk, and Scott~A. Vanstone,
+\newblock ``An implementation for a fast public-key cryptosystem'',
+\newblock {\em Journal of CRYPTOLOGY}, vol. 3, pp. 63--79, 1991.
+
+\bibitem{RHmulti}
+Arash Reyhani-Masoleh and M~Anwar Hasan,
+\newblock ``Low complexity word-level sequential normal basis multipliers'',
+\newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
 
 \bibitem{KallaPartialScan}
 Priyank Kalla and Maciej Ciesielski,
@@ -86,6 +101,12 @@ S.~Gao, A.~Platzer, and E.~Clarke,
 \newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
   {B}ases'',
 \newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
+
+\bibitem{ideals:book}
+D.~Cox, J.~Little, and D.~O'Shea,
+\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
+  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
+\newblock Springer, 2007.
 
 \bibitem{DGPS}
 W.~Decker, G.-M. Greuel, G.~Pfister, and H.~Sch{\"o}nemann,
@@ -120,17 +141,6 @@ Robert~K Brayton, Gary~D Hachtel, Alberto Sangiovanni-Vincentelli, Fabio
 \newblock {\em in} {\em Computer Aided Verification}, pp. 428--432. Springer,
   1996.
 
-\bibitem{MasseyOmura}
-Jimmy~K Omura and James~L Massey,
-\newblock ``Computational method and apparatus for finite field arithmetic'',
-  May~6 1986,
-\newblock US Patent 4,587,627.
-
-\bibitem{mullinONB}
-Ronald~C Mullin, Ivan~M Onyszchuk, Scott~A Vanstone, and Richard~M Wilson,
-\newblock ``Optimal normal bases in gf (p n)'',
-\newblock {\em Discrete Applied Mathematics}, vol. 22, pp. 149--161, 1989.
-
 \bibitem{Mastrovito}
 Alper Halbutogullari and {\c{C}}etin~K Ko{\c{c}},
 \newblock ``Mastrovito multiplier for general irreducible polynomials'',
@@ -140,16 +150,6 @@ Alper Halbutogullari and {\c{C}}etin~K Ko{\c{c}},
 Huapeng Wu,
 \newblock ``Montgomery multiplier and squarer for a class of finite fields'',
 \newblock {\em IEEE Transactions on Computers}, vol. 51, pp. 521--529, 2002.
-
-\bibitem{agnew1991implementation}
-Gordon~B. Agnew, Ronald~C. Mullin, IM~Onyszchuk, and Scott~A. Vanstone,
-\newblock ``An implementation for a fast public-key cryptosystem'',
-\newblock {\em Journal of CRYPTOLOGY}, vol. 3, pp. 63--79, 1991.
-
-\bibitem{RHmulti}
-Arash Reyhani-Masoleh and M~Anwar Hasan,
-\newblock ``Low complexity word-level sequential normal basis multipliers'',
-\newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
 
 \bibitem{myDATE}
 Xiaojun Sun, Priyank Kalla, Tim Pruss, and Florian Enescu,

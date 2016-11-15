@@ -2,7 +2,8 @@ This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: prev.aux
-A level-1 auxiliary file: prelim.aux
+A level-1 auxiliary file: prelim_GF.aux
+A level-1 auxiliary file: prelim_basis.aux
 A level-1 auxiliary file: recha.aux
 A level-1 auxiliary file: normal.aux
 A level-1 auxiliary file: unsat.aux
@@ -26,7 +27,6 @@ Repeated entry---line 807 of file xiaojun.bib
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
-Warning--I didn't find a database entry for "tim:phd"
 Warning--I didn't find a database entry for "pruss:tcad"
 Warning--I didn't find a database entry for "lv_dissertation"
 Warning--I didn't find a database entry for "tim_dissertation"
@@ -46,15 +46,15 @@ while executing---line 987 of file ieee.bst
 while executing---line 987 of file ieee.bst
 You've used 33 entries,
             1802 wiz_defined-function locations,
-            670 strings with 8999 characters,
-and the built_in function-call counts, 7285 in all, are:
-= -- 661
-> -- 309
-< -- 8
-+ -- 118
-- -- 85
-* -- 551
-:= -- 1158
+            670 strings with 9001 characters,
+and the built_in function-call counts, 7348 in all, are:
+= -- 662
+> -- 321
+< -- 9
++ -- 122
+- -- 89
+* -- 563
+:= -- 1171
 add.period$ -- 38
 call.type$ -- 33
 change.case$ -- 25
@@ -62,27 +62,27 @@ chr.to.int$ -- 0
 cite$ -- 35
 duplicate$ -- 345
 empty$ -- 703
-format.name$ -- 85
-if$ -- 1638
+format.name$ -- 89
+if$ -- 1648
 int.to.chr$ -- 0
 int.to.str$ -- 33
 missing$ -- 34
 newline$ -- 169
 num.names$ -- 33
-pop$ -- 120
+pop$ -- 119
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
 skip$ -- 133
 stack$ -- 0
 substring$ -- 406
-swap$ -- 89
-text.length$ -- 8
+swap$ -- 90
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
 while$ -- 70
 width$ -- 35
-write$ -- 360
+write$ -- 361
 (There were 7 error messages)

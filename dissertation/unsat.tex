@@ -17,10 +17,14 @@ information mining from UNSAT proofs of intermediate abstractions.
 Here we use an abstraction refinement algorithm from \cite{zhang2005design} to explain that how an UNSAT proof is
 utilized in such techniques.
 
-\begin{algorithm}[hbt]
+\IncMargin{1em}
+\begin{algorithm}[H]
 \SetAlgoNoLine
-	\KwIn{$M$ is the original machine, $p$ is the property to check, $k$ is the number of steps in $k$-BMC}
+\LinesNumbered
+	\KwIn{$M$ -- original machine, $p$ -- property to check, $k$ -- \# of steps in $k$-BMC}
+	\KwOut{If $p$ is violated, return error trace; otherwise $p$ is valid on $M$}
   $k = $ InitValue\;
+  
   \eIf{$k$-BMC$(M,p,k)$ is \textbf{SAT}}
   {
 	\Return{``Found error trace"}
@@ -39,6 +43,9 @@ utilized in such techniques.
   }
 \caption {Abstraction refinement using $k$-BMC}\label{alg:absrefine}
 \end{algorithm}
+\DecMargin{1em}
+
+
 \begin{figure}[hbt]
 \centering{
 \includegraphics[width=5.5in]{newfig/refine.eps}
