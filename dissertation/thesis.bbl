@@ -84,6 +84,57 @@ Arash Reyhani-Masoleh and M~Anwar Hasan,
 \newblock ``Low complexity word-level sequential normal basis multipliers'',
 \newblock {\em Computers, IEEE Transactions on}, vol. 54, pp. 98--110, 2005.
 
+\bibitem{Mastrovito}
+Alper Halbutogullari and {\c{C}}etin~K Ko{\c{c}},
+\newblock ``Mastrovito multiplier for general irreducible polynomials'',
+\newblock {\em IEEE Transactions on Computers}, vol. 49, pp. 503--518, 2000.
+
+\bibitem{ideals:book}
+D.~Cox, J.~Little, and D.~O'Shea,
+\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
+  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
+\newblock Springer, 2007.
+
+\bibitem{gb_book}
+W.~W. Adams and P.~Loustaunau,
+\newblock {\em {A}n {I}ntroduction to {G}r\"obner {B}ases},
+\newblock American Mathematical Society, 1994.
+
+\bibitem{pruss:tcad15}
+T.~Pruss, P.~Kalla, and F.~Enescu,
+\newblock ``{E}fficient {S}ymbolic {C}omputation for {W}ord-{L}evel
+  {A}bstraction from {C}ombinational {C}ircuits for {V}erification over
+  {G}alois {F}ields'',
+\newblock {\em IEEE Transactions on CAD (in review)}, 2016.
+
+\bibitem{buchberger_thesis}
+B.~Buchberger,
+\newblock {\em {E}in {A}lgorithmus zum {A}uffinden der {B}asiselemente des
+  {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
+\newblock PhD thesis, University of Innsbruck, 1965.
+
+\bibitem{dube1986complexity}
+T~Dub{\'e}, Bud Mishra, and Chee-Keng Yap,
+\newblock ``Complexity of buchberger・s algorithm for gr{\"o}bner bases'',
+\newblock {\em Extended Abstract, New York University, New York}, 1986.
+
+\bibitem{gao:qe-gf-gb}
+S.~Gao, A.~Platzer, and E.~Clarke,
+\newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
+  {B}ases'',
+\newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
+
+\bibitem{gao:gf-gb-ms}
+S.~Gao,
+\newblock ``Counting {Z}eros over {F}inite {F}ields with {G}r\"{o}bner
+  {B}ases'',
+\newblock Master's thesis, Carnegie Mellon University, 2009.
+
+\bibitem{null:1890}
+David Hilbert,
+\newblock ``{\"U}ber die {T}heorie der algebraischen {F}ormen'',
+\newblock {\em Math. Annalen}, vol. 36, pp. 473--534, 1890.
+
 \bibitem{KallaPartialScan}
 Priyank Kalla and Maciej Ciesielski,
 \newblock ``A comprehensive approach to the partial scan problem using implicit
@@ -95,18 +146,6 @@ Priyank Kalla and Maciej Ciesielski,
 Alex Wee,
 \newblock ``Difference between iphone 7 and iphone 6s in a nutshell'',
 \newblock {\em Image}, 2016.
-
-\bibitem{gao:qe-gf-gb}
-S.~Gao, A.~Platzer, and E.~Clarke,
-\newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
-  {B}ases'',
-\newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
-
-\bibitem{ideals:book}
-D.~Cox, J.~Little, and D.~O'Shea,
-\newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
-  {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
-\newblock Springer, 2007.
 
 \bibitem{DGPS}
 W.~Decker, G.-M. Greuel, G.~Pfister, and H.~Sch{\"o}nemann,
@@ -140,16 +179,6 @@ Robert~K Brayton, Gary~D Hachtel, Alberto Sangiovanni-Vincentelli, Fabio
 \newblock ``Vis: A system for verification and synthesis'',
 \newblock {\em in} {\em Computer Aided Verification}, pp. 428--432. Springer,
   1996.
-
-\bibitem{Mastrovito}
-Alper Halbutogullari and {\c{C}}etin~K Ko{\c{c}},
-\newblock ``Mastrovito multiplier for general irreducible polynomials'',
-\newblock {\em IEEE Transactions on Computers}, vol. 49, pp. 503--518, 2000.
-
-\bibitem{Montgomery}
-Huapeng Wu,
-\newblock ``Montgomery multiplier and squarer for a class of finite fields'',
-\newblock {\em IEEE Transactions on Computers}, vol. 51, pp. 521--529, 2002.
 
 \bibitem{myDATE}
 Xiaojun Sun, Priyank Kalla, Tim Pruss, and Florian Enescu,

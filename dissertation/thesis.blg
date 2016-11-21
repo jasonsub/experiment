@@ -34,6 +34,10 @@ Warning--I didn't find a database entry for "F4reduce"
 Warning--I didn't find a database entry for "SMPO"
 Warning--I didn't find a database entry for "kalla:fmcad_tut2015"
 Warning--I didn't find a database entry for "rolf:date16"
+`volume' is a missing field, not a string, for entry pruss:tcad15
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry dube1986complexity
+while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry AppleA10
 while executing---line 987 of file ieee.bst
 Warning--empty journal in DGPS
@@ -44,45 +48,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 33 entries,
+You've used 38 entries,
             1802 wiz_defined-function locations,
-            670 strings with 9001 characters,
-and the built_in function-call counts, 7348 in all, are:
-= -- 662
-> -- 321
+            694 strings with 9800 characters,
+and the built_in function-call counts, 8057 in all, are:
+= -- 720
+> -- 359
 < -- 9
-+ -- 122
-- -- 89
-* -- 563
-:= -- 1171
-add.period$ -- 38
-call.type$ -- 33
-change.case$ -- 25
++ -- 137
+- -- 99
+* -- 607
+:= -- 1306
+add.period$ -- 43
+call.type$ -- 38
+change.case$ -- 28
 chr.to.int$ -- 0
-cite$ -- 35
-duplicate$ -- 345
-empty$ -- 703
-format.name$ -- 89
-if$ -- 1648
+cite$ -- 40
+duplicate$ -- 382
+empty$ -- 768
+format.name$ -- 99
+if$ -- 1801
 int.to.chr$ -- 0
-int.to.str$ -- 33
-missing$ -- 34
-newline$ -- 169
-num.names$ -- 33
-pop$ -- 119
+int.to.str$ -- 38
+missing$ -- 38
+newline$ -- 194
+num.names$ -- 38
+pop$ -- 134
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 133
+skip$ -- 144
 stack$ -- 0
-substring$ -- 406
-swap$ -- 90
+substring$ -- 402
+swap$ -- 94
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 70
-width$ -- 35
-write$ -- 361
-(There were 7 error messages)
+while$ -- 74
+width$ -- 40
+write$ -- 413
+(There were 9 error messages)

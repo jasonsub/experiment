@@ -18,19 +18,62 @@
 \citation{acar:1998}
 \citation{wu:2002}
 \citation{Knezevic:2008}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Galois Field}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1.2}Finite Field}{6}}
 \newlabel{rep:poly}{{3.1}{7}}
-\newlabel{rep:polyC}{{3.1}{7}}
+\newlabel{rep:polyC}{{3.1}{8}}
 \newlabel{exp:1}{{3.3}{8}}
-\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Bit-vector, Exponential and Polynomial representation of elements in $\mathbb  {F}_{2^4} = \mathbb  {F}_2[x] \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mux^4+x^3+1)$\relax }}{8}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.1}{\ignorespaces Bit-vector, Exponential and Polynomial representation of elements in $\mathbb  {F}_{2^4} = \mathbb  {F}_2[x] \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mux^4+x^3+1)$\relax }}{9}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{tab:gfelement}{{3.1}{8}}
+\newlabel{tab:gfelement}{{3.1}{9}}
 \newlabel{the:unique}{{3.1}{9}}
 \newlabel{the:fer}{{3.2}{9}}
 \newlabel{fe}{{3.6}{10}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Normal Basis Multiplier over Galois Field}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Normal Basis}{11}}
+\@writefile{lot}{\contentsline {table}{\numberline {3.2}{\ignorespaces Bit-vector, Exponential and Polynomial representation of elements in ${\mathbb  {F}}_{2^4} = {\mathbb  {F}}_2[x] \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mux^4+x^3+1)$\relax }}{11}}
+\newlabel{table:booltogalois}{{3.2}{11}}
+\newlabel{eqn:StdB}{{3.7}{11}}
+\citation{MasseyOmura}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Multiplication using Normal Basis}{12}}
+\newlabel{lem:squareNB}{{3.1}{12}}
+\newlabel{eqn:multiMSB}{{3.8}{14}}
+\newlabel{eqn:shiftMSB}{{3.9}{14}}
+\newlabel{eqn:def_lambda}{{3.10}{15}}
+\citation{mullinONB}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.3}Comparison between Standard Basis and Normal Basis}{17}}
+\citation{mastro:1989}
+\citation{PT:1985}
+\citation{Mastrovito}
+\citation{wu:2002}
+\citation{MasseyOmura}
+\citation{MasseyOmura}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Design a Normal Basis Multiplier on Gate Level}{19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.1}Sequential Multiplier with Parallel Outputs}{19}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.1}{\ignorespaces A typical SMSO structure of Massey-Omura multiplier\relax }}{20}}
+\newlabel{fig:MasseyOmura}{{3.1}{20}}
+\citation{agnew1991implementation}
+\newlabel{eqn:SMPOterms}{{3.14}{21}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.2}{\ignorespaces 5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda $-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$. Index $w = 2i\penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$\relax }}{21}}
+\newlabel{fig:SMPO}{{3.2}{21}}
+\newlabel{eqn:5bitSMPO_c0}{{3.15}{22}}
+\citation{RHmulti}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3.2}Multiplier not based on $\lambda $-Matrix}{23}}
+\citation{RHmulti}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.3}{\ignorespaces 5-bit RH-SMPO\relax }}{24}}
+\newlabel{fig:5bitRH}{{3.3}{24}}
+\newlabel{eqn:aux}{{3.16}{24}}
+\newlabel{eqn:auxDC}{{3.17}{24}}
+\citation{RHmulti}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces NB Multiplication Algorithm in RH-SMPO \cite  {RHmulti}\relax }}{25}}
+\newlabel{alg:RHmulti}{{1}{25}}
+\newlabel{eqn:5bitRHaux}{{3.18}{25}}
+\newlabel{eqn:multitable}{{3.19}{26}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3.4}{\ignorespaces A $5\times 5$ multiplication table\relax }}{26}}
+\newlabel{fig:multitable}{{3.4}{26}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Concluding Remarks}{28}}
 \@setckpt{prelim_GF}{
-\setcounter{page}{12}
-\setcounter{equation}{6}
+\setcounter{page}{29}
+\setcounter{equation}{19}
 \setcounter{enumi}{0}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
@@ -39,8 +82,8 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{3}
-\setcounter{figure}{0}
-\setcounter{table}{1}
+\setcounter{figure}{4}
+\setcounter{table}{2}
 \setcounter{oldchapter}{0}
 \setcounter{oldtocdepth}{0}
 \setcounter{float@type}{8}
@@ -61,17 +104,17 @@
 \setcounter{ALC@depth}{0}
 \setcounter{BAenumi}{0}
 \setcounter{AlgoLine}{0}
-\setcounter{algocfline}{0}
-\setcounter{algocfproc}{0}
-\setcounter{algocf}{0}
-\setcounter{Theorem}{3}
-\setcounter{Definition}{8}
-\setcounter{Example}{4}
+\setcounter{algocfline}{1}
+\setcounter{algocfproc}{1}
+\setcounter{algocf}{1}
+\setcounter{Theorem}{4}
+\setcounter{Definition}{9}
+\setcounter{Example}{10}
 \setcounter{Proposition}{0}
-\setcounter{Lemma}{0}
+\setcounter{Lemma}{1}
 \setcounter{Corollary}{0}
-\setcounter{section}{1}
-\setcounter{subsection}{2}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
 \setcounter{paragraph}{0}
 \setcounter{subsubsection}{0}
 \setcounter{lstlisting}{0}
