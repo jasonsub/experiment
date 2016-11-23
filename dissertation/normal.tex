@@ -2,17 +2,17 @@
 \label{ch:normal}
 In order to utilize our traversal algorithm, it is necessary to find out
 a sort of suitable circuit benchmarks which is easy to compute its
-Gr\"obner basis (GB). From the work of Lv et al. \cite{lv_dissertation},
+Gr\"obner basis (GB). From the work of {\it Lv} \cite{lv:phd},
 we learn that arithmetic circuits in Galois field (GF) is
 convertible to an ideal of circuit polynomials, and the 
 ideal generators form a GB themselves when applying reverse topological
-term order. Furthermore, according to the work of Pruss et al.
-\cite{tim_dissertation}, with a limited computation complexity,
+term order. Furthermore, according to the work of {\it Pruss et al.}
+\cite{pruss:tcad15}, with a limited computation complexity,
 we can abstract the word-level signature of an arithmetic 
 component working in GF. Thus, we consider the possibility 
 of applying our traversal algorithm on sequential Galois
 field circuits. In each frame, we can use the techniques 
-from \cite{tim_dissertation} to abstract the word-level
+from \cite{pruss:tcad15} to abstract the word-level
 signature of the combinational logic, which corresponds
 to the transition function in our traversal algorithm.
 As a result, we manage to find a type of sequential GF multiplier
@@ -21,7 +21,7 @@ verify its functional correctness.
 
 \section{Motivation}
 \label{sec:normal_motiv}
-From the preliminaries (Chapter \ref{ch:prelim}) about FSMs, we learn that the
+From the preliminaries about FSMs in section \ref{sec:reach}, we learn that the
 Moore machine does not rely on inputs for state transitions. 
 As depicted in Figure \ref{fig:Moore}(a), a typical Moore machine implementation
 consists of combinational logic component and register files, where
