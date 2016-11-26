@@ -1,4 +1,5 @@
 \chapter{Galois Field and Sequential Arithmetic Circuits}
+\label{ch:prelim_GF}
 This chapter provides a mathematical background for understanding 
 finite fields (Galois fields) and explains how to design Galois field arithmetic circuits.
 We first introduce the mathematical concepts of groups, rings, fields, and 
@@ -566,7 +567,7 @@ M^{(0)} = \left(
 0 & 1 & 0\\
 1 & 0 & 1\\
 0 & 1 & 1
-\end{array} \right).
+\end{array} \right)
 \end{equation*}
 i.e.,
 \begin{equation*}
@@ -689,7 +690,7 @@ On the other hand, operands $A$ and $B$ can be written in NB as
 $$A = (0010~1001)_{NB},~~B = (0100~0010)_{NB}$$
 The $\lambda$-Matrix for $\mathbb F_{2}[x] \pmod{x^8+x^7+x^6+x^4+x^2+x+1}$
 is
-(Computation of $\lambda$-Matrix refers to appendix \ref{append:NB})
+(Computation of $\lambda$-Matrix refers to Appendix \ref{append:NB})
 \begin{equation*}
 M^{(0)} = \left(\begin{array}{lccccccr}
 0 &0 &0 &0 &1 &0 &1 &1 \\
@@ -734,6 +735,7 @@ As a result, the most naive NB multiplier design (or Massey-Omura multiplier \ci
 contains 53 gates in total, which is a great saving in area cost comparing to StdB multipliers.
 
 \section{Design a Normal Basis Multiplier on Gate Level}
+\label{sec:nbdesign}
 The NB multiplier design consumes much less gates than ordinary StdB multiplier design, even if 
 we use the most naive design. However, the modern NB multiplier design has been improved a lot from the 
 very first design model proposed by Massey and Omura in 1986 \cite{MasseyOmura}. In order to 
@@ -796,7 +798,7 @@ M^{(0)} = \left(\begin{array}{lcccr}
 0 &0 &1 &0 &1
 \end{array}\right)
 \end{equation*}
-Then a typical design of 5-bit Agnew's SMPO is depicted in figure \ref{fig:SMPO}.
+Then a typical design of 5-bit Agnew's SMPO is depicted in Figure \ref{fig:SMPO}.
 
 The operands part of this circuit is the same with Massey-Omura multiplier. The differences are on 
 the matrix multiplication part, while it is implemented as separate logic blocks for 5 outputs,
@@ -808,7 +810,7 @@ Suppose we implement $M^{(0)}$ as the logic block in SMSO. In the first clock cy
 \label{eqn:5bitSMPO_c0}
 c_0 = a_1b_0+(a_0+a_3)b_1 + (a_3+a_4)b_2 + (a_1+a_2)b_3 + (a_2+a_4)b_4
 \end{equation}
-Note it is written in the form of equation \ref{eqn:SMPOterms}. In next clock cycles we can obtain 
+Note it is written in the form of Equation \ref{eqn:SMPOterms}. In next clock cycles we can obtain 
 remaining bits of the product, which can be written in following general form polynomial:
 \begin{align}
 c_i =& b_ia_{i+1} + b_{i+1}(a_i + a_{i+3}) + b_{i+2}(a_{i+3} + a_{i+4}) \nonumber\\
@@ -821,15 +823,15 @@ Now let us observe the behavior of 5-bit Agnew's SMPO. Initially all DFFs are re
 In the first clock cycle,
 signal sent to the flip-flop in block $R_0$ denotes function:
 $$R_0^{(1)} = a_1b_0$$
-It equals to the first term of equation \ref{eqn:5bitSMPO_c0}. In the second clock cycle,
+It equals to the first term of Equation \ref{eqn:5bitSMPO_c0}. In the second clock cycle,
 this signal is sent to block $R_1$ through wire $r_0$, and this block also receives data 
 from operands (shifted by 1 bit), generating signal $a_u,a_v$ and $b_w$. Concretely,
 signal sent to flip-flop in block $R_1$ is:
 $$R_1^{(2)} = R_0^{(1)} + (a_0+a_3)b_1 = a_1b_0+(a_0+a_3)b_1$$
-which forms first 2 terms of equation \ref{eqn:5bitSMPO_c0}. Similarly, we track the signal 
+which forms first 2 terms of Equation \ref{eqn:5bitSMPO_c0}. Similarly, we track the signal 
 on $R_2$ in third clock cycle, signal on $R_3$ in fourth clock cycle, finally we can get 
 $$R_4^{(5)} = a_1b_0+(a_0+a_3)b_1 + (a_3+a_4)b_2 + (a_1+a_2)b_3 + (a_2+a_4)b_4$$
-which equals to $c_0$ in equation \ref{eqn:5bitSMPO_c0}.
+which equals to $c_0$ in Equation \ref{eqn:5bitSMPO_c0}.
 After the fifth clock cycle ends, this signal can be detected on wire $r_0$. It shows that 
 the result of $c_0$ is computed after 5 clock cycles and given on $r_0$.
 
@@ -856,7 +858,7 @@ One competitive multiplier design of this type is invented by Reyhani-Masoleh an
 \end{figure}
 
 Figure \ref{fig:5bitRH} is a 5-bit RH-SMPO which is functionally equivalent to 5-bit Agnew's SMPO 
-in figure \ref{fig:SMPO}. A brief proof is as follows: 
+in Figure \ref{fig:SMPO}. A brief proof is as follows: 
 
 \begin{Proof}
 First, we define an auxiliary function for $i$-th bit 
@@ -891,7 +893,7 @@ following algorithm:
   Initialize $A,B$ and aux var $X$ to 0\;
   \For { ($i=0$;   $i < k$; ++i ) }
   {
-	$X \gets X^2+F_{k-1}(A,B)$ \CommentSty{/*use aux-func from Eq.\ref{eqn:aux}*/\;}
+	$X \gets X^2+F_{k-1}(A,B)$ \CommentSty{/*use aux-func from Equation \ref{eqn:aux}*/\;}
 	$A\gets A^2,~B\gets B^2$ \CommentSty{/*Right-cyclic shift $A$ and $B$*/\;}
   }
   $R\gets X$
@@ -908,8 +910,8 @@ $F_{k-1},F_{k-2},\dots,F_0$ with fixed operands $A,B$.
 To better understand the mechanism of RH-SMPO, we will use this 5-bit 
 RH-SMPO as an example and introduce the details on how to design it.
 \begin{Example}[Designing a 5-bit RH-SMPO]
-From equation \ref{eqn:aux} we can deploy AND gates in $d$-layer according to $d_{i,j}$,
-and XOR gates in $c$-layer according to equation \ref{eqn:auxDC}. Concretely, as algorithm \ref{alg:RHmulti}
+From Equation \ref{eqn:aux} we can deploy AND gates in $d$-layer according to $d_{i,j}$,
+and XOR gates in $c$-layer according to Equation \ref{eqn:auxDC}. Concretely, as Algorithm \ref{alg:RHmulti}
 describes, we implement auxiliary function $F_{k-1}$ in the logic:
 $$i = k-1 = 4;~~v=\lfloor 5/2 \rfloor = 2$$
 \begin{equation}
@@ -958,7 +960,7 @@ T_{k-1,0}    &   T_{k-1,1}           & \dots & T_{k-1,k-1}
 
 It is a known fact that M-table $T$ can be converted from $\lambda$-Matrix $M$:
 $$M_{i,j}^{(0)} = T_{j-i,-i}$$
-with indices reduced modulo $k$ (proof given in appendix \ref{append:ONB}). Thus we can write down the M-table of $\mathbb F_{2^5}$ with current NB $N$:
+with indices reduced modulo $k$ (proof given in Appendix \ref{append:ONB}). Thus we can write down the M-table of $\mathbb F_{2^5}$ with current NB $N$:
 
 \begin{figure}[H]
 \centering{
@@ -970,7 +972,7 @@ with indices reduced modulo $k$ (proof given in appendix \ref{append:ONB}). Thus
 Note that we only use row 1 and row 2 from the M-table since range $1\leq j \leq 2$.
 All nonzero entries in these 2 rows corresponds to the interconnections between $d$-layer and 
 $e$-layer. For example, row 1 has two nonzero entries at column 0 and column 3, which corresponds to interconnections 
-between $d_1$ and $e_0,e_3$. This conclusion comes from row 1 in equation \ref{eqn:multitable}:
+between $d_1$ and $e_0,e_3$. This conclusion comes from row 1 in Equation \ref{eqn:multitable}:
 \begin{equation*}
 \beta\cdot\beta^2 = 
 \begin{bmatrix}
@@ -994,7 +996,7 @@ Similarly, from row 2 of M-table we derive that $d_2$ has fanouts $e_3,e_4$:
 = \beta^{2^3} + \beta^{2^4}
 \end{equation*}
 
-Let us look back at equation \ref{eqn:5bitRHaux}, we already dealt with the latter part.
+Let us look back at Equation \ref{eqn:5bitRHaux}, we already dealt with the latter part.
 The first term is always $d_0\beta$, which denotes $d_0$ should always be connected to $e_0(\beta)$.
 After gathering all interconnection information, we can translate it to gate-level circuit implementation:
 $$e_0 = d_0+d_1,~e_3=d_1+d_2,~e_4=d_2$$
@@ -1002,7 +1004,7 @@ $$e_0 = d_0+d_1,~e_3=d_1+d_2,~e_4=d_2$$
 Then the last mission is to implement the output $R_i$ layer. Assume $r_{i-1}$ is the output of 
 $R_{i-1}$ in last clock cycle, we can connect using relation 
 $$R_i = r_{i-1} + e_i$$
-In this example, according to the M-table in figure \ref{fig:multitable}, columns $e_1,e_2$
+In this example, according to the M-table in Figure \ref{fig:multitable}, columns $e_1,e_2$
 have only zeros in its intersection with row $d_1,d_2$. Thus gates for $e_1,e_2$ can be omitted.
 
 This finishes the full design procedure for a 5-bit RH-SMPO.

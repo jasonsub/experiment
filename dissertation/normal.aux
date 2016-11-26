@@ -1,7 +1,7 @@
 \relax 
-\citation{lv_dissertation}
-\citation{tim_dissertation}
-\citation{tim_dissertation}
+\citation{lv:phd}
+\citation{pruss:tcad15}
+\citation{pruss:tcad15}
 \@writefile{loa}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {chapter}{\numberline {6.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Functional Verification of Sequential Normal Basis Multiplier}}{84}}
 \@writefile{toc}{\contentsline {groupheader}{\vspace {-22pt}}{84}}
@@ -10,56 +10,58 @@
 \newlabel{sec:normal_motiv}{{6.1}{84}}
 \@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{85}}
 \newlabel{fig:Moore}{{6.1}{85}}
-\citation{myDATE}
 \@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{86}}
 \newlabel{fig:convention}{{6.2}{86}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Full-Blown Verification Procedure for Normal Basis Multiplier Functional Correctness Checking}{86}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Formal Verification of Normal Basis Multiplier using Gr\"obner Basis}{86}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Implicit Unrolling based on Abstraction with ATO}{86}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {9}{\ignorespaces Abstraction via implicit unrolling for Sequential GF circuit verification\relax }}{87}}
-\newlabel{alg:modified}{{9}{87}}
-\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots  ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{88}}
-\newlabel{fig:sequential}{{6.3}{88}}
-\newlabel{ex:RHSMPO}{{6.1}{89}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots  ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{87}}
+\newlabel{fig:sequential}{{6.3}{87}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {9}{\ignorespaces Abstraction via implicit unrolling for Sequential GF circuit verification\relax }}{88}}
+\newlabel{alg:modified}{{9}{88}}
+\newlabel{ex:RHSMPO}{{6.1}{90}}
 \citation{TimDAC}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Overcome Computational Complexity using RATO}{93}}
-\newlabel{ex:newRATO}{{6.2}{93}}
-\newlabel{ex:BLVS}{{6.3}{94}}
-\newlabel{lem:bitlevelremainder}{{6.1}{95}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Solving Linear System for Bit-to-Word Substitution}{96}}
-\newlabel{eqn:betamat}{{6.1}{96}}
-\newlabel{eqn:Cramer}{{6.2}{96}}
-\newlabel{eqn:Moore}{{6.4}{97}}
-\newlabel{lemma:Moore}{{6.2}{97}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Overcome Computational Complexity using RATO}{94}}
+\newlabel{tab:slimgb}{{\caption@xref {tab:slimgb}{ on input line 307}}{94}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces (Dummy)Runtime of Gr\"obner Basis Computation of Mastrovito Multipliers in Singular using ATO $>$.\relax }}{94}}
+\newlabel{tab:ATO}{{6.1}{94}}
+\newlabel{ex:newRATO}{{6.2}{95}}
+\newlabel{ex:BLVS}{{6.3}{96}}
+\newlabel{lem:bitlevelremainder}{{6.1}{97}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Solving a Linear System for Bit-to-Word Substitution}{98}}
+\newlabel{eqn:betamat}{{6.1}{98}}
+\newlabel{eqn:Cramer}{{6.2}{98}}
+\newlabel{eqn:Moore}{{6.4}{99}}
+\newlabel{lemma:Moore}{{6.1}{99}}
 \citation{DGPS}
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Software Implementation of Implicit Unrolling Approach}{98}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.1}Architecture in Singular}{98}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.4}The Overall Verification Approach}{100}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Software Implementation of Implicit Unrolling Approach}{101}}
 \citation{DGPS}
 \citation{agnew1991implementation}
 \citation{RHmulti}
+\newlabel{eqn:HABR}{{6.9}{103}}
 \citation{mastro:1989}
 \citation{biere2013lingeling}
 \citation{abc}
 \citation{brayton1996vis}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.3.2}Architecture in Customized C++ Toolset}{101}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Experimental Results}{101}}
-\newlabel{sec:result}{{6.4}{101}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time for verification of bug-free RH-SMPO circuits for SAT, ABC and BDD based methods. \emph  {TO} = timeout 14 hrs\relax }}{102}}
-\newlabel{tbl:equiv}{{6.1}{102}}
-\newlabel{table:satbdd}{{6.1}{102}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Similarity between RH-SMPO and Agnew's SMPO\relax }}{102}}
-\newlabel{tbl:fraig}{{6.2}{102}}
-\newlabel{table:similarity}{{6.2}{102}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time (seconds) for verification of bug-free and buggy RH-SMPO using our approach\relax }}{103}}
-\newlabel{tbl:exp1}{{6.3}{103}}
-\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time (seconds) for verification of bug-free and buggy Agnew's SMPO our approach\relax }}{103}}
-\newlabel{tbl:exp2}{{6.4}{103}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Conclusions and Further Work}{103}}
-\newlabel{sec:concl}{{6.5}{103}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Experimental Results}{104}}
+\newlabel{sec:result}{{6.4}{104}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.2}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time for verification of bug-free RH-SMPO circuits for SAT, ABC and BDD based methods. \emph  {TO} = timeout 14 hrs\relax }}{104}}
+\newlabel{tbl:equiv}{{6.2}{104}}
+\newlabel{table:satbdd}{{6.2}{104}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.3}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Similarity between RH-SMPO and Agnew's SMPO\relax }}{105}}
+\newlabel{tbl:fraig}{{6.3}{105}}
+\newlabel{table:similarity}{{6.3}{105}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.4}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time (seconds) for verification of bug-free and buggy RH-SMPO using our approach\relax }}{105}}
+\newlabel{tbl:exp1}{{6.4}{105}}
 \citation{F4reduce}
+\@writefile{lot}{\contentsline {table}{\numberline {6.5}{\ignorespaces \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip Run-time (seconds) for verification of bug-free and buggy Agnew's SMPO our approach\relax }}{106}}
+\newlabel{tbl:exp2}{{6.5}{106}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Conclusions and Further Work}{106}}
+\newlabel{sec:concl}{{6.5}{106}}
 \@setckpt{normal}{
-\setcounter{page}{105}
-\setcounter{equation}{8}
-\setcounter{enumi}{3}
+\setcounter{page}{107}
+\setcounter{equation}{9}
+\setcounter{enumi}{9}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
@@ -68,7 +70,7 @@
 \setcounter{part}{0}
 \setcounter{chapter}{6}
 \setcounter{figure}{3}
-\setcounter{table}{4}
+\setcounter{table}{5}
 \setcounter{oldchapter}{0}
 \setcounter{oldtocdepth}{0}
 \setcounter{float@type}{8}
@@ -80,9 +82,9 @@
 \setcounter{subtable}{0}
 \setcounter{subtable@save}{0}
 \setcounter{lotdepth}{1}
-\setcounter{parentequation}{0}
 \setcounter{r@tfl@t}{0}
 \setcounter{lstnumber}{1}
+\setcounter{parentequation}{0}
 \setcounter{ALC@unique}{0}
 \setcounter{ALC@line}{0}
 \setcounter{ALC@rem}{0}
@@ -95,8 +97,8 @@
 \setcounter{Theorem}{0}
 \setcounter{Definition}{1}
 \setcounter{Example}{4}
-\setcounter{Proposition}{0}
-\setcounter{Lemma}{2}
+\setcounter{Proposition}{1}
+\setcounter{Lemma}{1}
 \setcounter{Corollary}{0}
 \setcounter{section}{5}
 \setcounter{subsection}{0}

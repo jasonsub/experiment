@@ -180,13 +180,6 @@ Robert~K Brayton, Gary~D Hachtel, Alberto Sangiovanni-Vincentelli, Fabio
 \newblock {\em in} {\em Computer Aided Verification}, pp. 428--432. Springer,
   1996.
 
-\bibitem{myDATE}
-Xiaojun Sun, Priyank Kalla, Tim Pruss, and Florian Enescu,
-\newblock ``Formal verification of sequential galois field arithmetic circuits
-  using algebraic geometry'',
-\newblock {\em in} {\em Design Automation and Test in Europe, DATE 2015.
-  Proceedings}. IEEE/ACM, 2015.
-
 \bibitem{TimDAC}
 Tim Pruss, Priyank Kalla, and Florian Enescu,
 \newblock ``Equivalence verification of large galois field arithmetic circuits

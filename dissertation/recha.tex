@@ -706,8 +706,32 @@ reachable states are encoded, canonically, using a univariate
 polynomial in $T$, quantifying away the rest of the variables. 
 
 \section{Improving our Approach}
+\label{sec:improve}
+% TODO Revised according to comments in next chapter
+
 Using ATO on computing GB for large set of polynomial is time-consuming, and usually 
-intractable. In order to make our approach scalable, we propose improvements from 
+intractable. The reason is the exponential computational complexity \cite{gao:gf-gb-ms}:
+\begin{Theorem}
+Let $J+J_0 = \langle f_1, \dots, f_s, ~x_1^q - x_1, \dots, x_d^q -
+x_d\rangle \subset \Fq [x_1, \dots, x_d]$ be an ideal. The time and
+space complexity of Buchberger's algorithm to compute a \Grobner
+basis of $J+J_0$ is bounded by $q^{O(d)}$.
+\end{Theorem}
+
+In our case $q = 2^k$, and when $k$ and $d$ are large, this complexity 
+makes abstraction infeasible.
+
+Buchberger's algorithm consists of two major operations: one is finding 
+S-poly pairs, the other is dividing the S-poly by the set of polynomials.
+Its actual cost is very sensitive to the term ordering: if there exists 
+a term order making most S-poly computation unnecessary, then the cost to 
+compute S-poly is saved. Moreover, it prevents new polynomials generating 
+from unnecessary S-poly reductions, which further reduces the cost
+because there are less S-poly pairs as well as candidate divisors.
+Besides tuning the term ordering, directly cutting down the number of 
+polynomials in the set is also effective.
+
+In order to make our approach scalable, we propose improvements from 
 two aspects: on the one hand, using another term ordering which can lower down the 
 computational complexity of obtaining GB; on the other hand, reducing the 
 polynomials by collecting bit-level primary inputs (PIs) and integrating them as word-level 
@@ -990,6 +1014,7 @@ And state encodings can be obtained by solving this polynomial equation.
 \end{Example}
 
 \section{Experiment Results}
+\label{sec:exp_reacha}
 We have implemented our traversal algorithm in 3 parts:
 the first part implements polynomial reductions (division) of the
 Gr\"obner basis computations, under the term order derived from the

@@ -14,8 +14,8 @@
 \contentsline {figure}{\numberline {5.7}{\ignorespaces The output given by our traversal tool\relax }}{80}
 \contentsline {figure}{\numberline {6.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{85}
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{86}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{88}
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Abstraction by reducing latches\relax }}{106}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{110}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{113}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Refutation trees of core refinement example\relax }}{119}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{87}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces Abstraction by reducing latches\relax }}{108}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{112}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{115}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Refutation trees of core refinement example\relax }}{121}
