@@ -135,6 +135,43 @@ David Hilbert,
 \newblock ``{\"U}ber die {T}heorie der algebraischen {F}ormen'',
 \newblock {\em Math. Annalen}, vol. 36, pp. 473--534, 1890.
 
+\bibitem{retiming}
+Charles~E Leiserson and James~B Saxe,
+\newblock ``Retiming synchronous circuitry'',
+\newblock {\em Algorithmica}, vol. 6, pp. 5--35, 1991.
+
+\bibitem{scan}
+J-Y Jou and K-T Cheng,
+\newblock ``Timing-driven partial scan'',
+\newblock {\em in} {\em Computer-Aided Design, 1991. ICCAD-91. Digest of
+  Technical Papers., 1991 IEEE International Conference on}, pp. 404--407.
+  IEEE, 1991.
+
+\bibitem{mathur2009power}
+Anmol Mathur and Qi~Wang,
+\newblock ``Power reduction techniques and flows at rtl and system level'',
+\newblock {\em in} {\em 2009 22nd International Conference on VLSI Design}, pp.
+  28--29. IEEE, 2009.
+
+\bibitem{clockgating}
+Jitesh Shinde and SS~Salankar,
+\newblock ``Clock gating—a power optimizing technique for vlsi circuits'',
+\newblock {\em in} {\em 2011 Annual IEEE India Conference}, pp. 1--4. IEEE,
+  2011.
+
+\bibitem{coudert2003unified}
+Olivier Coudert and Jean~Christophe Madre,
+\newblock ``A unified framework for the formal verification of sequential
+  circuits'',
+\newblock {\em in} {\em The Best of ICCAD}, pp. 39--50. Springer, 2003.
+
+\bibitem{cho1993redundancy}
+Hyunwoo Cho, Gary~D Hachtel, and Fabio Somenzi,
+\newblock ``Redundancy identification/removal and test generation for
+  sequential circuits using implicit state enumeration'',
+\newblock {\em IEEE Transactions on Computer-Aided Design of Integrated
+  Circuits and Systems}, vol. 12, pp. 935--945, 1993.
+
 \bibitem{KallaPartialScan}
 Priyank Kalla and Maciej Ciesielski,
 \newblock ``A comprehensive approach to the partial scan problem using implicit

@@ -46,45 +46,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 37 entries,
+You've used 43 entries,
             1802 wiz_defined-function locations,
-            685 strings with 9528 characters,
-and the built_in function-call counts, 7836 in all, are:
-= -- 703
-> -- 345
-< -- 9
-+ -- 132
-- -- 95
-* -- 591
-:= -- 1270
-add.period$ -- 41
-call.type$ -- 37
-change.case$ -- 27
+            719 strings with 10510 characters,
+and the built_in function-call counts, 9629 in all, are:
+= -- 892
+> -- 396
+< -- 13
++ -- 151
+- -- 108
+* -- 713
+:= -- 1517
+add.period$ -- 51
+call.type$ -- 43
+change.case$ -- 33
 chr.to.int$ -- 0
-cite$ -- 39
-duplicate$ -- 370
-empty$ -- 743
-format.name$ -- 95
-if$ -- 1749
+cite$ -- 45
+duplicate$ -- 463
+empty$ -- 922
+format.name$ -- 108
+if$ -- 2183
 int.to.chr$ -- 0
-int.to.str$ -- 37
-missing$ -- 37
-newline$ -- 189
-num.names$ -- 37
-pop$ -- 127
+int.to.str$ -- 43
+missing$ -- 43
+newline$ -- 219
+num.names$ -- 43
+pop$ -- 153
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 143
+skip$ -- 194
 stack$ -- 0
-substring$ -- 402
-swap$ -- 92
-text.length$ -- 9
+substring$ -- 539
+swap$ -- 129
+text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 73
-width$ -- 39
-write$ -- 402
+while$ -- 95
+width$ -- 45
+write$ -- 472
 (There were 9 error messages)

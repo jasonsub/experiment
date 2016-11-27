@@ -1,50 +1,49 @@
 \chapter{Word-level Traversal of Finite State Machines using Algebraic Geometry}
 \label{ch:reacha}
-Reachability analysis is a basic component of sequential circuit verification, esp. for 
+Reachability analysis is a basic component of sequential circuit verification, especially for 
 formal equivalence checking and model checking techniques. Concretely, in modern synthesis 
 tools, in order to improve various performance indicators such as latency, clock skew or power
-density, some major refactoring and attachments are made on original designs. 
-Those modifications may introduce malfunctions or glitches to the whole logic. 
-In localized simulation or formal verification (esp. equivalence checking), the modifications may be 
-denied since the malfunctions or glitches are considered as ``faults" in this circuit.
-However, if the circuit behavior is carefully investigated, it may come to a verdict that 
+density, sequential optimization techniques such as retiming \cite{retiming}, scan logic \cite{scan},
+sequential power optimization \cite{mathur2009power} and clock-gating techniques \cite{clockgating}.
+% some major refactoring and attachments are made on original designs. 
+These modifications may introduce malfunctions to the original logic and cause problems. 
+Based on traditional localized simulation or formal verification method (e.g. equivalence checking), 
+designers are reluctant to make aggressive optimization
+since the malfunctions are considered as ``faults" in this circuit.
+However, if the circuit behavior is carefully investigated, it may become evident that 
 those ``faults" will never be activated/excitated during a restricted execution starting 
 from legal initial states and with legal inputs. Thus we will call those ``faults" as 
-{\bf spurious faults}, since they will not affect the circuit's normal behavior.
+{\bf spurious faults} (false negatives), since they will not affect the circuit's normal behavior.
 
 Almost all practical sequential logic components can be modeled as finite state machines (FSMs). 
-If we apply constrains upon the machine to make it start from designated initial states and 
-take in specific legal inputs, a set of reachable states can be derived. 
+If we apply constraints upon the machine to make it start from designated initial states, and 
+take specific legal inputs, a set of reachable states can be derived. 
 As long as the ``faults" can be modeled as ``bad states", we can judge whether they are 
-spurious faults by checking if they sit in the reachable states. From the spurious fault validation 
+spurious faults by checking if they belong to the reachable states. From the spurious fault validation 
 perspective, reachability analysis is a must when developing full set of sequential circuit verification
 techniques.
 
 There are quite a few methods to perform reachability checking on FSMs. One among them is 
 state space traversal. Conventionally the algorithm is based on bit-level techniques such as
 binary decision diagrams (BDDs) and Boolean logic. We propose a new traversal algorithm on word-level,
-which bring critical advantages. In this chapter the approach will be described and discussed in depth, 
+which brings critical advantages. In this chapter the approach will be described and discussed in depth, 
 with examples and experiments showing its feasibility when applied on general circuit benchmarks.
 
 \section{Motivation}
-The motivation of this part of my research consists of many inspirations and observations.
-In this dissertation, we will summarize those major ones into 3 topics. First, we start from 
-a sequential circuit partial scan paper to discuss the inspirations of our work as well as some 
-difficulties to overcome. Secondly, we state the observation that word-level description is 
-increasingly important and common in characterizing the data flow on modern large-size datapaths. 
-Last but not least, we give instances that some prerequisites for supporting word-level techniques 
-are already available. Thus we cover both the necessity and sufficiency of developing such 
-a word-level traversal technique in our work.
+Before introducing the details of our approach, there are a couple of questions to ask: why is it
+necessary to execute word-level FSM traversal? Why does algebraic geometry make this happen?
+The answers can be found in this section, as statement of the motivation of our research.
 
-\subsection{Limitations of Full Scan Algorithms}
-The inspiration of this research mainly comes from a journal paper \cite{KallaPartialScan}. 
-In that paper, the author proposed an traversal algorithm using concept ``implicit state enumeration".
+\subsection{FSM Traversal Algorithms}
+Sequential circuits are modeled as FSMs, which can be implemented as graph. Thus a 
+graph-traversal based algorithm is created to analysis the reachable states \cite{coudert2003unified}.
+A traversal algorithm using concept ``implicit state enumeration" is proposed \cite{cho1993redundancy}.
 Concretely, the algorithm is written as follows:
 
 \begin{algorithm}[H]
 \SetAlgoNoLine
 \LinesNumbered
- \KwIn{Sequential circuit, number of registers to scan}
+ \KwIn{Sequential circuit with given number of registers}
  \KwOut{Scan registers listed in decreasing order of their non-controllability}
 
   $from^0 = reached = S^0$\;
@@ -66,74 +65,63 @@ Concretely, the algorithm is written as follows:
 	$reached = reached + new^i$\;
 	$from^i = new^i$\;
   }\
-  \tcc{\ \ \ \ \ \ \ \ \ \ \ \ \ \ FSM traversal completed}\
-  \For{each state variable $r_j$}
-  {
-	\If{missing transition for $r_j$}
-	{
-		scan state variable $r_j$\;
-	}
-  }
-  $illegal\_states = $bdd\_complement$(reached)$\;
-  \For{each state variable $r_j$}
-  {
-	compute\_degree\_of\_unateness$(r_j,illegal\_states)$\;
-	non-controllability$(r_j)=$degree\_of\_unsettability$(r_j)+$degree\_of\_unateness$(r_j)$\;
-  }
-  order state variables in terms of their non-controllabilities;\tcc{\ Sorting}\
-  output the required scan registers\;
-%\Return{$from_k(R_{final})$}
-\caption {SIMPSON: Scan Register Selection using Implicit State Enumeration\cite{KallaPartialScan}}
+\Return{$reached$}
+\caption {FSM Traversal using Implicit State Enumeration\cite{KallaPartialScan}}
 \label{alg:SIMPSON}
 \end{algorithm}
 \DecMargin{1em}
 
-Note that the former part of this algorithm describes a breath-first-search (BFS) traversal in
-state space. The traversal algorithm is a simple variation of BFS algorithm in graph theory where 
+Above algorithm describes a breath-first-search (BFS) traversal in
+state space. The traversal algorithm is a simple variation of BFS algorithm where 
 states are nodes and transitions are arcs. Each state is uniquely encoded by a combination
 of a set of register data, which is usually represented by a Boolean vector. 
 
-Since a typical sequential circuit usually contains an functionally independent combinational logic
-component, the traversal algorithm analyzes the combinational logic and derive the transition 
-function for one-step reachability within current time-frame, and extend the result to complete 
+Since a typical sequential circuit usually contains a combinational logic
+component, the traversal algorithm analyzes the combinational logic and derives the transition 
+function for one-step reachability within current time-frame, and extends the result to complete 
 execution paths through unrolling. If each state encoding (i.e. exact values in the selected registers) is
-explicitly exposed and counted during the unrolling 
-procedure, this unrolling is called {\bf explicit unrolling}. In the SIMPSON algorithm, the states cannot be 
+explicitly analyzed and counted during the unrolling 
+procedure, this unrolling is called {\bf explicit unrolling}. In the BFS traversal algorithm, the states cannot be 
 directly read in the execution; instead, they are implicitly represented using a conjunction of several 
 Boolean formulas. Such techniques differs from explicit unrolling are called {\bf implicit unrolling}.
 
-However, the SIMPSON algorithm proposed by the author is usually not practical. The conjunctions of 
+However, the BFS traversal algorithm proposed by the author is usually not practical. The conjunctions of 
 Boolean formulas are stored as BDDs, which is a canonical and convenient structure. Nevertheless, 
-the size of BDD is easy to explode when the formulas become too long and too complicated. In the paper,
-the author make a compromise between accuracy and cost, and turn to a partial scan technique rather than 
-a full scan. In my research work, the aim is to explore a word-level technique which can make a full scan 
-available.
+the size of BDD explodes when the formulas become too long and too complicated. In \cite{cho1993redundancy},
+the authors make a compromise between accuracy and cost, and turn to approximate reachability. 
+In this research work, the aim is to explore a word-level technique which can make a accurate reachability
+analysis available.
 
 \subsection{Word-level Data Flow on Modern Datapath Designs}
-The integrity of modern digital circuit designs is very high. For example, processor A10 designed by Apple
-integrates 3.3 billion transistors on a $125~mm^2$ chip \cite{AppleA10}. Such high integrity make the silicon 
-implementation of large datapaths possible. In recent decades, leading by top-notch central processing units (CPUs)
-and high bandwidth memory (HBM), 64-bit or even larger datapaths frequently appear in digital ICs.
-Meanwhile, with the development of electrical design automation (EDA) tools, data flow on those datapaths
-are directly described by the designer as word-level specifications. Therefore, it will be straightforward 
+The level of integration of modern digital circuit designs is very high. For example, processor A10 designed by Apple
+integrates 3.3 billion transistors on a $125~mm^2$ chip \cite{AppleA10}. Such a high density makes the silicon 
+implementation of large datapaths possible. In recent decades, 64-bit or even larger datapaths frequently appear in 
+modern digital IC designs such as powerful central processing units (CPUs) and high bandwidth memory (HBM).
+Meanwhile, with the development of electronic design automation (EDA) tools, data flow 
+is described by the designer as word-level specifications. Therefore, it will be straightforward 
 and beneficial for users if formal verification tools can work on word-level. Moreover, adopting word-level 
-techniques will greatly reduce the state space and make verification executes faster by orders of magnitude.
+techniques will greatly reduce the state space and make verification more efficient.
 
 In order to throw light on the advantages using word-level techniques, we pick a typical 
 digital circuit component in modern 64-bit MIPS processor as an example.
 
-\begin{Example}[Verification of sequential multiplication hardware]
+\begin{Example}
 
-% fig:MIPS
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/MIPS.pdf}
+\caption{A 64-bit sequential multiplication hardware design}
+\label{fig:MIPS}}
+\end{figure}
 
 Figure \ref{fig:MIPS} depicts a sequential multiplication hardware implementation within a 64-bit 
 MIPS. Initially, one multiplicand is preloaded to the lower 64 bits of the product registers. 
 Iteratively, the last significant bit (LSB) of current (temporary) product is used as flag to activate the ALU 
-to add on the other multiplicand. For each iteration the data in product registers shift right by 1 bit.
-Finally when the most significant bit (MSB) of preloaded multiplicand arrives the MSB of product registers,
-the registers contains the result -- 128 bits product. The behavior can be concluded as following algorithm:
+to add on the other multiplicand. For each iteration the data in product registers shifts right by 1 bit.
+Finally when the most significant bit (MSB) of preloaded multiplicand arrives at the MSB of product registers,
+the registers contains the result -- 128 bits product. The behavior can be described by the following algorithm:
 
-\vspace{0.2in}
+% \vspace{0.2in}
 
 \IncMargin{1em}
 \begin{algorithm}[H]
@@ -182,20 +170,24 @@ $O(2^k)$ Boolean operators. If by some means we can write the specification with
 \label{eqn:wordspec}
 S=P_{1/2}+B
 \end{equation}
-The state space will be greatly reduced.
+
+Since the abstraction to word-level reduces symbolic storage and execution cost, the complexity 
+to traverse the state space is greatly reduced.
 \end{Example}
 
-On the other hand, the user of conventional model checker will have to write all these clauses.
-These clauses contain cross-literals, e.g. $s_2$ may associate with $a_1, p_0$, etc. If the user 
-is not familiar with the implementation of this adder, those cross-literals will bring inconveniences
-and confusions. However, if word-level techniques allow specification like equation \ref{eqn:wordspec},
-the verification tool will be very user-friendly and straightforward.
+On the other hand, when implementation details of the datapath are not available, it is not convenient 
+any more for users of conventional model checker. The reason is that the user has to write all clauses 
+for the implementation, which contains cross-literals, e.g. $s_2$ may associate with $a_1, p_0$, etc. If the user 
+is not familiar with the implementation of this adder, those cross-literals will bring
+confusions. However, if word-level techniques allow specification like Equation \ref{eqn:wordspec},
+the verification tool will be very user-friendly and straightforward even if the implementation details
+are in a black box.
 
-\subsection{Prerequisites of Word-level Techniques}
+\subsection{On the Existence of Word-level Abstraction}
 When given a bit-level netlist, the prerequisites to use word-level techniques are to convert bit-level 
 to word-level first. This conversion is usually completed by abstraction techniques.
 
-An old but universally effective abstraction method is {\bf Lagrange's interpolation}. Instead of using 
+An old but universally effective abstraction method is {\it Lagrange's interpolation}. Instead of using 
 it in real algebra, it can also be extended to Galois field. Here we use an example to illustrate the 
 conversion in Galois field using Lagrange's interpolation.
 
@@ -248,22 +240,23 @@ Recall the definition of Lagrange's interpolation:
 \label{eqn:Lagrange}
 \Func(x) =  \sum_{k=1}^N \left[ \prod_{(0\leq j \leq k-1),(j\neq i)}\frac{x-x_j}{x_i-x_j} \cdot y_k \right]
 \end{equation}
-The geometry meaning of Lagrange's interpolation in real algebra is: given $N$ dots with coordinates $(x_i,y_i)$,
+The geometric meaning of Lagrange's interpolation in real algebra is: given $N$ dots with coordinates $(x_i,y_i)$,
 they can always be fitted into a polynomial function with at most $N-1$ degree, and that function can be 
-written in the form of equation \ref{eqn:Lagrange}. In this example, although defined in Galois field instead of 
-real number field, the essential concept of Lagrange's interpolation keeps the same. We can get 8 ``dots":
+written in the form of equation \ref{eqn:Lagrange}. In this example, although defined in a Galois field instead of 
+the real number field, the essential concept of Lagrange's interpolation remains the same. 
+We can get 8 points in the affine space:
 \begin{align*}
-Uni-form&: (a_2\alpha^2+a_1\alpha+a_0,z_2\alpha^2+z_1\alpha+z_0) \gets (A,Z) \\
-Dot~1&: (0, 0) \gets (000,000) \\
-Dot~2&: (1,1) \gets (001,001) \\
-Dot~3&:  (\alpha,\alpha^2 + \alpha + 1) \gets (010,111)\\
-Dot~4&:  (\alpha + 1,\alpha^2 + \alpha + 1)\gets (011,111) \\
-Dot~5&:  (\alpha^2,\alpha^2+1) \gets (100,101)\\
-Dot~6&:  (\alpha^2 + 1,\alpha+1)\gets (101,011)\\
-Dot~7&:  (\alpha^2 + \alpha,\alpha^2 + 1)\gets (110,101)\\
-Dot~8&:  (\alpha^2 + \alpha + 1,\alpha^2 + 1)\gets (111,101)
+\text{Generic form}&: (a_2\alpha^2+a_1\alpha+a_0,z_2\alpha^2+z_1\alpha+z_0) \gets (A,Z) \\
+\text{Point }1&: (0, 0) \gets (000,000) \\
+\text{Point }2&: (1,1) \gets (001,001) \\
+\text{Point }3&:  (\alpha,\alpha^2 + \alpha + 1) \gets (010,111)\\
+\text{Point }4&:  (\alpha + 1,\alpha^2 + \alpha + 1)\gets (011,111) \\
+\text{Point }5&:  (\alpha^2,\alpha^2+1) \gets (100,101)\\
+\text{Point }6&:  (\alpha^2 + 1,\alpha+1)\gets (101,011)\\
+\text{Point }7&:  (\alpha^2 + \alpha,\alpha^2 + 1)\gets (110,101)\\
+\text{Point }8&:  (\alpha^2 + \alpha + 1,\alpha^2 + 1)\gets (111,101)
 \end{align*}
-Substitute 8 $(x_i,y_i)$ pairs in equation \ref{eqn:Lagrange} with these 8 ``dots" in $\F_{2^3}$.
+Substitute 8 $(x_i,y_i)$ pairs in Equation \ref{eqn:Lagrange} with these 8 points in $\F_{2^3}$.
 The result is a polynomial function with degree no greater than 7:
 \begin{align*}
 Z =& \Func(A) \\
@@ -274,8 +267,30 @@ Z =& \Func(A) \\
 \end{Example}
 
 The Lagrange's interpolation theorem also proves the existence of a word-level abstraction for a bit-level netlist.
-In practice, Lagrange's interpolation is too weak on scalability. Our approach uses abstraction based on 
-Gr\"obner basis with abstraction term order (ATO), which is briefly introduced in preliminaries.
+In practice, Lagrange's interpolation is not scalable. 
+The reason is that it needs entire function (state space), but usually we only have the circuit representation
+of the FSM. Considering this fact, a symbolic method is needed.
+Our approach in this section uses abstraction based on 
+Gr\"obner basis with abstraction term order (ATO), which is briefly introduced in Section \ref{sec:abstraction}.
+
+\subsection{Significance of Developing Word-level FSM Traversal}
+At the end of this section, we summarize each subsection and conclude the motivation of our research.
+First, we start from the basic FSM traversal algorithms and exhibit their
+difficulties to overcome. Secondly, we state the observation that word-level description is 
+increasingly important and common in characterizing the data flow on modern large-size datapaths. 
+Last but not least, we give instances that some prerequisites for supporting word-level techniques 
+are already available. 
+
+To conclude, first we state the importance of performing FSM traversal in sequential circuit reachability analysis.
+To overcome the vast cost brought by searching in a large space, we propose to use word-level 
+polynomials to represent the states and transition relations. As a result, states are categorized into 
+sets represented by a small number of word-level polynomials (more specifically, the varieties to the polynomial ideals),
+and multiple transition relations are therefore merged together. All of these efforts reduces the space cost of 
+state space, meanwhile lower the time complexity to traverse such a state space. By using Lagrange's interpolation,
+we prove the feasibility of word-level techniques on general circuits' verification.
+Thus we cover both the necessity and sufficiency of developing such 
+a word-level traversal technique in our work.
+They are also answers to the questions at the beginning of this section.
 
 \section{FSM Reachability using Algebraic Geometry}
 \label{sec:reach}
@@ -287,7 +302,43 @@ to arbitrary FSMs by bundling a set of bit-level variables together as
 one or several word-level variables.  The abstraction polynomial,
 encoding the reachable state space of the FSM, is obtained through
 computing a GB over $\Fkk$ of the polynomials of the circuit using an
-elimination term order based on Theorem \ref{thm:elim}.  
+elimination term order based on Theorem \ref{thm:elimth}.  
+
+\subsection{FSM model for sequential circuits}
+A finite state machine (FSM) is a mathematical model of computation for designing and analyzing sequential logic 
+circuits. If a FSM's primary outputs depend on primary inputs and present state inputs, it is named as a \textit{Mealy machine};
+the formal definition is as follows:
+\begin{Definition}
+A Mealy machine is an $n$-tuple $\mathcal M = (\Sigma,O,S,S^0,\Delta,\Lambda)$ where
+\begin{itemize}
+\item $\Sigma$ is the input label, $O$ is the output label;
+\item $S$ is the set of states, $S^0\subseteq S$ is the set of initial states;
+\item $\Delta:\ S\times\Sigma\to S$ is the next state transition function;
+\item $\Lambda:\ S\times\Sigma\to O$ is the output function.
+\end{itemize}
+\end{Definition}
+The other kind of FSM is \textit{Moore machine}, its difference from Mealy machine is that
+its primary outputs only depend on the present states, i.e. the output function is defined as
+$$\Lambda:\ S \to O$$
+Typical sequential circuits can be depicted as Figure \ref{fig:seqmodel}(a). Primary inputs
+$x_1,\dots,x_m \in \Sigma$, and primary outputs $z_1,\dots,z_n\in O$. Signals $s_1,\dots,s_k$ 
+are present state (PS) variables, $t_1,\dots,t_k$ are next state (NS) variables.
+We can define 2 $k$-bit words denoting the PS/NS variables as there are $k$ flip-flops
+in the datapath: $S = (s_1,\dots,s_k), ~T=(t_1,\dots,t_k)$. Transition function
+at bit level are defined as $\Delta_i$: 
+$$t_i = \Delta_i(s_1,\dots,s_k,x_1,\dots,x_m)$$
+\begin{figure}[H]
+\centering{
+%\begin{minipage}{12cm}
+\includegraphics[width=5.5in]{newfig/seqmodel.eps}
+% \vspace{-0.2in}
+\caption{FSM models of sequential circuits}
+%\end{minipage}
+\label{fig:seqmodel}}
+\end{figure}
+In some cases, arithmetic computations are implemented as Moore machines where input operands
+are loaded into register files $R$ and the FSM is executed for $k$ clock cycles.
+We can simplify them to the model in Figure \ref{fig:seqmodel}(b).
 
 \subsection{Conventional Traversal Method}
 Conceptually, the state-space of a FSM is traversed in a breadth-first
@@ -316,14 +367,15 @@ operation. Let $from$ denote the set of initial states, then the
 image of the initial states, under the transition function $\Delta$ is
 finally computed as:
 \begin{align}
-\label{img}
+\label{eqn:img}
 to = \text{Img}(\Delta, from) = \exists _s ~\exists _x ~[ T(s, x, t)
   \cdot from ] 
 %= \exists _s ~\exists _x ~\prod_{i=1}^{n} (t_i \overline{\oplus } \Delta_i)\cdot from
 \end{align}
 
 Here, $\exists x (f)$ represents the {\it existential quantification
-  of $f$ w.r.t. variable $x$}.  
+  of $f$ w.r.t. variable $x$}. In Boolean logic, this operator is implemented as
+  $$\exists x (f) = f_x\lor f_{\overline{x}}$$
 
 
 \IncMargin{1em}
@@ -349,7 +401,7 @@ Here, $\exists x (f)$ represents the {\it existential quantification
 
 
 Let us describe the application of the algorithm on the  FSM circuit
-of figure \ref{fig:fsm}. {\it We will first describe its operation at the
+of Figure \ref{fig:fsm}. {\it We will first describe its operation at the
 Boolean level, and then describe how this algorithm can be implemented
 using algebraic geometry at word level.} 
 
@@ -361,14 +413,14 @@ using algebraic geometry at word level.}
 \end{figure}
 
 In Line 1 of the BFS algorithm, assume that the initial state
-is $S_3$ in figure \ref{fig:fsm}(b), which is encoded as 
+is $S_3$ in Figure \ref{fig:fsm}(b), which is encoded as 
 $S_3 = \{11\}$. Using Boolean variables $s_0, s_1$ for the present
 states, $from^0 = s_0\cdot s_1$ is represented as a Boolean formula. 
 
 
 
 \begin{Example}
-For the circuit in figure \ref{fig:fsm} (b), we have the transition
+For the circuit in Figure \ref{fig:fsm} (b), we have the transition
 functions of the machine as:
 
 \begin{align*}
@@ -377,7 +429,7 @@ functions of the machine as:
 from:     & ~from^0 = s_0\cdot s_1
 \end{align*}
 
-When the formula of Eqn. (\ref{img}) is applied to compute 1-step
+When the formula of Equation \ref{eqn:img} is applied to compute 1-step
 reachability, $to = \exists _{s_0, s_1, x} (\Delta_1 \cdot \Delta_2
 \cdot from^0)$, we obtain $to = \overline{t_0}\cdot t_1$, which denotes
 the state $S_1 = \{01\}$ reached in 1-step from $S_3$.
@@ -408,7 +460,7 @@ ideals} \cite{gao:qe-gf-gb}. Finally, the set union, intersection and
 complement operations are also to be implemented in algebraic geometry.
 
 \subsection{FSM Traversal at word-level over $\Fkk$} 
-The state transition graph (STG) shown in figure \ref{fig:fsm}(a) uses a
+The state transition graph (STG) shown in Figure \ref{fig:fsm}(a) uses a
 2-bit Boolean vector to represent 4 states $\{S_0, S_1, S_2,
 S_3\}$. We map these states to elements in $\mathbb{F}_{2^2}$, where
 $S_0 = 0, S_1 = 1, S_2 = \alpha, S_3 = \alpha+1$. Here, we take 
@@ -416,7 +468,7 @@ $P(X) = X^2+X+1$ as the irreducible polynomial to construct
 $\mathbb{F}_4$, and $P(\alpha) = 0$ so that $\alpha^2 + \alpha + 1 =
 0$.  
 
-{\it Initial state:} In Line 1 of algorithm \ref{alg:BFS}, the initial state is
+{\it Initial state:} In Line 1 of Algorithm \ref{alg:BFS}, the initial state is
 specified by means of a corresponding polynomial $f = \mathcal{F}(S) =
 S - 1 - \alpha$. Notice that if we consider the ideal generated by the
 initial state polynomial, $I = \langle f\rangle$, then its variety
@@ -434,7 +486,7 @@ initial state.
 %reachability. 
 
 {\bf Set operations:} In Lines 5 and 6 of
-algorithm  \ref{alg:BFS}, we need  \textbf{union}, 
+Algorithm  \ref{alg:BFS}, we need  \textbf{union}, 
 \textbf{intersection} and \textbf{complement} of varieties over
 $\mathbb{F}_{2^k}$, for which we again use algebraic geometry concepts.
 
@@ -458,7 +510,7 @@ J) = {\bf V}(I) \bigcup {\bf V}(J)$.
 \end{Theorem}
 
 
-In Line 5 of algorithm  \ref{alg:BFS}, we need to compute the complement of a
+In Line 5 of Algorithm  \ref{alg:BFS}, we need to compute the complement of a
 set of states. Assume that $J$ denotes a polynomial ideal whose
 variety $V(J)$ denotes a set of states. We require the computation of
 another polynomial ideal $J'$, such that $V(J')=\overline{V(J)}$. We
@@ -508,7 +560,7 @@ Let $d = gcd(f, g)$. So, $f = df_1 , g = dg_1$ with $gcd(f_1 , g_1 ) =
 1$. Note that $f_1 = \frac{f}{gcd(f,g)}$.
 
 Take $h \in \langle f : g\rangle$. According to the
-Def. \ref{def:quo}, $hg \in \langle f \rangle$, which means $hg = f
+Definition \ref{def:quo}, $hg \in \langle f \rangle$, which means $hg = f
 \cdot r$ with $r \in \Fkk[x]$. Therefore, $hdg_1 = df_1 r$ and $hg_1 =
 f_1 r$. But considering $gcd(g_1 , f_1 ) = 1$ we have the fact that
 $f_1$ divides $h$. Hence $h \in \langle f_1\rangle$.
@@ -580,7 +632,7 @@ computed as $J' = J_0:J$. Then $$V(J') = \overline{V(J)} = {V}(J_0:J)$$
 
 With Corollary \ref{cor:complement}, we are ready to demonstrate the
 concept of word-level FSM traversal over $\Fkk$ using algebraic
-geometry. The algorithm is given in algorithm  \ref{alg:univa}. Note that in
+geometry. The algorithm is given in Algorithm  \ref{alg:univa}. Note that in
 the algorithm, $from^i, to^i, new^i$ are {\it univariate polynomials in variables $S$
 or $T$} only, due to the fact that they are the result of a GB
 computation with an elimination term order, where the bit-level 
@@ -624,7 +676,7 @@ variables are abstracted and quantified away.
 \begin{Example}
 \label{ex:SMPO}
 We apply Algorithm \ref{alg:univa} to the example shown in
-figure \ref{fig:fsm} to execute the FSM traversal. Let the initial state
+Figure \ref{fig:fsm} to execute the FSM traversal. Let the initial state
 $from^0 = \{00\}$ in $\B^2$ or $0 \in \mathbb F_4$. Polynomially, it is
 written as $from^0 = S - 0$. In the first iteration, we compose
 an ideal $J$ with 
@@ -692,24 +744,47 @@ T\rangle$$ which, as a Gr\"obner basis of the elimination ideal,
 canonically encodes the final reachable state set. 
 \end{Example}
 
-{\it Significance of using GB:} A reduced GB is a unique, minimal and
-{\it canonical} representation of the circuit's function. Starting
-from a certain initial state and using a reduced GB to represent the
-transition function, reachable states can be computed and represented
-canonically. Then it becomes possible to identify  when a fixpoint
-is reached (termination of the algorithm) by performing an equality
-check of polynomial ideals. Moreover, the GB computation is also used
-as a quantification procedure. As the GB is computed w.r.t. an
-elimination term order with ``bit-level variables'' $>$
-``present-state word'' $S$ $>$ ``next-state word'' $T$, the set of
-reachable states are encoded, canonically, using a univariate
-polynomial in $T$, quantifying away the rest of the variables. 
+% {\it Significance of using GB:} A reduced GB is a unique, minimal and
+% {\it canonical} representation of the circuit's function. Starting
+% from a certain initial state and using a reduced GB to represent the
+% transition function, reachable states can be computed and represented
+% canonically. Then it becomes possible to identify  when a fixpoint
+% is reached (termination of the algorithm) by performing an equality
+% check of polynomial ideals. Moreover, the GB computation is also used
+% as a quantification procedure. As the GB is computed w.r.t. an
+% elimination term order with ``bit-level variables'' $>$
+% ``present-state word'' $S$ $>$ ``next-state word'' $T$, the set of
+% reachable states are encoded, canonically, using a univariate
+% polynomial in $T$, quantifying away the rest of the variables. 
+
+\subsection{Significance of using Algebraic Geometry and Gr\"obner Basis}
+The essences of out approach consist of utilizations of algebraic geometry and Gr\"obner basis concepts.
+One the one hand, we use GB with elimination term ordering as an analog of image function.
+As mentioned in Section \ref{sec:abstraction}, we construct the elimination ideal $J+J_0$ to 
+describe the circuit in Figure \ref{fig:proj_reacha} using algebraic geometry.
+When given the present states, the next states are implicitly represented in the variety of 
+the elimination ideal. Imposing elimination term order and computing GB, is actually 
+projecting the variety on NS output $T$ by eliminating all other variables.
+This projection gives us the canonical representation of NS in a polynomial with $T$.
+
+% fig:proj_reacha
+
+On the other hand, we use ideal arithmetic to implement set operations in Boolean domain.
+In algebraic geometry, manipulating ideals provides a high-level solution to 
+operate on their varieties without actually solving the system. The intersection, union and 
+complement of varieties are mapped to varieties of the sum, product and quotient of ideals, respectively.
+Furthermore, the varieties are equivalent to set of states because of correspondence of 
+affine space and state space.
+
+As a result, we find an analog of the FSM traversal algorithm in algebraic geometry which is 
+compatible with word-level variables (e.g. $S,T$). We show it is effective to perform the 
+reachability analysis.
 
 \section{Improving our Approach}
 \label{sec:improve}
 % TODO Revised according to comments in next chapter
 
-Using ATO on computing GB for large set of polynomial is time-consuming, and usually 
+Using elimination term ordering on computing GB for large set of polynomial is time-consuming, and usually 
 intractable. The reason is the exponential computational complexity \cite{gao:gf-gb-ms}:
 \begin{Theorem}
 Let $J+J_0 = \langle f_1, \dots, f_s, ~x_1^q - x_1, \dots, x_d^q -
@@ -736,8 +811,9 @@ two aspects: on the one hand, using another term ordering which can lower down t
 computational complexity of obtaining GB; on the other hand, reducing the 
 polynomials by collecting bit-level primary inputs (PIs) and integrating them as word-level 
 variables which are compatible with our working GF.
+
 \subsection{Simplifying the Gr\"obner Basis Computation}
-In algorithm \ref{alg:univa}, a Gr\"obner basis is computed for each
+In Algorithm \ref{alg:univa}, a Gr\"obner basis is computed for each
 iteration to attain the word-level polynomial representation of the next states. In practice, for 
 a sequential circuit with complicated structure and large size, Gr\"obner basis computation
 is intractable. To overcome the high computational complexity of computing a GB, 
@@ -796,9 +872,9 @@ s_i = \mathcal{G}(S)
 
 Then we can substitute all bit-level variables with the word-level variable
 and obtain a word-level expression.
-The authors of \cite{pruss:tcad} propose a method to construct 
-a system of equations and solution to the system consists of equation \ref{eqn:BLVS_reacha}.
-One way to obtain  is to apply a Gaussian-elimination-fashion approach, which could 
+The authors of \cite{pruss:tcad15} propose a method to construct 
+a system of equations and solution to the system consists of Equation \ref{eqn:BLVS_reacha}.
+This can be obtained by Gaussian elimination, which could 
 compute corresponding $\mathcal{G}(S)$ efficiently with time complexity $O(k^3)$.
 
 \begin{Example}
@@ -819,7 +895,7 @@ $$s_0 = \alpha S^2+(1+\alpha)S$$
 More formally, polynomial expressions for $s_i$ in terms of $S$ can be
 obtained by setting up and solving the following system of equations:
 \begin{align}
-\label{eqn:betamat}
+\label{eqn:alphamat}
 \begin{bmatrix}
 S \\
 S^2 \\
@@ -843,9 +919,9 @@ s_2\\
 s_{k-1}
 \end{bmatrix}
 \end{align}
-Treat ${\bf s}$ as a vector of $k$ unknowns $s_0,\dots,s_{k-1}$,
-then equation \ref{eqn:betamat} can be solved by using Cramer's rule or Gaussian elimination.
-In other words, we can obtain $s_i=\mathcal G(S)$ by solving equation \ref{eqn:betamat} symbolically.
+Let $\vec{S}$ be a vector of $k$ unknowns $(s_0,\dots,s_{k-1})$,
+then Equation \ref{eqn:alphamat} can be solved by using Cramer's rule or Gaussian elimination.
+In other words, we can obtain $s_i=\mathcal G(S)$ by solving Equation \ref{eqn:alphamat} symbolically.
 
 In this approach we get word-level variable representation for each bit-level PS variables. 
 By substitution, a new polynomial in word-level PS/NS variables could be obtained.
@@ -854,18 +930,19 @@ After processing with RATO and bit-to-word conversions, we get a polynomial in t
 form of $f_T = T+\mathcal{F}(S,x)$
 denoting the {\bf transition function}. We include a polynomial in $S$ to define the present states $f_S$,
 as well as the set of vanishing polynomials for primary inputs 
-$J_0^{PI} = \langle x_1^2-x_1,\dots,x_n^2-x_n\rangle$. Using elimination term order with $S>x_i>T$,
+$J_0^{PI} = \langle x_1^2-x_1,\dots,x_d^2-x_d\rangle$. Using elimination term order with $S>x_i>T$,
 we can compute a GB of the elimination ideal $\langle f_T,f_S\rangle + J_0^{PI}$. This GB contains a univariate
-polynomial denoting next states. The improved algorithm is depicted in Alg. \ref{alg:refined}.
+polynomial denoting next states. The improved algorithm is depicted in Algorithm \ref{alg:refined}.
 
 \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
 \Indm
- \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\F(S)$}
+ \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\Func(S)$}
+ \KwOut{Final reachable states represented by polynomial $\mathcal G(T)$}
 \Indp
 
-  $from^0 = reached = \F(S)$\;
+  $from^0 = reached = \Func(S)$\;
   $f_T = $Reduce($Spoly(f_w,f_g), J_{ckt})$\;
   \tcc{Compute S-poly for the critical pair, then reduce it with circuit ideal under RATO}
 	Eliminate bit-level variables in $f_T$\;
@@ -879,9 +956,9 @@ polynomial denoting next states. The improved algorithm is depicted in Alg. \ref
 	$\langle new^i\rangle \gets \langle to^i\rangle + (\langle T^{2^k}-T\rangle:\langle reached\rangle)$\;
 	\tcc{Use quotient of ideals to attain complement of reached states, then use sum of ideals to attain an intersection with next state}
   	$\langle reached\rangle \gets \langle reached\rangle \cdot \langle new^i\rangle$\;
-  	\tcc{Use product of ideals to attain a union of newly reached states and formerly reached states}
+  	\tcc{Use product of ideals to attain a union of new reached states and formerly reached states}
 	$from^i \gets new^i(S\setminus T)$\;
-	\tcc{Start a new iteration by replacing variable $T$ in newly reached states with current state variable $S$}
+	\tcc{Start a new iteration by replacing variable $T$ in new reached states with current state variable $S$}
   }
   \tcc{Loop until a fixpoint reached: newly reached state is empty}
 \Return{$\langle reached\rangle$}
@@ -894,12 +971,14 @@ Using above techniques we can get a remainder polynomial with only word-level PS
 cases, the number of bit-level PIs will be too large for the last-step Gr\"obner basis computation. 
 Therefore it is necessary to convert bit-level PIs to word-level PI variables. 
 
-Assume we have $k$-bit datapath and $n$-bit PIs. In Galois field, we need to carefully partition $n$ PIs
+% fig:PI
+
+Assume we have $k$-bit datapath and $n$-bit PIs. In finite field, we need to carefully partition $n$ PIs
 such that states of each partition can be covered by a univariate polynomial respectively.
 
 \begin{Proposition}
-Divide $n$-bit PIs to partitions $n_1,n_2,\dots, n_s$ and let $n_1$-bit, $n_2$-bit, $\dots$, $n_s$-bit word-level variables
-represent their evaluations in $\mathbb F_{2^k}$ respectively. Then $n_1,n_2,\dots,n_s~|~k$.
+Divide $n$-bit PIs into partitions $n_1,n_2,\dots, n_s$ where each $n_i|k$. Then let $n_1$-bit, $n_2$-bit, $\dots$, $n_s$-bit word-level variables
+represent their evaluations in $\mathbb F_{2^k}$ as $\F_{2^{n_i}} \subset \Fkk$.
 \end{Proposition}
 
 Again, assume a partition $n_i~|~k$ and corresponding word-level variable is $P$. Then we can use polynomial

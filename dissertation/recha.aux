@@ -1,85 +1,98 @@
 \relax 
+\citation{retiming}
+\citation{scan}
+\citation{mathur2009power}
+\citation{clockgating}
 \@writefile{loa}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {chapter}{\numberline {5.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {Word-level Traversal of Finite State Machines using Algebraic Geometry}}{53}}
 \@writefile{toc}{\contentsline {groupheader}{\vspace {-22pt}}{53}}
 \newlabel{ch:reacha}{{5}{53}}
-\citation{KallaPartialScan}
+\citation{coudert2003unified}
+\citation{cho1993redundancy}
 \citation{KallaPartialScan}
 \@writefile{toc}{\contentsline {section}{\numberline {5.1}Motivation}{54}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}Limitations of Full Scan Algorithms}{54}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces SIMPSON: Scan Register Selection using Implicit State Enumeration\cite  {KallaPartialScan}\relax }}{55}}
-\newlabel{alg:SIMPSON}{{4}{55}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.1}FSM Traversal Algorithms}{54}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {4}{\ignorespaces FSM Traversal using Implicit State Enumeration\cite  {KallaPartialScan}\relax }}{54}}
+\newlabel{alg:SIMPSON}{{4}{54}}
+\citation{cho1993redundancy}
 \citation{AppleA10}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Word-level Data Flow on Modern Datapath Designs}{56}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.2}Word-level Data Flow on Modern Datapath Designs}{55}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces A 64-bit sequential multiplication hardware design\relax }}{56}}
+\newlabel{fig:MIPS}{{5.1}{56}}
 \@writefile{loa}{\contentsline {algocf}{\numberline {5}{\ignorespaces Sequential multiplication hardware in 64-bit MIPS\relax }}{57}}
 \newlabel{alg:MIPS}{{5}{57}}
-\newlabel{eqn:wordspec}{{5.1}{58}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}Prerequisites of Word-level Techniques}{58}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Gate-level netlist for Lagrange's interpolation example\relax }}{58}}
-\newlabel{fig:Lagrange}{{5.1}{58}}
-\newlabel{tab:truthtable}{{\caption@xref {tab:truthtable}{ on input line 226}}{59}}
+\newlabel{eqn:wordspec}{{5.1}{57}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.3}On the Existence of Word-level Abstraction}{58}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Gate-level netlist for Lagrange's interpolation example\relax }}{58}}
+\newlabel{fig:Lagrange}{{5.2}{58}}
+\newlabel{tab:truthtable}{{\caption@xref {tab:truthtable}{ on input line 218}}{59}}
 \@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Truth table for mappings in $\mathbb  {B}^3$ and ${\mathbb  {F}}_{2^3}$\relax }}{59}}
 \newlabel{eqn:Lagrange}{{5.2}{59}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}FSM Reachability using Algebraic Geometry}{60}}
-\newlabel{sec:reach}{{5.2}{60}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Conventional Traversal Method}{61}}
-\newlabel{img}{{5.4}{61}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {6}{\ignorespaces BFS Traversal for FSM Reachability\relax }}{61}}
-\newlabel{alg:BFS}{{6}{61}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1.4}Significance of Developing Word-level FSM Traversal}{60}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}FSM Reachability using Algebraic Geometry}{61}}
+\newlabel{sec:reach}{{5.2}{61}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}FSM model for sequential circuits}{61}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces FSM models of sequential circuits\relax }}{62}}
+\newlabel{fig:seqmodel}{{5.3}{62}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Conventional Traversal Method}{63}}
+\newlabel{eqn:img}{{5.4}{63}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {6}{\ignorespaces BFS Traversal for FSM Reachability\relax }}{64}}
+\newlabel{alg:BFS}{{6}{64}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces The example FSM and the gate-level implementation. \relax }}{64}}
+\newlabel{fig:fsm}{{5.4}{64}}
 \citation{gao:qe-gf-gb}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces The example FSM and the gate-level implementation. \relax }}{62}}
-\newlabel{fig:fsm}{{5.2}{62}}
 \citation{ideals:book}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}FSM Traversal at word-level over ${\mathbb  {F}}_{2^k}$}{63}}
-\newlabel{def:sum}{{5.1}{63}}
-\newlabel{thm:unionintersect}{{5.1}{63}}
-\newlabel{def:quo}{{5.2}{63}}
-\newlabel{lem:gcd}{{5.1}{64}}
-\newlabel{thm:quotient}{{5.2}{64}}
-\newlabel{cor:complement}{{5.1}{65}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Word-level FSM Traversal Example}{65}}
-\newlabel{ex:SMPO}{{5.5}{65}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {7}{\ignorespaces Algebraic Geometry based FSM Traversal\relax }}{66}}
-\newlabel{alg:univa}{{7}{66}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}FSM Traversal at word-level over ${\mathbb  {F}}_{2^k}$}{65}}
+\newlabel{def:sum}{{5.2}{65}}
+\newlabel{thm:unionintersect}{{5.1}{65}}
+\newlabel{def:quo}{{5.3}{66}}
+\newlabel{lem:gcd}{{5.1}{66}}
+\newlabel{thm:quotient}{{5.2}{66}}
+\newlabel{cor:complement}{{5.1}{67}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {7}{\ignorespaces Algebraic Geometry based FSM Traversal\relax }}{68}}
+\newlabel{alg:univa}{{7}{68}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Word-level FSM Traversal Example}{68}}
+\newlabel{ex:SMPO}{{5.5}{68}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.5}Significance of using Algebraic Geometry and Gr\"obner Basis}{70}}
 \citation{gao:gf-gb-ms}
-\@writefile{toc}{\contentsline {section}{\numberline {5.3}Improving our Approach}{68}}
-\newlabel{sec:improve}{{5.3}{68}}
 \citation{pruss:tcad}
 \citation{pruss:tcad}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Simplifying the Gr\"obner Basis Computation}{69}}
-\citation{pruss:tcad}
-\newlabel{eqn:BLVS_reacha}{{5.5}{70}}
-\newlabel{eqn:betamat}{{5.6}{71}}
-\@writefile{loa}{\contentsline {algocf}{\numberline {8}{\ignorespaces Refined Algebraic Geometry based FSM Traversal\relax }}{72}}
-\newlabel{alg:refined}{{8}{72}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}PI Partition}{72}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Improving our Approach}{71}}
+\newlabel{sec:improve}{{5.3}{71}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Simplifying the Gr\"obner Basis Computation}{72}}
+\citation{pruss:tcad15}
+\newlabel{eqn:BLVS_reacha}{{5.5}{73}}
+\newlabel{eqn:alphamat}{{5.6}{74}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}PI Partition}{74}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {8}{\ignorespaces Refined Algebraic Geometry based FSM Traversal\relax }}{75}}
+\newlabel{alg:refined}{{8}{75}}
 \citation{DGPS}
-\newlabel{thm:composite}{{5.4}{73}}
-\newlabel{ex:PI}{{5.8}{73}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Implementation of Word-level FSM Traversal Algorithm}{73}}
+\newlabel{thm:composite}{{5.4}{76}}
+\newlabel{ex:PI}{{5.8}{76}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Implementation of Word-level FSM Traversal Algorithm}{76}}
 \citation{BLIF}
 \citation{brayton2010abc}
 \citation{SIS}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Sample input BLIF file\relax }}{75}}
-\newlabel{fig:BLIF}{{5.3}{75}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Synthesized BLIF file\relax }}{76}}
-\newlabel{fig:BLIF_syn}{{5.4}{76}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Polynomial file prepared for polynomial reduction engine\relax }}{77}}
-\newlabel{fig:ALG}{{5.5}{77}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Singular script for executing bit-to-word substitution and traversal loop\relax }}{79}}
-\newlabel{fig:SING}{{5.6}{79}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Sample input BLIF file\relax }}{78}}
+\newlabel{fig:BLIF}{{5.5}{78}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Synthesized BLIF file\relax }}{79}}
+\newlabel{fig:BLIF_syn}{{5.6}{79}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Polynomial file prepared for polynomial reduction engine\relax }}{80}}
+\newlabel{fig:ALG}{{5.7}{80}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Singular script for executing bit-to-word substitution and traversal loop\relax }}{82}}
+\newlabel{fig:SING}{{5.8}{82}}
 \citation{DGPS}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces The output given by our traversal tool\relax }}{80}}
-\newlabel{fig:Recha_result}{{5.7}{80}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces The output given by our traversal tool\relax }}{83}}
+\newlabel{fig:Recha_result}{{5.9}{83}}
 \citation{brayton1996vis}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Experiment Results}{81}}
-\newlabel{sec:exp_reacha}{{5.5}{81}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Results of running benchmarks using our tool. \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {Parts I to III denote the time taken by polynomial divisions, bit-level to word-level abstraction and iterative reachability convergence checking part of our approach, respectively.}\relax }}{82}}
-\newlabel{tab:recha_result}{{5.2}{82}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.6}Conclusion}{82}}
-\newlabel{sec:conc}{{5.6}{82}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Experiment Results}{84}}
+\newlabel{sec:exp_reacha}{{5.5}{84}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Results of running benchmarks using our tool. \relax \fontsize  {10.95}{13.6}\selectfont  \abovedisplayskip 11\p@ plus3\p@ minus6\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6.5\p@ plus3.5\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 5\p@ plus2.5\p@ minus\p@ \topsep 10\p@ plus4\p@ minus6\p@ \itemsep 5\p@ plus2.5\p@ minus\p@ {\leftmargin \leftmargini \topsep 9\p@ plus3\p@ minus5\p@ \parsep 4.5\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {Parts I to III denote the time taken by polynomial divisions, bit-level to word-level abstraction and iterative reachability convergence checking part of our approach, respectively.}\relax }}{85}}
+\newlabel{tab:recha_result}{{5.2}{85}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Conclusion}{85}}
+\newlabel{sec:conc}{{5.6}{85}}
 \@setckpt{recha}{
-\setcounter{page}{84}
+\setcounter{page}{87}
 \setcounter{equation}{6}
 \setcounter{enumi}{3}
 \setcounter{enumii}{0}
@@ -89,7 +102,7 @@
 \setcounter{mpfootnote}{0}
 \setcounter{part}{0}
 \setcounter{chapter}{5}
-\setcounter{figure}{7}
+\setcounter{figure}{9}
 \setcounter{table}{2}
 \setcounter{oldchapter}{0}
 \setcounter{oldtocdepth}{0}
@@ -115,7 +128,7 @@
 \setcounter{algocfproc}{8}
 \setcounter{algocf}{8}
 \setcounter{Theorem}{4}
-\setcounter{Definition}{2}
+\setcounter{Definition}{3}
 \setcounter{Example}{9}
 \setcounter{Proposition}{1}
 \setcounter{Lemma}{1}
