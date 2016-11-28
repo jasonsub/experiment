@@ -237,6 +237,80 @@ R.~Brayton and A.~Mishchenko,
 \newblock {\em in} {\em Computer Aided Verification}, vol. 6174, pp. 24--40.
   Springer, 2010.
 
+\bibitem{f4}
+J-C. Faug\~{e}re,
+\newblock ``{A} {N}ew {E}fficient {A}lgorithm for {C}omputing {G}r\"obner
+  {B}ases ({F}$_4$)'',
+\newblock {\em Journal of Pure and Applied Algebra}, vol. 139, pp. 61--88, June
+  1999.
+
+\bibitem{anaICCAD}
+Ana Petkovska, David Novo, Alan Mishchenko, and Paolo Ienne,
+\newblock ``Constrained interpolation for guided logic synthesis'',
+\newblock {\em in} {\em 2014 IEEE/ACM International Conference on
+  Computer-Aided Design (ICCAD)}, pp. 462--469. IEEE, 2014.
+
+\bibitem{modelrotation}
+Joao Marques-Silva and Ines Lynce,
+\newblock ``On improving mus extraction algorithms'',
+\newblock {\em in} {\em International Conference on Theory and Applications of
+  Satisfiability Testing}, pp. 159--173. Springer, 2011.
+
+\bibitem{belov2011accelerating}
+Anton Belov and Joao Marques-Silva,
+\newblock ``Accelerating mus extraction with recursive model rotation'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2011},
+  pp. 37--40. IEEE, 2011.
+
+\bibitem{cimatti2007simple}
+Alessandro Cimatti, Alberto Griggio, and Roberto Sebastiani,
+\newblock ``A simple and flexible way of computing small unsatisfiable cores in
+  sat modulo theories'',
+\newblock {\em in} {\em International Conference on Theory and Applications of
+  Satisfiability Testing}, pp. 334--339. Springer, 2007.
+
+\bibitem{ceiSTOC96}
+Matthew Clegg, Jeffery Edmonds, and Russell Impagliazzo,
+\newblock ``Using the groebner basis algorithm to find proofs of
+  unsatisfiability'',
+\newblock {\em in} {\em Proceedings of the twenty-eighth annual ACM symposium
+  on Theory of computing}, pp. 174--183. ACM, 1996.
+
+\bibitem{STABLE}
+Evgeny Pavlenko, Markus Wedler, Dominik Stoffel, Wolfgang Kunz, Alexander
+  Dreyer, Frank Seelisch, and G~Greuel,
+\newblock ``Stable: A new qf-bv smt solver for hard verification problems
+  combining boolean reasoning with computer algebra'',
+\newblock {\em in} {\em Design, Automation \& Test in Europe Conference \&
+  Exhibition (DATE), 2011}, pp. 1--6. IEEE, 2011.
+
+\bibitem{BLUEVERI}
+Alexey Lvov, Luis~Alfonso Lastras-Montano, Viresh Paruthi, Robert Shadowen, and
+  Ali El-Zein,
+\newblock ``Formal verification of error correcting circuits using
+  computational algebraic geometry'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2012},
+  pp. 141--148. IEEE, 2012.
+
+\bibitem{PolyBoRi}
+Michael Brickenstein and Alexander Dreyer,
+\newblock ``Polybori: A framework for gr{\"o}bner-basis computations with
+  boolean polynomials'',
+\newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345, 2009.
+
+\bibitem{condratTACAS07}
+Christopher Condrat and Priyank Kalla,
+\newblock ``A gr{\"o}bner basis approach to cnf-formulae preprocessing'',
+\newblock {\em in} {\em Tools and Algorithms for the Construction and Analysis
+  of Systems}, pp. 618--631. Springer, 2007.
+
+\bibitem{Zengler2010}
+Christoph Zengler and Wolfgang K{\"u}chlin,
+\newblock ``Extending clause learning of sat solvers with boolean gr{\"o}bner
+  bases'',
+\newblock {\em in} {\em Computer Algebra in Scientific Computing}, pp.
+  293--302. Springer, 2010.
+
 \bibitem{zhang2005design}
 Liang Zhang,
 \newblock {\em Design Verification for Sequential Systems at Various

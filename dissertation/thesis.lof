@@ -9,15 +9,17 @@
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Gate-level netlist for Lagrange's interpolation example\relax }}{58}
 \contentsline {figure}{\numberline {5.3}{\ignorespaces FSM models of sequential circuits\relax }}{62}
 \contentsline {figure}{\numberline {5.4}{\ignorespaces The example FSM and the gate-level implementation. \relax }}{64}
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Sample input BLIF file\relax }}{78}
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Synthesized BLIF file\relax }}{79}
-\contentsline {figure}{\numberline {5.7}{\ignorespaces Polynomial file prepared for polynomial reduction engine\relax }}{80}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Projection of the variety of circuit description ideal\relax }}{71}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces PI partition of a sequential circuit\relax }}{77}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Execution process of word-level FSM traversal tool\relax }}{79}
 \contentsline {figure}{\numberline {5.8}{\ignorespaces Singular script for executing bit-to-word substitution and traversal loop\relax }}{82}
 \contentsline {figure}{\numberline {5.9}{\ignorespaces The output given by our traversal tool\relax }}{83}
 \contentsline {figure}{\numberline {6.1}{\ignorespaces A typical Moore machine and its state transition graph\relax }}{88}
 \contentsline {figure}{\numberline {6.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking\relax }}{89}
-\contentsline {figure}{\numberline {6.3}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{90}
-\contentsline {figure}{\numberline {7.1}{\ignorespaces Abstraction by reducing latches\relax }}{111}
-\contentsline {figure}{\numberline {7.2}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{115}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{118}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Refutation trees of core refinement example\relax }}{124}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Architecture of a combinational GF multiplier\relax }}{90}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{92}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces An example of Boolean satisfiability problem on circuits\relax }}{112}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Abstraction by reducing latches\relax }}{115}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{118}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{121}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Refutation trees of core refinement example\relax }}{127}

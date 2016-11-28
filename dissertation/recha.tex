@@ -200,7 +200,7 @@ conversion in Galois field using Lagrange's interpolation.
 \label{fig:Lagrange}}
 \end{figure}
 
-Assume we are given gate-level netlist shown in figure \ref{fig:Lagrange}. It can be written as 3 
+Assume we are given gate-level netlist shown in Figure \ref{fig:Lagrange}. It can be written as 3 
 Boolean equations:
 \begin{align*}
 z_0 &= a_0 \lor a_1 \lor a_2 \\
@@ -242,7 +242,7 @@ Recall the definition of Lagrange's interpolation:
 \end{equation}
 The geometric meaning of Lagrange's interpolation in real algebra is: given $N$ dots with coordinates $(x_i,y_i)$,
 they can always be fitted into a polynomial function with at most $N-1$ degree, and that function can be 
-written in the form of equation \ref{eqn:Lagrange}. In this example, although defined in a Galois field instead of 
+written in the form of Equation \ref{eqn:Lagrange}. In this example, although defined in a Galois field instead of 
 the real number field, the essential concept of Lagrange's interpolation remains the same. 
 We can get 8 points in the affine space:
 \begin{align*}
@@ -350,7 +350,7 @@ and manipulated using Boolean representations such as BDDs or SAT
 solvers. The variables $from, reached, to, new$ represent
 characteristic functions of sets of states. Starting from the initial
 state $from^i = S^0$, the algorithm computes the states reachable in
-1-step from $from^i$ in each iteration. In line 4 of algorithm
+1-step from $from^i$ in each iteration. In line 4 of Algorithm
 \ref{alg:BFS}, the {\it image computation} is 
 used to compute the reachable states in every execution step. 
 
@@ -420,7 +420,7 @@ states, $from^0 = s_0\cdot s_1$ is represented as a Boolean formula.
 
 
 \begin{Example}
-For the circuit in Figure \ref{fig:fsm} (b), we have the transition
+For the circuit in Figure \ref{fig:fsm}(b), we have the transition
 functions of the machine as:
 
 \begin{align*}
@@ -767,7 +767,12 @@ the elimination ideal. Imposing elimination term order and computing GB, is actu
 projecting the variety on NS output $T$ by eliminating all other variables.
 This projection gives us the canonical representation of NS in a polynomial with $T$.
 
-% fig:proj_reacha
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/proj_reacha.pdf}
+\caption{Projection of the variety of circuit description ideal}
+\label{fig:proj_reacha}}
+\end{figure}
 
 On the other hand, we use ideal arithmetic to implement set operations in Boolean domain.
 In algebraic geometry, manipulating ideals provides a high-level solution to 
@@ -818,8 +823,8 @@ iteration to attain the word-level polynomial representation of the next states.
 a sequential circuit with complicated structure and large size, Gr\"obner basis computation
 is intractable. To overcome the high computational complexity of computing a GB, 
 we describe a method that computes a GB of a smaller subset of polynomials.
-The approach draws inspirations from \cite{pruss:tcad}. 
-According to proposition 2 in \cite{pruss:tcad}, if the GB is computed using {\it refined abstraction term
+The approach draws inspirations from \cite{pruss:tcad15}. 
+According to proposition 2 in \cite{pruss:tcad15}, if the GB is computed using {\it refined abstraction term
 order} (RATO), there will be only one pair of polynomials $\{f_w,f_g\}$ such that 
 their leading monomials are not relatively prime, i.e. 
 $$gcd(LM(f_w), LM(f_g)) \neq 1$$
@@ -835,7 +840,7 @@ remainder $r$ will only contain bit-level inputs and word-level output.
 
 \begin{Example}
 After adding intermediate bit-level signal $a,b,c,d$, the elimination ideal for example circuit 
-(example \ref{ex:SMPO}) can be rewritten LEX order with RATO:
+(Example \ref{ex:SMPO}) can be rewritten LEX order with RATO:
 \begin{align}
 &(t_0,t_1)>(a,b,c,d)\nonumber\\&>T>(x,s_0,s_1)\nonumber
 \end{align}
@@ -971,7 +976,12 @@ Using above techniques we can get a remainder polynomial with only word-level PS
 cases, the number of bit-level PIs will be too large for the last-step Gr\"obner basis computation. 
 Therefore it is necessary to convert bit-level PIs to word-level PI variables. 
 
-% fig:PI
+\begin{figure}[hbt]
+\centering{
+\includegraphics[width=\textwidth]{newfig/PI.pdf}
+\caption{PI partition of a sequential circuit}
+\label{fig:PI}}
+\end{figure}
 
 Assume we have $k$-bit datapath and $n$-bit PIs. In finite field, we need to carefully partition $n$ PIs
 such that states of each partition can be covered by a univariate polynomial respectively.
@@ -996,64 +1006,74 @@ In a sequential circuit, PS/NS inputs/outputs are 4-bit signals, which means we 
 as working field. PIs are partitioned to 2-bit vectors, which means the ground field is $\mathbb F_{2^2}$.
 In ground field we can represent all possible evaluations of this PI partition $\{p_0,p_1\}$ with
 $$P^4+P,~~\text{where}~~P=p_0+p_1\cdot\beta$$
-Using theorem \ref{thm:composite} we get $\beta = \alpha^5$, so we can redefine word $P$ as element from $\mathbb F_{2^4}$:
+Using Theorem \ref{thm:composite} we get $\beta = \alpha^5$, so we can redefine word $P$ as element from $\mathbb F_{2^4}$:
 $$P = p_0 + p_1\cdot\alpha^5$$
 \end{Example}
 Using this method we can efficiently partition large size PIs to small number of word-level PI variables.
 One limitation of this approach is PIs cannot be partitioned when $k$ is prime.
 
 \section{Implementation of Word-level FSM Traversal Algorithm}
-In this section, we will introduce the tool implementation of our approach.
-The architecture of our tool consists of 4 functional components.
-First, given circuit is synthesized to gate-level using state-of-art synthesizers.
-Secondly, the synthesized netlist is translated to polynomial form and variables are sorted in 
-RATO. This part is implemented using scripting language such as \emph{Perl}. Thirdly, 
-the polynomial reduction is executed using our customized reduction engine, which is dumped in C++.
-Finally, we utilize symbolic computation engine -- \textsc{Singular} \cite{DGPS} to code algorithm 
-\ref{alg:refined} and execute the BFS traversal. The result is given in a univariate polynomial 
-about NS word $T$, denoting the set of reachable states from given initial state.
+In this section, we described the architecture of our tool which can perform word-level FSM traversal
+on FSM benchmark circuits.
+Briefly speaking, our tool consists of 3 functional components.
+% First, the given circuit is synthesized to gate-level using state-of-art synthesizers.
+First, the gate-level netlist of circuit is translated to polynomial form and variables are sorted in 
+RATO. This part is implemented using scripting language such as \emph{Perl}. If 
+the given benchmark is a structural/behavior hybrid description, we perform a pre-process on it to get a synthesized netlist.
+Secondly, the polynomial reduction is executed using our customized reduction engine, which is written in C++.
+Finally, we utilize symbolic computation engine -- \textsc{Singular} \cite{DGPS} to code Algorithm 
+\ref{alg:refined} and execute the BFS traversal. The tool outputs a univariate polynomial 
+for NS word $T$, denoting the set of reachable states from given initial state.
 
-The following example illustrates the full-blown reachability analysis approach
+Figure \ref{fig:flowchart} illustrates the execution of reachability analysis approach
 based on C++ and \textsc{Singular} implementation.
 
-\begin{Example}[Full Blown Reachability Analysis Walk-through]
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/flowchart.pdf}
+\caption{Execution process of word-level FSM traversal tool}
+\label{fig:flowchart}}
+\end{figure}
+
 Usually FSM designs can be described in behavior/structural hybrid languages.
 One of these languages is Berkeley logic interchange format (BLIF) \cite{BLIF},
 it allows state behavior representation and logic component representation.
 
+\begin{Example}
 In this example, we use benchmark FSM ``lion9" from MCNC benchmark library.
-Figure \ref{fig:BLIF} is the truth table based structural BLIF representation of this FSM.
+This benchmark circuit is given as truth-table based structural BLIF representation of a FSM.
 
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/BLIF.pdf}
-\caption{Sample input BLIF file}
-\label{fig:BLIF}}
-\end{figure}
+% \begin{figure}[hbt]
+% \centering{
+% \includegraphics[width=\textwidth]{newfig/BLIF.pdf}
+% \caption{Sample input BLIF file}
+% \label{fig:BLIF}}
+% \end{figure}
 
 In order to compose the polynomial set in elimination ideal, we need to synthesize it to 
 gate-level netlist. Modern synthesizers including ABC \cite{brayton2010abc} and SIS \cite{SIS} 
-can complete this work. Figure \ref{fig:BLIF_syn} shows a synthesized FSM given in 
-BLIF format. Note that for simplifying purposes in this example, we only use 2-input logic gates.
+can complete this work. In this example we use a synthesis library containing only 2-input 
+AND, NAND, OR, NOR, XOR, XNOR gates as well as the inverter, the output synthesized FSM is also given in 
+BLIF format.
 
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/BLIF_syn.pdf}
-\caption{Synthesized BLIF file}
-\label{fig:BLIF_syn}}
-\end{figure}
+% \begin{figure}[hbt]
+% \centering{
+% \includegraphics[width=\textwidth]{newfig/BLIF_syn.pdf}
+% \caption{Synthesized BLIF file}
+% \label{fig:BLIF_syn}}
+% \end{figure}
 
 Using our interpreter, the synthesized BLIF file turns to a polynomial file customized for our 
-polynomial reduction engine as figure \ref{fig:ALG} depicts. Note the first line includes all variables in RATO, the second line 
-denotes the word-level variable. The third line is the irreducible polynomial of current GF $(\F_{2^4})$, the fourth line is the Spoly need to be reduced. The rest part has one polynomial in 
-the elimination ideal in each line.
-
-\begin{figure}[hbt]
-\centering{
-\includegraphics[width=\textwidth]{newfig/ALG.pdf}
-\caption{Polynomial file prepared for polynomial reduction engine}
-\label{fig:ALG}}
-\end{figure}
+polynomial reduction engine. 
+The input file format includes all 
+variables in RATO, along with the S-poly need to be reduced and polynomials in $J_{ckt}$.
+% 
+% \begin{figure}[hbt]
+% \centering{
+% \includegraphics[width=\textwidth]{newfig/ALG.pdf}
+% \caption{Polynomial file prepared for polynomial reduction engine}
+% \label{fig:ALG}}
+% \end{figure}
 
 The result given by our reduction engine is in the format 
 $$T+\Func(s_0,\dots,s_{k-1},x_0,\dots,x_{n-1})$$ 
@@ -1065,23 +1085,25 @@ T&+(\alpha^2+\alpha+1) x_0 x_1 s_1 s_3+(\alpha^3+\alpha) x_0 x_1 s_1+(\alpha+1) 
 &+(\alpha) x_1+(\alpha^3+1) s_1 s_3+(\alpha^3+\alpha) s_1+(\alpha^3+1) s_3+\alpha^2
 \end{align*}
 This is the transition function of this FSM. We utilized \textsc{Singular} to integrat both 
-bit-word substitution and tranversal algorithm. In figure \ref{fig:SING}, ``tran" is the transition
+bit-word substitution and tranversal algorithm. In Figure \ref{fig:SING}, ``tran" is the transition
 function we just obtained. ``init\_S" is the initial state, note it equals to ``0100" register 
-reset values in figure \ref{fig:BLIF}. Moreover, 2 bits PIs $x_0,x_1$ are combined to a word-level 
-PI variable $P$ using our conclusion in example \ref{ex:PI}: ``def\_X" is the definition of 2-bit 
+reset values preloaded in the BLIF file. Moreover, 2 bits PIs $x_0,x_1$ are combined to a word-level 
+PI variable $P$ using our conclusion in Example \ref{ex:PI}: ``def\_X" is the definition of 2-bit 
 word, and ``red\_X" denotes the vanishing polynomial for word $P$.
 
-\begin{figure}[hbt]
+
+After the script is executed, the trversal finishes after 4 
+transition iterations, which denotes BFS depth equals to 4. The final reachable states 
+is a degree-9 polynomial about $T$, indicating final reachable states set contains 9 states.
+And state encodings can be obtained by solving this polynomial equation.
+
+\begin{figure}[H]
 \centering{
 \includegraphics[width=\textwidth]{newfig/SING.pdf}
 \caption{Singular script for executing bit-to-word substitution and traversal loop}
 \label{fig:SING}}
 \end{figure}
 
-After the script is executed, the trversal finishes after 4 
-transition iterations, which denotes BFS depth equals to 4. The final reachable states 
-is a degree-9 polynomial about $T$, indicating final reachable states set contains 9 states.
-And state encodings can be obtained by solving this polynomial equation.
 
 \begin{figure}[H]
 \centering{
@@ -1097,14 +1119,14 @@ And state encodings can be obtained by solving this polynomial equation.
 We have implemented our traversal algorithm in 3 parts:
 the first part implements polynomial reductions (division) of the
 Gr\"obner basis computations, under the term order derived from the
-circuit as Line 2 in Alg. \ref{alg:refined}. This is implemented 
+circuit as Line 2 in Algorithm \ref{alg:refined}. This is implemented 
 with our customized data structure in
 C++. The second part implements the bit-level to word-level
 abstraction to attain transition functions at the word-level 
 %$T+\mathcal{F}(S,PIs)$ 
 using the \textsc{Singular} symbolic
 algebra computation system [v. 3-1-6] \cite{DGPS}, as Line 3 in 
-Alg. \ref{alg:refined}; and the third part
+Algorithm \ref{alg:refined}; and the third part
 executes the reachability checking iterations using 
 \textsc{Singular} as well. With our
 tool implementation, we have performed experiments to analyze reachability
@@ -1174,7 +1196,7 @@ of the experiment run-times, we find the reduction runtime increases
 as the number of gates grows. Also, iterative reachability convergence
 check's runtime reflects both the size of present state/next state
 words ($k$) and the number of final reached states, which corresponds
-to the degree of polynomial {\it reached} in Alg.\ref{alg:univa}. 
+to the degree of polynomial {\it reached} in Algorithm \ref{alg:univa}. 
 Although the efficiency of our initial implementation fails to compete
 with the BDD based FSM analyzer VIS, the experiment
 demonstrates the power of abstraction of algebraic geometry techniques
@@ -1186,7 +1208,7 @@ orders and speed-up our approach.
 %\vspace{-0.1in}
 
 \section{Conclusion} \label{sec:conc}
-This paper has presented a new approach to perform reachability
+This dissertation has presented a new approach to perform reachability
 analysis of finite state machines at the word-level. This is achieved
 by modeling the transition relations and sets of states by way of
 polynomials over finite fields $\Fkk$, where $k$ represents the size

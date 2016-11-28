@@ -77,7 +77,12 @@ the concept ``RATO", which is previously used in Section \ref{sec:improve}.
 % The following part borrows contents
 % from my own conference paper \cite{myDATE}.
 \subsection{Implicit Unrolling based on Abstraction with ATO}
-% fig:comb_RAB
+\begin{figure}[H]
+\centering{
+\includegraphics[width=\textwidth]{newfig/comb_RAB.pdf}
+\caption{Architecture of a combinational GF multiplier}
+\label{fig:comb_RAB}}
+\end{figure}
 
 The concept of abstraction was discussed in Section \ref{sec:abstraction}. If we use an elimination term order with
 $intermediate~variables~>~R~>~A,B$ for the circuit in Figure \ref{fig:comb_RAB} to compute Gr\"obner basis, 
@@ -919,5 +924,5 @@ further explorations are needed for my research.
 
 One way to further boost the efficiency is to adopt techniques from sparse linear algebra.
 Analysis on experiment results shows major time consumption is on ``multi-division" part.
-A matrix-based technique named as "F-4 style reduction" \cite{F4reduce} can speed up the procedure
+A matrix-based technique named as "F-4 style reduction" \cite{f4} can speed up the procedure
 dividing a low-degree polynomial with term-sparse polynomial ideal. 

@@ -1,21 +1,108 @@
-\chapter{Finding Unsatisfiable Cores Extraction for a Set of Polynomials using the Gr\"obner Basis Algorithm}
+\chapter{Finding Unsatisfiable Cores of a Set of Polynomials using the Gr\"obner Basis Algorithm}
 \label{ch:UNSAT}
-Besides elimination ideal based abstraction, Gr\"obner basis can also be applied to a vast field
-about other techniques in formal verification. Satisfiability (SAT) problem is the basis of modern 
-computation theories, as well as the origin of most formal verification problem. 
-In this chapter, we will discuss a sort of problems branching out from SAT. They are about a situation 
+Gr\"obner basis can find further applications to a vast field
+of other techniques in formal verification. Satisfiability (SAT) problem is the basis of 
+most decidable decision problems, as well as the basis of many formal verification techniques. 
+In this chapter, we discuss a special topic branching out from SAT theory. They are about a situation 
 when SAT problems give negative answer, which are called unsatisfiability (UNSAT) problems. Within 
 a set of constrains (e.g. clauses, formulas or polynomials) which is unsatisfiable, sometimes 
-it is worthy to explore a smaller subset (core) that keeps UNSAT. From the execution of GB algorithm, 
-an auxiliary structure can be obtained to help UNSAT core extraction. This chapter will introduce the 
+it is worthy to explore the reasons for UNSAT. From the execution of the GB algorithm, 
+an auxiliary structure can be obtained to help explore the reasons causing UNSAT. This chapter introduces the 
 details about the motivation, mechanism and implementation. 
 
 \section{Motivation}
+In this section, we introduce the motivation of our UNSAT core extraction research. We
+start with defining an UNSAT problem, then review the previous work and applications 
+to abstraction refinement. Moreover, we then present the need of finding a word-level 
+analog to contemporary UNSAT reasoning techniques.
+
+\subsection{Preliminaries of SAT/UNSAT Theory}
+Boolean satisfiability (SAT) problem is one of most basic problems in computer science.
+In the following part we define the terminology related to SAT problem \cite{anaICCAD}.
+
+\begin{Definition}
+A {\bf literal} $l$ is defined as a variable $v$, or its negation $\overline{v}$. A disjunction (OR relation)
+of literals forms a {\bf clause}, i.e. $c = l_1\lor l_2 \lor \cdots \lor l_k$. 
+A Boolean formula can always be written as {\bf conjunctive normal form} (CNF),
+which is the conjunction (AND relation) of clauses: $F = c_1\land c_2\land\cdots\land c_k$.
+\end{Definition}
+
+Using above concepts, the SAT/UNSAT problem can also be formally defined:
+\begin{Definition}
+A {\bf satisfiability (SAT) problem} is a decision problem that takes a CNF formula and returns
+that the formula is satisfiable (SAT), when there is an assignment of the variables making the 
+formula evaluate to true. Otherwise, the formula is {\bf unsatisfiable (UNSAT)}.
+\end{Definition}
+
+Figure \ref{fig:SAT} shows a simple example of SAT problem on circuits verification:
+we need to verify whether subcircuit $A$ and subcircuit $B$ has the same function, so
+we build a miter circuit for their outputs $X$ and $Y$, and the equivalence checking 
+problem is turned into a SAT problem as follows:
+
+\begin{center}
+\begin{align*}
+&\textit{Is\ subcircuit\ A\ functionally\ equivalent\ to\ subcircuit\ B?}\\
+&\Longleftrightarrow
+\textit{Is\ it\ true\ that\ no\ Boolean\ vector\ assignment\ to\ primary\ inputs\ a,b,c\ such\ that\ Z=1?}
+\end{align*}
+\end{center}
+
+\begin{figure}[H]
+\centering{
+\includegraphics[scale=0.3]{newfig/fig_SAT.eps}
+\caption{An example of Boolean satisfiability problem on circuits}
+\label{fig:SAT}}
+\end{figure}
+
+For an UNSAT problem, the cause of UNSAT may include a part of clauses.
+\begin{Definition}
+Assume a CNF formula $F$ is UNSAT. A subformula $M \subseteq F$ is an {\bf UNSAT core} 
+if $M$ is also UNSAT. Further, if $\forall c\in M$, $M\setminus\{c\}$ is SAT, then 
+$M$ is called a {\bf minimal UNSAT core} of $F$.
+\end{Definition}
+
+\subsection{Previous Work on CNF-UNSAT}
+In most cases, SAT problems are modeled as conjunctive normal form (CNF) formulas, and solved by procedures based on 
+Davis-Putnam and Davis-Logemann-Loveland (DPLL) algorithm. The main idea of DPLL algorithm
+is recursive branching and backtrack searching. To improve the efficiency of DPLL-based
+SAT solver, efforts are made on minimizing number of branches, accelerating unit propagation
+and modifying backtrack algorithm. Recently state-of-art SAT solvers developed conflict-driven
+clause learning (CDCL) technique to prune the search space, which is effective to reduce
+result search time.
+
+When a SAT solver fails to give a SAT assignment, it will provide a {\it UNSAT proof} or {\it refutation proof}
+to prove the problem is UNSAT. By analyzing clauses involved to the UNSAT proof, we can 
+generate a subformula which remains to be UNSAT. A n\"aive method is to collect all leaf 
+clauses in an UNSAT proof as an UNSAT core. In practice, a minimal UNSAT core is more valuable.
+There are mainly 2 kinds of method to find minimal UNSAT cores.
+The one is insertion-based method, which is achieved by adding clauses to the smallest subset 
+until the subset turns to be UNSAT. The other method is deletion-based method,
+which is realized by deleting clauses from a larger subset until the subset turns to be SAT.
+Recently heuristics such as clause-set refinement \cite{modelrotation} and model rotation \cite{belov2011accelerating}
+are applied as improvements on the deletion/insertion based methods.
+These methods are also expanded to satisfiability modulo theories (SMT) \cite{cimatti2007simple}.
+
+On the other hand, researchers are seeking an alternative solution for SAT problem using a totally
+different method from ``old-fashioned" DPLL algorithm. One promising option is polynomial calculus (PC),
+mapping Boolean variables and connectors in CNF formulas to variables and operators in 
+Galois fields. In this way clauses are transformed to monomials/polynomials, thus theorems and concepts in computer
+algebra such as Hilbert's Nullstellensatz and Gr\"obner basis can be employed to assist finding
+valid assignments or proof of unsatisfiability. Basic concepts about PC will be formally introduced with definitions
+from computer algebra.
+
+The inspiration that use PC to solve SAT problems first comes from \cite{ceiSTOC96}.
+Using PC and its variations, researchers develop many SAT solvers \cite{STABLE,BLUEVERI,PolyBoRi}. 
+Besides, researchers borrow concepts from PC, combine them with traditional DPLL and clause learning techniques
+to build hybrid SAT solvers \cite{condratTACAS07,Zengler2010}.
+
 \subsection{Exploiting UNSAT cores for abstraction refinement}
-By exploring previous work, we learn that most state-of-art abstraction refinement techniques require 
+
+UNSAT cores can find broad applications in circuit verification. Many abstraction refinement techniques require 
 information mining from UNSAT proofs of intermediate abstractions. 
 Here we use an abstraction refinement algorithm from \cite{zhang2005design} to explain that how an UNSAT proof is
 utilized in such techniques.
+
+% TODO explain BMC
 
 \IncMargin{1em}
 \begin{algorithm}[H]
