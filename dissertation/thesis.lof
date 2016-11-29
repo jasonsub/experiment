@@ -20,6 +20,9 @@
 \contentsline {figure}{\numberline {6.4}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{92}
 \contentsline {figure}{\numberline {7.1}{\ignorespaces An example of Boolean satisfiability problem on circuits\relax }}{112}
 \contentsline {figure}{\numberline {7.2}{\ignorespaces Abstraction by reducing latches\relax }}{115}
-\contentsline {figure}{\numberline {7.3}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{118}
-\contentsline {figure}{\numberline {7.4}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{121}
-\contentsline {figure}{\numberline {7.5}{\ignorespaces Refutation trees of core refinement example\relax }}{127}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces DAG representing Spoly computations and multivariate divisions\relax }}{120}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Generating refutation trees to record unsat cores\relax }}{122}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Refutation trees of core refinement example\relax }}{128}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Gate-level Schematic of Example Circuit\relax }}{133}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces State transition graph of example circuit\relax }}{134}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces State transition graph of abstracted machine\relax }}{136}

@@ -311,6 +311,24 @@ Christoph Zengler and Wolfgang K{\"u}chlin,
 \newblock {\em in} {\em Computer Algebra in Scientific Computing}, pp.
   293--302. Springer, 2010.
 
+\bibitem{li2009maxsat}
+Chu~Min Li and Felip Manya,
+\newblock ``Maxsat, hard and soft constraints.'',
+\newblock {\em Handbook of satisfiability}, vol. 185, pp. 613--631, 2009.
+
+\bibitem{lee2008bi}
+Ruei-Rung Lee, Jie-Hong~R Jiang, and Wei-Lun Hung,
+\newblock ``Bi-decomposing large boolean functions via interpolation and
+  satisfiability solving'',
+\newblock {\em in} {\em Design Automation Conference, 2008. DAC 2008. 45th
+  ACM/IEEE}, pp. 636--641. IEEE, 2008.
+
+\bibitem{cambazard2008reformulating}
+Hadrien Cambazard and Barry O’Sullivan,
+\newblock ``Reformulating table constraints using functional dependencies—an
+  application to explanation generation'',
+\newblock {\em Constraints}, vol. 13, pp. 385--406, 2008.
+
 \bibitem{zhang2005design}
 Liang Zhang,
 \newblock {\em Design Verification for Sequential Systems at Various
@@ -329,5 +347,19 @@ C.~Condrat and P.~Kalla,
   {P}reprocessing'',
 \newblock {\em in} {\em International Conference on Tools and Algorithms for
   the Construction and Analysis of Systems}, pp. 618--631, 2007.
+
+\bibitem{kalla:fmcad_tut2015}
+Priyank Kalla,
+\newblock ``Formal verification of arithmetic datapaths using algebraic
+  geometry and symbolic computation'',
+\newblock {\em in} {\em Proceedings of the 15th Conference on Formal Methods in
+  Computer-Aided Design}, pp. 2--2. FMCAD Inc, 2015.
+
+\bibitem{rolf:date16}
+Amr Sayed-Ahmed, Daniel Gro, Mathias Soeken, Rolf Drechsler, et~al.,
+\newblock ``Formal verification of integer multipliers by combining gr?? bner
+  basis with logic reduction'',
+\newblock {\em in} {\em 2016 Design, Automation \& Test in Europe Conference \&
+  Exhibition (DATE)}, pp. 1048--1053. IEEE, 2016.
 
 \end{thebibliography}

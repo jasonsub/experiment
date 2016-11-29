@@ -27,9 +27,6 @@ Repeated entry---line 807 of file xiaojun.bib
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
-Warning--I didn't find a database entry for "SMPO"
-Warning--I didn't find a database entry for "kalla:fmcad_tut2015"
-Warning--I didn't find a database entry for "rolf:date16"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry dube1986complexity
@@ -44,45 +41,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 54 entries,
+You've used 59 entries,
             1802 wiz_defined-function locations,
-            777 strings with 12747 characters,
-and the built_in function-call counts, 13474 in all, are:
-= -- 1290
-> -- 516
-< -- 22
-+ -- 195
-- -- 141
-* -- 975
-:= -- 2029
-add.period$ -- 71
-call.type$ -- 54
-change.case$ -- 44
+            802 strings with 13715 characters,
+and the built_in function-call counts, 15053 in all, are:
+= -- 1455
+> -- 564
+< -- 25
++ -- 213
+- -- 154
+* -- 1088
+:= -- 2247
+add.period$ -- 79
+call.type$ -- 59
+change.case$ -- 49
 chr.to.int$ -- 0
-cite$ -- 56
-duplicate$ -- 663
-empty$ -- 1297
-format.name$ -- 141
-if$ -- 3126
+cite$ -- 61
+duplicate$ -- 740
+empty$ -- 1450
+format.name$ -- 154
+if$ -- 3503
 int.to.chr$ -- 0
-int.to.str$ -- 54
-missing$ -- 54
-newline$ -- 274
-num.names$ -- 54
-pop$ -- 209
+int.to.str$ -- 59
+missing$ -- 59
+newline$ -- 299
+num.names$ -- 59
+pop$ -- 229
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 318
+skip$ -- 361
 stack$ -- 0
-substring$ -- 849
-swap$ -- 223
-text.length$ -- 22
+substring$ -- 987
+swap$ -- 256
+text.length$ -- 25
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 136
-width$ -- 56
-write$ -- 602
+while$ -- 154
+width$ -- 61
+write$ -- 660
 (There were 9 error messages)
