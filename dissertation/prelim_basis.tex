@@ -9,7 +9,7 @@ they apply to Galois fields. The results of these theorems are used in polynomia
 abstraction and formal verification of Galois field circuits and 
 are discussed 
 in subsequent chapters. The material of this chapter is
-mostly referred from the textbooks \cite{ideals:book} \cite{gb_book} and 
+mostly referred from the textbooks \cite{ideals:book,gb_book} and 
 previous work by {\it Lv} \cite{lv:phd} as well as {\it Pruss} \cite{pruss:tcad15}.
 
 \section{Algebraic Geometry Fundamentals}
@@ -743,7 +743,7 @@ the worst case computation time/space cost of its Gr\"obner basis is doubly expo
 \cite{dube1986complexity}. However, in practice such as applications of circuit verification, 
 the polynomial is well restricted rather than arbitrary.
 Gao et al. \cite{gao:qe-gf-gb} proves that when the number of variables and degree of polynomials 
-are restricted, the complexity reduces to single exponential $q^O(|\phi|)$.
+are restricted, the complexity reduces to single exponential $q^{O(|\phi|)}$.
 This provides the possibility to make use of Gr\"obner basis under restricted situations,
 which is the theoretic basis of this dissertation.
 
@@ -1153,17 +1153,17 @@ We apply abstraction term order $>$, i.e a lex order with
 When we compute the reduced \Grobner basis, $G_r$, of \{$J + J_0$\} with 
 respect to this ordering, $G_r$ = \{$g_1, \dots, g_{14}\}:$
 \begin{align*}
-g_1: B^4+B; 
+&g_1: B^4+B; 
 ~~g_2: b_0+b_1 \alpha + B; 
 ~~g_3: a_0+a_1 \alpha + A;  \nonumber \\
-~~g_4: c_0+c_1 \alpha + c_2 \alpha + c_3(\alpha+1)+Z;
+&g_4: c_0+c_1 \alpha + c_2 \alpha + c_3(\alpha+1)+Z;
 g_5: r_0+c_1+c_2; 
 ~~g_6: z_0+c_0+c_3; \nonumber \\
-~~g_7: z_1+r_0+c_3; 
+&g_7: z_1+r_0+c_3; 
 ~~{\bf g_8: Z+A\cdot B};
 ~~g_9: b_1+B^2+B; 
 ~~g_{10}: a_1+A^2+A; \nonumber \\
-~~g_{11}: c_3+a_1\cdot b_1
+&g_{11}: c_3+a_1\cdot b_1
 g_{12}: c_2+a_1\cdot b_1 \alpha + a_1 \cdot B; 
 ~~g_{13}: c_1+a_1\cdot b_1 \alpha +b_1 A; 
 ~~g_{14}: A^4+A  \nonumber
