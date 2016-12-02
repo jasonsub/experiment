@@ -1,0 +1,36 @@
+Following the Moore's law, the level of integration on modern VLSI becomes very high, 
+such that a single digital VLSI design can implement a true system-level component.
+The design process also evolves from manual design with little validation, to 
+a formal 3-step procudure which needs collaboration of team with large number of 
+engineers. The 3 major steps are: 1) Design, which is to specify and enter the design intent;
+2) Implement, which is to refine the design through all phases with the assistance of Computer-Aided-Design (CAD)
+tools; 3) Verify, which is to verify the correctness of design and implementation.
+
+Nowadays the verify step is usually completed by a team with specialities on test, verification and validation of 
+circuits. This step is also automated as an indispensable part of CAD tools, when circuit synthesis is performed. 
+Figure \ref{fig:designflow} shows the typical synthesis flow, which covers all procudures starting from 
+register-transfer-level (RTL) description (using hardware design languages, i.e. HDL) to  the 
+physical design on silicon (depicted by the layout). The objective of verification in synthesis is 
+to ensure the implementation is consistent with the original design intent. Verification is 
+an important quality control measure before sending design layout to the VLSI foundaries.
+Considering the high cost of fabrication, any faults and errors in the design will bring considerable 
+waste of funds for the designers. On the other hand, all aspects of the society increasingly depend on 
+the stability and accuracy of digital VLSI circuits, even small flaws or short-time failures can cause 
+huge loss, especially in medical applications, military facilities and financial systems.
+Therefore, it is of utmost importance to verify the correctness of VLSI designs.
+
+One way to perform the verification is called {\it simulation}. It is defined as the collage of all circuit validation 
+methods which apply stimulations on the inputs of circuit model and verify correctness of the outputs.
+However, simulation is not a complete solution to circuit verification problems. In modern designs with 
+large number of logic components and complicated architecures, it is impractical to simulate all possible 
+test vectors. Usually only test vectors that correspond to typical failures are selected in simulation, which 
+cannot cover unexpected failure patterns caused by special inputs. The notorious Intel FDIV bug \cite{nicely:FDIV}
+is a good example when simulation fails. Failure occurs when only 5 entries in an $84\times 16$ look-up table
+(LUT) are activated,  which is rarely used in most divisions. Because of the limitation of simulation,  
+test engineers from Intel failed to detect the bug,  which brought $\$475$ million dollors recalling bill
+for the company. Thus,  new methods that can guarantee the correctness of the design are necessary to be explored.
+
+Formal verification can provide $100\%$ fault coverage from 2 aspects. On the one hand,  it formalize properties
+for the circuit model which are irrelevant to specific input signals,  and prove them mathematically.
+On the other hand,  it adopts formal languages to strictly describe the design intents and detailed implementation, 
+and deduces circuit function from the implementation. These descriptions are named as {\it specifications}.

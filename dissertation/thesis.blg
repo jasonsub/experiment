@@ -27,6 +27,12 @@ Repeated entry---line 807 of file xiaojun.bib
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
+Warning--I didn't find a database entry for "cegar-journal"
+Warning--I didn't find a database entry for "bradley:pdr"
+Warning--I didn't find a database entry for "Jain05wordlevel"
+Warning--I didn't find a database entry for "mcmillan:cav06"
+Warning--I didn't find a database entry for "mcmillan:impact"
+Warning--I didn't find a database entry for "touati:iccad90"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry dube1986complexity
@@ -41,45 +47,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 59 entries,
+You've used 82 entries,
             1802 wiz_defined-function locations,
-            802 strings with 13715 characters,
-and the built_in function-call counts, 15053 in all, are:
-= -- 1455
-> -- 564
-< -- 25
-+ -- 213
-- -- 154
-* -- 1088
-:= -- 2247
-add.period$ -- 79
-call.type$ -- 59
-change.case$ -- 49
+            915 strings with 17109 characters,
+and the built_in function-call counts, 21033 in all, are:
+= -- 1987
+> -- 769
+< -- 36
++ -- 290
+- -- 208
+* -- 1456
+:= -- 3065
+add.period$ -- 105
+call.type$ -- 82
+change.case$ -- 71
 chr.to.int$ -- 0
-cite$ -- 61
-duplicate$ -- 740
-empty$ -- 1450
-format.name$ -- 154
-if$ -- 3503
+cite$ -- 84
+duplicate$ -- 1086
+empty$ -- 2107
+format.name$ -- 208
+if$ -- 4960
 int.to.chr$ -- 0
-int.to.str$ -- 59
-missing$ -- 59
-newline$ -- 299
-num.names$ -- 59
-pop$ -- 229
+int.to.str$ -- 82
+missing$ -- 82
+newline$ -- 414
+num.names$ -- 84
+pop$ -- 359
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 361
+skip$ -- 566
 stack$ -- 0
-substring$ -- 987
-swap$ -- 256
-text.length$ -- 25
+substring$ -- 1308
+swap$ -- 390
+text.length$ -- 36
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 154
-width$ -- 61
-write$ -- 660
+while$ -- 205
+width$ -- 84
+write$ -- 906
 (There were 9 error messages)

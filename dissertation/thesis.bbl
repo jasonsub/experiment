@@ -1,5 +1,167 @@
 \begin{thebibliography}{10}
 
+\bibitem{bitlevel1}
+E~Clarke A~Biere, A~Cimatti and Y~Yhu,
+\newblock ``Symbolic model checking without bdds'',
+\newblock {\em in} {\em International Conference on Tools and Algorithms for
+  the Construction and Analysis of Systems}, p. 193–207, 1999.
+
+\bibitem{coudert:iccad90}
+O.~Coudert and J.C. Madre,
+\newblock ``{A} {U}nified {F}ramework for the {F}ormal {V}erification of
+  {S}equential {C}ircuits'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, pp. 126--129, 1990.
+
+\bibitem{coudert1990verification}
+Olivier Coudert, Christian Berthet, and Jean~Christophe Madre,
+\newblock ``Verification of synchronous sequential machines based on symbolic
+  execution'',
+\newblock {\em in} {\em Automatic verification methods for finite state
+  systems}, pp. 365--373. Springer, 1990.
+
+\bibitem{nicely:FDIV}
+Thomas~R. Nicely,
+\newblock ``{P}entium {FDIV} {F}law'',
+\newblock \url{http://www.trnicely.net/pentbug/pentbug.html}.
+
+\bibitem{theoremproving:91}
+Z.~Manna and A.~Pnueli,
+\newblock {\em The {T}emporal {L}ogic of {R}eactive and {C}oncurrent
+  {S}ystems},
+\newblock Springer-Verlag, {F}irst edition, 1991.
+
+\bibitem{modelcheck:99}
+E.~Clarke, O.~Grumberg, and D.~Peled,
+\newblock {\em The {T}emporal {L}ogic of {R}eactive and {C}oncurrent
+  {S}ystems},
+\newblock The MIT Press, 1999.
+
+\bibitem{csat}
+F.~Lu, L.~Wang, K.~Cheng, and R.~Huang,
+\newblock ``{A} {C}ircuit {SAT} {S}olver {W}ith {S}ignal {C}orrelation {G}uided
+  {L}earning'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, pp.
+  892--897, 2003.
+
+\bibitem{Avrunin:CAV}
+G.~Avrunin,
+\newblock ``Symbolic {M}odel {C}hecking using {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Computer Aided Verification Conference}, pp. 26--37,
+  1996.
+
+\bibitem{condrat-tacas07}
+C.~Condrat and P.~Kalla,
+\newblock ``{A} {G}r\"obner {B}asis {A}pproach to {CNF} formulae
+  {P}reprocessing'',
+\newblock {\em in} {\em International Conference on Tools and Algorithms for
+  the Construction and Analysis of Systems}, pp. 618--631, 2007.
+
+\bibitem{gbverify:2007}
+Y.~Watanabe and {\it et al},
+\newblock ``{A}pplication of {S}ymbolic {C}omputer {A}lgebra to {A}rithmetic
+  {C}ircuit {V}erification'',
+\newblock {\em in} {\em IEEE International Conference on Computer Design}, pp.
+  25--32, October 2007.
+
+\bibitem{gb_book}
+W.~W. Adams and P.~Loustaunau,
+\newblock {\em {A}n {I}ntroduction to {G}r\"obner {B}ases},
+\newblock American Mathematical Society, 1994.
+
+\bibitem{lv:phd}
+J.~Lv,
+\newblock {\em {S}calable {F}ormal {V}erification of {F}inite {F}ield
+  {A}rithmetic {C}ircuits using {C}omputer {A}lgebra {T}echniques},
+\newblock PhD thesis, Univ. of Utah, Aug. 2012.
+
+\bibitem{kroening:model}
+H.~Jain, D.~Kroening, N.~Sharygina, and E.~Clarke,
+\newblock ``{W}ord {L}evel {P}redicate {A}bstraction and {R}efinement
+  {T}echniques for {V}erifying {R}tl {V}erilog'',
+\newblock {\em in} {\em Design Automation Conf.}, 2005.
+
+\bibitem{WLS}
+S.~Horeth and Drechsler,
+\newblock ``{F}ormal {V}erification of {W}ord-{L}evel {S}pecifications'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, pp.
+  52--58, 1999.
+
+\bibitem{arditi:bmd}
+L.~Arditi,
+\newblock ``{*BMD}s can {D}elay the use of {T}heorem {P}roving for {V}erifying
+  {A}rithmetic {A}ssembly {I}nstructions'',
+\newblock in Srivas, editor, {\em In Proc. Formal methods in CAD}.
+  Springer-Verlag, 1996.
+
+\bibitem{lpsat}
+Z.~Zeng, P.~Kalla, and M.~J. Ciesielski,
+\newblock ``{LPSAT:} {A} {U}nified {A}pproach to {RTL} {S}atisfiability'',
+\newblock {\em in} {\em Proc. DATE}, 2001.
+
+\bibitem{boolector}
+R.~Brummayer and A.~Biere,
+\newblock ``{B}oolector: {A}n {E}fficient {SMT} {S}olver for {B}it-{V}ectors
+  and {A}rrays'',
+\newblock {\em in} {\em TACAS 09, Volume 5505 of LNCS}. Springer, 2009.
+
+\bibitem{bryant:tacas07}
+R.~Brant, D.~Kroening, and {\it et al},
+\newblock ``{D}eciding {B}it-{V}ector {A}rithmetic with {A}bstraction'',
+\newblock {\em in} {\em Proc. TACAS}, pp. 358--372, 2007.
+
+\bibitem{ms:research}
+D.~Babic and M.~Musuvathi,
+\newblock ``{M}odular {A}rithmetic {D}ecision {P}rocedure'',
+\newblock Technical Report TR-2005-114, Microsoft Research, 2005.
+
+\bibitem{tew:iccad08}
+N.~Tew, P.~Kalla, N.~Shekhar, and S.~Gopalakrishnan,
+\newblock ``{V}erification of {A}rithmetic {D}atapaths using {P}olynomial
+  {F}unction {M}odels and {C}ongruence {S}olving'',
+\newblock {\em in} {\em Proc. Intl. Conf. on Computer-Aided Design (ICCAD)},
+  pp. 122--128, 2008.
+
+\bibitem{gupta_survey}
+A.~Gupta,
+\newblock ``{F}ormal {H}ardware {V}erification {M}ethods: {A} {S}urvey'',
+\newblock {\em Formal Methods in System Design}, vol. 1, pp. 151--238, 1992.
+
+\bibitem{demicheli:iccad_98}
+J.~Smith and G.~DeMicheli,
+\newblock ``Polynomial methods for component matching and verification'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, 1998.
+
+\bibitem{demicheli:dac_99}
+J.~Smith and G.~DeMicheli,
+\newblock ``{P}olynomial {M}ethods for {A}llocating {C}omplex {C}omponents'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, 1999.
+
+\bibitem{demicheli:tcad_03}
+A.~Peymandoust and G.~DeMicheli,
+\newblock ``{A}pplication of {S}ymbolic {C}omputer {A}lgebra in {H}igh-{L}evel
+  {D}ata-{F}low {S}ynthesis'',
+\newblock {\em IEEE Transactions CAD}, vol. 22, pp. 1154--11656, 2003.
+
+\bibitem{vardi-iasted07}
+M.~Y. Vardi and Q.~Tran,
+\newblock ``{G}roebners {B}ases {C}omputation in {B}oolean {R}ings for
+  {S}ymbolic {M}odel {C}hecking'',
+\newblock {\em in} {\em IASTED}, 2007.
+
+\bibitem{ff:1997}
+R.~Lidl and H.~Niederreiter,
+\newblock {\em {F}inite {F}ields},
+\newblock Cambridge University Press, 1997.
+
+\bibitem{CEI:stoc-96}
+M.~Clegg, J.~Edmonds, and R.~Impagliazzo,
+\newblock ``Using the {G}r\"obner {B}asis {A}lgorithm to {F}ind {P}roofs of
+  {U}nsatisfiability'',
+\newblock {\em in} {\em ACM Symposium on Theory of Computing}, pp. 174--183,
+  1996.
+
 \bibitem{galois_field:mceliece}
 Robert~J. McEliece,
 \newblock {\em Finite Fields for Computer Scientists and Engineers},
@@ -9,11 +171,6 @@ Robert~J. McEliece,
 S.~Roman,
 \newblock {\em {F}ield {T}heory},
 \newblock Springer, 2006.
-
-\bibitem{ff:1997}
-R.~Lidl and H.~Niederreiter,
-\newblock {\em {F}inite {F}ields},
-\newblock Cambridge University Press, 1997.
 
 \bibitem{mastro:1989}
 E.~Mastrovito,
@@ -45,12 +202,6 @@ M.~Kne\v{z}evi\'{c}, K.~Sakiyama, J.~Fan, and I.~Verbauwhede,
   {P}re-{C}omputational {P}hase'',
 \newblock {\em in} {\em Proceedings of the International Workshop on Arithmetic
   of Finite Fields}, pp. 77--87, 2008.
-
-\bibitem{lv:phd}
-J.~Lv,
-\newblock {\em {S}calable {F}ormal {V}erification of {F}inite {F}ield
-  {A}rithmetic {C}ircuits using {C}omputer {A}lgebra {T}echniques},
-\newblock PhD thesis, Univ. of Utah, Aug. 2012.
 
 \bibitem{normal_book}
 Alfred~J Menezes, Ian~F Blake, XuHong Gao, Ronald~C Mullin, Scott~A Vanstone,
@@ -94,11 +245,6 @@ D.~Cox, J.~Little, and D.~O'Shea,
 \newblock {\em {I}deals, {V}arieties, and {A}lgorithms: {A}n {I}ntroduction to
   {C}omputational {A}lgebraic {G}eometry and {C}ommutative {A}lgebra},
 \newblock Springer, 2007.
-
-\bibitem{gb_book}
-W.~W. Adams and P.~Loustaunau,
-\newblock {\em {A}n {I}ntroduction to {G}r\"obner {B}ases},
-\newblock American Mathematical Society, 1994.
 
 \bibitem{pruss:tcad15}
 T.~Pruss, P.~Kalla, and F.~Enescu,
@@ -340,13 +486,6 @@ J.~Lv, P.~Kalla, and F.~Enescu,
 \newblock ``{E}fficient {G}robner {B}asis {R}eductions for {F}ormal
   {V}erification of {G}alois {F}ield {A}rithmetic {C}ircuits'',
 \newblock {\em IEEE Transactions CAD}, vol. 32, pp. 1409--1420, Sept. 2013.
-
-\bibitem{condrat-tacas07}
-C.~Condrat and P.~Kalla,
-\newblock ``{A} {G}r\"obner {B}asis {A}pproach to {CNF} formulae
-  {P}reprocessing'',
-\newblock {\em in} {\em International Conference on Tools and Algorithms for
-  the Construction and Analysis of Systems}, pp. 618--631, 2007.
 
 \bibitem{kalla:fmcad_tut2015}
 Priyank Kalla,
