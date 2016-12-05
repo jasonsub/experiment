@@ -36,7 +36,7 @@ same properties as the original one, a process of refinement is
 needed. For example, counterexample guided
 abstraction refinement (CEGAR) \cite{cegar-journal} uses proofs of
 unsatisfiability (UNSAT cores) to refine the abstractions.
-\item The recent breakthrough method of \cite{bradley:pdr} where the set of
+\item The recent breakthrough method of \cite{bradley2011sat} where the set of
 over-approximations to forward reachable states are refined with
 inductive constraints -- property directed reachability (PDR). 
 \end{enumerate}
@@ -52,8 +52,8 @@ the designs are expressed at the level of bit-vector words
 rarely exploited in verification. The problem is further exacerbated
 when there are arithmetic operators on word-level operands embedded in
 the control logic. While attempts have been made towards word-level
-predicate abstraction \cite{Jain05wordlevel} \cite{mcmillan:cav06}
-\cite{mcmillan:impact}, {\it using a purely word-level representation
+predicate abstraction \cite{jain2005word} \cite{mcmillan:cav06}
+\cite{mcmillan2010lazy}, {\it using a purely word-level representation
   of the state-space, the properties and their abstractions have not
   been fully explored as another dimension in improving sequential
   verification.}  
@@ -66,8 +66,8 @@ a sequence of inputs (string) that distinguishes the initial
 states \cite{coudert:iccad90}
 \cite{coudert1990verification}. Fundamentally, this requires 
 the construction of a product machine; and the main research problem
-relates to that of performing {\it FSM traversal \cite{touati:iccad90}
-but  at the word-level}. Analogously, in the case of MC, the problem
+relates to that of performing {\it FSM traversal} \cite{touati1990implicit}
+but  at the word-level. Analogously, in the case of MC, the problem
 is setup w.r.t. a FSM $\mathcal{M}$, a set of initial states $S_0$ and
 a set of property states $p$. Techniques are to be researched that
 verify that there exist no sequence of transitions from an initial

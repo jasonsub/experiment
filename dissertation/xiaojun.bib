@@ -68,7 +68,7 @@
 %linearly transformed BDD(LTBDD) to compute set of reachable states
 
 @inproceedings{touati1990implicit,
-  title={Implicit state enumeration of finite state machines using BDD's},
+  title={Implicit state enumeration of finite state machines using BDDs},
   author={Touati, Herve J and Savoj, Hamid and Lin, Bill and Brayton, Robert K and Sangiovanni-Vincentelli, Alberto},
   booktitle={Computer-Aided Design, 1990. ICCAD-90. Digest of Technical Papers., 1990 IEEE International Conference on},
   pages={130--133},
@@ -179,6 +179,26 @@
 }
 %conclude all SAT based and BDD based methods
 
+@inproceedings{minato1993zero,
+  title={Zero-suppressed BDDs for set manipulation in combinatorial problems},
+  author={Minato, Shin-ichi},
+  booktitle={Design Automation, 1993. 30th Conference on},
+  pages={272--277},
+  year={1993},
+  organization={IEEE}
+}
+% ZDD--first
+
+@inproceedings{minato1994calculation,
+  title={Calculation of unate cube set algebra using zero-suppressed BDDs},
+  author={Minato, Shin-ichi},
+  booktitle={Proceedings of the 31st annual Design Automation Conference},
+  pages={420--424},
+  year={1994},
+  organization={ACM}
+}
+% ZDD --second
+
 @inproceedings{baumgartner2007scalable,
   title={Scalable sequential equivalence checking across arbitrary design transformations},
   author={Baumgartner, Jason and Mony, Hari and Paruthi, Viresh and Kanzelman, Robert and Janssen, Geert},
@@ -226,6 +246,15 @@
   organization={Springer}
 }
 % SAT and boolean constrains manipulation
+
+@inproceedings{biere1999symbolic,
+  title={Symbolic model checking using SAT procedures instead of BDDs},
+  author={Biere, Armin and Cimatti, Alessandro and Clarke, Edmund M and Fujita, Masahiro and Zhu, Yunshan},
+  booktitle={Proceedings of the 36th annual ACM/IEEE Design Automation Conference},
+  pages={317--320},
+  year={1999},
+  organization={ACM}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -766,10 +795,79 @@
 }
 
 @inproceedings{rolf:date16,
-  title={Formal verification of integer multipliers by combining Gr?? bner basis with logic reduction},
+  title={Formal verification of integer multipliers by combining Gr\"obner basis with logic reduction},
   author={Sayed-Ahmed, Amr and Gro, Daniel and Soeken, Mathias and Drechsler, Rolf and others},
   booktitle={2016 Design, Automation \& Test in Europe Conference \& Exhibition (DATE)},
   pages={1048--1053},
   year={2016},
   organization={IEEE}
+}
+
+@inproceedings{ciesielski2014function,
+  title={Function Extraction from Arithmetic Bit-level Circuits},
+  author={Ciesielski, Maciej and Brown, Walter and Liu, Duo and Rossi, Andr{\'e}},
+  booktitle={VLSI (ISVLSI), 2014 IEEE Computer Society Annual Symposium on},
+  pages={356--361},
+  year={2014},
+  organization={IEEE}
+}
+
+
+% 3 refs for uninterpreted function abstraction (word-level)
+@inproceedings{UF1,
+  title={Automatic abstraction and verification of Verilog models},
+  author={Andraus, Zaher S and Sakallah, Karem A},
+  booktitle={Proceedings of the 41st annual Design Automation Conference},
+  pages={218--223},
+  year={2004},
+  organization={ACM}
+}
+
+@inproceedings{UF2,
+  title={Reveal: A formal verification tool for verilog designs},
+  author={Andraus, Zaher S and Liffiton, Mark H and Sakallah, Karem A},
+  booktitle={International Conference on Logic for Programming Artificial Intelligence and Reasoning},
+  pages={343--352},
+  year={2008},
+  organization={Springer}
+}
+
+@inproceedings{UF3,
+  title={ATLAS: automatic term-level abstraction of RTL designs},
+  author={Brady, Bryan A and Bryant, Randal E and Seshia, Sanjit A and O'Leary, John W},
+  booktitle={Formal Methods and Models for Codesign (MEMOCODE), 2010 8th IEEE/ACM International Conference on},
+  pages={31--40},
+  year={2010},
+  organization={IEEE}
+}
+
+@article{cegar-journal,
+  title={Counterexample-guided abstraction refinement for symbolic model checking},
+  author={Clarke, Edmund and Grumberg, Orna and Jha, Somesh and Lu, Yuan and Veith, Helmut},
+  journal={Journal of the ACM (JACM)},
+  volume={50},
+  number={5},
+  pages={752--794},
+  year={2003},
+  publisher={ACM}
+}
+% CEGAR
+
+@inproceedings{mcmillan:cav06,
+  title={Lazy abstraction with interpolants},
+  author={McMillan, Kenneth L},
+  booktitle={International Conference on Computer Aided Verification},
+  pages={123--136},
+  year={2006},
+  organization={Springer}
+}
+% mcmillan lazy
+
+@inproceedings{mcmillan2010lazy,
+  title={Lazy annotation for program testing and verification},
+  author={McMillan, Kenneth L},
+  booktitle={International Conference on Computer Aided Verification},
+  pages={104--118},
+  year={2010},
+  organization={Springer}
 }

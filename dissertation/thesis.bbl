@@ -1,10 +1,41 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{100}
 
 \bibitem{bitlevel1}
 E~Clarke A~Biere, A~Cimatti and Y~Yhu,
 \newblock ``Symbolic model checking without bdds'',
 \newblock {\em in} {\em International Conference on Tools and Algorithms for
   the Construction and Analysis of Systems}, p. 193–207, 1999.
+
+\bibitem{cegar-journal}
+Edmund Clarke, Orna Grumberg, Somesh Jha, Yuan Lu, and Helmut Veith,
+\newblock ``Counterexample-guided abstraction refinement for symbolic model
+  checking'',
+\newblock {\em Journal of the ACM (JACM)}, vol. 50, pp. 752--794, 2003.
+
+\bibitem{bradley2011sat}
+Aaron~R Bradley,
+\newblock ``Sat-based model checking without unrolling'',
+\newblock {\em in} {\em Verification, Model Checking, and Abstract
+  Interpretation}, pp. 70--87. Springer, 2011.
+
+\bibitem{jain2005word}
+Himanshu Jain, Daniel Kroening, Natasha Sharygina, and Edmund Clarke,
+\newblock ``Word level predicate abstraction and refinement for verifying rtl
+  verilog'',
+\newblock {\em in} {\em Proceedings of the 42nd annual Design Automation
+  Conference}, pp. 445--450. ACM, 2005.
+
+\bibitem{mcmillan:cav06}
+Kenneth~L McMillan,
+\newblock ``Lazy abstraction with interpolants'',
+\newblock {\em in} {\em International Conference on Computer Aided
+  Verification}, pp. 123--136. Springer, 2006.
+
+\bibitem{mcmillan2010lazy}
+Kenneth~L McMillan,
+\newblock ``Lazy annotation for program testing and verification'',
+\newblock {\em in} {\em International Conference on Computer Aided
+  Verification}, pp. 104--118. Springer, 2010.
 
 \bibitem{coudert:iccad90}
 O.~Coudert and J.C. Madre,
@@ -19,6 +50,14 @@ Olivier Coudert, Christian Berthet, and Jean~Christophe Madre,
   execution'',
 \newblock {\em in} {\em Automatic verification methods for finite state
   systems}, pp. 365--373. Springer, 1990.
+
+\bibitem{touati1990implicit}
+Herve~J Touati, Hamid Savoj, Bill Lin, Robert~K Brayton, and Alberto
+  Sangiovanni-Vincentelli,
+\newblock ``Implicit state enumeration of finite state machines using bdds'',
+\newblock {\em in} {\em Computer-Aided Design, 1990. ICCAD-90. Digest of
+  Technical Papers., 1990 IEEE International Conference on}, pp. 130--133.
+  IEEE, 1990.
 
 \bibitem{nicely:FDIV}
 Thomas~R. Nicely,
@@ -162,6 +201,375 @@ M.~Clegg, J.~Edmonds, and R.~Impagliazzo,
 \newblock {\em in} {\em ACM Symposium on Theory of Computing}, pp. 174--183,
   1996.
 
+\bibitem{coudert2003unified}
+Olivier Coudert and Jean~Christophe Madre,
+\newblock ``A unified framework for the formal verification of sequential
+  circuits'',
+\newblock {\em in} {\em The Best of ICCAD}, pp. 39--50. Springer, 2003.
+
+\bibitem{khasidashvili2004theoretical}
+Zurab Khasidashvili, Marcelo Skaba, Daher Kaiss, and Ziyad Hanna,
+\newblock ``Theoretical framework for compositional sequential hardware
+  equivalence verification in presence of design constraints'',
+\newblock {\em in} {\em Proceedings of the 2004 IEEE/ACM International
+  conference on Computer-aided design}, pp. 58--65. IEEE Computer Society,
+  2004.
+
+\bibitem{baumgartner2007scalable}
+Jason Baumgartner, Hari Mony, Viresh Paruthi, Robert Kanzelman, and Geert
+  Janssen,
+\newblock ``Scalable sequential equivalence checking across arbitrary design
+  transformations'',
+\newblock {\em in} {\em Computer Design, 2006. ICCD 2006. International
+  Conference on}, pp. 259--266. IEEE, 2007.
+
+\bibitem{van1998sequential}
+CAJ Van~Eijk,
+\newblock ``Sequential equivalence checking without state space traversal'',
+\newblock {\em in} {\em Design, Automation and Test in Europe, 1998.,
+  Proceedings}, pp. 618--623. IEEE, 1998.
+
+\bibitem{stoffel1997record}
+Dominik Stoffel and Wolfgang Kunz,
+\newblock ``Record \& play: A structural fixed point iteration for sequential
+  circuit verification'',
+\newblock {\em in} {\em Proceedings of the 1997 IEEE/ACM international
+  conference on Computer-aided design}, pp. 394--399. IEEE Computer Society,
+  1997.
+
+\bibitem{BRYA86}
+R.~E. Bryant,
+\newblock ``{G}raph {B}ased {A}lgorithms for {B}oolean {F}unction
+  {M}anipulation'',
+\newblock {\em IEEE Transactions on Computers}, vol. C-35, pp. 677--691, August
+  1986.
+
+\bibitem{okfdd}
+R.~Drechsler, A.~Sarabi, M.~Theobald, B.~Becker, and M.A. Perkowski,
+\newblock ``{E}fficient {R}epresentation and {M}anipulation of {S}witching
+  {F}unctions based on {O}rdered {K}ronecker {F}unctional {D}ecision
+  {D}iagrams'',
+\newblock {\em in} {\em Design Automation Conference}, pp. 415--419, 1994.
+
+\bibitem{add}
+I.~Bahar, E.~A. Frohm, C.~M. Gaona, G.~D. Hachtel, E.~Macii, A.~Pardo, and
+  F.~Somenzi,
+\newblock ``{A}lgebraic {D}ecision {D}iagrams and their {A}pplications'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, pp. 188--191, Nov. 93.
+
+\bibitem{mtbdd}
+E.~M. Clarke, K.~L. McMillan, X.~Zhao, M.~Fujita, and J.~Yang,
+\newblock ``{S}pectral {T}ransforms for {L}arge {B}oolean {F}unctions with
+  {A}pplications to {T}echnology {M}apping'',
+\newblock {\em in} {\em DAC}, pp. 54--60, 93.
+
+\bibitem{hdd}
+E.~M. Clarke, M.~Fujita, and X.~Zhao,
+\newblock ``{H}ybrid {D}ecision {D}iagrams - {O}vercoming the {L}imitation of
+  {MTBDD}s and {BMD}s'',
+\newblock {\em in} {\em Proceedings of the IEEE/ACM International Conference on
+  Computer-Aided Design}, pp. 159--163, 1995.
+
+\bibitem{evbdd}
+Y-T. Lai, M.~Pedram, and S.~B. Vrudhula,
+\newblock ``{F}{G}{I}{L}{P}: {A}n {I}{L}{P} {S}olver based on {F}unction
+  {G}raphs'',
+\newblock {\em in} {\em ICCAD}, pp. 685--689, 93.
+
+\bibitem{minato1993zero}
+Shin-ichi Minato,
+\newblock ``Zero-suppressed bdds for set manipulation in combinatorial
+  problems'',
+\newblock {\em in} {\em Design Automation, 1993. 30th Conference on}, pp.
+  272--277. IEEE, 1993.
+
+\bibitem{minato1994calculation}
+Shin-ichi Minato,
+\newblock ``Calculation of unate cube set algebra using zero-suppressed bdds'',
+\newblock {\em in} {\em Proceedings of the 31st annual Design Automation
+  Conference}, pp. 420--424. ACM, 1994.
+
+\bibitem{bmd}
+R.~E. Bryant and Y-A. Chen,
+\newblock ``{V}erification of {A}rithmetic {F}unctions with {B}inary {M}oment
+  {D}iagrams'',
+\newblock {\em in} {\em Proceedings of Design Automation Conference}, pp.
+  535--541, 1995.
+
+\bibitem{kbmd}
+R.~Dreschler, B.~Becker, and S.~Ruppertz,
+\newblock ``{T}he {K*BMD}: {A} {V}erification {D}ata {S}tructure'',
+\newblock {\em IEEE Design \& Test of Computers}, vol. 14, pp. 51--59, 1997.
+
+\bibitem{phdd}
+Y.~A. Chen and R.~E. Bryant,
+\newblock ``{*PHDD}: {A}n {E}fficient {G}raph {R}epresentation for {F}loating
+  {P}oint {V}erification'',
+\newblock {\em in} {\em Proc. ICCAD}, 1997.
+
+\bibitem{modd}
+A.~Jabir and Pradhan D.,
+\newblock ``{MODD}: {A} {N}ew {D}ecision {D}iagram and {R}epresentation for
+  {M}ultiple {O}utput {B}inary {F}unctions'',
+\newblock {\em in} {\em IEEE Design, Automation and Test in Europe}, 2004.
+
+\bibitem{modd_tcomp}
+A.~Jabir, D.~Pradhan, T.~Rajaprabhu, and A.~Singh,
+\newblock ``A {T}echnique for {R}epresenting {M}ultiple {O}utput {B}inary
+  {F}unctions with {A}pplications to {V}erification and {S}imulation'',
+\newblock {\em IEEE Transactions on Computers}, vol. 56, pp. 1133--1145, 2007.
+
+\bibitem{ted_tcomp}
+M.~Ciesielski, P.~Kalla, and S.~Askar,
+\newblock ``{T}aylor {E}xpansion {D}iagrams: {A} {C}anonical {R}epresentation
+  for {V}erification of {D}ata-{F}low {D}esigns'',
+\newblock {\em IEEE Transactions on Computers}, vol. 55, pp. 1188--1201, 2006.
+
+\bibitem{AIG:2002}
+A.~Kuehlmann, V.~Paruthi, F.~Krohm, and M.~K. Ganai,
+\newblock ``{R}obust {B}oolean {R}easoning for {E}quivalence {C}hecking and
+  {F}unctional {P}roperty {V}erification'',
+\newblock {\em IEEE Transactions on Computer-Aided Design of Integrated
+  Circuits and Systems}, vol. 21, pp. 1377--1394, Nov. 2006.
+
+\bibitem{alanmi:cec:iccad2006}
+A.~Mishchenko, S.~Chatterjee, R.~Brayton, and N.~Een,
+\newblock ``Improvements to {C}ombinational {E}quivalence {C}hecking'',
+\newblock {\em in} {\em Proc. Intl. Conf. on CAD (ICCAD)}, pp. 836--843, 2006.
+
+\bibitem{mastro:1989}
+E.~Mastrovito,
+\newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
+  {GF($2^m$)}'',
+\newblock {\em Lecture Notes in Computer Science}, vol. 357, pp. 297--309,
+  1989.
+
+\bibitem{acar:1998}
+C.~Koc and T.~Acar,
+\newblock ``{M}ontgomery {M}ultiplication in {GF}($2^k$)'',
+\newblock {\em Designs, Codes and Cryptography}, vol. 14, pp. 57--69, Apr.
+  1998.
+
+\bibitem{Cryptol:fmcad09}
+L.~Erk\"ok, M.~Carlsson, and A.~Wick,
+\newblock ``{H}ardware/{S}oftware {C}o-verification of {C}ryptographic
+  {A}lgorithms using {C}ryptol'',
+\newblock {\em in} {\em Proc. Formal Methods in CAD (FMCAD)}, pp. 188--191,
+  2009.
+
+\bibitem{ciesielski2014function}
+Maciej Ciesielski, Walter Brown, Duo Liu, and Andr{\'e} Rossi,
+\newblock ``Function extraction from arithmetic bit-level circuits'',
+\newblock {\em in} {\em VLSI (ISVLSI), 2014 IEEE Computer Society Annual
+  Symposium on}, pp. 356--361. IEEE, 2014.
+
+\bibitem{rolf:date16}
+Amr Sayed-Ahmed, Daniel Gro, Mathias Soeken, Rolf Drechsler, et~al.,
+\newblock ``Formal verification of integer multipliers by combining gr\"obner
+  basis with logic reduction'',
+\newblock {\em in} {\em 2016 Design, Automation \& Test in Europe Conference \&
+  Exhibition (DATE)}, pp. 1048--1053. IEEE, 2016.
+
+\bibitem{burch1990sequential}
+Jerry~R Burch, Edmund~M Clarke, Kenneth~L McMillan, and David~L Dill,
+\newblock ``Sequential circuit verification using symbolic model checking'',
+\newblock {\em in} {\em Design Automation Conference, 1990. Proceedings., 27th
+  ACM/IEEE}, pp. 46--51. IEEE, 1990.
+
+\bibitem{burch1991representing}
+Jerry~R Burch, Edmund~M Clarke, and David~E Long,
+\newblock ``Representing circuits more efficiently in symbolic model
+  checking'',
+\newblock {\em in} {\em Proceedings of the 28th ACM/IEEE Design Automation
+  Conference}, pp. 403--407. ACM, 1991.
+
+\bibitem{biere1999symbolic}
+Armin Biere, Alessandro Cimatti, Edmund~M Clarke, Masahiro Fujita, and Yunshan
+  Zhu,
+\newblock ``Symbolic model checking using sat procedures instead of bdds'',
+\newblock {\em in} {\em Proceedings of the 36th annual ACM/IEEE Design
+  Automation Conference}, pp. 317--320. ACM, 1999.
+
+\bibitem{mcmillan2003interpolation}
+Kenneth~L McMillan,
+\newblock ``Interpolation and sat-based model checking'',
+\newblock {\em in} {\em Computer Aided Verification}, pp. 1--13. Springer,
+  2003.
+
+\bibitem{clarke2000counterexample}
+Edmund Clarke, Orna Grumberg, Somesh Jha, Yuan Lu, and Helmut Veith,
+\newblock ``Counterexample-guided abstraction refinement'',
+\newblock {\em in} {\em Computer aided verification}, pp. 154--169. Springer,
+  2000.
+
+\bibitem{zhang2005design}
+Liang Zhang,
+\newblock {\em Design Verification for Sequential Systems at Various
+  Abstraction Levels},
+\newblock PhD thesis, Citeseer, 2005.
+
+\bibitem{HimanshuDAC2005}
+Himanshu Jain, Daniel Kroening, Natasha Sharygina, and Edmund Clarke,
+\newblock ``Word level predicate abstraction and refinement for verifying rtl
+  verilog'',
+\newblock {\em in} {\em Proceedings of the 42nd annual Design Automation
+  Conference}, pp. 445--450. ACM, 2005.
+
+\bibitem{bradley2011incremental}
+Aaron~R Bradley, Fabio Somenzi, Zyad Hassan, and Yan Zhang,
+\newblock ``An incremental approach to model checking progress properties'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2011},
+  pp. 144--153. IEEE, 2011.
+
+\bibitem{BHEL96}
+R.~K. Brayton, G.~D. Hachtel, A.~Sangiovanni-Vencentelli, F.~Somenzi, A.~Aziz,
+  S-T. Cheng, S.~Edwards, S.~Khatri, Y.~Kukimoto, A.~Pardo, S.~Qadeer,
+  R.~Ranjan, S.~Sarwary, G.~Shiple, S.~Swamy, and T.~Villa,
+\newblock ``{VIS}: {A} {S}ystem for {V}erification and {S}ynthesis'',
+\newblock {\em in} {\em Computer Aided Verification}, 1996.
+
+\bibitem{SMV}
+K.~L. McMillan,
+\newblock {\em {S}ymbolic {M}odel {C}hecking},
+\newblock Kluwer Academic Publishers, 1993.
+
+\bibitem{cvc3}
+C.~Barrett and C.~Tinelli,
+\newblock ``{CVC3}'',
+\newblock {\em in} {\em Computer Aided Verification Conference}, pp. 298--302.
+  Springer, July 2007.
+
+\bibitem{z3}
+L.~Moura and N.~Bjørner,
+\newblock ``{Z3}: {A}n {E}fficient {SMT} {S}olver.'',
+\newblock {\em in} {\em International Conference on Tools and Algorithms for
+  the Construction and Analysis of Systems}, vol. 4963. Springer, 2008.
+
+\bibitem{bitvector98}
+C.~W. Barlett, D.~L. Dill, and J.~R. Levitt,
+\newblock ``{A} {D}ecision {P}rocedure for {b}it-{V}ector {A}rithmetic'',
+\newblock {\em in} {\em DAC}, June 1998.
+
+\bibitem{presburger}
+H.~Enderton,
+\newblock {\em A mathematical introduction to logic},
+\newblock Academic Press New York, 1972.
+
+\bibitem{bultan:mixed_verification}
+T.~Bultan and et~al,
+\newblock ``Verifying systems with integer constraints and boolean predicates:
+  a composite approach'',
+\newblock {\em in} {\em In Proc. Int'l. Symp. on Software Testing and
+  Analysis}, 1998.
+
+\bibitem{devadas:algebraic_manipulation_iccd91}
+S.~Devadas, K.~Keutzer, and A.~Krishnakumar,
+\newblock ``Design verification and reachability analysis using algebraic
+  manipulation'',
+\newblock {\em in} {\em Proc. ICCD}, 91.
+
+\bibitem{AST}
+Z.~Zhou and W.~Burleson,
+\newblock ``{E}quivalence {C}hecking of {D}atapaths {B}ased on {C}anonical
+  {A}rithmetic {E}xpressions'',
+\newblock {\em in} {\em DAC}, 95.
+
+\bibitem{ddd-csl99}
+J.~M{\o}ller, J.~Lichtenberg, H.~R. Andersen, and H.~Hulgaard,
+\newblock ``Difference decision diagrams'',
+\newblock {\em in} {\em Computer Science Logic}, The IT University of
+  Copenhagen, Denmark, Sep. 1999.
+
+\bibitem{ddd-mt-98}
+Jesper M{\o}ller and Jakob Lichtenberg,
+\newblock ``Dif\-feren\-ce decision dia\-grams'',
+\newblock Master's thesis, Department of Information Technology, Technical
+  University of Denmark, Building 344, DK-2800 Lyngby, Denmark, Aug. 1998.
+
+\bibitem{interval_dd}
+K.~Strehl,
+\newblock ``{I}nterval {D}iagrams: {I}ncreasing {E}fficiency of {S}ymbolic
+  {R}eal-{T}ime {V}erification'',
+\newblock {\em in} {\em Intl. Conf. on Real Time Computing systems and
+  Applications}, 1999.
+
+\bibitem{polynomial_sanchez99}
+P.~Sanchez and S.~Dey,
+\newblock ``{S}imulation-{B}ased {S}ystem-{L}evel {V}erification using
+  {P}olynomials'',
+\newblock {\em in} {\em High-Level Design Validation \& Test Workshop, HLDVT},
+  1999.
+
+\bibitem{Ritter99}
+G.~Ritter,
+\newblock ``{F}ormal {V}erification of {D}esigns with {C}omplex {C}ontrol by
+  {S}ymbolic {S}imulation'',
+\newblock in Springer~Verlag LCNS, editor, {\em Advanced Research Working Conf.
+  on Correct Hardware Design and Verification Methods (CHARME)}, 1999.
+
+\bibitem{hsat}
+F.~Fallah, S.~Devadas, and K.~Keutzer,
+\newblock ``{F}unctional {V}ector {G}eneration for {HDL} models using {L}inear
+  {P}rogramming and 3-{S}atisfiability'',
+\newblock {\em in} {\em Proc. DAC}, '98.
+
+\bibitem{brinkmann:asp-dac}
+R.~Brinkmann and R.~Drechsler,
+\newblock ``{RTL}-{D}atapath {V}erification using {I}nteger {L}inear
+  {P}rogramming'',
+\newblock {\em in} {\em Proc. ASP-DAC}, 2002.
+
+\bibitem{Huang:tcad01}
+C.-Y. Huang and K.-T. Cheng,
+\newblock ``{U}sing {W}ord-{L}evel {ATPG} and {M}odular {A}rithmetic
+  {C}onstraint {S}olving {T}echniques for {A}ssertion {P}roperty {C}hecking'',
+\newblock {\em IEEE Trans. CAD}, vol. 20, pp. 381--391, 2001.
+
+\bibitem{UF1}
+Zaher~S Andraus and Karem~A Sakallah,
+\newblock ``Automatic abstraction and verification of verilog models'',
+\newblock {\em in} {\em Proceedings of the 41st annual Design Automation
+  Conference}, pp. 218--223. ACM, 2004.
+
+\bibitem{UF2}
+Zaher~S Andraus, Mark~H Liffiton, and Karem~A Sakallah,
+\newblock ``Reveal: A formal verification tool for verilog designs'',
+\newblock {\em in} {\em International Conference on Logic for Programming
+  Artificial Intelligence and Reasoning}, pp. 343--352. Springer, 2008.
+
+\bibitem{UF3}
+Bryan~A Brady, Randal~E Bryant, Sanjit~A Seshia, and John~W O'Leary,
+\newblock ``Atlas: automatic term-level abstraction of rtl designs'',
+\newblock {\em in} {\em Formal Methods and Models for Codesign (MEMOCODE), 2010
+  8th IEEE/ACM International Conference on}, pp. 31--40. IEEE, 2010.
+
+\bibitem{manna:program}
+S.~Sankaranarayanan, H.~B. Sipma, and Z.~Manna,
+\newblock ``{N}on-linear {L}oop {I}nvariant {G}eneration using {G}robner
+  {B}ases'',
+\newblock {\em SIGPLAN Not.}, vol. 39, pp. 318--329, 2004.
+
+\bibitem{ibm:blueveri}
+A.~Lvov, L.~Lastras-Monta\~{n}o, V.~Paruthi, R.~Shadowen, and A.~El-Zein,
+\newblock ``{F}ormal {V}erification of {E}rror {C}orrecting {C}ircuits using
+  {C}omputational {A}lgebraic {G}eometry'',
+\newblock {\em in} {\em Proc. Formal Methods in Computer-Aided Design (FMCAD)},
+  pp. 141--148, 2012.
+
+\bibitem{lv:tcad2013}
+J.~Lv, P.~Kalla, and F.~Enescu,
+\newblock ``{E}fficient {G}robner {B}asis {R}eductions for {F}ormal
+  {V}erification of {G}alois {F}ield {A}rithmetic {C}ircuits'',
+\newblock {\em IEEE Transactions CAD}, vol. 32, pp. 1409--1420, Sept. 2013.
+
+\bibitem{pruss:dac14}
+T.~Pruss, P.~Kalla, and F.~Enescu,
+\newblock ``{E}quivalence {V}erification of {L}arge {G}alois {F}ield
+  {A}rithmetic {C}ircuits using {W}ord-{L}evel {A}bstraction via {G}r\"obner
+  {B}ases'',
+\newblock {\em in} {\em Design Automation Conference}, 2014.
+
 \bibitem{galois_field:mceliece}
 Robert~J. McEliece,
 \newblock {\em Finite Fields for Computer Scientists and Engineers},
@@ -172,23 +580,10 @@ S.~Roman,
 \newblock {\em {F}ield {T}heory},
 \newblock Springer, 2006.
 
-\bibitem{mastro:1989}
-E.~Mastrovito,
-\newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
-  {GF($2^m$)}'',
-\newblock {\em Lecture Notes in Computer Science}, vol. 357, pp. 297--309,
-  1989.
-
 \bibitem{PT:1985}
 P.~Montgomery,
 \newblock ``{M}odular {M}ultiplication {W}ithout {T}rial {D}ivision'',
 \newblock {\em Mathematics of Computation}, vol. 44, pp. 519--521, Apr. 1985.
-
-\bibitem{acar:1998}
-C.~Koc and T.~Acar,
-\newblock ``{M}ontgomery {M}ultiplication in {GF}($2^k$)'',
-\newblock {\em Designs, Codes and Cryptography}, vol. 14, pp. 57--69, Apr.
-  1998.
 
 \bibitem{wu:2002}
 H.~Wu,
@@ -304,12 +699,6 @@ Jitesh Shinde and SS~Salankar,
 \newblock ``Clock gating—a power optimizing technique for vlsi circuits'',
 \newblock {\em in} {\em 2011 Annual IEEE India Conference}, pp. 1--4. IEEE,
   2011.
-
-\bibitem{coudert2003unified}
-Olivier Coudert and Jean~Christophe Madre,
-\newblock ``A unified framework for the formal verification of sequential
-  circuits'',
-\newblock {\em in} {\em The Best of ICCAD}, pp. 39--50. Springer, 2003.
 
 \bibitem{cho1993redundancy}
 Hyunwoo Cho, Gary~D Hachtel, and Fabio Somenzi,
@@ -475,30 +864,11 @@ Hadrien Cambazard and Barry O’Sullivan,
   application to explanation generation'',
 \newblock {\em Constraints}, vol. 13, pp. 385--406, 2008.
 
-\bibitem{zhang2005design}
-Liang Zhang,
-\newblock {\em Design Verification for Sequential Systems at Various
-  Abstraction Levels},
-\newblock PhD thesis, Citeseer, 2005.
-
-\bibitem{lv:tcad2013}
-J.~Lv, P.~Kalla, and F.~Enescu,
-\newblock ``{E}fficient {G}robner {B}asis {R}eductions for {F}ormal
-  {V}erification of {G}alois {F}ield {A}rithmetic {C}ircuits'',
-\newblock {\em IEEE Transactions CAD}, vol. 32, pp. 1409--1420, Sept. 2013.
-
 \bibitem{kalla:fmcad_tut2015}
 Priyank Kalla,
 \newblock ``Formal verification of arithmetic datapaths using algebraic
   geometry and symbolic computation'',
 \newblock {\em in} {\em Proceedings of the 15th Conference on Formal Methods in
   Computer-Aided Design}, pp. 2--2. FMCAD Inc, 2015.
-
-\bibitem{rolf:date16}
-Amr Sayed-Ahmed, Daniel Gro, Mathias Soeken, Rolf Drechsler, et~al.,
-\newblock ``Formal verification of integer multipliers by combining gr?? bner
-  basis with logic reduction'',
-\newblock {\em in} {\em 2016 Design, Automation \& Test in Europe Conference \&
-  Exhibition (DATE)}, pp. 1048--1053. IEEE, 2016.
 
 \end{thebibliography}

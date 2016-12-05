@@ -21,18 +21,22 @@ You're missing a field name---line 2153 of file logic.bib
  : %address = {Los Alamitos, CA, USA},
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
+Repeated entry---line 2554 of file logic.bib
+ : @inproceedings{Cryptol:fmcad09
+ :                               ,
+I'm skipping whatever remains of this entry
 Database file #2: xiaojun.bib
-Repeated entry---line 807 of file xiaojun.bib
+Repeated entry---line 617 of file xiaojun.bib
+ : @inproceedings{biere1999symbolic
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 865 of file xiaojun.bib
  : @misc {DGPS
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
-Warning--I didn't find a database entry for "cegar-journal"
-Warning--I didn't find a database entry for "bradley:pdr"
-Warning--I didn't find a database entry for "Jain05wordlevel"
-Warning--I didn't find a database entry for "mcmillan:cav06"
-Warning--I didn't find a database entry for "mcmillan:impact"
-Warning--I didn't find a database entry for "touati:iccad90"
+Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry dube1986complexity
@@ -47,45 +51,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 82 entries,
+You've used 140 entries,
             1802 wiz_defined-function locations,
-            915 strings with 17109 characters,
-and the built_in function-call counts, 21033 in all, are:
-= -- 1987
-> -- 769
-< -- 36
-+ -- 290
-- -- 208
-* -- 1456
-:= -- 3065
-add.period$ -- 105
-call.type$ -- 82
-change.case$ -- 71
+            1188 strings with 26936 characters,
+and the built_in function-call counts, 38438 in all, are:
+= -- 3606
+> -- 1417
+< -- 69
++ -- 529
+- -- 389
+* -- 2657
+:= -- 5474
+add.period$ -- 187
+call.type$ -- 140
+change.case$ -- 127
 chr.to.int$ -- 0
-cite$ -- 84
-duplicate$ -- 1086
-empty$ -- 2107
-format.name$ -- 208
-if$ -- 4960
+cite$ -- 142
+duplicate$ -- 2014
+empty$ -- 3898
+format.name$ -- 389
+if$ -- 9155
 int.to.chr$ -- 0
-int.to.str$ -- 82
-missing$ -- 82
-newline$ -- 414
-num.names$ -- 84
-pop$ -- 359
+int.to.str$ -- 140
+missing$ -- 141
+newline$ -- 704
+num.names$ -- 144
+pop$ -- 676
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 566
+skip$ -- 1081
 stack$ -- 0
-substring$ -- 1308
-swap$ -- 390
-text.length$ -- 36
+substring$ -- 2455
+swap$ -- 768
+text.length$ -- 69
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 205
-width$ -- 84
-write$ -- 906
-(There were 9 error messages)
+while$ -- 367
+width$ -- 143
+write$ -- 1554
+(There were 12 error messages)
