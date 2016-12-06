@@ -29,3 +29,8 @@
 \contentsline {figure}{\numberline {7.6}{\ignorespaces Gate-level Schematic of Example Circuit\relax }}{149}
 \contentsline {figure}{\numberline {7.7}{\ignorespaces State transition graph of example circuit\relax }}{150}
 \contentsline {figure}{\numberline {7.8}{\ignorespaces State transition graph of abstracted machine\relax }}{152}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces Algebraic interpolant: Projection of varieties on common variables? \relax }}{169}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces The outline and flow of mapping for macro blocks\relax }}{169}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces An example program of 2 Natural numbers' multiplication (Fig.1 from original paper)\relax }}{169}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces An example gate-level netlist to be mapped\relax }}{169}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Standard 2-bit adder with input/output mapping\relax }}{169}

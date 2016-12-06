@@ -772,13 +772,6 @@ R.~Brayton and A.~Mishchenko,
 \newblock {\em in} {\em Computer Aided Verification}, vol. 6174, pp. 24--40.
   Springer, 2010.
 
-\bibitem{f4}
-J-C. Faug\~{e}re,
-\newblock ``{A} {N}ew {E}fficient {A}lgorithm for {C}omputing {G}r\"obner
-  {B}ases ({F}$_4$)'',
-\newblock {\em Journal of Pure and Applied Algebra}, vol. 139, pp. 61--88, June
-  1999.
-
 \bibitem{anaICCAD}
 Ana Petkovska, David Novo, Alan Mishchenko, and Paolo Ienne,
 \newblock ``Constrained interpolation for guided logic synthesis'',
@@ -870,5 +863,24 @@ Priyank Kalla,
   geometry and symbolic computation'',
 \newblock {\em in} {\em Proceedings of the 15th Conference on Formal Methods in
   Computer-Aided Design}, pp. 2--2. FMCAD Inc, 2015.
+
+\bibitem{f4}
+J-C. Faug\~{e}re,
+\newblock ``{A} {N}ew {E}fficient {A}lgorithm for {C}omputing {G}r\"obner
+  {B}ases ({F}$_4$)'',
+\newblock {\em Journal of Pure and Applied Algebra}, vol. 139, pp. 61--88, June
+  1999.
+
+\bibitem{polybori:2009}
+Michael Brickenstein and Alexander Dreyer,
+\newblock ``{P}olybori: {A} {F}ramework for {G}r{\"o}bner {B}asis
+  {C}omputations with {B}oolean {P}olynomials'',
+\newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345,
+  September 2009.
+
+\bibitem{sankaranarayanan2004non}
+Sriram Sankaranarayanan, Henny~B Sipma, and Zohar Manna,
+\newblock ``Non-linear loop invariant generation using gr{\"o}bner bases'',
+\newblock {\em ACM SIGPLAN Notices}, vol. 39, pp. 318--329, 2004.
 
 \end{thebibliography}

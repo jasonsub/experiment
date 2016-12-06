@@ -35,6 +35,9 @@ Repeated entry---line 865 of file xiaojun.bib
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
+Warning--I didn't find a database entry for "craig-interpolate"
+Warning--I didn't find a database entry for "pudlak:ci"
+Warning--I didn't find a database entry for "mcmillan:interpolation"
 Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry pruss:tcad15
@@ -51,45 +54,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 140 entries,
+You've used 142 entries,
             1802 wiz_defined-function locations,
-            1188 strings with 26936 characters,
-and the built_in function-call counts, 38438 in all, are:
-= -- 3606
-> -- 1417
+            1200 strings with 27315 characters,
+and the built_in function-call counts, 38923 in all, are:
+= -- 3653
+> -- 1436
 < -- 69
-+ -- 529
-- -- 389
-* -- 2657
-:= -- 5474
-add.period$ -- 187
-call.type$ -- 140
-change.case$ -- 127
++ -- 536
+- -- 394
+* -- 2705
+:= -- 5552
+add.period$ -- 189
+call.type$ -- 142
+change.case$ -- 129
 chr.to.int$ -- 0
-cite$ -- 142
-duplicate$ -- 2014
-empty$ -- 3898
-format.name$ -- 389
-if$ -- 9155
+cite$ -- 144
+duplicate$ -- 2030
+empty$ -- 3942
+format.name$ -- 394
+if$ -- 9259
 int.to.chr$ -- 0
-int.to.str$ -- 140
-missing$ -- 141
-newline$ -- 704
-num.names$ -- 144
-pop$ -- 676
+int.to.str$ -- 142
+missing$ -- 143
+newline$ -- 714
+num.names$ -- 146
+pop$ -- 678
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1081
+skip$ -- 1084
 stack$ -- 0
-substring$ -- 2455
-swap$ -- 768
+substring$ -- 2507
+swap$ -- 770
 text.length$ -- 69
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 367
-width$ -- 143
-write$ -- 1554
+while$ -- 372
+width$ -- 145
+write$ -- 1576
 (There were 12 error messages)
