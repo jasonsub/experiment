@@ -4,7 +4,70 @@
 \fixchapterheading
 \section{Normal Basis Theory}
 \label{append:NB}
+In Chapter \ref{ch:prelim_GF} we briefly introduced the concept of normal basis (NB), and 
+the benefits of using NB. In the section we describe more details about the normal basis theory by 
+characterizing NB from linear algebra perspective, constructing a general NB in an 
+arbitrary field and converting between NB and StdB. All theorems and lemmas refer to the 
+dissertation of S. Gao \cite{gao:phd_normal_basis}, and we deduce all the proofs for them.
 \subsection{Characterization of Normal Basis}
+In order to depict the characterization of NB, we need the introduce some concepts from linear algebra domain.
+\begin{Definition}[Frobenius Map]
+Define map $\sigma:x\to x^p,~x\in \F_{p^n}$. This map denoting the linear map of field extension $\F_{p^n}$
+over $\F_p$.
+\end{Definition}
+Additionally we can define a subspace based on linear map $T$:
+\begin{Definition}
+A subspace $W\subset V$ is called {\bf $T$-invariant} when 
+$$Tu \in W, ~~ \forall \text{vector }u\in W$$
+
+Subspace $Z(u,T) = \langle u,Tu,T^2u,\dots\rangle$ is called {\bf $T$-cyclic subspace} of $V$.
+If $Z(u,T) = V$ holds, then $u$ is called a {\bf cyclic vector} of $V$ for $T$.
+\end{Definition}
+Field elements $x$ constitutes polynomials in ring $\F[x]$. Subsequently we can define the 
+nullspace of polynomial:
+\begin{Definition}[Nullspace of polynomial]
+\label{def:nullspace}
+For any polynomial $g(x) \in \F[x]$, the null space of $g(T)$ consists of all vectors $u$ such that
+$g(T)u = 0$.
+\end{Definition}
+Finally we get to the most important concept: $T$-Order. Meanwhile it derives the construction of a ring extended by a field requires
+a minimal polynomial (while we use stronger irreducible polynomial $P(x)$ in Chapter \ref{ch:prelim_GF}).
+\begin{Definition}
+For any vector $u \in V$, the monic polynomial $g(x) \in \F[x]$ with smallest degree such that
+$g(T)u = 0$ is called the {\bf $T$-Order} of $u$ or {\bf minimal polynomial} of $u$.
+
+That is, for an arbitrary element $\theta$ in $F_{q^n}$, find least positive integer $k$ such that
+$\sigma^k\theta = \sum_{i=0}^{k-1} c_i\sigma^i\theta$, then the $\sigma$-Order of $\theta$ can be 
+written as $$Ord_{\theta,\sigma}(x) = x^k - \sum_{i=0}^{k-1} c_ix^i$$
+\end{Definition}
+
+Using the concepts introduced above along with other basic concepts in linear algebra and finite field theory,
+we can derive following theorems.
+
+\begin{Lemma}
+Given $g(x) \in \F[x]$ and $W$ is its nullspace. Let $d(x) = gcd(f(x),g(x)), e(x) = f(x)/d(x)$. 
+Then $dim(W) = deg(d(x))$ and $W = \{e(T)u~|~u \in V\}$.
+\end{Lemma}
+\begin{Proof}
+Assume $f(x)$ is the minimal and characteristic polynomial for $T$. Then according to Definition \ref{def:nullspace}
+we obtain 
+$$W = \{u\in V~|~g(T)u = 0\}$$
+
+Let $k$ be a polynomial whose degree is larger than $f(x)$, i.e. $deg(k(x))>deg(f(x))$, then
+$$f(x)|k(x)~~\text{iff}~k(T)=0$$
+
+Since the construction of $f(x)$ relies on $T$, $f(T) = 0$, we get
+$$\forall u, f(T)u = 0$$
+
+Consider $W(u,T)$ subsequently relies on $g(T)$, we deduce 
+$$dim(W) = deg(d(x))$$
+
+According to the definition of $W$, we have
+\begin{align*}
+\forall u,~~& e(T)u \in W \Longleftrightarrow \\
+& g(T)e(T)u = g(T)\frac{f(T)}{d(T)} u = h(T)\cdot f(T) u = 0
+\end{align*}
+\end{Proof}
 \subsection{Construction of General Normal Basis}
 \subsection{Bases Conversion}
 % General \lambda matrix computation

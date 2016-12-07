@@ -878,6 +878,17 @@ Michael Brickenstein and Alexander Dreyer,
 \newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345,
   September 2009.
 
+\bibitem{craig-interpolate}
+William Craig,
+\newblock ``Linear reasoning. a new form of the herbrand-gentzen theorem'',
+\newblock {\em The Journal of Symbolic Logic}, vol. 22, pp. 250--268, 1957.
+
+\bibitem{pudlak:ci}
+Pavel Pudl{\'a}k,
+\newblock ``Lower bounds for resolution and cutting plane proofs and monotone
+  computations'',
+\newblock {\em The Journal of Symbolic Logic}, vol. 62, pp. 981--998, 1997.
+
 \bibitem{sankaranarayanan2004non}
 Sriram Sankaranarayanan, Henny~B Sipma, and Zohar Manna,
 \newblock ``Non-linear loop invariant generation using gr{\"o}bner bases'',

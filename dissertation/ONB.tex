@@ -1,0 +1,133 @@
+% LaTeX file for a 1 page document
+\documentclass[12pt]{article}
+%\usepackage{e-jc}
+
+\title{Theory about Normal Basis on $F(2^k)$}
+
+\author{Xiaojun Sun \ \ \ \ Prof. Priyank Kalla\\
+\small Department of Electrical \& Computer Engineering\\[-0.8ex]
+\small University of Utah, Salt Lake City\\
+\small \texttt{\{xiaojun.sun,kalla\}@ece.utah.edu}
+}
+
+\date{Last Update: Apr 17, 2013}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+N/A
+\end{abstract}
+
+\section{Introduction}
+
+a) Why use NB?\\
+b) Relations between NB \& StB?\\
+c) What's ONB?\\
+{\bf Simple stuff we've discussed.}
+
+\section{Characterization of Normal Basis}
+\textbf{Conceptions from Linear Algebra}
+
+%\hspace{8mm}\\
+
+\textit{\underline{Frobenius Map:} \\
+$\sigma : x \rightarrow x^q, x \in F_{q^n}$ \\
+Linear transformation of $F_{q^n}$ over $F_q$. \\
+}
+
+\textit{\underline{T-invariant subspace / cyclic vector:} \\
+A subspace $W \subset V$ is called T-invariant when $Tu \in W \forall vector u \in W$\\
+Subspace $Z(u,T) = <u,Tu,T^2u,...>$ is called T-cylic subspace of V. \\
+If $Z(u,T) = V$, then u is called a cyclic vector of V for T.\\
+}
+
+\textit{\underline{Nullspace of polynomial:} \\
+For any polynomial $g(x) \in F[x]$, the null space of g(T) consists of all vectors u such that
+$g(T)u = 0$.\\
+}
+
+\textit{\underline{T-Order / minimal polynomial:} \\
+For any vector $u \in V$, the monic polynomial $g(x) \in F[x]$ with smallest degree such that
+$g(T)u = 0$ is called the T-Order of u or minimal polynomial of u.\\
+That is, for an arbitrary element $\theta$ in $F_{q^n}$, find least positive integer k such that
+$\sigma^k\theta = \sum_{i=0}^{k-1} c_i\sigma^i\theta$, then the $\sigma$-Order of $\theta$ can be 
+written by $Ord_{\theta,\sigma}(x) = x^k - \sum_{i=0}^{k-1} c_ix^i$. \\
+}
+
+\textbf{Lemmas \& Theorems from linear algebra}
+\begin{itemize}
+\item[-] \textbf{Lemma 1}\ \ \ \ $g(x) \in F[x]$ and W is its null space. Let $d(x) = gcd(f(x),g(x)), e(x) = f(x)/d(x)$. Then $dim(W) = deg(d(x))$ and $W = \{e(T)u | u \in V\}$.
+\item[-] \textbf{Lemma 2}\ \ \ \ Factorize f(x): $f(x) = \prod_{i=1}^{r} f_{i}^{d_i} (x)$, each $f_i(x)$ is prime to others. Assume $V_i$ be null space of $f_{i}^{d_i} (x)$, then $V = V_1\oplus V_2 \oplus ...\oplus V_r$.
+Furthermore, define $\Psi_i(x) = f(x)/f_{i}^{d_i} (x)$. $\forall u_j \in V_j, u_j \neq 0, \Psi_i(T)u_j \neq 0$, only if $i = j$.
+\item[-] \textbf{Lemma 3}\ \ \ \ Minimal and characteristic polynomial for $\sigma$ are both $x^n - 1$.
+\item[-] \textbf{Corollary 1}\ \ \ \ An element $\alpha \in F_{q^n}$ is normal element if and only if $Ord_{\alpha,\sigma}(x) = x^n - 1$.
+\item[-] \textbf{Theorem 1}\ \ \ \ Consider we are dealing with $F_{2^n}$, then field characteristic $p = 2$.
+				Define $t = p^e$ where $n = kp^e, gcd(k,p) = 1$, so here t=1 if n is odd. Then 
+			$x^n - 1$ can be factorized as $(\varphi_1(x)\varphi_2(x)\cdot\cdot\cdot\varphi_r(x))^t$.
+			Additionally define $\Phi_i(x) = (x^n - 1)/\varphi_i(x)$. We get: \\ 
+			An element $\alpha \in 	F_{q^n}$ is normal element if and only if $\Phi_i(\sigma)\alpha \neq 0, i = 1,2,...,r$.
+\item[-] \textbf{Theorem 2}\ \ \ \ Let $W_i$ be the null space of $\varphi_{i}^{t} (x)$ and $\widetilde{W_i}$ the
+				 null space of $\varphi_{i}^{t-1} (x)$. Let $\overline{W_i}$ be any subspace of
+			 $W_i$ such that $W_i = \overline{W_i}\oplus \widetilde{W_i}$. Then\\
+			$F_{q^n} = \displaystyle\sum_{i=1}^{r} \overline{W_i}\oplus \widetilde{W_i}$ \\
+			is a direct sum where $dim(\overline{W_i}) = d_i$ and $dim(\widetilde{W_i}) = (t-1)d_i$.\\
+			Furthermore, an element $\alpha \in F_{q^n}$ with $\alpha = \sum_{i=1}^{r} (\overline{\alpha_i} + \widetilde{\alpha_i}), \overline{\alpha_i} \in \overline{W_i}, \widetilde{\alpha_i} \in \widetilde{W_i}$,
+			is a normal element if and only if $\overline{\alpha_i} \neq 0 \forall i = 1,2,...,r$.
+\item[-] \textbf{Normal Basis Theorem for Finite Fields}\ \ \ \ There always exists a normal basis of $F_{q^n}$ over $F_q$.
+\end{itemize}
+
+\section{Algorithms for Normal Basis Construction}
+\textbf{L\"uneburg's Algorithm}\\
+Step 1: For each i = 0,1,...,n-1, compute $\sigma$-Order $f_i = Ord_{\alpha^i}(x)$. Here $x^n - 1 = lcm(f_0,f_1,...,f_{n-1})$.\\
+Step 2: Apply factor refinement to $\{f_i\}$ and get $f_i = \prod_{1\leq j\leq r} g_{j}^{e_{ij}}, i = 0,1,...,n-1$.\\
+Step 3: For each j, find an index $i_j$ (denote as i(j)) so that $e_{ij}$ is max in this j-th column.\\
+Step 4: Let $h_j = f_{i(j)}/g_{j}^{e_{i(j)j}}$, take $\beta_j = h_j(\sigma)\alpha^{i(j)}$. Then\\
+\indent\indent\indent\indent\indent\indent\indent\indent\indent$\beta = \displaystyle\sum_{j=1}^{r} \beta_j$\\
+is the normal element.\\
+
+\textbf{Preliminary to Lenstra's Algorithm}
+\begin{itemize}
+\item[-] \textbf{Lemma 4}\ \ \ \ For an arbitrary element $\theta \in F_{q^n}$ that $Ord_\theta(x) \neq x^n - 1$,
+let $g(x) = (x^n - 1)/Ord_\theta(x)$. There exists another element $\beta$ such that $g(\sigma)\beta = \theta$.\
+\item[-] \textbf{Lemma 5}\ \ \ \ Same $\theta$ and $g(x)$ defined as last lemma. Assume there exists a solution 
+$\beta$ such that $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$. Then there exists a non-zero element $\eta$ such that\\
+$g(\sigma)\eta = 0$, and\\
+$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$.
+
+\end{itemize} 
+
+
+
+
+
+
+
+
+Suppose we take only one polynomial only contains T(next state), like\\
+\hspace{8mm}\par
+$ideal\ G = T^2 + (1+X) \cdot T + X$\\
+\hspace{8mm}\par
+Since we get G from GB based image function, so G is already a Groebner Basis itself.
+Considering Theorem 1 $\sim$ 3, it's easy to do ideal operation if its generator is only one polynomial.
+So using $G+G'$ we can get intersection, using $G \cdot G'$ we can get union. If we take V = Universe = $<vanishing\ polynomial>$, we can get ideal quotient $I(V):I(W)$ as complementary set for
+specific varieties.
+
+\hspace{8mm}\par
+\textbf{More about Ideal Quotient}
+\begin{itemize}
+\item[-] \textbf{Definition 1}\ \ \ \ If I,J are ideals in $k[x_1,...,x_n]$, then $I:J$ is the set \\ \indent $\{f\in k[x_1,...,x_n]:fg\in I\ for \ all\ g\in J\}$
+\end{itemize} \par
+Why we can get complementary set $\overline {reached}$ through this?\par
+First, we only care about varieties. Say we redefine the "equal" as $V(I)==V(J)\Leftrightarrow I == J$.\par
+Second, we only care about the ideal/GB {\bf G} contains only 1 generator f. Say this polynomial f is a function about next state (word level) T, then $f(T=V(\bf{G}))==0$. To ensure then unique of generator f, we'll reduce f (or say {\bf G}) every time.\par
+Third, for ideal quotient ${\bf U:G}$ here, we need to find f from $g~f==vanish$. This means $<f>\bigcup <g>==<vanish>$. How can we develop a division algorithm to get exactly a factor without any remainders? Let's see 3 examples following:\\
+\hspace{8mm}\par
+\indent $T^2+(1+X)\cdot T+X$\\
+\hspace{8mm}\par
+\indent $T^2+T$\\
+\hspace{8mm}\par
+\indent $T^2+1$\\
+
+
+\end{document}

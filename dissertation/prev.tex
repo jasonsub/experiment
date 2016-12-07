@@ -36,7 +36,13 @@ is copied over several time-frames then connected together.
 The procedure is called {\it unrolling} of sequential circuit, as 
 Figure \ref{fig:unrolling} shows.
 
-% fig:unrolling
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=\textwidth]{newfig/unroll.pdf}
+}
+\caption{The unrolling of a sequential circuit}
+\label{fig:unrolling}
+\end{figure}
 
 Unrolling provides a way to transform a sequential circuit to combinational 
 circuit. Therefore,  methods which can be applied to combinational circuit 
@@ -74,7 +80,13 @@ Zero-suppressed BDDs (ZDDs) \cite{minato1993zero,minato1994calculation} use the 
 to represent the existence of variables in a cube, and result in lower 
 space complexity. It can be used to represent polynomials with integer coefficients.
 
-% fig: ROBDD vs ZDD
+\begin{figure}[h]
+\centerline{
+\includegraphics[width=0.35\textwidth]{newfig/BDD.pdf}
+}
+\caption{ROBDD representing Boolean function $\neg a \land b \land (c\lor d)$ with order $a>b>c>d$}
+\label{fig:BDD}
+\end{figure}
 
 DDs above are all based on bit-level operations. Even in the {\it Word-Level Decision Diagrams}
 \cite{WLS}, the decomposition is still point-wise, binary, 
