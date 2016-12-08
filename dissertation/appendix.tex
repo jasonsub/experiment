@@ -45,6 +45,7 @@ Using the concepts introduced above along with other basic concepts in linear al
 we can derive following theorems.
 
 \begin{Lemma}
+\label{lem:app1}
 Given $g(x) \in \F[x]$ and $W$ is its nullspace. Let $d(x) = gcd(f(x),g(x)), e(x) = f(x)/d(x)$. 
 Then $dim(W) = deg(d(x))$ and $W = \{e(T)u~|~u \in V\}$.
 \end{Lemma}
@@ -68,6 +69,60 @@ According to the definition of $W$, we have
 & g(T)e(T)u = g(T)\frac{f(T)}{d(T)} u = h(T)\cdot f(T) u = 0
 \end{align*}
 \end{Proof}
+
+The $T$-Order and corresponding nullspace also affect the factorization of polynomials:
+\begin{Lemma}[Factorization of $f(x)$]
+Factorization $f(x) = \prod_{i=1}^{r} f_{i}^{d_i} (x)$, where each $f_i(x)$ is prime to others. 
+Assume $V_i$ be nullspace of $f_{i}^{d_i} (x)$, then $V = V_1\oplus V_2 \oplus \dots\oplus V_r$.
+
+Furthermore, we can define a polynomial $\Psi_i(x) = f(x)/f_{i}^{d_i} (x)$, where 
+$$\forall u_j \in V_j, u_j \neq 0, \Psi_i(T)u_j \neq 0$$
+only if $i = j$.
+\end{Lemma}
+\begin{Proof}
+We can use Lemma \ref{lem:app1}:
+$$gcd(f(x),f_{i}^{d_i} (x)) = f_{i}^{d_i} (x),~~dim(V_i) = deg(f_{i}^{d_i} (x))$$
+
+Which implies 
+$$dim(V_i) = deg\left(\prod_i f_{i}^{d_i} (x)\right) = \prod_i dim(V_i) \implies V = \bigoplus_i V_i$$
+
+Assume $i\neq j$, $\Psi_i(x) = \frac{f(x)}{f_{i}^{d_i} (x)} = h(x)f_{j}^{d_j} (x)$. Then
+\begin{align*}
+&\forall u_j\in V_j, f_j(T)u_j = 0 \implies h(x)f_{j}^{d_j} (T)u_j = 0 \\
+& \implies \Psi_i(x)u_j = 0
+\end{align*}
+
+Conversely, if $i=j$, then
+\begin{align*}
+& \Psi_i(x) = \frac{f(x)}{f_{i}^{d_i} (x)} \perp f_i(x) \\
+& \implies \Psi_i(x)u_j \neq 0
+\end{align*}
+\end{Proof}
+
+For a given Frobenius map $\sigma$, corresponding minimal polynomial is restricted:
+\begin{Lemma}
+The minimal (and characteristic) polynomial for $\sigma$ is $x^n-1$.
+\end{Lemma}
+\begin{Proof}
+Consider Fermat's little theorem in $\F_{p^n}$. Let $\beta$ be an element in the field, then
+$$\sigma^n\beta = \beta^{p^n} = \beta \implies \sigma^n-I = 0$$
+where $I$ is the identity map. For characteristic polynomial, assume $\exists f(x) = \sum_i f_ix^i \in \F_p[x]$, 
+such that the degree of characteristic polynomial is lower than $n$:
+$$\sum_if_i\sigma^i = 0~~~\text{and}~~~deg(f(x))<n$$
+
+Then $\forall \beta\in\F_{p^n}$, 
+$$\left(\sum_if_i\sigma^i\right)\beta = \sum_if_i\beta^{p^i} = 0$$
+
+This equation denotes that $\beta$ is one of $p^n$ roots of polynomial $\Func(x) = \sum_if_i(x^{p^i})$.
+However, the maximum number of roots allowed equals to the degree of $\Func(x)$, which is 
+$p^{n-1}<p^n$, we find a contradiction. Thus we conclude that
+$$\textit{Both characteristic and minimal polynomial is }x^n-1$$
+\end{Proof}
+
+From lemmas above we can deduce the following corollary:
+\begin{Corollary}
+An element $\alpha \in \F_{p^n}$ is a {\bf normal element} if and only if $Ord_{\alpha,\sigma}(x) = x^n-1$.
+\end{Corollary}
 \subsection{Construction of General Normal Basis}
 \subsection{Bases Conversion}
 % General \lambda matrix computation
