@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis.aux
 A level-1 auxiliary file: prev.aux
@@ -35,6 +35,7 @@ Repeated entry---line 865 of file xiaojun.bib
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
+Warning--I didn't find a database entry for "ECC"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry dube1986complexity
@@ -53,7 +54,7 @@ while executing---line 987 of file ieee.bst
 while executing---line 987 of file ieee.bst
 You've used 146 entries,
             1802 wiz_defined-function locations,
-            1219 strings with 27924 characters,
+            1221 strings with 27930 characters,
 and the built_in function-call counts, 40115 in all, are:
 = -- 3784
 > -- 1469

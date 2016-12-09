@@ -301,6 +301,56 @@ so it will finally reach termination condition $Ord_\theta(x) = x^n-1$.
 
 \section{Optimal Normal Basis}
 \label{append:ONB}
+The number of non-zero entries in $\lambda$-Matrix or multiplication table is known as \emph{Complexity $(C_N)$}.
+To define optimal normal basis, it is necessary to find the lower bound of $C_N$.
+\begin{Theorem}
+If N is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
+\end{Theorem}
+\begin{Proof}
+Let basis $N = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
+Then $\sum_{i=0}^{n-1} \beta_i = trace\ \beta$. 
+Denote $trace\ \beta$ by $b$, consider a $n\times n$ matrix $M^{(0)}$. Then
+$$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$$
+
+Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
+So the first column always includes at least one nonzero element. 
+Since the sum of enries in each of other columns should equal to zero (modulo 2), they 
+need to include an even number of ``1"s.
+in order to maintain the linear independence among each row, they cannot be purely ``0"s. 
+Therefore, there are always at least two non-zero elements in each column.
+
+As a result, $C_N \geq 2(n-1)+1  = 2n-1$.
+\end{Proof}
+
+If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal basis is named as \emph{Optimal Normal Basis}.
+
+\begin{Example}
+In $\F_{2^4}$ constructed with $p(\alpha) = \alpha^4 + \alpha + 1$, two sets of normal bases can be found:
+$\beta = \alpha^3, N = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
+$\beta = \alpha^7, N = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. Multiplication table for $\beta = \alpha^3$:
+\begin{equation}
+T_1 = \left(
+\begin{array}{lccr}
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+1 & 1 & 1 & 1\\
+0 & 0 & 1 & 0
+\end{array} \right)
+\end{equation}
+Complexity $C_N$ = 7, this is optimal. For $\beta = \alpha^7$:
+\begin{equation}
+T_2 = \left(
+\begin{array}{lccr}
+0 & 1 & 0 & 0\\
+1 & 1 & 0 & 1\\
+1 & 0 & 1 & 0\\
+1 & 0 & 1 & 1
+\end{array} \right)
+\end{equation}
+Complexity $C_N$ = 9, this is NOT optimal.
+\end{Example}
+
+There should be an efficient method to construct optimal normal basis. The following  subsection refers to \cite{rosingbook}.
 \subsection{Construction of Optimal Normal Basis}
 \subsection{Optimal Normal Basis Multiplier Design}
 % Customized Galois Field IEEE1363-2000
