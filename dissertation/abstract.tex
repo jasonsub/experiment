@@ -1,58 +1,35 @@
 \begin{center}{\bf ABSTRACT}\end{center}
+Sequential equivalence and model checking techniques are widely
+employed in hardware and software verification. With the increasing
+size and complexity of hardware/software systems, abstraction has
+become a key component to address scalability.
+This dissertation investigates new abstraction techniques at word-level and their applications 
+on sequential circuits verification. By bundling together $k$ bit-level state-variables into
+one word-level constraint expression, the state-space can be construed
+as a polynomial function over the finite (Galois) field of $2^k$
+elements. As long as the state-space are modeled as polynomial ideals
+over word-level variables, algebraic geometry techniques including ideal manipulations,
+Gr\"obner bases reasoning and finite field algebra are researched to 
+facilitate new word-level abstractions.
 
-% Verification of sequential circuits remains to be a topic of all time. With increasing size of new
-% integrated circuits, sequential circuit designers may face much more complicated problems on 
-% logic errors, unexpected delays and failures on critical path. 
-% This dissertation addresses the problem of sequential circuit verification at the word-level
-% and is based on concepts derived from algebraic geometry. 
-% 
-% Analyzing the sequential circuits at word level is an efficient way
-% of {\it abstraction}, which may lower the complexity of verification by efficient representation of the
-% state-space. We manage to model the verification properties and the gate-level sequential circuit 
-% implementations over Galois fields of the type ${\mathbb{F}}_{2^k}$ by means of polynomial ideals and 
-% their canonical representations --- Gr\"obner bases --- at the level of $k$-bit words. Subsequently, 
-% techniques from algebraic geometry can be used to reason about the state-space on high-level.
-% In algebraic geometry, ``bad" states are modeled as varieties while whole system is described using 
-% polynomial ideals. Without actually solving the system, the states in state space can be investigated 
-% by manipulating these ideals. 
-% 
-% We propose to apply these techniques to traverse a finite state machine (FSM) for reachability 
-% analysis at the word-level, and also to implicitly unroll sequential arithmetic circuits to 
-% verify their function. Moreover, as unsatisfiable (UNSAT) cores play an important role in modern 
-% abstraction-refinement techniques for verification, we propose to investigate a word-level 
-% analogue of the UNSAT core problem using the  Gr\"obner basis algorithm. The dissertation will 
-% not only derive new algorithms and techniques, but will also consider efficient CAD 
-% implementations to target sequential equivalence and model checking problems. 
-% % \end{abstract}
+Algebraic geometry offers a very powerful set of tools to reason about
+the properties of the solutions to a system of polynomial
+constraints. Moreover, the algebraic model inherently provides a
+framework for abstraction. 
+The algebraic geometry algorithms (Groebner basis computations) exhibit
+high complexity which prevent it from being widely used in conventional techniques. 
+Interestingly, recent experience has shown that
+by analyzing the topology of circuits in conjunction with Gr\"obner
+basis computations helps to identify the structure and symmetry
+inherent in the problem, this lower the computational complexity.
 
-This dissertation presents work on a new class of terahertz (THz) waveguides based on structured 
-metal geometries. The waveguides are designed with the core idea that adoption of planar layout in 
-fabrication can lead to exponential growth in device capabilities, analogous to the growth in device 
-capabilities based in electronics. From a functional point of view, the waveguides rely upon 
-propagation of surface waves along the surface of metals. This approach is preferred, since 
-dielectrics tend to be lossy at THz and the loss parameters scales almost quadratically with 
-frequency for most dielectrics. The loss in propagating wave is minimized by utilizing metals, 
-which are highly conducting at THz frequencies. Structuring the metal surface with periodic array 
-of apertures of sub-wavelength dimension allows bound surface wave to propagate as the wave can 
-evanescently decay into the metal. This phenomenon is referred as the coupling of propagating wave 
-to surface plasmon polariton (SPP) like mode at the interface of structured metal surface and air. 
-Thus, these propagating THz waves are simply surface plasmon-polaritons (SPPs) . Similarly, 
-complimentary structures that do not perforate the metal, but rather stand on the metal surface 
-also support SPPs. The wavelength of SPPs can be controlled by changing the dimension of these 
-apertures/structures, since the dispersion relationship of the medium depends on the geometrical size. 
-This engineering capability has been exploited in creating all the waveguides presented in this thesis. 
-The devices presented are categorized based on the fabrication technique. Each technique is unique 
-in its own regard and can be selected based on functional needs. A commonly adopted process of laser 
-ablation covers a wide set of waveguides presented here. In one of the waveguides fabricated using 
-ablation technique, the role of disorder is discussed. The waveguide with introduction leads to 
-observance of localized mode with spectral and spatial feature like Anderson localized modes of photons. 
-It is the first report of localized mode at THz frequency. 3D rapid prototyping involving 3D printer is 
-used to create waveguides with complex layout that can allow for multi-plane signal routing. 
-This also is the first demonstration of 3D printing in the development of THz devices. In another 
-approach a unique fabrication technique had to be developed to create waveguides mediums with negative 
-index of refraction (NIM) as they require feature sizes which cannot easily be attained using conventional 
-clean room techniques and 3D printing. This new fabrication approach uses a sacrificial layer technique 
-that is used create an effective medium with negative index of refraction and length on the order of tens 
-of wavelength. Again, this happens to be the first demonstration of a waveguide with NIM capability at 
-THz length scales, as well as a figure of merit (FOM) defined in terms of loss parameter that is an order 
-of magnitude better than the previous reported NIM’s in the THz spectral range.
+Formal verification of sequential circuits requires the analysis of
+the underlying finite state machine. Reachability analysis becomes a
+fundamental tool for this purpose. We devised traditional traversal algorithms 
+using the new abstraction method to perform
+the reachability analysis at word-level. 
+The abstractions are also exploited on functional
+verification of sequential Galois field arithmetic circuits, where conventional 
+techniques fail to provide scalability. At last, we propose a new method to extract 
+unsatisfiable cores and utilize the information about the cores to 
+perform model checking with abstraction refinement.

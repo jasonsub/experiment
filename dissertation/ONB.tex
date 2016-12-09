@@ -1,6 +1,7 @@
 % LaTeX file for a 1 page document
 \documentclass[12pt]{article}
 %\usepackage{e-jc}
+\usepackage{amsfonts}
 
 \title{Theory about Normal Basis on $F(2^k)$}
 
@@ -10,7 +11,7 @@
 \small \texttt{\{xiaojun.sun,kalla\}@ece.utah.edu}
 }
 
-\date{Last Update: Apr 17, 2013}
+\date{Last Update: May 14, 2013}
 
 \begin{document}
 \maketitle
@@ -93,41 +94,89 @@ let $g(x) = (x^n - 1)/Ord_\theta(x)$. There exists another element $\beta$ such 
 \item[-] \textbf{Lemma 5}\ \ \ \ Same $\theta$ and $g(x)$ defined as last lemma. Assume there exists a solution 
 $\beta$ such that $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$. Then there exists a non-zero element $\eta$ such that\\
 $g(\sigma)\eta = 0$, and\\
-$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$.
+$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$.\\
 
 \end{itemize} 
 
+\textbf{Lenstra's Algorithm}\\
+Step 1: Take an arbitrary element $\theta \in F_{q^n}$, determine $Ord_\theta(x)$.\\
+Step 2: If $Ord_\theta(x) = x^n - 1$ then algorithm ends.\\
+Step 3: Calculate $g(x) = (x^n - 1)/Ord_\theta(x)$, and solve $\beta$ from $g(\sigma)\beta = \theta$.\\
+Step 4: Determine $Ord_\beta(x)$. If $deg(Ord_\beta(x)) > deg(Ord_\theta(x))$ then replace $\theta$ by $\beta$ and go to step 2;
+	otherwise if $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$ then find a non-zero element $\eta$ such that $g(\sigma)\eta = 0$,
+	replace $\theta$ by $\theta + \eta$ and determine the order of new $\theta$, then go to step 2.\\
 
+\section{Optimal Normal Basis Characterization}
+\textbf{Definition of Optimal Normal Basis}\\
+To define optimal normal basis, it is necessary to find out the minimum number
+of terms in multiplication table(defined below).
+\textit{Theorem 3}\ \ If N is a normal basis for $F_{p^n}$ with multiplication table $M_T$, then non-zero terms in 
+matrix $C_N\leq 2n-1$.\\
+\textit{Proof}\ \ Let $N = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}$, denote $\beta^{p^i}$ by $\beta_i$. 
+Then $\sum_{i=0}^{n-1} \beta_i = trace \beta$. \\
+Denote $trace \beta$ with $b$, consider $n\times n$ matrix (multiplication table for lowest digit) $M_0$. Then\\
+$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$.\\
+Therefore, the sum of all rows in $M_0$ is an n-tuple with $b$ as the first element and zeros elsewhere.
+So the first column must contain at least 1 nonzero element, and other columns must get a sum of zero 
+while keeping every row linearly independent so there should be at least 2 non-zero elements each column.\\
+For $F_{2^n}$, easy to figure out the first row must contain a "1" because $\beta \beta^{2^0} = \beta^{2^1}$.
+for the rest rows $\beta \beta^{2^i} \neq \beta^{2^{i+1}}$,
+so there must be at least 2 "1"s to fulfil the equation.\\
+\textbf{Multiplication table}\\
+$\beta \left( \begin{array} {lcr}
+ \beta \\ 
+\beta^2 \\ 
+\cdot \\ 
+\cdot \\ 
+\cdot \\ 
+\beta^{2^{n-1}} 
+\end{array} \right) = M_T \left( \begin{array} {lcr}
+ \beta \\ 
+\beta^2 \\ 
+\cdot \\ 
+\cdot \\ 
+\cdot \\ 
+\beta^{2^{n-1}} 
+\end{array} \right)$. \\
 
+Complexity $C_N \geq 2n - 1$.\\
 
-
-
-
-
-Suppose we take only one polynomial only contains T(next state), like\\
+\textbf{ONB Existance Theory}\\
+Key words: k-th primitive root of unity, Euler's criterion, quadratic residues\\
 \hspace{8mm}\par
-$ideal\ G = T^2 + (1+X) \cdot T + X$\\
+Type I ONB: n+1 is prime and q is primitive in $\mathbb{Z}_{n+1}$, then the n nonunit (n+1)th roots of unity form ONB.\\
 \hspace{8mm}\par
-Since we get G from GB based image function, so G is already a Groebner Basis itself.
-Considering Theorem 1 $\sim$ 3, it's easy to do ideal operation if its generator is only one polynomial.
-So using $G+G'$ we can get intersection, using $G \cdot G'$ we can get union. If we take V = Universe = $<vanishing\ polynomial>$, we can get ideal quotient $I(V):I(W)$ as complementary set for
-specific varieties.
+Type II ONB: 2n+1 is prime, if (1) 2 is primitive in $\mathbb{Z}_{2n+1}$, OR \\
+(2) $2n + 1 \equiv 3(mod 4)$ and 2 generates the quadratic residues in $\mathbb{Z}_{2n+1}$.\\
+Then $\alpha = \gamma + \gamma^{-1}$ generates ONB, where $\gamma$ is a primitive (2n+1)th root if unity.\\
 
-\hspace{8mm}\par
-\textbf{More about Ideal Quotient}
+\textbf{Low-complexity Normal Basis design}\\
+N/A.\\
+
+\section{Other NB Properties \& Problems}
+\textbf{N-poly}\\
+N-poly is irreducible polynomial with linearly independent roots. Normal basis is a set of roots of N-poly.
 \begin{itemize}
-\item[-] \textbf{Definition 1}\ \ \ \ If I,J are ideals in $k[x_1,...,x_n]$, then $I:J$ is the set \\ \indent $\{f\in k[x_1,...,x_n]:fg\in I\ for \ all\ g\in J\}$
-\end{itemize} \par
-Why we can get complementary set $\overline {reached}$ through this?\par
-First, we only care about varieties. Say we redefine the "equal" as $V(I)==V(J)\Leftrightarrow I == J$.\par
-Second, we only care about the ideal/GB {\bf G} contains only 1 generator f. Say this polynomial f is a function about next state (word level) T, then $f(T=V(\bf{G}))==0$. To ensure then unique of generator f, we'll reduce f (or say {\bf G}) every time.\par
-Third, for ideal quotient ${\bf U:G}$ here, we need to find f from $g~f==vanish$. This means $<f>\bigcup <g>==<vanish>$. How can we develop a division algorithm to get exactly a factor without any remainders? Let's see 3 examples following:\\
+\item[-] \textbf{Corollary 2}\ \ \ \ For irreducible polynomial $f(x) = x^n + a_1x^{n-1} + ... + a_n \in F_{2^n}[x]$, 
+		that is an N-poly if and only if $a_1 \neq 0$.
+\end{itemize}
+
+\textbf{Problems and Discussion}\\
 \hspace{8mm}\par
-\indent $T^2+(1+X)\cdot T+X$\\
+Prob1: how to prove $\lambda$-Matrix is multiplication table?\\
+\indent I think this is a good way to understand the essence of normal basis 
+theory. This problem can be rewrite like this:\\
+Why there exist a rotating symmetry in $\lambda$-Matrix that
+ $\lambda_{0j}^{(k)} = \lambda_{jk}^{(0)}$? Andrew guess it's a Frobenius
+ element matrix rotating symmetry involves with field automorphism. Need 
+further consultation on this part. How to get this property? Check out the
+ last part of my note.\\
 \hspace{8mm}\par
-\indent $T^2+T$\\
+Prob2: Proof of Lemma 5.\\
+(Already proved. Please check out the note.)\\
 \hspace{8mm}\par
-\indent $T^2+1$\\
+Prob3: Fast algorithm for determining $\sigma$-Order.\\
+(Do not need FAST algorithms. Just do a $(O(n^2))$ scan.)\\
 
 
 \end{document}

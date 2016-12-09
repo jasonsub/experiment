@@ -101,6 +101,7 @@ Conversely, if $i=j$, then
 
 For a given Frobenius map $\sigma$, corresponding minimal polynomial is restricted:
 \begin{Lemma}
+\label{lem:3}
 The minimal (and characteristic) polynomial for $\sigma$ is $x^n-1$.
 \end{Lemma}
 \begin{Proof}
@@ -121,9 +122,180 @@ $$\textit{Both characteristic and minimal polynomial is }x^n-1$$
 
 From lemmas above we can deduce the following corollary:
 \begin{Corollary}
+\label{corol:1}
 An element $\alpha \in \F_{p^n}$ is a {\bf normal element} if and only if $Ord_{\alpha,\sigma}(x) = x^n-1$.
 \end{Corollary}
-\subsection{Construction of General Normal Basis}
+\begin{Proof}
+Normal bases require $\{\beta,\beta^2,\dots,\beta^{2^{n-1}}\}$ to be linearly independent,
+which is equivalent to the following expression:
+$$\forall f(x)\in \F_p[x],~deg(f(x))<n$$
+Furthermore, because there is no annihilators in the $T$-Order, this implies that
+$$Ord_{\alpha,\sigma}(x) = x^n-1$$
+\end{Proof}
+
+From corollary above we can deduce another form of criterion of normal element:
+\begin{Theorem}
+\label{thm:1}
+Given finite field $\F_{2^n}$, the field characteristic $p = 2$.
+Define $t = p^e$ such that $n = kp^e, gcd(k,p) = 1$, so $t=1$ if $n$ is an odd integer. Then 
+$x^n - 1$ can be factorized as 
+$$(\varphi_1(x)\varphi_2(x)\cdot\cdot\cdot\varphi_r(x))^t$$
+Additionally, define $\Phi_i(x) = (x^n - 1)/\varphi_i(x)$. We assert that
+
+An element $\alpha \in 	F_{p^n}$ is a normal element if and only if $\Phi_i(\sigma)\alpha \neq 0, i = 1,2,\dots,r$.
+\end{Theorem}
+\begin{Proof}
+Let us analyze the auxiliary polynomial $\Phi_i(x) = \frac{x^n - 1}{\varphi_i(x)}$ first.
+$$\Phi_i(\sigma)\alpha \neq 0 \Leftrightarrow \text{No factor in }x^n-1\text{ annihilates }\alpha$$
+On the other hand, according to Lemma \ref{lem:3}, it is a known 
+fact that \emph{any annihilator always divide} $x^n-1$. As a result, the only possible situation is
+$$Ord_{\alpha,\sigma}(x) = x^n-1$$
+Using Corollary \ref{corol:1} we deduce that $\alpha$ is a normal element.
+\end{Proof}
+
+The normal element identification can also be described from the nullspace perspective:
+\begin{Theorem}
+\label{thm:2}
+Let $W_i$ be the nullspace of $\varphi_{i}^{t} (x)$ and $\widetilde{W_i}$ the
+nullspace of $\varphi_{i}^{t-1} (x)$. Let $\overline{W_i}$ be any subspace of
+$W_i$ such that $W_i = \overline{W_i}\oplus \widetilde{W_i}$. Then
+$$\F_{p^n} = \displaystyle\sum_{i=1}^{r} \overline{W_i}\oplus \widetilde{W_i}$$
+is a direct sum where $dim(\overline{W_i}) = d_i$ and $dim(\widetilde{W_i}) = (t-1)d_i$.
+
+Using above setup we define an element $\alpha \in \F_{p^n}$ with 
+$\alpha = \sum_{i=1}^{r} (\overline{\alpha_i} + \widetilde{\alpha_i}), \overline{\alpha_i} \in \overline{W_i}, \widetilde{\alpha_i} \in \widetilde{W_i}$,
+as a normal element if and only if $\overline{\alpha_i} \neq 0,~ \forall i = 1,2,\dots,r$.
+\end{Theorem}
+
+Ultimately, since there always exist at least one element fulfilling requirements in Theorem \ref{thm:1}
+or Theorem \ref{thm:2}, we obtain following theorem:
+\begin{Theorem}[Normal Basis Theorem over Finite Fields]
+There always exists a normal basis of $\F_{p^n}$ over $\F_p$.
+\end{Theorem}
+\subsection{Construction of General Normal Bases}
+After proving the existence of normal bases, the upcoming question is that how to find such a normal basis/element.
+For general normal basis identification, there are two methods widely used: the L\"uneburg's algorithm
+and Lenstra's algorithm.\\
+\textbf{L\"uneburg's Algorithm:}
+\begin{enumerate}[{1)}]
+\item Randomly pick an element $\alpha$ from $\F_{p^n}$. For each $i = 0,1,\dots,n-1$, 
+compute $\sigma$-Order $f_i = Ord_{\alpha^i}(x)$. Then $x^n - 1 = lcm(f_0,f_1,...,f_{n-1})$.
+\item Apply factor refinement to set $\{f_0,\dots,f_{n-1}\}$ and obtain $f_i = \prod_{1\leq j\leq r} g_{j}^{e_{ij}}, i = 0,1,\dots,n-1$.
+We can write the result as an $i\times j$ matrix.
+\item For each $j$, find an index $i_j$ (denote as $i(j)$) such that $e_{ij}$ is maximum in the $j$-th column.
+\item Let $h_j = f_{i(j)}/g_{j}^{e_{i(j)j}}$, take $\beta_j = h_j(\sigma)\alpha^{i(j)}$. Then
+$$\beta = \displaystyle\sum_{j=1}^{r} \beta_j$$
+is a normal element.
+\end{enumerate}
+
+L\"uneburg's algorithm starts with a random element and ends with a normal element. The justification of 
+its soundness is as follows:
+\begin{Proposition}
+L\"uneburg's algorithm always generate a normal element over field $\F_{p^n}$.
+\end{Proposition}
+
+\begin{Proof}
+First, according to the definition of $T$-Order:
+$$f_i = Ord_{\alpha^i} \Leftrightarrow f_i(\sigma)\alpha^i = 0$$
+
+Use Lemma \ref{lem:3}, the minimal/characteristic polynomial for $\sigma$ is $x^n-1$ implies that
+any annihilator of $\alpha^i$ ({\it i.e.} $f_i(\sigma)$) divides $x^n-1$. Meanwhile, $\{\alpha^i~|~0<i<n-1\}$ forms a (standard) basis
+of field $\F_{p^n}$, this means $\alpha_i$ are linearly independent with each other ($i=0,1,\dots,n-1$).
+Since linear map $f(\sigma)$ guarantees that all elements in the field 
+have order $lcm(f_0,\dots,f_{n-1})$, i.e. $f(\sigma)\gamma = f(\sigma)(\sum_i \alpha^i) \implies f(\sigma) = lcm(f_0,\dots,f_{n-1})$.
+By contradiction we can prove that there is no factor of $x^n-1$ that can be divided by the product 
+of elements in set $\{f_0,f_1,\dots,f_{n-1}\}$. This actually corresponds to the assertion in the first step of the algorithm:
+$$x^n-1 = lcm(f_0,f_1,\dots,f_{n-1})$$
+
+In the second step, after factorization of set $\{f_i\}$, we transform $f_i(\sigma)\alpha^i=0$ to
+$$h_j(\sigma)\cdot g_{j}^{e_{i(j)j}}(\sigma) \cdot \alpha^{i(j)} = 0$$
+
+Furthermore we have 
+$$g_{j}^{e_{i(j)j}}(\sigma)\beta_j = 0 \Leftrightarrow Ord_{\sigma,\beta_j}(x) = g_{j}^{e_{i(j)j}}(x)$$
+
+Consider the facts: 1) elements in set $\{g_j\}$ are relatively prime; 2) $g_{j}^{e_{i(j)j}}$ is the maximum factor; 
+3) $x^n-1 = lcm(f_0,f_1,\dots,f_{n-1})$, we deduce that 
+$$x^n-1 = \prod_j g_{j}^{e_{i(j)j}}(x) = \prod_jOrd_{\sigma,\beta_j}(x)$$
+
+As a result
+$$x^n-1 = Ord_{\sigma,\beta}(x) \implies \beta\text{ is a normal element.}$$
+\end{Proof}
+
+L\"uneburg's algorithm is an analytic method, which requires relatively high computational complexity 
+mainly because of the factorization in its second step. To overcome the high cost, an inductive method 
+is proposed, which is the Lenstra's algorithm. It allows for setup of heuristics to accelerate the procedure.
+Before introducing the details of the algorithm, we demonstrate two preliminary lemmas.
+\begin{Lemma}
+\label{lem:4}
+For an arbitrary element $\theta \in \F_{p^n}$ that $Ord_\theta(x) \neq x^n - 1$,
+let $g(x) = (x^n - 1)/Ord_\theta(x)$. There exists another element $\beta$ such that $g(\sigma)\beta = \theta$.
+\end{Lemma}
+\begin{Proof}
+Assume $\gamma$ is the desired normal element. From the definition of normal element we derive 
+$$\exists f(x)\in \F_{p^n}[x],~~f(\sigma)\gamma = \theta$$
+
+Then using the definition of $T$-Order, we derive
+$$Ord_{\sigma}\theta = 0 \implies (Ord_{\sigma}f(\sigma))\gamma = 0$$
+
+Since $\gamma$ is the normal element, $Ord_\gamma(x) = x^n-1\implies x^n-1~|~(Ord_\theta(x)f(x))$.
+Furthermore,
+$$g(x) = \frac{x^n-1}{Ord_\theta(x)} \implies x^n-1\Bigm|\left(\frac{x^n-1}{g(x)}\cdot f(x)\right)\implies g(x)~|~f(x)$$
+
+Let $f(x)=h(x)g(x)$. Then
+$$g(\sigma)(h(\sigma)\gamma) = \theta$$
+
+Therefore, $\exists \beta$ {\it i.e. }$g(\sigma)\beta = \theta$. Concretely, $\beta = h(\sigma)\gamma$.
+\end{Proof}
+
+\begin{Lemma}
+\label{lem:5}
+Define $\theta$ and $g(x)$ as in Lemma \ref{lem:4}. Assume there exists a solution 
+$\beta$ such that $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$. Respectively there exists a non-zero element $\eta$ such that
+$$g(\sigma)\eta = 0$$
+and
+$$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$$
+\end{Lemma}
+\begin{Proof}
+Assume $\gamma$ is the desired normal element. Similarly,
+$$\exists \eta = Ord_\theta(\sigma)\gamma \neq 0,~~g(\sigma)\eta = 0$$
+
+Follow the setup in Lemma \ref{lem:4}, we have
+$$g(\sigma)\beta = \theta,~~\frac{x^n-1}{Ord_\theta(x)}\Bigm|_\sigma\cdot \beta = \theta$$
+
+Subsequently,
+$$Ord_\theta(x)\cdot \frac{x^n-1}{Ord_\theta(x)}\Bigm|_\sigma\beta = 0 = Ord_\beta(x)\beta$$
+which implies
+$$Ord_\theta(x)\bigm|Ord_\beta(x),~~deg(Ord_\theta(x)) \leq deg(Ord_\beta(x))$$
+Combining with the assumption in the lemma: $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$, we derive
+$$deg(Ord_\beta(x)) = deg(Ord_\theta(x))\implies Ord_\theta(x) =Ord_\beta(x)$$
+
+In the next part we need to prove $g(x)\perp Ord_\theta(x)$ by contradiction. Assume 
+$h(x) = gcd(g(x),Ord_\theta(x))\neq 1$, and
+$$g(\sigma)\beta = a(\sigma)h(\sigma)\beta = \theta,~~Ord_\theta(\sigma)\theta = a(\sigma)b(\sigma)h^2(\sigma)\beta$$
+However, $Ord_\theta(x) =Ord_\beta(x)$ indicates that $Ord_\beta(x)\beta = b(x)h(x)a(x)\beta = 0$. Thus,
+$Ord_\theta(x)=b(x)$. This is true if and only if $h(x)=1$. As a result, we assert that
+$$g(x) \perp Ord_\theta(x)$$
+
+Consider $g(\sigma)\eta = 0 \implies Ord_\eta(x)\bigm|g(x)$. It further implies that 
+$$Ord_\theta(x)\perp Ord_\eta(x) \implies Ord_{\theta+\eta}(x) = Ord_\theta(x)\cdot Ord_\eta(x)$$
+
+Since $\eta \neq 0$, we derive the result
+$$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$$
+\end{Proof}
+
+Based on Lemmas \ref{lem:4} and \ref{lem:5}, the Lenstra's algorithm is described below:\\
+\textbf{Lenstra's Algorithm}
+\begin{enumerate}[{1)}]
+\item Take an arbitrary element $\theta \in \F_{p^n}$, determine $Ord_\theta(x)$.
+\item If $Ord_\theta(x) = x^n - 1$ then algorithm terminates and return $\theta$ as a normal element.
+\item Otherwise, compute $g(x) = (x^n - 1)/Ord_\theta(x)$, and solve $\beta$ from $g(\sigma)\beta = \theta$.
+\item Determine $Ord_\beta(x)$. If $deg(Ord_\beta(x)) > deg(Ord_\theta(x))$ then replace $\theta$ by $\beta$ and go to 2);
+otherwise if $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$ then find a non-zero element $\eta$ such that $g(\sigma)\eta = 0$,
+replace $\theta$ by $\theta + \eta$ and determine the order of new $\theta$, and go to 2).
+\end{enumerate}
+
+Lenstra's algorithm is an approximation algorithm in nature. For each iteration $Ord_\theta(x)$ monotonically increase,
+so it will finally reach termination condition $Ord_\theta(x) = x^n-1$.
 \subsection{Bases Conversion}
 % General \lambda matrix computation
 
@@ -133,3 +305,40 @@ An element $\alpha \in \F_{p^n}$ is a {\bf normal element} if and only if $Ord_{
 \subsection{Optimal Normal Basis Multiplier Design}
 % Customized Galois Field IEEE1363-2000
 % Multi table <=> \lambda matrix
+In Section \ref{sec:nbdesign}, we introduce the concept of multiplication table and explained how its 
+entries are transformed from the $0$-th $\lambda$-Matrix. Actually we can mathematically prove the relationship 
+between them:
+\begin{Theorem}
+Multiplication table $T$ is actually a conjugate of the $\lambda$-Matrix $M$. 
+We can use an equation $M_{i,j}^{(0)} = T_{j-i,-i}$ to demonstrate the relation between their entries.
+\end{Theorem}
+\begin{Proof}
+Recall the definition of $\lambda$-Matrix over field $\F_{2^k}$:
+$$C = A\times B = \left(\sum_i a_i\beta^{2^i}\right)\left(\sum_jb_j\beta^{2^j}\right) = \sum_i\sum_ja_ib_j\beta^{2^i}\beta^{2^j}$$
+Then there always exist $\lambda_{ij}^{(l)}$, such that 
+$$\beta^{2^i}\beta^{2^j} = \sum_l\lambda_{ij}^{(l)}\beta^{2^l}$$
+We call it the cross-product term. The $l$-th bit of the product $C$ is
+$$c_l = \sum_i\sum_ja_ib_j\lambda_{ij}^{(l)}$$
+For the sake of simplification, we let $i=0$, thus 
+$$\beta\cdot\beta^{2^j} = \sum_l\lambda_{0j}^{(l)}\beta^{2^l}$$
+Since the multiplication table is defined as
+\begin{equation}
+\beta
+\begin{bmatrix}
+\beta \\ \beta^2 \\ \beta^{2^2} \\ \vdots \\ \beta^{2^{n-1}}
+\end{bmatrix}
+= {\bf T}
+\begin{bmatrix}
+\beta \\ \beta^2 \\ \beta^{2^2} \\ \vdots \\ \beta^{2^{n-1}}
+\end{bmatrix}
+\end{equation}
+The $j$-th row of $T$ can be written as
+\begin{align}
+\beta\cdot\beta^{2^j} =& \sum_l\lambda_{0j}^{(l)}\beta^{2^l} & \text{(multi-table definition)} \nonumber\\
+					=& \sum_l\lambda_{jl}^{(0)}\beta^{2^l} & \text{(cross-product term)} \label{eqn:mteq}
+\end{align}
+Notice that $\lambda$ corresponds to $\lambda$-Matrix entries. In Equation \ref{eqn:mteq} we assign $0$ to the 
+row index $i$, the proof can be extended to all row indices $i<n$ but fix $l$ to 0 because of the 
+conjugation generated by right-down cyclic-shift of $\lambda$-Matrix. Therefore we have 
+$$M_{i,j}^{(0)} = \lambda_{ij}^{(0)} = \lambda_{j,0}^{(i)} = T_{j-i,0-i}$$
+\end{Proof}
