@@ -269,6 +269,27 @@ M.~Clegg, J.~Edmonds, and R.~Impagliazzo,
 \newblock {\em in} {\em ACM Symposium on Theory of Computing}, pp. 174--183,
   1996.
 
+\bibitem{myHLDVT}
+Xiaojun Sun, Priyank Kalla, and Florian Enescu,
+\newblock ``Word-level traversal of finite state machines using algebraic
+  geometry'',
+\newblock {\em in} {\em High Level Design Validation and Test Workshop (HLDVT),
+  2016 IEEE International}, pp. 142--149. IEEE, 2016.
+
+\bibitem{myDATE}
+Xiaojun Sun, Priyank Kalla, Tim Pruss, and Florian Enescu,
+\newblock ``Formal verification of sequential galois field arithmetic circuits
+  using algebraic geometry'',
+\newblock {\em in} {\em Design Automation and Test in Europe, DATE 2015.
+  Proceedings}. IEEE/ACM, 2015.
+
+\bibitem{myCP}
+Xiaojun Sun, Irina Ilioaea, Priyank Kalla, and Florian Enescu,
+\newblock ``Finding unsatisfiable cores of a set of polynomials using the
+  gr{\"o}bner basis algorithm'',
+\newblock {\em in} {\em International Conference on Principles and Practice of
+  Constraint Programming}, pp. 859--875. Springer, 2016.
+
 \bibitem{coudert2003unified}
 Olivier Coudert and Jean~Christophe Madre,
 \newblock ``A unified framework for the formal verification of sequential
@@ -370,19 +391,6 @@ A.~Mishchenko, S.~Chatterjee, R.~Brayton, and N.~Een,
 \newblock ``Improvements to {C}ombinational {E}quivalence {C}hecking'',
 \newblock {\em in} {\em Proc. Intl. Conf. on CAD (ICCAD)}, pp. 836--843, 2006.
 
-\bibitem{mastro:1989}
-E.~Mastrovito,
-\newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
-  {GF($2^m$)}'',
-\newblock {\em Lecture Notes in Computer Science}, vol. 357, pp. 297--309,
-  1989.
-
-\bibitem{acar:1998}
-C.~Koc and T.~Acar,
-\newblock ``{M}ontgomery {M}ultiplication in {GF}($2^k$)'',
-\newblock {\em Designs, Codes and Cryptography}, vol. 14, pp. 57--69, Apr.
-  1998.
-
 \bibitem{Cryptol:fmcad09}
 L.~Erk\"ok, M.~Carlsson, and A.~Wick,
 \newblock ``{H}ardware/{S}oftware {C}o-verification of {C}ryptographic
@@ -453,18 +461,6 @@ Aaron~R Bradley, Fabio Somenzi, Zyad Hassan, and Yan Zhang,
 \newblock ``An incremental approach to model checking progress properties'',
 \newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2011},
   pp. 144--153. IEEE, 2011.
-
-\bibitem{BHEL96}
-R.~K. Brayton, G.~D. Hachtel, A.~Sangiovanni-Vencentelli, F.~Somenzi, A.~Aziz,
-  S-T. Cheng, S.~Edwards, S.~Khatri, Y.~Kukimoto, A.~Pardo, S.~Qadeer,
-  R.~Ranjan, S.~Sarwary, G.~Shiple, S.~Swamy, and T.~Villa,
-\newblock ``{VIS}: {A} {S}ystem for {V}erification and {S}ynthesis'',
-\newblock {\em in} {\em Computer Aided Verification}, 1996.
-
-\bibitem{SMV}
-K.~L. McMillan,
-\newblock {\em {S}ymbolic {M}odel {C}hecking},
-\newblock Kluwer Academic Publishers, 1993.
 
 \bibitem{cvc3}
 C.~Barrett and C.~Tinelli,
@@ -596,6 +592,32 @@ T.~Pruss, P.~Kalla, and F.~Enescu,
   {B}ases'',
 \newblock {\em in} {\em Design Automation Conference}, 2014.
 
+\bibitem{BLUEVERI}
+Alexey Lvov, Luis~Alfonso Lastras-Montano, Viresh Paruthi, Robert Shadowen, and
+  Ali El-Zein,
+\newblock ``Formal verification of error correcting circuits using
+  computational algebraic geometry'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2012},
+  pp. 141--148. IEEE, 2012.
+
+\bibitem{rolf:FMCAD16}
+Amr Sayed-Ahmed, Daniel Gro{\ss}e, Mathias Soeken, and Rolf Drechsler,
+\newblock ``Equivalence checking using grobner bases'',
+\newblock {\em Formal Methods in Computer-Aided Design FMCAD 2016}, p. 169,
+  2016.
+
+\bibitem{vardi-iasted07}
+M.~Y. Vardi and Q.~Tran,
+\newblock ``{G}roebners {B}ases {C}omputation in {B}oolean {R}ings for
+  {S}ymbolic {M}odel {C}hecking'',
+\newblock {\em in} {\em IASTED}, 2007.
+
+\bibitem{gao:qe-gf-gb}
+S.~Gao, A.~Platzer, and E.~Clarke,
+\newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
+  {B}ases'',
+\newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
+
 \bibitem{galois_field:mceliece}
 Robert~J. McEliece,
 \newblock {\em Finite Fields for Computer Scientists and Engineers},
@@ -606,10 +628,23 @@ S.~Roman,
 \newblock {\em {F}ield {T}heory},
 \newblock Springer, 2006.
 
+\bibitem{mastro:1989}
+E.~Mastrovito,
+\newblock ``{VLSI} {D}esigns for {M}ultiplication {O}ver {F}inite {F}ields
+  {GF($2^m$)}'',
+\newblock {\em Lecture Notes in Computer Science}, vol. 357, pp. 297--309,
+  1989.
+
 \bibitem{PT:1985}
 P.~Montgomery,
 \newblock ``{M}odular {M}ultiplication {W}ithout {T}rial {D}ivision'',
 \newblock {\em Mathematics of Computation}, vol. 44, pp. 519--521, Apr. 1985.
+
+\bibitem{acar:1998}
+C.~Koc and T.~Acar,
+\newblock ``{M}ontgomery {M}ultiplication in {GF}($2^k$)'',
+\newblock {\em Designs, Codes and Cryptography}, vol. 14, pp. 57--69, Apr.
+  1998.
 
 \bibitem{wu:2002}
 H.~Wu,
@@ -672,12 +707,6 @@ B.~Buchberger,
 \newblock {\em {E}in {A}lgorithmus zum {A}uffinden der {B}asiselemente des
   {R}estklassenringes nach einem nulldimensionalen {P}olynomideal},
 \newblock PhD thesis, University of Innsbruck, 1965.
-
-\bibitem{gao:qe-gf-gb}
-S.~Gao, A.~Platzer, and E.~Clarke,
-\newblock ``Quantifier {E}limination over {F}inite {F}ields with {G}r\"obner
-  {B}ases'',
-\newblock {\em in} {\em Intl. Conf. Algebraic Informatics}, 2011.
 
 \bibitem{gao:gf-gb-ms}
 S.~Gao,
@@ -826,14 +855,6 @@ Evgeny Pavlenko, Markus Wedler, Dominik Stoffel, Wolfgang Kunz, Alexander
 \newblock {\em in} {\em Design, Automation \& Test in Europe Conference \&
   Exhibition (DATE), 2011}, pp. 1--6. IEEE, 2011.
 
-\bibitem{BLUEVERI}
-Alexey Lvov, Luis~Alfonso Lastras-Montano, Viresh Paruthi, Robert Shadowen, and
-  Ali El-Zein,
-\newblock ``Formal verification of error correcting circuits using
-  computational algebraic geometry'',
-\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2012},
-  pp. 141--148. IEEE, 2012.
-
 \bibitem{PolyBoRi}
 Michael Brickenstein and Alexander Dreyer,
 \newblock ``Polybori: A framework for gr{\"o}bner-basis computations with
@@ -902,11 +923,6 @@ Pavel Pudl{\'a}k,
 \newblock ``Lower bounds for resolution and cutting plane proofs and monotone
   computations'',
 \newblock {\em The Journal of Symbolic Logic}, vol. 62, pp. 981--998, 1997.
-
-\bibitem{sankaranarayanan2004non}
-Sriram Sankaranarayanan, Henny~B Sipma, and Zohar Manna,
-\newblock ``Non-linear loop invariant generation using gr{\"o}bner bases'',
-\newblock {\em ACM SIGPLAN Notices}, vol. 39, pp. 318--329, 2004.
 
 \bibitem{rosingbook}
 Michael Rosing,

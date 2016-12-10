@@ -35,11 +35,14 @@ Repeated entry---line 865 of file xiaojun.bib
  :            ,
 I'm skipping whatever remains of this entry
 Database file #3: cnfsat.bib
+Warning--I didn't find a database entry for "avoj2010combinational"
 `volume' is a missing field, not a string, for entry pruss:tcad15
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry dube1986complexity
 while executing---line 987 of file ieee.bst
 Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry rolf:FMCAD16
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry AppleA10
 while executing---line 987 of file ieee.bst
@@ -51,45 +54,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 148 entries,
+You've used 150 entries,
             1802 wiz_defined-function locations,
-            1229 strings with 28163 characters,
-and the built_in function-call counts, 40407 in all, are:
-= -- 3809
-> -- 1481
-< -- 71
+            1246 strings with 28688 characters,
+and the built_in function-call counts, 41110 in all, are:
+= -- 3894
+> -- 1480
+< -- 74
 + -- 554
-- -- 406
-* -- 2812
-:= -- 5775
-add.period$ -- 197
-call.type$ -- 148
-change.case$ -- 133
+- -- 404
+* -- 2842
+:= -- 5849
+add.period$ -- 202
+call.type$ -- 150
+change.case$ -- 136
 chr.to.int$ -- 0
-cite$ -- 150
-duplicate$ -- 2100
-empty$ -- 4079
-format.name$ -- 406
-if$ -- 9601
+cite$ -- 152
+duplicate$ -- 2151
+empty$ -- 4158
+format.name$ -- 404
+if$ -- 9797
 int.to.chr$ -- 0
-int.to.str$ -- 148
-missing$ -- 149
-newline$ -- 744
-num.names$ -- 152
-pop$ -- 695
+int.to.str$ -- 150
+missing$ -- 150
+newline$ -- 754
+num.names$ -- 154
+pop$ -- 709
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1118
+skip$ -- 1155
 stack$ -- 0
-substring$ -- 2627
-swap$ -- 795
-text.length$ -- 71
+substring$ -- 2672
+swap$ -- 825
+text.length$ -- 74
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 388
-width$ -- 151
-write$ -- 1644
-(There were 12 error messages)
+while$ -- 395
+width$ -- 153
+write$ -- 1669
+(There were 13 error messages)

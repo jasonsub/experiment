@@ -3,15 +3,17 @@
 \section{Sequential Equivalence Checking}
 As an important component of formal verification for sequential circuits, SEC techniques 
 have been developed over decades and widely utilized in both academia and industry. 
-The specification of a sequential circuit can also be modeled as a golden state machine,
+The specification of a sequential circuit can be modeled as a (golden model) state machine,
 SEC is performed to compare between the circuit for test and the golden one.
-The n\"aive method to implement SEC is: preload both circuits to the same initial states, 
-and assign their primary inputs to the same values during all clock-cycles.
-This method needs to be operated along with state space traversal,  therefore it is 
-less efficient. Moreover,  most SEC only check the primary outputs/inputs consistency 
-and does not require the 1:1 state correspondence,  so state space traversal is not always necessary.
+% The n\"aive method to implement SEC is: preload both circuits to the same initial states, 
+% and assign their primary inputs to the same values during all clock-cycles.
+% This method needs to be operated along with state space traversal,  therefore it is 
+% less efficient. Moreover,  most SEC only check the primary outputs/inputs consistency 
+% and does not require the 1:1 state correspondence,  so state space traversal is not always necessary.
+One way to implement SEC is to create miter with two circuits to be verified, then 
+prove that there exists no sequence of inputs that generates different outputs.
 
-Researchers proposed improvements by using Boolean functions represent 
+Researchers proposed improvements by using Boolean functions to represent 
 a set of states/transitions \cite{coudert2003unified, coudert1990verification},  or by dividing the sequential circuit to 
 smaller subcircuit and re-model the FSM to conditional FSMs \cite{khasidashvili2004theoretical}. IBM created a toolset with 
 interfaces that focuses on only designated initial states and remove redundancies in state space \cite{baumgartner2007scalable}.
@@ -24,14 +26,14 @@ techniques. These techniques require structural similarities between the two cir
 The most significant difference of sequential circuits from combinational circuits is 
 that the outputs of the circuit depend not only 
 on the primary inputs, but also on current state. 
-The behavioral difference reflect on the structual design of circuits and result in 
-the existance of memory components such as latches and flip-flops.
-In order to test certain properties on some signals accross multiple clock-cycles,
-the most straightforward method is to propogate those signals throughout 
+The behavioral difference reflects on the structural design of circuits and in 
+the existence of memory components such as latches and flip-flops.
+In order to test certain properties on some signals across multiple clock-cycles,
+the most straightforward method is to propagate those signals throughout 
 all clock-cycles. Moreover, for formal verification, all signals on all paths from the circuit
-need to be propogated through multiple clock-cycles.
+need to be propagated through multiple clock-cycles.
 This indicates a time-to-space conversion, where 
-a cut is set on the latches/flip-flops and the combinational part of circuit
+ the combinational part of circuit
 is copied over several time-frames then connected together.
 The procedure is called {\it unrolling} of sequential circuit, as 
 Figure \ref{fig:unrolling} shows.
@@ -46,18 +48,18 @@ Figure \ref{fig:unrolling} shows.
 
 Unrolling provides a way to transform a sequential circuit to combinational 
 circuit. Therefore,  methods which can be applied to combinational circuit 
-verification is also suitable for unrolled sequential circuits. The canonical 
+verification are also suitable for unrolled sequential circuits. The canonical 
 graphical representation of the combinational circuit after unrolling is also 
 the canonical representation of the original sequential circuit. For the sequential 
-equivlance checking problem, we can also unroll the circuit to be verified and 
-specification to combinational ones, then perform combinational equivlance checking
-techniques. In the following part we review research and techniques which 
+equivalence checking problem, we can also unroll the circuit to be verified and the 
+specification to combinational ones, and then perform combinational equivalence checking
+techniques \cite{avoj2010combinational}. In the following part we review research and techniques which 
 can be applied to unrolled sequential circuits.
 
 \subsection{Canonical Decision Diagrams}
 The decision diagrams (DDs) are invented by inspirations of 
 using optimized data structures to accelerate formal verification.
-The most fundamental DD is the binary DD (BDD), which origins from 
+The most fundamental DD is the Binary DD (BDD), which originates from the 
 Shannon's expansion:
 \begin{equation}
 f(x, y, \dots) = x f_x + x' f_{x'}
@@ -66,7 +68,7 @@ where $f_x = f(x = 1)$ and $f_{x'} = f(x = 0)$ denote the positive and
 negative co-factors of $f$ w.r.t. $x$, respectively.
 A BDD is usually represented as a binary tree.
 Its ordered and reduced form -- the Reduced Ordered Binary Decision Diagram (ROBBD)
-\cite{BRYA86}, was the first significant contribution because of its canonicality.  
+\cite{BRYA86}, was the first significant contribution because of its canonicity.  
  ROBDDs represent a Boolean function as an
 implicit set of points on a canonical directed acyclic graph
 (DAG). Manipulation of Boolean functions can then be carried out as
@@ -88,7 +90,7 @@ space complexity. It can be used to represent polynomials with integer coefficie
 \label{fig:BDD}
 \end{figure}
 
-DDs above are all based on bit-level operations. Even in the {\it Word-Level Decision Diagrams}
+The DDs above are all based on bit-level operations. Even in the {\it Word-Level Decision Diagrams}
 \cite{WLS}, the decomposition is still point-wise, binary, 
 w.r.t. each Boolean variable. These representations do not
 serve the purpose of word-level abstraction from bit-level
@@ -97,9 +99,9 @@ representations.
 Binary Moment Diagrams (BMDs) \cite{bmd}, and its derivatives K*BMDs
 \cite{kbmd} and *PHDDs \cite{phdd}, perform the decomposition of a {\it linear} function
 based on its two moments instead of relying on Boolean decomposition. 
-MODDs \cite{modd} \cite{modd_tcomp} are a DAG representation of the
+MODDs \cite{modd,modd_tcomp} are a DAG representation of the
 characteristic function of a circuit over Galois fields $\Fkk$. 
-However, MODDs fails to work large circuits because of its poor scalability.
+However, MODDs fails to compactly represent large circuits.
 
 
 Taylor Expansion Diagrams (TEDs) \cite{ted_tcomp} are a
@@ -116,100 +118,96 @@ increases rapidly. In our experiment of verifying a $k$-bit arithmetic circuit
 using ZDDs, when $k$ is larger than 100, the construction of ZDDs occupies 
 over $99\%$ runtime of the whole procedure.
 \subsection{Combinational Equivalence Checking Techniques}
-The CEC problem can be solved using methods from many aspects.
+The CEC problem can be solved using various methods.
 Besides using canonical DDs (BDDs
 \cite{BRYA86} and their word-level variants \cite{WLS}),
-non-canonical representations And-Invert-Graph (AIG) based reductions \cite{AIG:2002}
-\cite{alanmi:cec:iccad2006} is also very effective. 
+non-canonical representations such as And-Invert-Graph (AIG) based reductions 
+\cite{AIG:2002,alanmi:cec:iccad2006} are also very effective. 
 Solvers for satisfiability problems (SAT) are good candidates to solve CEC problems,
-as long as the miter circuit of two circuits can be described using conjunctive normal form (CNF)
-formulas. Applications of SAT on CEC include circuit-SAT solvers \cite{csat}, etc.,
+as long as the miter of two circuits can be described using conjunctive normal form (CNF)
+formulas. Applications of SAT on CEC include circuit-SAT solvers \cite{csat}, {\it etc.}
 If the circuits being compared are structurally highly similar, AIG and circuit-SAT 
 based approaches are proved to be efficient.
-However, when the circuits are functionally equivalent but structurally very dissimilar (e.g.,
-Mastrovito \cite{mastro:1989} versus Montgomery implementations
-\cite{acar:1998} of Galois field circuits), none of the 
+However, when the circuits are functionally equivalent but structurally very dissimilar, none of the 
   contemporary techniques including quantifier-free bit-vector 
-  (QF-BV) theory based SMT-solvers \cite{Cryptol:fmcad09}
-  offers a practical solution. As shown in \cite{lv:phd}, {\it none of BDDs, SAT, SMT
-  solvers, nor the  ABC tool can prove design equivalence beyond
-  $16$-bit circuits.}     
+  (QF-BV) theory based SMT-solvers \cite{Cryptol:fmcad09},
+  offer a practical solution.    
 
 
 Recently integer polynomial based techniques \cite{ciesielski2014function,rolf:date16} are proposed  to verify the functional 
 correctness of integer arithmetic circuits. Their approach formulates the output signature as a polynomial function 
 with binary variables and integer coefficients, then rewrite the polynomial by substituting gate output with gate inputs
-variables. After going through the backward rewriting procedure using reverse topological variable ordering, the polynomial
+variables. After going through the backward rewriting procedure,  the polynomial
 will be composed by only input variables. Then the polynomial is converted to a canonical representation, and compared
 with designated input signature. If they are equivalent, then the arithmetic circuit is successfully verified.
-This approach has a risk of polynomial-size-explosion during the backward rewriting. The authors proposed a heuristic
-to levelize arithmetic circuit, and substitute several gates' variables at the same time to minimize the risk. However, 
+This approach incurs of polynomial term explosion during the backward rewriting. The authors proposed a heuristic
+to levelize the arithmetic circuit, and substitute several gates' variables at the same time to minimize the risk. However, 
 the heuristic is proved to be less effective when the inner symmetry of circuit structure is missing.
 
-To conclude, automatic formal verification of large {\it
-    custom-designed modulo-arithmetic circuits} largely remains
-  unsolved today.
+% To conclude, automatic formal verification of large {\it
+%     custom-designed modulo-arithmetic circuits} largely remains
+%   unsolved today.
   
 \section{Symbolic Model Checking and Abstraction Refinement}
 Model checking is a way to verify certain safety and liveness properties 
-in sequential circuits. Symbolic model checking which avoids using explicit state encodings
-provides more flexibilities to reduce the state space and enhance the 
+in sequential circuits. Symbolic model checking which avoids using explicit state encoding
+provides more flexibility to reduce the state space and enhance the 
 efficiency of model checkers. The implementations of symbolic model checking 
-requires canonical DDs or SAT solvers \cite{burch1990sequential,burch1991representing,biere1999symbolic,biere1999symbolic}.
+require canonical DDs or SAT solvers \cite{burch1990sequential,burch1991representing,biere1999symbolic}.
 
-Abstraction is a technique to minimize the state space representation by combining states with certain 
-similarities. Sometimes it can effectively lower the number of states that require analysis by orders of magnitude,
-without affecting the properties we need to verify. There is a kind of model checkers utilize abstracted models 
+Abstraction is a technique to reduce the state space representation by combining states with similar 
+characteristics. Sometimes it can effectively lower the number of states that require analysis by orders of magnitude,
+without affecting the properties we need to verify. Model checkers then utilize abstracted models 
 with interpolation \cite{mcmillan2003interpolation,mcmillan:cav06}.
 At first, abstraction was done manually by designers. Clarke {\it et al.} \cite{clarke2000counterexample}
-proposed an BDD-based automated abstraction by removing spurious paths from analysis of counterexamples. 
+proposed a BDD-based automated abstraction by removing spurious paths from analysis of counterexamples. 
 Zhang {\it et al.} \cite{zhang2005design} proposed another abstraction method based on CNF-SAT.
-It implemented latch abstraction by removing "irrelevant" latches from the analysis
-according to SAT/UNSAT analysis from the $k$-BMC. H. Jain {\it et al.} \cite{HimanshuDAC2005} improved the abstraction refinement technique of \cite{clarke2000counterexample},
+It implemented latch abstraction by removing "irrelevant" latches by analyzing the 
+UNSAT core from the $k$-BMC. Jain {\it et al.} \cite{HimanshuDAC2005} improved the abstraction refinement technique of \cite{clarke2000counterexample},
 where they use CNF-SAT to perform the refinement instead of using BDDs. The new approach is applied to verify RTL Verilog
 and was known to be successful.
 
 $k$-BMC with interpolation is a purely incremental model checking approach, and the interpolation procedure relies
 on UNSAT core analysis. To overcome these weaknesses, a hybrid model checker named as IC3 is developed 
-\cite{bradley2011sat} \cite{bradley2011incremental}. IC3 works incrementally to find out inductive subclauses
+\cite{bradley2011sat,bradley2011incremental}. IC3 works incrementally to find inductive subclauses
 of negations of reached states, meanwhile it is monolithic when computing over-approximations to sets of reachable
 states within $1,2,\dots,k$ steps. It is proved to be more efficient than interpolation based model checking
 although using similar mechanisms.
 
-Above techniques have limitations: they are all relying on bit-level informations from 
-the circuit, which prevent them from being applied to circuit with large datapaths.
-Meanwhile, their implementation replies on SAT/BDDs, which is an extension of Boolean 
+Above techniques have limitations: they all rely on bit-level information from 
+the circuit, which prevents them from being applied to circuit with large datapaths.
+Meanwhile, their implementation relies on SAT/BDDs, which is an extension of Boolean 
 functions and not compatible with other forms of constraints.
 
 \section{Word-level Techniques applied to Sequential Circuit Synthesis and Validation}
-To better verify word-level designs, word-level verification techniques are 
-explored in recent years. Directly translating bit-vectors problem to bit-level 
-problems is called {\it bit-blasting}, and usually brings high computational complexity issues.
+To better verify word-level designs, word-level verification techniques have been 
+explored in recent years. Directly translating bit-vector problems to bit-level 
+problems is called {\it bit-blasting}, and usually brings high redundancy and computational complexity in verification.
 Attempts to develop pure word-level techniques can be found in
-the rich domain of formal model checking \cite{BHEL96} \cite{SMV},
-theorem proving \cite{arditi:bmd}, bit-vector SMT-solvers
-\cite{boolector} \cite{cvc3} \cite{z3} \cite{bitvector98}, automated
-decision procedures for Presburger arithmetic \cite{presburger}
-\cite{bultan:mixed_verification}, algebraic manipulation techniques 
+the rich domain of 
+theorem proving \cite{arditi:bmd} and bit-vector SMT-solvers
+\cite{boolector,cvc3,z3,bitvector98}, automated
+decision procedures for Presburger arithmetic \cite{presburger,bultan:mixed_verification}, 
+algebraic manipulation techniques 
 \cite{devadas:algebraic_manipulation_iccd91}, or the ones based on
-term re-writing \cite{AST}, etc. % TODO expand term rewriting
+term re-writing \cite{AST}, etc.
 
 Polynomial, integer and other non-linear representations have also
-been researched: Difference Decision Diagrams (DDDs) \cite{ddd-csl99} \cite{ddd-mt-98}, interval
+been researched: Difference Decision Diagrams (DDDs) \cite{ddd-csl99,ddd-mt-98}, interval
 diagrams \cite{interval_dd}, interval analysis using polynomials
 \cite{polynomial_sanchez99}, etc. Most of these have found 
 application in constraint satisfaction for simulation-based
-validation:  \cite{Ritter99} \cite{hsat} \cite{lpsat}
-\cite{brinkmann:asp-dac} \cite{Huang:tcad01} \cite{bitvector98}. Among
-these, \cite{brinkmann:asp-dac} \cite{Huang:tcad01} \cite{bitvector98}
+validation:  \cite{Ritter99,hsat,lpsat,brinkmann:asp-dac,Huang:tcad01,bitvector98}. Among
+these, \cite{brinkmann:asp-dac,Huang:tcad01,bitvector98}
 have been used to {\it solve} integer modular arithmetic on linear
 expressions -- a different application from {\it representing}
 finite field modulo-arithmetic on polynomials in a canonical form.   
 
 Uninterpreted function abstraction is also an important category of 
 word-level techniques which facilitates word-level model checking.
-For uninterpreted functions, researchers manage to constrain them 
-using functional consistency between word variables' evaluations
+Usually uninterpreted symbols have no notion of bit-vector-precision. However, these techniques
+constrain them 
+using functional consistency among the evaluations of word variables
 \cite{UF1,UF2,UF3}.
 
 
@@ -218,15 +216,15 @@ using functional consistency between word variables' evaluations
 Symbolic computer algebra techniques have been employed for formal
 verification of circuits over $\Z_{2^k}$ and also over
 Galois fields $\Fkk$. 
-General verification techniques using Gr\"obner bases
-\cite{Avrunin:CAV} \cite{gbverify:2007} \cite{manna:program} are propose,
-but they did not address the problems of high computational complexity to
+Verification techniques using Gr\"obner bases
+\cite{Avrunin:CAV,gbverify:2007,manna:program} are proposed,
+but they do not address the problem of high computational complexity to
 compute Gr\"obner bases.
 
-Verification of a combinational GF arithmetic circuit $C$ against a
-polynomial specification $\F$ has been previously addressed \cite{ibm:blueveri}
-\cite{lv:tcad2013} \cite{pruss:dac14}. Verification problems in
-\cite{ibm:blueveri} \cite{lv:tcad2013} are formulated using
+Verification of a combinational Galois field arithmetic circuit $C$ against a
+polynomial specification $\Func$ has been previously addressed 
+\cite{ibm:blueveri,lv:tcad2013,pruss:dac14}. Verification problems in
+\cite{ibm:blueveri,lv:tcad2013} are formulated using
 Nullstellensatz and decided using the \Grobner basis algorithm.
 
 The paper 
@@ -243,9 +241,36 @@ RATO), that enables to compute the \Grobner basis of a smaller subset
 of polynomials. The authors show that their approach can prove
 correctness of up to 571-bit combinational GF multipliers. 
 
+IBM proposed a method to apply algebraic geometry techniques 
+on verifying error coding circuits \cite{BLUEVERI}.
+Recent papers \cite{rolf:date16,rolf:FMCAD16} provide a way to utilize 
+algebraic geometry and GB-based symbolic computing and perform 
+equivalence checking on integer arithmetic circuits and floating-point 
+arithmetic circuits, respectively.
+
+The use of algebraic geometry
+for sequential circuit verification and symbolic model checking has
+been presented before. Avrunin presented the
+concept of symbolic MC using algebraic geometry in
+\cite{Avrunin:CAV}. Later, in \cite{vardi-iasted07}, Vardi presented
+GB-algorithms for CTL, LTL and 
+bounded MC over Boolean rings. However, these approaches are a
+straight-forward transformation of the problem to {\it bit-level}
+Boolean GB engines which are used in lieu of BDDs or SAT solvers. All
+the concepts of word-level reachability, abstraction-refinement using
+interpolation or UNSAT cores, etc., that we desire was not the focus of
+\cite{Avrunin:CAV,vardi-iasted07}. 
+
 \section{Concluding Remarks}
 From the investigation of previous work, techniques are to be researched that 
 can operate the FSM traversal on word-level to verify a property excluding spurious 
-faults. We propose to solve this problem in the context of word-level verification,
+faults. Meanwhile, many abstraction refinement techniques utilize information from UNSAT cores.
+We propose to solve these problems in the context of word-level verification,
 with data representation, abstraction and algorithm execution all carried out 
 on word-level.
+
+In this dissertation, we propose a purely word-level reachability analysis approach which is never done before.
+We achieve it by modeling the transition relations, states and the traversal algorithm at word-level.
+We borrow inspirations from \cite{tim:phd,gao:qe-gf-gb} to perform state space abstraction.
+Moreover, we find applications of our proposed approach to sequential arithmetic verification which is 
+not done before, either.
