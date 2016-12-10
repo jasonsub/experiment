@@ -101,4 +101,4 @@
 \contentsline {subsection}{\numberline {8.1.3}Interpolation extraction using GB Algorithm}{161}
 \contentsline {subsection}{\numberline {8.1.4}Technology Mapping for Word-level Functional Blocks}{164}
 \contentsline {chapter}{\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0\uppercase {APPENDIX: }}{172}
-\contentsline {chapter}{REFERENCES}{184}
+\contentsline {chapter}{REFERENCES}{188}

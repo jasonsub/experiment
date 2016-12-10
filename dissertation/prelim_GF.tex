@@ -635,6 +635,7 @@ we only focus on ONB multipliers instead of general NB multipliers.
 At the end of this section, a detailed example is used to make a comparison between StdB multiplication
 and NB multiplication.
 \begin{Example}[Rijndael's finite field]
+\label{ex:Rijndael}
 Rijndael uses a characteristic 2 finite field with 256 elements, which can also be called the GF $\mathbb F_{2^8}$.
 Let us define the primitive element $\alpha$ using irreducible polynomial 
 $\alpha^8+\alpha^7+\alpha^6+\alpha^4+\alpha^2+\alpha+1$. Coincidently, $\alpha$ is also a normal element,
@@ -692,6 +693,7 @@ The $\lambda$-Matrix for $\mathbb F_{2}[x] \pmod{x^8+x^7+x^6+x^4+x^2+x+1}$
 is
 (Computation of $\lambda$-Matrix refers to Appendix \ref{append:NB})
 \begin{equation*}
+\label{eqn:mat_R}
 M^{(0)} = \left(\begin{array}{lccccccr}
 0 &0 &0 &0 &1 &0 &1 &1 \\
 0 &0 &1 &1 &1 &1 &0 &0 \\

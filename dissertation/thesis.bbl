@@ -908,4 +908,15 @@ Sriram Sankaranarayanan, Henny~B Sipma, and Zohar Manna,
 \newblock ``Non-linear loop invariant generation using gr{\"o}bner bases'',
 \newblock {\em ACM SIGPLAN Notices}, vol. 39, pp. 318--329, 2004.
 
+\bibitem{rosingbook}
+Michael Rosing,
+\newblock {\em Implementing elliptic curve cryptography},
+\newblock Manning Publications Co., 1999.
+
+\bibitem{IEEE1363}
+IEEE~Working Group et~al.,
+\newblock ``Ieee 1363-2000: Standard specifications for public key
+  cryptography'',
+\newblock {\em IEEE Standard, IEEE, New York, NY}, vol. 10017, 2000.
+
 \end{thebibliography}

@@ -296,70 +296,84 @@ replace $\theta$ by $\theta + \eta$ and determine the order of new $\theta$, and
 
 Lenstra's algorithm is an approximation algorithm in nature. For each iteration $Ord_\theta(x)$ monotonically increase,
 so it will finally reach termination condition $Ord_\theta(x) = x^n-1$.
-\subsection{Bases Conversion}
+\subsection{Bases Conversion and $\lambda$-Matrix Construction}
 % General \lambda matrix computation
+Given a normal basis (NB), we can easily convert it to a standard basis (StdB) by reducing $\alpha^t$
+with irreducible polynomial $p(\alpha)$ since 
+normal element is already given as $\beta = \alpha^t$. The reverse conversion requires 
+solving a system of equations. In Example \ref{ex:Rijndael}, the system of equations
+is as follows:
 
-\section{Optimal Normal Basis}
-\label{append:ONB}
-The number of non-zero entries in $\lambda$-Matrix or multiplication table is known as \emph{Complexity $(C_N)$}.
-To define optimal normal basis, it is necessary to find the lower bound of $C_N$.
-\begin{Theorem}
-If N is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
-\end{Theorem}
-\begin{Proof}
-Let basis $N = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
-Then $\sum_{i=0}^{n-1} \beta_i = trace\ \beta$. 
-Denote $trace\ \beta$ by $b$, consider a $n\times n$ matrix $M^{(0)}$. Then
-$$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$$
-
-Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
-So the first column always includes at least one nonzero element. 
-Since the sum of enries in each of other columns should equal to zero (modulo 2), they 
-need to include an even number of ``1"s.
-in order to maintain the linear independence among each row, they cannot be purely ``0"s. 
-Therefore, there are always at least two non-zero elements in each column.
-
-As a result, $C_N \geq 2(n-1)+1  = 2n-1$.
-\end{Proof}
-
-If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal basis is named as \emph{Optimal Normal Basis}.
-
-\begin{Example}
-In $\F_{2^4}$ constructed with $p(\alpha) = \alpha^4 + \alpha + 1$, two sets of normal bases can be found:
-$\beta = \alpha^3, N = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
-$\beta = \alpha^7, N = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. Multiplication table for $\beta = \alpha^3$:
 \begin{equation}
-T_1 = \left(
-\begin{array}{lccr}
-0 & 1 & 0 & 0\\
-0 & 0 & 0 & 1\\
-1 & 1 & 1 & 1\\
-0 & 0 & 1 & 0
-\end{array} \right)
+\begin{cases}
+\alpha = \alpha \\
+\alpha^2 = \alpha^2 \\
+\alpha^4 = \alpha^4 \\
+\alpha^8 = \alpha^7 + \alpha^6+\alpha^4+\alpha^2+\alpha+1\\
+\alpha^{16} = \alpha^7+\alpha^6+\alpha^5+\alpha^3+\alpha+1\\
+\alpha^{32} = \alpha^7+\alpha^4+\alpha^3+\alpha^2+\alpha\\
+\alpha^{64} = \alpha^7+\alpha^6+\alpha^3+\alpha^2\\
+\alpha^{128} = \alpha^6+\alpha^5+\alpha^4+\alpha^3+1
+\end{cases}
 \end{equation}
-Complexity $C_N$ = 7, this is optimal. For $\beta = \alpha^7$:
-\begin{equation}
-T_2 = \left(
-\begin{array}{lccr}
-0 & 1 & 0 & 0\\
-1 & 1 & 0 & 1\\
-1 & 0 & 1 & 0\\
-1 & 0 & 1 & 1
-\end{array} \right)
-\end{equation}
-Complexity $C_N$ = 9, this is NOT optimal.
-\end{Example}
 
-There should be an efficient method to construct optimal normal basis. The following  subsection refers to \cite{rosingbook}.
-\subsection{Construction of Optimal Normal Basis}
-\subsection{Optimal Normal Basis Multiplier Design}
-% Customized Galois Field IEEE1363-2000
-% Multi table <=> \lambda matrix
-In Section \ref{sec:nbdesign}, we introduce the concept of multiplication table and explained how its 
-entries are transformed from the $0$-th $\lambda$-Matrix. Actually we can mathematically prove the relationship 
+We treat StdB $\{1,\alpha,\dots,\alpha^7$ as unknowns and NB $\{\alpha,\alpha^2,\dots,\alpha^{128}\}$
+as parameters. Then we can obtain a solution to this system denoting mapping from StdB to NB:
+
+\begin{equation}
+\begin{cases}
+1 = \alpha^{128}+\alpha^{64}+\alpha^{32}+\alpha^{16}+\alpha^8+\alpha^4+\alpha^2+\alpha \\
+\alpha = \alpha \\
+\alpha^2 = \alpha^2 \\
+\alpha^3 = \alpha^{128} + \alpha^{32}+\alpha^{16}+\alpha^2\\
+\alpha^4 = \alpha^4\\
+\alpha^5 = \alpha^{128} + \alpha^{32}+\alpha^{8}+\alpha^4\\
+\alpha^6 = \alpha^{64} + \alpha^{32}+\alpha^{4}+\alpha\\
+\alpha^7 = \alpha^{128} + \alpha^{16}+\alpha^{4}+\alpha
+\end{cases}
+\end{equation}
+
+Directly constructing $\lambda$-Matrix is difficult for general NBs. 
+In Section \ref{sec:nbdesign}, we introduce the concept of multiplication table (M-table) and explained how its 
+entries are transformed from the $0$-th $\lambda$-Matrix. 
+Recall the M-table is defined as
+\begin{equation}
+\label{eqn:appmt}
+\beta
+\begin{bmatrix}
+\beta \\ \beta^2 \\ \beta^{2^2} \\ \vdots \\ \beta^{2^{n-1}}
+\end{bmatrix}
+= {\bf T}
+\begin{bmatrix}
+\beta \\ \beta^2 \\ \beta^{2^2} \\ \vdots \\ \beta^{2^{n-1}}
+\end{bmatrix}
+\end{equation}
+Therefore we can compute M-table and then covert it to $\lambda$-Matrix.
+Using Equation \ref{eqn:appmt}, we derive entry $T_{i,j}$ in the M-table equals to
+the $j$-th bit of the NB representation of element $\beta\cdot\beta^{2^{i}}$.
+For example, the $i$-th row of the M-table for NB in Example \ref{ex:Rijndael} satisfies
+$$\beta\cdot\beta^{2^i} = \sum_{j=0}^{7} T_{i,j}\beta^{2^j}$$
+Thus, the M-table can be written as
+\begin{equation*}
+T = \left(\begin{array}{lccccccr}
+0 &1 &0 &0 &0 &0 &0 &1 \\
+0 &1 &0 &0 &1 &1 &0 &1 \\
+0 &0 &1 &0 &0 &1 &0 &1 \\
+0 &0 &0 &0 &0 &0 &0 &1 \\
+1 &1 &1 &1 &1 &1 &1 &1 \\
+0 &0 &0 &0 &1 &0 &0 &0 \\
+1 &1 &0 &1 &0 &1 &0 &0 \\
+1 &0 &0 &1 &1 &0 &1 &0
+\end{array}\right)
+\end{equation*}
+Use equation $M_{i,j}^{(0)} = T_{j-i,-i}$, we can obtain the
+$\lambda$-Matrix in Equation \ref{eqn:mat_R}.
+
+
+Actually we can mathematically prove the relationship 
 between them:
 \begin{Theorem}
-Multiplication table $T$ is actually a conjugate of the $\lambda$-Matrix $M$. 
+M-table $T$ is actually a conjugate of the $\lambda$-Matrix $M$. 
 We can use an equation $M_{i,j}^{(0)} = T_{j-i,-i}$ to demonstrate the relation between their entries.
 \end{Theorem}
 \begin{Proof}
@@ -384,7 +398,7 @@ Since the multiplication table is defined as
 \end{equation}
 The $j$-th row of $T$ can be written as
 \begin{align}
-\beta\cdot\beta^{2^j} =& \sum_l\lambda_{0j}^{(l)}\beta^{2^l} & \text{(multi-table definition)} \nonumber\\
+\beta\cdot\beta^{2^j} =& \sum_l\lambda_{0j}^{(l)}\beta^{2^l} & \text{(M-table definition)} \nonumber\\
 					=& \sum_l\lambda_{jl}^{(0)}\beta^{2^l} & \text{(cross-product term)} \label{eqn:mteq}
 \end{align}
 Notice that $\lambda$ corresponds to $\lambda$-Matrix entries. In Equation \ref{eqn:mteq} we assign $0$ to the 
@@ -392,3 +406,216 @@ row index $i$, the proof can be extended to all row indices $i<n$ but fix $l$ to
 conjugation generated by right-down cyclic-shift of $\lambda$-Matrix. Therefore we have 
 $$M_{i,j}^{(0)} = \lambda_{ij}^{(0)} = \lambda_{j,0}^{(i)} = T_{j-i,0-i}$$
 \end{Proof}
+
+\section{Optimal Normal Basis}
+\label{append:ONB}
+The number of non-zero entries in $\lambda$-Matrix or multiplication table (M-table) is known as \emph{Complexity $(C_N)$}.
+To define optimal normal basis, it is necessary to find the lower bound of $C_N$.
+\begin{Theorem}
+If N is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
+\end{Theorem}
+\begin{Proof}
+Let basis $N = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
+Then $\sum_{i=0}^{n-1} \beta_i = trace\ \beta$. 
+Denote $trace\ \beta$ by $b$, consider a $n\times n$ matrix $M^{(0)}$. Then
+$$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$$
+
+Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
+So the first column always includes at least one nonzero element. 
+Since the sum of enries in each of other columns should equal to zero (modulo 2), they 
+need to include an even number of ``1"s.
+Meanwhile, in order to maintain the linear independence among each row, they cannot be all ``0"s. 
+Therefore, there are always at least two non-zero elements in each column.
+
+As a result, $C_N \geq 2(n-1)+1  = 2n-1$.
+\end{Proof}
+
+If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal basis is named as 
+\emph{Optimal Normal Basis} (ONB).
+
+\begin{Example}
+\label{ex:app4}
+In $\F_{2^4}$ constructed with $p(\alpha) = \alpha^4 + \alpha + 1$, two normal bases can be found:
+$\beta = \alpha^3, N_1 = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
+$\beta = \alpha^7, N_2 = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. 
+Their multiplication tables are listed below. For basis $N_1$:
+\begin{equation}
+T_1 = \left(
+\begin{array}{lccr}
+0 & 1 & 0 & 0\\
+0 & 0 & 0 & 1\\
+1 & 1 & 1 & 1\\
+0 & 0 & 1 & 0
+\end{array} \right)
+\end{equation}
+Complexity $C_N$ = 7, so $N_1$ is an ONB. For basis $N_2$:
+\begin{equation}
+T_2 = \left(
+\begin{array}{lccr}
+0 & 1 & 0 & 0\\
+1 & 1 & 0 & 1\\
+1 & 0 & 1 & 0\\
+1 & 0 & 1 & 1
+\end{array} \right)
+\end{equation}
+Complexity $C_N$ = 9, so basis $N_2$ is not optimal.
+\end{Example}
+
+ONBs are widely used in finite field circuit design, not only because its low complexity, 
+but also because of the convenience to construct the $\lambda$-Matrix and M-table for them. 
+To explain the convenience and the reason behind it, we introduce two types of ONBs and the method 
+to construct them.
+The following subsection refers to \cite{rosingbook}.
+\subsection{Construction of Optimal Normal Basis}
+{\bf Type-I ONB} over $F_{2^n}$ satisfies following criteria:
+\begin{itemize}
+\item $n+1$ must be prime.
+\item 2 must be primitive in $\mathbb{Z}_{n+1}$.
+\end{itemize}
+The second criterion indicates that powers of 2 (exponent from 0 to $n-1$) modulo $n+1$ must cover all integers
+from 1 to $n$.
+
+In following part we derive a simple way to construct the $\lambda$-Matrix of type-I ONB 
+from the criteria above. 
+Assume $\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ from k-th $\lambda$-Matrix. Then the crossproduct
+term can be written as
+\begin{equation}
+\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1} \lambda_{ij}^{(k)} \beta^{2^k}
+\end{equation}
+Suppose we only care about k=0. So simplified to following equations:
+
+$$
+\begin{cases}
+&\beta^{2^i}\beta^{2^j} = \beta\\
+&\beta^{2^i}\beta^{2^j} = 1 ~~~(\text{ if }~  2^i = 2^j\pmod{n+1})
+\end{cases}$$
+
+Solution $(i,j)$ implies location of entries that equal to ``1" in $\lambda$-Matrix. 
+Let $\beta$ be an optimal normal element, 
+$\{\beta^{2^i}~|~0\leq i<n\}$ cover all powers of $\beta$ and generates the basis. Thus by solving
+$$\begin{cases}
+2^i + 2^j = 1 \pmod{n+1}\\
+2^i + 2^j = 0 \pmod{n+1}
+\end{cases}$$
+we obtain $\lambda$-Matrix $M^{(0)}$. This construction method does not require information about 
+primitive polynomial nor normal element, so it is very convenient for circuit designers.
+Basis $N_1$ in Example \ref{ex:app4} is a type-I ONB over $\F_{2^4}$.
+
+{\bf Type-II ONB} over $\F_{2^n}$ satisfies following criteria:
+\begin{itemize}
+\item $2n+1$ must be prime. And either
+\item 2 is primitive in $\mathbb{Z}_{2n+1}$, or
+\item $2n+1 = 3 \pmod{4}$ and 2 generates the quadratic residues in $\mathbb{Z}_{2n+1}$
+\end{itemize}
+The last criterion means that that $2n+1$ should be congruent to $1$ or $3$ modulo 4. 
+To generate a Type-II ONB, we first pick an element $\gamma$ with order $2n+1$ in $\F_{2^{2n}}$, 
+such that the corresponding normal element $\beta$
+from $F_{2^n}$ can be written as $\beta = \gamma + \gamma^{-1}$. Thus the cross-product terms will be:
+\begin{equation}
+\begin{split}
+\beta^{2^i}\beta^{2^j} &= (\gamma^{2^i} + \gamma^{-2^i})(\gamma^{2^j} + \gamma^{-2^j})\\ &= 
+(\gamma^{2^i+2^j} + \gamma^{-(2^i+2^j)}) + (\gamma^{2^i-2^j} + \gamma^{-(2^i-2^j)})\\ &= 
+\begin{cases}
+\beta^{2^k} + \beta^{2^{k\prime}}~~~\text{if }~ 2^i \neq 2^j \pmod{2n+1}\\
+\beta^{2^k}~~~~~~~~~~~~~~\text{if }~ 2^i = 2^j \pmod{2n+1}
+\end{cases}
+\end{split}
+\end{equation}
+$k$ and $k\prime$ are the 2 possible solutions to multiplication of any 2 basis elements. 
+This guarantees the optimum of the basis since it has the minimum number of possible terms. 
+In the case of $2^i \neq 2^j \pmod{2n+1}$, at least one of following
+equations
+\begin{equation}
+\label{eqn:app1st}
+\begin{cases}
+2^i + 2^j = 2^k ~~~\pmod{2n+1}\\
+2^i + 2^j = -2^k \pmod{2n+1}
+\end{cases}
+\end{equation}
+has a solution, meanwhile at least one of following equations
+\begin{equation}
+\label{eqn:app2nd}
+\begin{cases}
+2^i - 2^j = 2^{k\prime} ~~~\pmod{2n+1}\\
+2^i - 2^j = -2^{k\prime} \pmod{2n+1}
+\end{cases}
+\end{equation}
+has a solution as well.
+
+In another case that $2^i = \pm 2^j \pmod{2n+1}$, at least one of the following 4 equations has a solution
+\begin{equation}
+\label{eqn:app3rd}
+\begin{cases}
+2^i + 2^j = 2^k ~~~\pmod{2n+1}\\
+2^i + 2^j = -2^k \pmod{2n+1}\\
+2^i - 2^j = 2^k ~~~\pmod{2n+1}\\
+2^i - 2^j = -2^k \pmod{2n+1}
+\end{cases}
+\end{equation}
+In set of Equations \ref{eqn:app1st} and \ref{eqn:app2nd}, there are two possible solutions in total. 
+In set of Equations \ref{eqn:app3rd},
+there is only one possible solution. Since these equations are all similar, instead of 
+working with two different sets we can combine them together and solve a system of 4 equations. 
+As a result, to construct 
+the $\lambda$-Matrix $M^{(0)}$, we set $k=0$ and find solutions to:
+\begin{equation}
+\label{eqn:app4th}
+\begin{cases}
+2^i + 2^j = 1 ~~~\pmod{2n+1}\\
+2^i + 2^j = -1 \pmod{2n+1}\\
+2^i - 2^j = 1 ~~~\pmod{2n+1}\\
+2^i - 2^j = -1 \pmod{2n+1}
+\end{cases}
+\end{equation}
+
+\begin{Example} 
+By solving the system of Equations \ref{eqn:app4th} with $n=5$, we find 9 pairs of
+indices $(i,j)$ such that $0\leq i,j <5$. Assign ``1" to corresponding entries in a $5\times5$ matrix,
+the result is $M^{(0)}$ for type-II ONB over $\F_{2^5}$:
+\begin{equation}
+M^{(0)} = \left(
+\begin{array}{lcccr}
+0 & 1 & 0 & 0 & 0\\
+1 & 0 & 0 & 1 & 0\\
+0 & 0 & 0 & 1 & 1\\
+0 & 1 & 1 & 0 & 0\\
+0 & 0 & 1 & 0 & 1
+\end{array} \right)
+\end{equation}
+\end{Example}
+
+\subsection{Optimal Normal Basis Multiplier Design}
+% Customized Galois Field IEEE1363-2000
+Designers can easily generate the $\lambda$-Matrix for GF multipliers, which is sufficient to derive the 
+structure of the circuit. However, our GB based approach requires specifying the exact normal element $\beta$,
+{\it i.e. } it is necessary to obtain $t$ as $\beta = \alpha^t$ before executing our technique.
+L\"uneburg's algorithm and Lenstra's algorithm do not guarantee the output normal element is optimal 
+normal element, and usually result in high computation cost. Actually if the type of ONB within the design 
+is known, instead of looking up the optimal normal element, we can construct a special irreducible $p(\alpha)$
+such that optimal normal element equals to the primitive element: $\beta=\alpha$. The concepts and algorithms 
+refer to IEEE standard 1363-2000 \cite{IEEE1363}.
+
+For type-I ONB over $\F_{2^k}$, the irreducible polynomial $p(\alpha) = \alpha^k+\alpha^{k-1}+\cdots+\alpha+1
+= \sum_{i=0}^k \alpha^i$. For type-II ONB, the following iterative algorithm is required to generate desired 
+irreducible polynomial:
+
+\begin{algorithm}[H]
+\SetAlgoNoLine
+\LinesNumbered
+ \KwIn{Field $\Fkk$ which contains a type-II ONB}
+ \KwOut{The irreducible polynomial $p(\alpha)$ for the ONB}
+
+  $f(\alpha)\gets 1$\;
+  $p(\alpha)\gets \alpha+1$\;
+  \For{$i=1\dots k-1$}
+  {
+  	$g(\alpha)\gets f(\alpha)$\;
+	$f(\alpha)\gets p(\alpha)$\;
+	$p(\alpha)\gets \alpha f(\alpha)+g(\alpha)$\;
+  }\
+\Return{$p(\alpha)$}
+\caption {Generating irreducible polynomial for type-II ONB over $\Fkk$}
+\label{alg:ieee1363}
+\end{algorithm}
+\DecMargin{1em}
+\vspace{0.2in}
