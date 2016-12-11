@@ -6,7 +6,7 @@
 
 
 \section{Hardware Design and Verification Overview}
-During the last decades, the level of integration in modern VLSI systems is becoming higher and higher because of the Moore's law.
+During the past decades, the level of integration in modern VLSI systems is becoming higher and higher because of the Moore's law.
 As a result, an entire system with billions of transistors can be built upon a single chip.
 The design process also evolves from manual design with little validation, to 
 a formal 3-step procedure which requires collaboration of teams with large number of 
@@ -27,7 +27,7 @@ the stability and accuracy of digital VLSI circuits; even small flaws or short-t
 huge loss, especially in medical applications, military facilities and financial systems.
 Therefore, it is of utmost importance to verify the correctness of VLSI designs.
 
-One way to perform verification is by {\it simulation}. It is defined as the collage of all circuit validation 
+One way to perform verification is by {\it simulation}. It is the collage of all circuit validation 
 methods which apply stimulus on the inputs of circuit model and verify correctness of the outputs.
 However, simulation is not a complete solution to circuit verification problems. In modern designs with 
 large number of logic components and complicated architectures, it is impractical to simulate all possible 
@@ -129,7 +129,7 @@ proof and fix-point calculation \cite{bjesse2000sat,stoffel1997record}.
 \label{fig:miter}}
 \end{figure}
 
-A part of formal verification techniques adopt concepts and algorithms from 
+Many formal verification techniques adopt concepts and algorithms from 
 \emph{computer-algebra} and \emph{algebraic geometry}.
 Algebraic geometry provides a way to reason about the presence or absence of solutions 
 without actually solving the system of constraints.
@@ -142,7 +142,7 @@ such as the presence or absence of
 solutions. These properties can also be leveraged for 
 verification. The disadvantage of the GB computation method is that its complexity can be doubly 
 exponential in the worst case \cite{dube1986complexity}. Thus, directly performing GB computation 
-over arbitrary setup is not practical for industry-level applications. However, recent
+over an arbitrary setup is not practical for industry-level applications. However, recent
 breakthroughs in computer-algebra hardware verification have shown
 that it is possible to overcome the complexity of this computation while
 still utilizing the beneficial properties of GB

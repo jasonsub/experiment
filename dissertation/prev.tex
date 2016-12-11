@@ -4,19 +4,19 @@
 As an important component of formal verification for sequential circuits, SEC techniques 
 have been developed over decades and widely utilized in both academia and industry. 
 The specification of a sequential circuit can be modeled as a (golden model) state machine,
-SEC is performed to compare between the circuit for test and the golden one.
+SEC is performed to compare the functionality between the circuit for test and the golden one.
 % The n\"aive method to implement SEC is: preload both circuits to the same initial states, 
 % and assign their primary inputs to the same values during all clock-cycles.
 % This method needs to be operated along with state space traversal,  therefore it is 
 % less efficient. Moreover,  most SEC only check the primary outputs/inputs consistency 
 % and does not require the 1:1 state correspondence,  so state space traversal is not always necessary.
-One way to implement SEC is to create miter with two circuits to be verified, then 
+One way to implement SEC is to create a miter with two circuits to be verified, then 
 prove that there exists no sequence of inputs that generates different outputs.
 
 Researchers proposed improvements by using Boolean functions to represent 
 a set of states/transitions \cite{coudert2003unified, coudert1990verification},  or by dividing the sequential circuit to 
-smaller subcircuit and re-model the FSM to conditional FSMs \cite{khasidashvili2004theoretical}. IBM created a toolset with 
-interfaces that focuses on only designated initial states and remove redundancies in state space \cite{baumgartner2007scalable}.
+into a smaller subcircuit and re-model the FSM to conditional FSMs \cite{khasidashvili2004theoretical}. IBM created a toolset with 
+interfaces that focuses on only the designated initial states and remove redundancies in state space \cite{baumgartner2007scalable}.
 
 Another direction to improve SEC algorithms is to avoid using state space traversal. 
 The forward retiming method \cite{van1998sequential} and time-frame merging \cite{stoffel1997record} 
@@ -53,7 +53,7 @@ graphical representation of the combinational circuit after unrolling is also
 the canonical representation of the original sequential circuit. For the sequential 
 equivalence checking problem, we can also unroll the circuit to be verified and the 
 specification to combinational ones, and then perform combinational equivalence checking
-techniques \cite{avoj2010combinational}. In the following part we review research and techniques which 
+techniques \cite{savoj2010combinational}. In the following part we review research and techniques which 
 can be applied to unrolled sequential circuits.
 
 \subsection{Canonical Decision Diagrams}
@@ -127,7 +127,7 @@ Solvers for satisfiability problems (SAT) are good candidates to solve CEC probl
 as long as the miter of two circuits can be described using conjunctive normal form (CNF)
 formulas. Applications of SAT on CEC include circuit-SAT solvers \cite{csat}, {\it etc.}
 If the circuits being compared are structurally highly similar, AIG and circuit-SAT 
-based approaches are proved to be efficient.
+based approaches are known to be efficient.
 However, when the circuits are functionally equivalent but structurally very dissimilar, none of the 
   contemporary techniques including quantifier-free bit-vector 
   (QF-BV) theory based SMT-solvers \cite{Cryptol:fmcad09},
@@ -136,13 +136,13 @@ However, when the circuits are functionally equivalent but structurally very dis
 
 Recently integer polynomial based techniques \cite{ciesielski2014function,rolf:date16} are proposed  to verify the functional 
 correctness of integer arithmetic circuits. Their approach formulates the output signature as a polynomial function 
-with binary variables and integer coefficients, then rewrite the polynomial by substituting gate output with gate inputs
-variables. After going through the backward rewriting procedure,  the polynomial
+with binary variables and integer coefficients, then rewrites the polynomial by substituting gate output with gate 
+inputs. After going through the backward rewriting procedure,  the polynomial
 will be composed by only input variables. Then the polynomial is converted to a canonical representation, and compared
 with designated input signature. If they are equivalent, then the arithmetic circuit is successfully verified.
-This approach incurs of polynomial term explosion during the backward rewriting. The authors proposed a heuristic
+This approach incurs polynomial term explosion during the backward rewriting. The authors proposed a heuristic
 to levelize the arithmetic circuit, and substitute several gates' variables at the same time to minimize the risk. However, 
-the heuristic is proved to be less effective when the inner symmetry of circuit structure is missing.
+the heuristic proved to be less effective when the inner symmetry of circuit structure is missing.
 
 % To conclude, automatic formal verification of large {\it
 %     custom-designed modulo-arithmetic circuits} largely remains
@@ -167,7 +167,7 @@ UNSAT core from the $k$-BMC. Jain {\it et al.} \cite{HimanshuDAC2005} improved t
 where they use CNF-SAT to perform the refinement instead of using BDDs. The new approach is applied to verify RTL Verilog
 and was known to be successful.
 
-$k$-BMC with interpolation is a purely incremental model checking approach, and the interpolation procedure relies
+The $k$-BMC with interpolation is a purely incremental model checking approach, and the interpolation procedure relies
 on UNSAT core analysis. To overcome these weaknesses, a hybrid model checker named as IC3 is developed 
 \cite{bradley2011sat,bradley2011incremental}. IC3 works incrementally to find inductive subclauses
 of negations of reached states, meanwhile it is monolithic when computing over-approximations to sets of reachable
@@ -263,14 +263,16 @@ interpolation or UNSAT cores, {\it etc.}, that we desire was not the focus of
 
 \section{Concluding Remarks}
 From the investigation of previous work, techniques are to be researched that 
-can operate the FSM traversal on word-level to verify a property excluding spurious 
+can perform the FSM traversal on word-level to verify a property excluding spurious 
 faults. Meanwhile, many abstraction refinement techniques utilize information from UNSAT cores.
 We propose to solve these problems in the context of word-level verification,
 with data representation, abstraction and algorithm execution all carried out 
 on word-level.
 
-In this dissertation, we propose a purely word-level reachability analysis approach which is never done before.
-We achieve it by modeling the transition relations, states and the traversal algorithm at word-level.
+In this dissertation, we propose a purely word-level reachability analysis approach which has never been done before.
+We achieve this by modeling the transition relations, states and the traversal algorithm at word-level.
 We borrow inspirations from \cite{tim:phd,gao:qe-gf-gb} to perform state space abstraction.
-Moreover, we find applications of our proposed approach to sequential arithmetic verification which is 
+Moreover, we demonstrate applications of our proposed approach to sequential arithmetic verification which is 
 not done before, either.
+Finally, we show algebraic geometry analogs of UNSAT cores of polynomial ideals, and describe algorithms
+to extract and refine these cores.

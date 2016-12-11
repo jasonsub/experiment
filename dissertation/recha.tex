@@ -6,7 +6,7 @@ tools, in order to improve various performance indicators such as latency, clock
 density, sequential optimization techniques such as retiming \cite{retiming}, scan logic \cite{scan},
 sequential power optimization \cite{mathur2009power} and clock-gating techniques \cite{clockgating} are applied.
 % some major refactoring and attachments are made on original designs. 
-These modifications may introduce, bugs, errors or malfunctions to the original logic and cause problems. 
+These modifications may introduce bugs, errors or malfunctions to the original logic and cause problems. 
 Based on traditional localized simulation or formal verification method ({\it e.g.} equivalence checking), 
 designers are reluctant to make aggressive optimization
 since the malfunctions are considered as ``faults" in the circuits.
@@ -31,12 +31,12 @@ with examples and experiments showing its feasibility when applied on general ci
 
 \section{Motivation}
 Before introducing the details of our approach, there are a few questions to ask: what is 
-the benefit of execute FSM traversal at word-level? How can algebraic geometry make this happen?
+the benefit of executing FSM traversal at word-level? How can algebraic geometry make this happen?
 The answers can be found in this section, as a statement of the motivation of our research.
 
 \subsection{FSM Traversal Algorithms}
 Sequential circuits are modeled as FSMs, which can be implemented as graphs. Thus a 
-graph-traversal based algorithm is created to analysis the reachable states \cite{coudert2003unified}.
+graph-traversal based algorithm is created to analyze the reachable states \cite{coudert2003unified}.
 A traversal algorithm using the concept of implicit state enumeration is proposed \cite{cho1993redundancy}.
 Concretely, the algorithm is given in Algorithm \ref{alg:BFS}:
 
@@ -263,7 +263,7 @@ $Z = \Func(A)$. Recall Lagrange's interpolation formula:
 \label{eqn:Lagrange}
 \Func(x) =  \sum_{k=1}^N \left[ \prod_{(0\leq j \leq k-1),(j\neq i)}\frac{x-x_j}{x_i-x_j} \cdot y_k \right]
 \end{equation}
-The geometric meaning of Lagrange's interpolation in real algebra is: given $N$ dots with coordinates $(x_i,y_i)$,
+The geometric meaning of Lagrange's interpolation in real algebra is: given $N$ points with coordinates $(x_i,y_i)$,
 they can always be fitted into a polynomial function with at most $N-1$ degree, and that function can be 
 written in the form of Equation \ref{eqn:Lagrange}. In this example, although defined in a Galois field instead of 
 the real number field, the essential concept of Lagrange's interpolation remains the same. 
@@ -589,16 +589,16 @@ considered over the field $\Fkk$.
 \end{Theorem}
 
 \begin{Proof}
-Since $\Fkk[x]$ is a principal ideal domain, $ J = \langle g\rangle$
-for some polynomial $ g \in \Fkk[x]$. Let $d = gcd(g, x^{2^k} -
-x)$. So, $g = dg_1 , x^{2^k} - x = df_1$, with $gcd(f_1 , g_1 ) =
-1$. Then $J_0 : J = \langle f_1 \rangle$ by Lemma \ref{lem:gcd}. 
+Since $\Fkk[x]$ is a principal ideal domain, $ J = \langle g(x)\rangle$
+for some polynomial $ g(x) \in \Fkk[x]$. Let $h(x) = gcd(g(x), x^{2^k} -
+x)$. So, $g(x) = h(x)g_1(x) , x^{2^k} - x = h(x)f_1(x)$, with $gcd(f_1(x) , g_1(x) ) =
+1$. Then $J_0 : J = \langle f_1(x) \rangle$ by Lemma \ref{lem:gcd}. 
 
 Let $x \in V(J_0 ) - V(J)$. From the definition of set
 complement, we get $x \in \Fkk$ while $g(x) \neq 0$.  
 
-Since $x^{2^k} = x$, we see that either $d(x) = 0$ or $f_1 (x) =
-0$. Considering $g(x) \neq 0$, we can assert that $d(x) \neq 0$. In
+Since $x^{2^k} = x$, we see that either $h(x) = 0$ or $f_1 (x) =
+0$. Considering $g(x) \neq 0$, we can assert that $h(x) \neq 0$. In
 conclusion, $f_1 (x) = 0$ and $x \in V(f_1 )$. 
 
 Now let $x \in V(f_1 )$, we get $f_1 (x) = 0$. So, $x^{2^k} - x = 0$
@@ -606,16 +606,16 @@ gives $x \in V(J_0) = \Fkk$ which  contains all elements in the
 field. 
 
 Now we make an assumption that $x \in V(g)$. Then $g(x) = 0 =
-d(x)g_1(x)$ which means either $d(x) = 0$ or $g_1 (x) = 0$. 
+d(x)g_1(x)$ which means either $h(x) = 0$ or $g_1 (x) = 0$. 
 
-If $g_1 (x) = 0$, then since $f_1 (x) = 0$ we get that $f_1 , g_1$
-share a root. This contradicts the fact that $gcd(f_1 , g_1 ) = 1$.
+If $g_1 (x) = 0$, then since $f_1 (x) = 0$ we get that $f_1(x) , g_1(x)$
+share a root. This contradicts the fact that $gcd(f_1(x) , g_1(x) ) = 1$.
 
-On the other hand, if $d(x) = 0$, then since $f_1 (x) = 0$ and
-$x^{2^k} - x = df_1$, we get that $x^{2^k} - x$ has a double root. 
+On the other hand, if $h(x) = 0$, then since $f_1 (x) = 0$ and
+$x^{2^k} - x = d(x)f_1(x)$, we get that $x^{2^k} - x$ has a double root. 
 But this is impossible since the derivative of $x^{2^k} - x$ is $-1$.
 
-So, $x \notin V(g)$ and this concludes the proof.
+So, $x \notin V(g(x))$ and this concludes the proof.
 \end{Proof}
 
 % Let $J_0 = \langle x_1^{2^k} - x_1, \dots, x_n^{2^k} - x_n \rangle$
@@ -651,7 +651,7 @@ variables are abstracted and quantified away.
 We use the notions from Figure \ref{fig:seqmodel}(a) in this setup. 
 \begin{enumerate}[{1)}] 
 \item The circuit is modeled over $\Fkk = \F_2[x]\pmod{p(x)}, p(\alpha) = 0$, where $k$ is the number of flip-flops,
-	the PS variables $\{s_0,dots,s_{k-1}\}$, NS variables $\{t_0,\dots,t_{k-1}\}$.
+	the PS variables $\{s_0,\dots,s_{k-1}\}$, NS variables $\{t_0,\dots,t_{k-1}\}$.
 \item Denote $S$ as the PS word-level by the following polynomial:
 $$f_S: S = s_0+s_1\alpha+s_2\alpha^2+\cdots+s_{k-1}\alpha^{k-1}$$
 Similarly we define NS word-level variable $T$ by:
@@ -672,13 +672,14 @@ $$G\cap \Fkk[T]$$
 \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
+\LinesNumbered
 \Indm
  \KwIn{The circuit's characteristic polynomial ideal $J_{ckt}$,
    initial state polynomial $\F(S)$, and LEX term order: bit-level
    variables $x, s, t$ $>$ PS word $S$ $>$ NS word $T$}
 \Indp
 
-  $from^0 = reached = \F(S)$\;
+  $from^0 = reached = \Func(S)$\;
   \Repeat{$\langle new^i\rangle == \langle 1\rangle$}
   {
   	$i \gets i + 1$\;
@@ -996,6 +997,7 @@ polynomial denoting next states. The improved algorithm is depicted in Algorithm
 \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
+\LinesNumbered
 \Indm
  \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\Func(S)$}
  \KwOut{Final reachable states represented by polynomial $\mathcal G(T)$}
@@ -1025,7 +1027,7 @@ polynomial denoting next states. The improved algorithm is depicted in Algorithm
 \end{algorithm}
 \DecMargin{1em}
 
-\subsection{Primary Inputs Partition}
+\subsection{Primary Inputs Partitioning}
 Using above techniques we can get a remainder polynomial with only word-level PS/NS variables. However in most 
 cases, the number of bit-level PIs will be too large for the last-step Gr\"obner basis computation. 
 Therefore it is necessary to convert bit-level PIs to word-level PI variables. 
@@ -1260,8 +1262,8 @@ for reachability analysis applications.
 
 %\vspace{-0.1in}
 
-\section{Concluding Remarks} \label{sec:conc}
-This dissertation has presented a new approach to perform reachability
+\section{Concluding Remarks}
+This chapter has presented a new approach to perform reachability
 analysis of finite state machines at the word-level. This is achieved
 by modeling the transition relations and sets of states by way of
 polynomials over finite fields $\Fkk$, where $k$ represents the size

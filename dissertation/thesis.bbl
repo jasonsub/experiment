@@ -318,6 +318,12 @@ CAJ Van~Eijk,
 \newblock {\em in} {\em Design, Automation and Test in Europe, 1998.,
   Proceedings}, pp. 618--623. IEEE, 1998.
 
+\bibitem{savoj2010combinational}
+Hamid Savoj, David Berthelot, Alan Mishchenko, and Robert Brayton,
+\newblock ``Combinational techniques for sequential equivalence checking'',
+\newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2010},
+  pp. 145--149. IEEE, 2010.
+
 \bibitem{add}
 I.~Bahar, E.~A. Frohm, C.~M. Gaona, G.~D. Hachtel, E.~Macii, A.~Pardo, and
   F.~Somenzi,

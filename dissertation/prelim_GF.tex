@@ -736,7 +736,7 @@ in the $\lambda$-Matrix can be counted: $C_N = 27$.
 As a result, the most naive NB multiplier design (or Massey-Omura multiplier \cite{MasseyOmura})
 contains 53 gates in total, which is a great saving in area cost comparing to StdB multipliers.
 
-\section{Design a Normal Basis Multiplier on Gate Level}
+\section{Design of a Normal Basis Multiplier on Gate Level}
 \label{sec:nbdesign}
 The NB multiplier design consists of fewer gates than ordinary StdB multiplier design, even if 
 we use the most naive design. However, the modern NB multiplier design has been improved a lot from the 
@@ -844,7 +844,7 @@ Thus we conclude that Agnew's SMPO functions the same with Massey-Omura multipli
 The design of Agnew's SMPO guarantees that there is only one AND gate in each $R_i$ block.
 For ONB, adopting Agnew's SMPO will reduce the number of AND gates from $2k-1$ to $k$.
 
-\subsection{Multiplier not based on $\lambda$-Matrix}
+\subsection{Multiplier not based on the $\lambda$-Matrix}
 Both Massey-Omura multiplier and Agnew's SMPO rely on the implementation of $\lambda$-Matrix,
 which means that they will be identical if unrolled to full combinational circuits. 
 After Agnew's work of parallelization, researchers proposed more designs of SMPO, 
@@ -1022,4 +1022,4 @@ is $2k+\lfloor \frac{k}{2}\rfloor$.
 In this chapter, we introduced basic concepts such as the definition of finite fields and the construction 
 of finite fields. Moreover, we described a special kind of basis in finite field, and its 
 application on Galois field hardware design. The sequential Galois field multipliers based on these 
-principles are used as good candidates for applying our functional verification approach in subsequent chapters.
+principles are used as candidates for applying our functional verification approach in subsequent chapters.

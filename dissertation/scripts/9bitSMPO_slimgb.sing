@@ -1,0 +1,140 @@
+LIB "general.lib";
+LIB "poly.lib";
+
+proc tran(ideal array_A, ideal array_B, poly r_in)
+{
+  ideal I = array_A[2]+array_A[6]+c1,
+array_A[7]+array_A[1]+c2,
+array_A[1]+array_A[3]+c3,
+array_A[6]+array_A[7]+c4,
+array_A[3]+array_A[4]+c5,
+array_A[1]+array_A[3]+c6,
+array_A[1]+array_A[4]+c7,
+array_A[3]+array_A[8]+c8,
+/***************************************************/
+array_A[2]*array_B[1]+r8+R0,
+c1*array_B[3]+r0+R1,
+c2*array_B[5]+r1+R2,
+c3*array_B[7]+r2+R3,
+c4*array_B[9]+r3+R4,
+c5*array_B[2]+r4+R5,
+c6*array_B[4]+r5+R6,
+c7*array_B[6]+r6+R7,
+c8*array_B[8]+r7+R8;
+/***************************************************/
+	
+	ideal I0 = A+a0*X+a1*X^2+a2*X^4+a3*X^8+a4*X^16+a5*X^32+a6*X^64+a7*X^128+a8*X^256,
+		B+b0*X+b1*X^2+b2*X^4+b3*X^8+b4*X^16+b5*X^32+b6*X^64+b7*X^128+b8*X^256,
+		r+r0*X+r1*X^2+r2*X^4+r3*X^8+r4*X^16+r5*X^32+r6*X^64+r7*X^128+r8*X^256,
+		R+R0*X+R1*X^2+R2*X^4+R3*X^8+R4*X^16+R5*X^32+R6*X^64+R7*X^128+R8*X^256,
+	a0^2+a0, b0^2+b0, r0^2+r0, R0^2+R0,
+	a1^2+a1, b1^2+b1, r1^2+r1, R1^2+R1,
+	a2^2+a2, b2^2+b2, r2^2+r2, R2^2+R2,
+	a3^2+a3, b3^2+b3, r3^2+r3, R3^2+R3,
+	a4^2+a4, b4^2+b4, r4^2+r4, R4^2+R4,
+	a5^2+a5, b5^2+b5, r5^2+r5, R5^2+R5,
+	a6^2+a6, b6^2+b6, r6^2+r6, R6^2+R6,
+	a7^2+a7, b7^2+b7, r7^2+r7, R7^2+R7,
+	a8^2+a8, b8^2+b8, r8^2+r8, R8^2+R8,
+	A^512+A, B^512+B, r^512+r, R^512+R,
+	r_in;
+	ideal J = slimgb(I+I0);
+	J = sort(J)[1];
+	return (J[3]/leadcoef(J[3]));
+}
+
+proc anotran(ideal array_A, ideal array_B, poly r_in)
+{
+  ideal I = array_A[2]+array_A[6]+c1,
+array_A[7]+array_A[1]+c2,
+array_A[1]+array_A[3]+c3,
+array_A[6]+array_A[7]+c4,
+array_A[3]+array_A[4]+c5,
+array_A[1]+array_A[3]+c6,
+array_A[1]+array_A[4]+c7,
+array_A[3]+array_A[8]+c8,
+/***************************************************/
+array_A[2]*array_B[1]+r8+R0,
+c1*array_B[3]+r0+R1,
+c2*array_B[5]+r1+R2,
+c3*array_B[7]+r2+R3,
+c4*array_B[9]+r3+R4,
+c5*array_B[2]+r4+R5,
+c6*array_B[4]+r5+R6,
+c7*array_B[6]+r6+R7,
+c8*array_B[8]+r7+R8;
+	ideal I0 = A+a0*X+a1*X^2+a2*X^4+a3*X^8+a4*X^16+a5*X^32+a6*X^64+a7*X^128+a8*X^256,
+		B+b0*X+b1*X^2+b2*X^4+b3*X^8+b4*X^16+b5*X^32+b6*X^64+b7*X^128+b8*X^256,
+		r+r0*X+r1*X^2+r2*X^4+r3*X^8+r4*X^16+r5*X^32+r6*X^64+r7*X^128+r8*X^256,
+		R+R8*X+R0*X^2+R1*X^4+R2*X^8+R3*X^16+R4*X^32+R5*X^64+R6*X^128+R7*X^256,
+	a0^2+a0, b0^2+b0, r0^2+r0, R0^2+R0,
+	a1^2+a1, b1^2+b1, r1^2+r1, R1^2+R1,
+	a2^2+a2, b2^2+b2, r2^2+r2, R2^2+R2,
+	a3^2+a3, b3^2+b3, r3^2+r3, R3^2+R3,
+	a4^2+a4, b4^2+b4, r4^2+r4, R4^2+R4,
+	a5^2+a5, b5^2+b5, r5^2+r5, R5^2+R5,
+	a6^2+a6, b6^2+b6, r6^2+r6, R6^2+R6,
+	a7^2+a7, b7^2+b7, r7^2+r7, R7^2+R7,
+	a8^2+a8, b8^2+b8, r8^2+r8, R8^2+R8,
+	A^512+A, B^512+B, r^512+r, R^512+R,
+	r_in;
+	ideal J = slimgb(I+I0);
+	J = sort(J)[1];
+	return (J[3]/leadcoef(J[3]));
+}
+
+
+proc arrayshift(ideal I)
+{
+	ideal tmp;
+	for(int j = 1; j <= 9; j = j+1)
+	{
+		tmp[j] = I[((j+7) mod 9) + 1];
+	}
+	return (tmp);
+}
+
+/*
+proc va(poly f)
+{
+	ideal I = f, R^512+R;
+	poly g = slimgb(I)[1];
+	g = g/leadcoef(g);
+	return (g);
+}
+*/
+
+ring rr = (2,X), (R0,R1,R2,R3,R4,R5,R6,R7,R8,r0,r1,r2,r3,r4,r5,r6,r7,r8,c1,c2,c3,c4,c5,c6,c7,c8,b0,b1,b2,b3,b4,b5,b6,b7,b8,a0,a1,a2,a3,a4,a5,a6,a7,a8,r,R,A,B), lp;
+minpoly = X^9+X^8+X^6+X^5+X^4+X+1;
+
+int i = 1;
+ideal from, to;
+ideal A_in = a0,a1,a2,a3,a4,a5,a6,a7,a8;
+ideal B_in = b0,b1,b2,b3,b4,b5,b6,b7,b8;
+ideal vec_r = r0,r1,r2,r3,r4,r5,r6,r7,r8;
+from[1] = r;
+
+timer=0;
+system("--ticks-per-sec",1000); // set timer resolution to ms
+int t0=timer; // initialize t by timer
+
+for (i = 1; i <= 8; i= i+1)
+{
+	to[i+1] = tran(A_in, B_in, from[i]);
+	"Calc Done!";
+	A_in = arrayshift(A_in);
+	B_in = arrayshift(B_in);
+	"Shift Done!";
+	from[i+1] = subst(to[i+1],R,r);
+	"Subst Done!";
+}
+"I'm Out!";
+to[10] = anotran(A_in, B_in, from[9]);
+"Final Calc Done!";
+to[10];
+int t1 = timer - t0;
+
+"Total time:";
+t1;
+;
+

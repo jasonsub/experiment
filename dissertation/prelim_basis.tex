@@ -14,7 +14,7 @@ previous work by Lv \cite{lv:phd} as well as Pruss \cite{pruss:tcad15}.
 
 \section{Algebraic Geometry Fundamentals}
 \label{sec:geo}
-\subsection{Monomials, Polynomials and Polynomial Arithmetics}
+\subsection{Monomials, Polynomials and Polynomial Algebra}
 \begin{Definition} \label{def:mono}
 A {\bf monomial} in variables $x_1,x_2,\cdots,x_d$ is a product of the form:
 \begin{equation}
@@ -741,14 +741,14 @@ Let $I \neq \{0\}$ be a polynomial ideal. Then, for a given monomial ordering, $
 
 The high computational complexity of the Gr\"obner basis problem is an important issue
 because of its high cost on time and space. Concretely, for arbitrary polynomial set, 
-the worst case computation time/space cost of its Gr\"obner basis is doubly exponential while the total degree of 
+the worst case computation time/space cost of its Gr\"obner basis is doubly exponential, as the total degree of 
 polynomials in the Gr\"obner basis is bounded by 
 $O(2(\frac{1}{2}d^2+d)^{2^{n-1}})$ where $d$ is the degree of the ideal and $n$ is the number of variables
 \cite{dube1986complexity}. However, in practice such as applications of circuit verification, 
 the polynomial is well restricted rather than arbitrary.
 Gao {\it et al.} \cite{gao:qe-gf-gb} proves that in zero-dimensioned ideals, the complexity reduces to single exponential $q^{O(|\phi|)}$.
 This provides the possibility to make use of Gr\"obner basis under restricted situations,
-which is the theoretic basis of this dissertation.
+which is the theoretical basis of this dissertation.
 
 \Grobner basis computation depends on the $Spoly$ computation, which in turn 
 depends on the leading terms of polynomials. Thus, different monomial 
@@ -1086,6 +1086,7 @@ the relative ordering among $A_1, \dots, A_n$ is also unimportant.
 \end{Definition}
 
 \begin{Theorem}[Abstraction Theorem]
+\cite{tim:phd}
 Using the notations from Problem Setup \ref{setup:abs} at the beginning of this subsection,
 we compute a \Grobner basis $G$ of ideal $(J+J_0)$ using the abstraction term 
 order $>$. Then: \\
