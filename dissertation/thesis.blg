@@ -11,10 +11,9 @@ A level-1 auxiliary file: conclude.aux
 A level-1 auxiliary file: appendix.aux
 The style file: ieee.bst
 Database file #1: logic.bib
-You're missing a field name---line 236 of file logic.bib
- : 
- : %  author = {D. Hankerson and J. Hernandez and A. Menezes},
-(Error may have been on previous line)
+Repeated entry---line 235 of file logic.bib
+ : %@misc{ecc:software
+ :                    ,
 I'm skipping whatever remains of this entry
 You're missing a field name---line 2153 of file logic.bib
  : 
@@ -56,43 +55,43 @@ while executing---line 987 of file ieee.bst
 while executing---line 987 of file ieee.bst
 You've used 150 entries,
             1802 wiz_defined-function locations,
-            1246 strings with 28688 characters,
-and the built_in function-call counts, 41110 in all, are:
-= -- 3894
-> -- 1480
-< -- 74
-+ -- 554
-- -- 404
-* -- 2842
-:= -- 5849
-add.period$ -- 202
+            1248 strings with 28803 characters,
+and the built_in function-call counts, 41250 in all, are:
+= -- 3901
+> -- 1491
+< -- 76
++ -- 557
+- -- 407
+* -- 2854
+:= -- 5867
+add.period$ -- 203
 call.type$ -- 150
 change.case$ -- 136
 chr.to.int$ -- 0
 cite$ -- 152
-duplicate$ -- 2151
-empty$ -- 4158
-format.name$ -- 404
-if$ -- 9797
+duplicate$ -- 2162
+empty$ -- 4172
+format.name$ -- 407
+if$ -- 9837
 int.to.chr$ -- 0
 int.to.str$ -- 150
 missing$ -- 150
 newline$ -- 754
-num.names$ -- 154
-pop$ -- 709
+num.names$ -- 156
+pop$ -- 713
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1155
+skip$ -- 1162
 stack$ -- 0
-substring$ -- 2672
-swap$ -- 825
-text.length$ -- 74
+substring$ -- 2662
+swap$ -- 832
+text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 395
+while$ -- 396
 width$ -- 153
-write$ -- 1669
+write$ -- 1671
 (There were 13 error messages)

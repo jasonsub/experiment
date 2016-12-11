@@ -1,4 +1,4 @@
-\chapter{Gr\"ober Basis and Algebraic Geometry} \label{ch:ideals}
+\chapter{Gr\"ober Bases and Algebraic Geometry} \label{ch:ideals}
 This chapter reviews fundamental concepts of commutative and 
 computer algebra which are used in this work. 
 Specifically, this chapter covers monomial ordering, polynomial ideals and 
@@ -10,7 +10,7 @@ abstraction and formal verification of Galois field circuits and
 are discussed 
 in subsequent chapters. The material of this chapter is
 mostly referred from the textbooks \cite{ideals:book,gb_book} and 
-previous work by {\it Lv} \cite{lv:phd} as well as {\it Pruss} \cite{pruss:tcad15}.
+previous work by Lv \cite{lv:phd} as well as Pruss \cite{pruss:tcad15}.
 
 \section{Algebraic Geometry Fundamentals}
 \label{sec:geo}
@@ -29,7 +29,7 @@ For simplicity, we will henceforth denote a
 monomial $x_1^{{\alpha}_1} \cdot x_2^
 {{\alpha}_2} \cdot \cdots x_d^{{\alpha}_d}$ as $x^{\alpha}$, 
 where $\alpha=({\alpha}_1,\cdots,{\alpha}_d)$ is a vector size $d$ of 
-integers $\ge 0$, i.e., $\alpha \in \mathbb{Z}_{\ge 0}^{d}$.
+integers $\ge 0$, {\it i.e.} $\alpha \in \mathbb{Z}_{\ge 0}^{d}$.
 
 \begin{Definition}\label{def:poly}
 Let $\mathbb{R}$ be a ring. A {\bf polynomial} over $\mathbb{R}$ in the 
@@ -91,11 +91,11 @@ terms in a polynomial are ordered.
 Common term orderings are lexicographic ordering (LEX) and its variants: 
 degree-lexicographic ordering (DEGLEX) and reverse degree-lexicographic ordering (DEGREVLEX).
 
-A {\bf lexicographic ordering} (lex) is a total-ordering $>$ such that 
-variables in the terms are lexicographically ordered, i.e. simply based on 
-when the variables appear in the ordering.
+A {\bf lexicographic ordering} (LEX) is a total-ordering $>$ such that 
+variables in the terms are lexicographically ordered, {\it i.e.} simply based on 
+when the variables appear in the ordering. It is also a well-order, where the least element exists.
 Higher variable-degrees take 
-precedence over lower degrees for equivalent variables (e.g. $a^3 > a^2$ due to $a \cdot a \cdot a > a \cdot a \cdot 1$).
+precedence over lower degrees for equivalent variables ({\it e.g.} $a^3 > a^2$ due to $a \cdot a \cdot a > a \cdot a \cdot 1$).
 \begin{Definition}
 {\bf Lexicographic order:} Let $x_1 > x_2 > \dots > x_d$
 lexicographically. Also let $\alpha = (\alpha_1, \dots, \alpha_d);
@@ -111,11 +111,11 @@ x^{\alpha} > x^{\beta} \iff
 \end{equation}
 \end{Definition}
 
-A {\bf degree-lexicographic ordering} (deglex) is a total-ordering $>$ such 
+A {\bf degree-lexicographic ordering} (DEGLEX) is a total-ordering $>$ such 
 that the total degree of a term takes precedence over the lexicographic 
 ordering.  
-A {\bf degree-reverse-lexicographic ordering} (degrevlex) is the same as a
-deglex ordering, however terms are lexed in reverse.
+A {\bf degree-reverse-lexicographic ordering} (DEGREVLEX) is the same as a
+DEGLEX ordering, however terms are LEXed in reverse.
 
 \begin{Definition}
 {\bf Degree Lexicographic order:} Let $x_1 > x_2 > \dots > x_d$
@@ -127,7 +127,7 @@ x^{\alpha} > x^{\beta} \iff
 \begin{cases}
 \sum_{i=1}^{d}\alpha_i > \sum_{i=1}^{d} \beta_i & \text{ or }\\
 \sum_{i=1}^{d}\alpha_i = \sum_{i=1}^{d} \beta_i  \text{ and }
-x^{\alpha} > x^{\beta} & \text{w.r.t. lex order}
+x^{\alpha} > x^{\beta} & \textit{w.r.t.}\text{ LEX order}
 \end{cases}
 \end{equation}
 \end{Definition}
@@ -158,9 +158,9 @@ the leading term.
 Finally, a {\bf leading monomial} is the leading term 
 lacking the coefficient.  We use the following notation:
 \begin{eqnarray}
-     lt(f)&& \text{--- Leading Term} \\
-     lc(f)&& \text{--- Leading Coefficient} \\
-     lm(f)&& \text{--- Leading Monomial} \\
+     lt(f)&& \text{Leading Term} \\
+     lc(f)&& \text{Leading Coefficient} \\
+     lm(f)&& \text{Leading Monomial} \\
      tail(f)&& f - lt(f)
 \end{eqnarray}
 \end{Definition}
@@ -191,7 +191,7 @@ f\xrightarrow{g} r
 \end{equation}
 where $r$ is the resulting polynomial of the division.
 If $\frac{lt(f)}{lt(g)}$ is non-zero, then $f$ is considered divisible by $g$, 
-i.e. $g \mid f$.
+{\it i.e.} $g \mid f$.
 \end{Definition}
 Notice that if $g \nmid f$, that is if $f$ is not divisible by $g$,
 then the division operation gives $r = f$.
@@ -217,7 +217,7 @@ Similarly, we can also define when a polynomial is divided (reduced) by a set of
     \begin{equation*}
         f\stackrel{g}{\textstyle\longrightarrow}_{+}r
     \end{equation*}
-    which is transitive and reflective closure of relation $f\stackrel{g}{\textstyle\longrightarrow}r$. 
+    which is the transitive and reflective closure of the relation $f\stackrel{g}{\textstyle\longrightarrow}r$. 
     Reduction is carried out using multivariate, polynomial long division. 
     % The long division is performed according to a term-ordering on polynomials, and the division algorithm 
     %terminates when the leading term of the divisor does not divide any 
@@ -330,7 +330,7 @@ finite fields $\F_{q}$, and any finite set of points is a variety. Likewise,
 any variety over $\F_{q}$ is finite (or empty).
 Consider the points $\{(a_1,\dots, a_d): a_1, \dots, a_d \in \F_q\}$
 in $\F_q^d$. Any single point is a variety of some polynomial system:
-e.g. $(a_1,\dots, a_d)$ is a variety of $x_1-a_1 = x_2 - a_2 = \dots =
+{\it e.g.} $(a_1,\dots, a_d)$ is a variety of $x_1-a_1 = x_2 - a_2 = \dots =
 x_d-a_d=0$. {\bf Finite unions} and {\bf finite  intersections} of
 varieties are also varieties. 
 
@@ -399,7 +399,7 @@ But $I\neq J$ because $x+y$ can only be generated by $I$.
 The same ideal may have many different bases.
 For instance, it is possible to have different sets of polynomials
 $\{f_1,\dots,f_{s}\}$ and $\{g_{1},\dots,g_{t}\}$ that may generate the same 
-ideal, i.e., 
+ideal, {\it i.e.} 
 $\langle f_{1},\dots,f_{s}\rangle=\langle g_{1},\dots,g_{t}\rangle$. Since 
 variety depends on the ideal, these sets of polynomials have the same 
 solutions.
@@ -422,7 +422,7 @@ then $V(f_{1},\dots,f_{s})=V(g_{1},\dots,g_{t})$.
 
 Ideals and their varieties are a key part of computer-algebra based formal
 verification. A given hardware design can be transformed into a set
-of polynomials over a field, $f_1, \ldots, f_s \in F$.
+of polynomials over a field, $F = \{f_1, \ldots, f_s\}$.
 This set of polynomials gives the system of equations:
 \begin{eqnarray}
 f_1 = 0 \nonumber \\
@@ -451,7 +451,7 @@ f_1 &= x-z-1 &= 0 \nonumber \\
 f_2 &= y-x^2-1 &= 0 \nonumber \\
 h   &= y-z^2-2z-2 &= 0 \nonumber
 \end{eqnarray}
-If $I$ is the ideal generated by $f_1$ and $f_2$, i.e. 
+If $I$ is the ideal generated by $f_1$ and $f_2$, {\it i.e.} 
 $I=\langle f_1, f_2 \rangle$, then we find $h \in I$ as follows:
 \begin{eqnarray}
 g_1 &= x+z+1 \nonumber \\
@@ -465,8 +465,8 @@ Thus, we call $h$ a {\bf member of the ideal} $I$.
 %\subsection{Ideals of Varieties}
 
 Let $\mathbb{F}$ be any field and let $\mathbf{a}=(a_{1},\dots,a_{d}) \in \mathbb{F}^d$ be a point, and $f \in
-\mathbb{F}[x_1,\dots, x_d]$ be a polynomial. We say that $f$ {\it vanishes} on $\mathbf{a}$ if $f(\mathbf{a}) = 0$, i.e.,
-$\mathbf{a}$ is in the variety of $f$.
+\mathbb{F}[x_1,\dots, x_d]$ be a polynomial. We say that $f$ {\it vanishes} on $\mathbf{a}$ 
+if $f(\mathbf{a}) = 0$, {\it i.e.} $\mathbf{a}$ is in the variety of $f$.
 
 \begin{Definition}
 For any variety $V$ of $\mathbb{F}^d$, the ideal of polynomials that vanish on $V$,
@@ -519,13 +519,13 @@ ideal. Some of these generating sets may be a better representation of
 the ideal, and thus provide more information and insight into the properties 
 of the ideal. One such ideal representation is a {\bf \Grobner basis}, which has
 a number of important properties that can solve numerous polynomial 
-decision questions:
+decision questions; the following are used in this dissertation:
 
 \begin{itemize}
-\item Presence or absence of solutions (varieties)
-\item Dimension of the varieties
-\item Ideal membership of a polynomial
-\item $\dots \dots$
+\item Check for presence or absence of solutions (varieties)
+\item Compute dimension of the varieties
+\item Test ideal membership of a polynomial
+\item Find projection of varieties by eliminating variables in LEX order
 \end{itemize} 
 
 In essence, a \Grobner basis is a canonical representation of an ideal.
@@ -569,7 +569,7 @@ remainder. However, since the set $\{f_1, f_2\}$ is not a Gr\"{o}bner
 basis, we find that the reduction $f
 \stackrel{f_2}{\textstyle\longrightarrow} x^2 - x
 \stackrel{f_1}{\textstyle\longrightarrow} x^2 - x  \neq 0$;
-i.e. dividing $f$ by $f_2$ first and then by $f_1$ does not lead to a
+{\it i.e.} dividing $f$ by $f_2$ first and then by $f_1$ does not lead to a
 zero remainder. However,  if we compute the Gr\"{o}bner basis $G$ of
 $I$, $G = \{x^2 - x, yx - y, y^2 - x\}$, dividing $f$ by polynomials
 in $G$ in any order will always lead to the zero remainder. Therefore,
@@ -608,7 +608,8 @@ manner.
 
 \begin{algorithm}[H]
 \SetAlgoNoLine
- \KwIn{$F = \{f_1, \dots, f_s\}$, such that $I=\langle f_1, \dots, f_s\rangle$}, and term order $>$
+\LinesNumbered
+ \KwIn{$F = \{f_1, \dots, f_s\}$, such that $I=\langle f_1, \dots, f_s\rangle$, and term order $>$}
  \KwOut{$G = \{g_1,\dots ,g_t\}$, a Gr\"{o}bner basis of $I$ }
   $G:= F$\;
   \Repeat{$G = G'$}
@@ -650,10 +651,10 @@ $x\cdot y^{2}-x^{3}\stackrel{f_{1}}{\textstyle\longrightarrow}y^{2}-x^{3} \stack
 \end{Example}
 
 When computing a \Grobner basis, it's important to note that if $lt(f_i)$ 
-and $lt(f_j)$ have no common variables, the S-poly reduction step in 
+and $lt(f_j)$ have no common variables, the $Spoly$ reduction step in 
 Buchberger's algorithm will reduce to 0.
 \begin{Lemma}
-In Buchberger's algorithm, when $gcd(lt(f_i),lt(f_j)) = 0$, the S-poly reduction
+In Buchberger's algorithm, when $gcd(lt(f_i),lt(f_j)) = 0$, the $Spoly$ reduction
 $$Spoly(f_{i}, f_{j}) \stackrel{G'}{\textstyle\longrightarrow}_+r$$
 will produce $r=0$.
 \end{Lemma}
@@ -689,7 +690,9 @@ Given a \Grobner basis $G$, a minimal \Grobner basis can be
 computed as follows:
 \begin{enumerate}
 \item Minimize every $g_i \in G$, i.e $g_i=g_i/lc(g_i)$
-\item For $g_i, g_j \in G$ where $i\neq j$, remove $g_i$ from $G$ if $lt(g_i)\mid lt(g_j)$, i.e. remove every polynomial in $G$ whose leading term is divisible by the leading term of some other polynomial in $G$.
+\item For $g_i, g_j \in G$ where $i\neq j$, remove $g_i$ from $G$ if $lt(g_i)\mid lt(g_j)$, 
+{\it i.e.} remove every polynomial in $G$ whose leading term is divisible by the leading term 
+of some other polynomial in $G$.
 \end{enumerate}
 
 A minimal Gr\"obner basis can then be further reduced.
@@ -709,17 +712,17 @@ Let $H = \{h_1, \ldots, h_t\}$ be a minimal Gr\"obner basis.  Apply
 the following reduction process: 
 \begin{itemize}
 \item $h_1 \stackrel{G_1}{\textstyle\longrightarrow}_+ g_1$, where
-  $g_1$ is reduced w.r.t. $G_1 = \{h_2, \ldots, h_t\}$
+  $g_1$ is reduced {\it w.r.t.} $G_1 = \{h_2, \ldots, h_t\}$
 
 \item $h_2 \stackrel{G_2}{\textstyle\longrightarrow}_+ g_2$, where
-  $g_2$ is reduced w.r.t. $G_2 = \{g_1, h_3, \ldots, h_t\}$
+  $g_2$ is reduced {\it w.r.t.} $G_2 = \{g_1, h_3, \ldots, h_t\}$
 \item $h_3 \stackrel{G_3}{\textstyle\longrightarrow}_+ g_3$, where
-  $g_3$ is reduced w.r.t. $G_3 = \{g_1, g_2, h_4, \ldots, h_t\}$
+  $g_3$ is reduced {\it w.r.t.} $G_3 = \{g_1, g_2, h_4, \ldots, h_t\}$
 
 \hspace{0.25in} $\vdots$
 \vspace{0.1in}
 \item $h_t \stackrel{G_t}{\textstyle\longrightarrow}_+ g_t$, where
-  $g_t$ is reduced w.r.t. $G_t = \{g_1, g_2, g_3, \ldots, g_{t-1}\}$
+  $g_t$ is reduced {\it w.r.t.} $G_t = \{g_1, g_2, g_3, \ldots, g_{t-1}\}$
 \end{itemize}
 Then $G = \{g_1, \ldots, g_t\}$ is a {\bf reduced Gr\"obner basis.}
 \end{Definition}
@@ -735,22 +738,22 @@ given by Proposition \ref{pro:unique} below.
 Let $I \neq \{0\}$ be a polynomial ideal. Then, for a given monomial ordering, $I$ has a unique reduced Gr\"obner basis.
 \end{Proposition}
 
-% TODO discuss complexity
 
-The high computational complexity if Gr\"obner basis computation is treated as an issue
+The high computational complexity of the Gr\"obner basis problem is an important issue
 because of its high cost on time and space. Concretely, for arbitrary polynomial set, 
-the worst case computation time/space cost of its Gr\"obner basis is doubly exponential bounded -- $q^{q^{O(|\phi|)}}$
+the worst case computation time/space cost of its Gr\"obner basis is doubly exponential while the total degree of 
+polynomials in the Gr\"obner basis is bounded by 
+$O(2(\frac{1}{2}d^2+d)^{2^{n-1}})$ where $d$ is the degree of the ideal and $n$ is the number of variables
 \cite{dube1986complexity}. However, in practice such as applications of circuit verification, 
 the polynomial is well restricted rather than arbitrary.
-Gao et al. \cite{gao:qe-gf-gb} proves that when the number of variables and degree of polynomials 
-are restricted, the complexity reduces to single exponential $q^{O(|\phi|)}$.
+Gao {\it et al.} \cite{gao:qe-gf-gb} proves that in zero-dimensioned ideals, the complexity reduces to single exponential $q^{O(|\phi|)}$.
 This provides the possibility to make use of Gr\"obner basis under restricted situations,
 which is the theoretic basis of this dissertation.
 
 \Grobner basis computation depends on the $Spoly$ computation, which in turn 
 depends on the leading terms of polynomials. Thus, different monomial 
 orderings can result in different \Grobner basis computations for the 
-same ideal. Computation using a degrevlex ordering tends to be least 
+same ideal. Computation using a DEGREVLEX ordering tends to be least 
 difficult, while lex ordering tends to be computationally complex. However, 
 lex ordering used in the computation of \Grobner basis is an {\bf elimination
 ordering}; that is, the polynomials contained in the resulting \Grobner basis
@@ -782,7 +785,7 @@ In fact, $\mathbb{C}$ is the algebra closure of $\mathbb{R}$.
 Every algebraically closed field is an infinite field. 
 
 %%%%%%%%%%%%%%%weak nullstellensatz%%%%%%%%%%%%%
-\begin{Theorem}{Weak Nullstellensatz}
+\begin{Theorem}[Weak Nullstellensatz]
 %$\left[\bf{Weak\  Nullstellensatz}\right]$ 
 Let $J \subset \overline {\F}[x_1, x_2, \cdots, x_d]$ 
 be an ideal satisfying $V(J)=\emptyset$. 
@@ -800,7 +803,7 @@ V(J)=\emptyset\ \iff\ J=\overline {\F}[x_1, x_2, \cdots, x_d]=\langle 1 \rangle
 {\bf Weak Nullstellensatz} offers a way to evaluate whether or not the 
 system of multivariate polynomial equations (ideal $J$) has common solutions 
 in ${\overline {\F}}^d$. For this purpose, we only need to check if 
-the ideal is generated by the unit element, i.e., $1\in J$. 
+the ideal is generated by the unit element, {\it i.e.} $1\in J$. 
 This approach can be used to evaluate the feasibility of constraints in 
 verification problems.
 %%%%%%%%%%%%%%%%%%%%%%%%%strong Nullstellensatz%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
@@ -810,8 +813,9 @@ The strong
 Nullstellensatz establishes the correspondence between radical ideals
 and varieties. 
 
-\begin{Theorem}\label{thm:sns}
-({\it The Strong Nullstellensatz} \cite{gb_book}) 
+\begin{Theorem}[Strong Nullstellensatz]
+\label{thm:sns}
+\cite{gb_book} 
 Let $\overline{\F}$ be an algebraically closed field, and let $J$
 be an ideal in $\overline{\F}[x_1,\dots, x_d]$. 
 Then we have $I(V_{\overline{\F}}(J)) =\sqrt{J}$. 
@@ -825,19 +829,19 @@ previous chapter: for every element $A \in \Fq$, $A-A^q = 0$; then the
 polynomial $x^q-x$ in $\Fq[x]$ vanishes over $\Fq$. Thus, if 
 $J_0=\langle x^q-x \rangle$ is the ideal generated by the vanishing 
 polynomial, $V(J_0)=\Fq$. Similarly, over $\Fq[x_1,\dots,x_d]$, $J_0$ is 
-$\langle x_1^q-x_1,\dots,x_d^q-x_d \rangle$ and $V(J_0)=(F_q)^d$.
+$\langle x_1^q-x_1,\dots,x_d^q-x_d \rangle$ and $V(J_0)=(\F_q)^d$.
 
 
 \begin{Definition}
 Given two ideals, $I_1=\langle f_1, \dots,f_s \rangle$ and 
 $I_2=\langle g_1,\dots g_t\rangle$, then the {\bf sum of ideals} 
-$I_1+I_2=\langle f_1,\dots,f_s,g_1,\dots g_t\rangle$
+$I_1+I_2=\langle f_1,\dots,f_s,g_1,\dots g_t\rangle$.
 \end{Definition}
 
 \begin{Theorem}
 ({\it Strong Nullstellensatz over $\Fq$})
 For any Galois field $\Fq$, let $J \subset \Fq[x_1,\dots,x_d]$ be any ideal 
-and let $J_0 = \langle x_1^q-x_1, x_d^q-x_d \rangle$ be the ideal of all
+and let $J_0 = \langle x_1^q-x_1,\dots, x_d^q-x_d \rangle$ be the ideal of all
 vanishing polynomials. Let $V_{\Fq}(J)$ denote the variety of $J$ over $\Fq$.
 Then, $I(V_{\Fq}(J))=J+J_0$.
 \end{Theorem}
@@ -845,12 +849,12 @@ Then, $I(V_{\Fq}(J))=J+J_0$.
 The proof is given in \cite{gao:gf-gb-ms}. Here, we provide a proof outline.
 
 \begin{Proof}
-\begin{enumerate}
-\item $\sqrt{J+J_0} = J+J_0$. That is, $J+J_0$ is a radical ideal.
+\begin{enumerate}[{1)}]
+\item $\sqrt{J+J_0} = J+J_0$. That is, $J+J_0$ is a radical ideal (Lemma 2.1 in \cite{gao:qe-gf-gb}).
 \item $V_{\Fq}(J)=V_{\overline{\Fq}}(J+J_0)$.
-\item Due to (2), $I(V_{\Fq}(J)) = I(V_{\overline{\Fq}}(J+J_0))$. 
+\item Due to 2), $I(V_{\Fq}(J)) = I(V_{\overline{\Fq}}(J+J_0))$. 
 By Strong Nullstellensatz, this is equivalent to $\sqrt{J+J_0}$.
-Finally, due to (1), this is equivalent to $J+J_0$.
+Finally, due to 1), this is equivalent to $J+J_0$.
 \end{enumerate}
 \end{Proof}
 
@@ -858,8 +862,9 @@ Finally, due to (1), this is equivalent to $J+J_0$.
 Using this result, Weak Nullstellensatz can be 
 modified to be applicable over finite fields $\Fq$.
 %%%%%%%%%%%%%%%%weak nullstellensatz in finite field%%%%%%%%%%%%%
-\begin{Theorem}\label{wnull:ff}
-$[\bf{Weak~Nullstellensatz~in~\Fq}]$\cite{null:1890}\\
+\begin{Theorem}[Weak Nullstellensatz in $\Fq$]
+\label{wnull:ff}
+\cite{null:1890}
 Given $f_1,f_2,\cdots,f_s \in \Fq[x_1,x_2,\cdots,x_d]$. 
 Let $J=\langle f_1,f_2,\cdots,f_s\rangle \subset \Fq[x_1,
 x_2, \cdots, x_d]$ be an ideal. Let $J_0 = \langle 
@@ -867,7 +872,7 @@ x_1^{2^k}-x_1,x_2^{2^k}-x_2,\cdots,x_d^{2^k}-x_d \rangle$ be the ideal
 of vanishing polynomials in $\Fq$. Then
 $V_{\Fq}(J) = V_{\overline {\Fq}}(J +
 J_0)=\emptyset$,  if and only if the reduced
-Gr\"obnerBasis$(J+J_{0})=\{1\}$. 
+Gr\"obner Basis $RGB(J+J_{0})=\{1\}$. 
 \end{Theorem}
 
 The proof is given in \cite{null:1890}. Here, we provide a proof outline.
@@ -888,19 +893,19 @@ Thus, $V_{\Fq}(J) = V_{\overline{\Fq}}(J)\cap V_{\overline{\Fq}}(J_0)
 \end{Proof}
 
 
-\section{Elimination and Abstraction Theory}
+\section{Elimination Theory and Application to Abstraction}
 \label{sec:abstraction}
 Elimination of certain variables in a system of polynomials is a common 
 operation when some variables is not needed in modeling and analysis. 
-In this section, eliminating variables targets a tight-bound over-approximation 
-which is equivalent to existential quantifier elimination in first-order logic,
-or variable smoothing in Boolean operations. We introduce a eliminating method 
-based on algebraic geometry concepts, and use it as the fundamentals of 
+In this section, eliminating variables targets a tight-bound over-approximation.
+This is equivalent to the existential quantifier elimination in first-order logic,
+or variable smoothing in Boolean operations. We introduce a elimination method 
+based on algebraic geometry concepts, and use it as the fundamental of 
 abstraction of a circuit.
 
 \subsection{Elimination Theory}
-Assume we are given a set of polynomials $f_1,\dots,f_s$ belongs to ring $\Fq[x_1,\dots,x_l,\dots,x_d]$.
-First, we show that eliminating the $x_1,\dots,x_l$ variables is equivalent to 
+Assume we are given a set of polynomials $f_1,\dots,f_s$ from a ring $\Fq[x_1,\dots,x_l,\dots,x_d]$.
+First, we show that eliminating $x_1,\dots,x_l$ variables related to 
 {\it projecting} the variety $V(\langle f_1,\dots,f_s\rangle)$ from 
 $\Fq^d$ to $\Fq^{d-l}$. Figure \ref{fig:projection} is an example of projection in space of varieties
 from $\Fq^3$ to $\Fq^2$, corresponding to eliminating variable $x_1$ from 
@@ -917,8 +922,8 @@ Formally, we define concepts of projection and elimination ideal:
 \begin{Definition}
 The {\bf $l$-th projection} mapping is defined as:
 $$\pi_l:\Fq^d\to\Fq^{d-l},~~\pi_l((x_1,\dots,x_d)) = (x_{l+1}.\dots,x_d)$$
-where $l<d$. For any set $A \subseteq \Fq^d$, we write 
-$$\pi_l(A) = \{\pi_i(x):x\in A\}\subseteq \Fq^{d-l}$$
+where $l<d$. For any subset $V \subseteq \Fq^d$, we write 
+$$\pi_l(V) = \{\pi_i(x):x\in A\}\subseteq \Fq^{d-l}$$
 \end{Definition}
 
 \begin{Definition}
@@ -931,8 +936,15 @@ J_l = J \cap \Fq[x_{l+1},\dots,x_d]
 \end{Definition}
 
 The elimination ideal $J_l$ has eliminated all the variables 
-$x_1,\dots,x_l$, i.e. it only contains polynomials with variables in
+$x_1,\dots,x_l$, {\it i.e.} it only contains polynomials with variables in
 $x_{l+1},\dots,x_d$. 
+In a general setting,
+$\pi_l(V_d(J))$ from $\Fq^d$ to $\Fq^{d-l}$ is a subset of $V(J_l)$. But over $\Fq$, 
+consider ideal $J+J_0$ where $J_0$ is the ideal of vanishing polynomials, it is proved in \cite{gao:qe-gf-gb}
+that 
+$$\pi_l(V(J+J_0)) = V((J+J_0)_l)$$
+
+
 This shows that in finite fields, projection of the variety $V_{d}(\langle f_1,\dots,f_s\rangle)$
 from $\Fq^d$ to $\Fq^{d-l}$, is exactly the variety $V_{d-l}(\langle f_1,\dots,f_s\rangle\cap \Fq[x_{l+1},\dots,x_d])$.
 
@@ -942,7 +954,7 @@ equations.
 We can generate elimination ideals by computing
 \Grobner bases using elimination orderings. 
 
-\begin{Theorem}{Elimination Theorem}
+\begin{Theorem}[Elimination Theorem]
 %$\left[\bf{Elimination\  Theorem}\right]$
 Let $J$ be an ideal in $\F[x_1,\dots,x_d]$ and let $G$ be the \Grobner 
 basis of $J$ with respect to the lex order (elimination order) 
@@ -994,21 +1006,26 @@ Elimination theory provides the basis for following abstraction approach.
 \label{fig:abs_setup}}
 \end{figure}
 
-{\bf Problem setup:} Let $S$ be the system of polynomials, 
+\begin{Problem}
+\label{setup:abs}
+Let $S$ be the system of polynomials, 
 $\{f_1,\dots,f_s,f_{A_1},\dots,f_{A_n},f_{Z}\}\subset \Fkk$, 
 derived from the hardware
-implementation of the Galois field arithmetic circuit over $\Fkk$, as Figure \ref{fig:abs_setup} shows.
-This circuit performs some unknown function $f$ over 
-$\Fkk$ in the form of $Z=\Func(A_1,\dots,A_n)$, where $Z$ is the $k$-bit 
-output and $A_1,\dots,A_n$ are the $k$-bit inputs.
-The polynomial representation of $\Func$ over $\Fkk$ is thus:
+implementation of any circuit over $\Fq, q=2^k$, as Figure \ref{fig:abs_setup} shows.
+In general, this circuit performs some unknown function $f$ over 
+$\Fq$ such that every $f:\Fq\to\Fq$ is represented in polynomial form.
+For any circuit $\mathcal C$, $Z = \Func(A)$. Then how to derive this function $\Func$
+using GB?
+\end{Problem}
+
+The polynomial representation of $\Func$ over $\Fkk$ is:
 
 \begin{equation}
 f_{\Func}: Z+\Func(A_1,\dots,A_n) \nonumber
 \end{equation}
 
 Since $f_{\Func}$ is ultimately derived from the circuit implementation, 
-it agrees with the solution to the system of polynomials $\{S\}=0$, i.e.:
+it agrees with the solution to the system of polynomials $\{S\}=0$, {\it i.e.}:
 \begin{equation}
 f_1=\dots=f_s=f_{A_1}=\dots=f_{A_n}=f_{Z}=0 \nonumber
 \end{equation}
@@ -1068,16 +1085,16 @@ the {\bf Abstraction Term Order (ATO)}. The relative ordering among $x_1,
 the relative ordering among $A_1, \dots, A_n$ is also unimportant.
 \end{Definition}
 
-\begin{Theorem}
-{\bf Abstraction Theorem:} Using the notations from problem setup at the beginning of this subsection,
+\begin{Theorem}[Abstraction Theorem]
+Using the notations from Problem Setup \ref{setup:abs} at the beginning of this subsection,
 we compute a \Grobner basis $G$ of ideal $(J+J_0)$ using the abstraction term 
 order $>$. Then: \\
-(i) For every word-level input $A_i$, $G$ must contain the vanishing 
+1) For every word-level input $A_i$, $G$ must contain the vanishing 
 polynomial $A_i^q - A_i$ as the only polynomial with $A_i$ as its only 
 variable;\\
-(ii) $G$ must contain a polynomial of the form 
+2) $G$ must contain a polynomial of the form 
 $Z + \mathcal{G}(A_1,\dots,A_n)$; and\\ 
-(iii) $Z + \mathcal{G}(A_1,\dots,A_n)$ is such that 
+3) $Z + \mathcal{G}(A_1,\dots,A_n)$ is such that 
 $\Func(A_1,\dots,A_n) = {\mathcal{G}}(A_1,\dots,A_n),
 \forall A_1,\dots,A_n \in \Fq$. 
 In other words, ${\mathcal{G}}(A_1,\dots,A_n)$ and $\Func(A_1,\dots,A_n)$ are
@@ -1169,7 +1186,7 @@ g_{12}: c_2+a_1\cdot b_1 \alpha + a_1 \cdot B;
 ~~g_{14}: A^4+A  \nonumber
 \end{align*}
 
-$g_8=Z+A\cdot B$ is the {\bf canonical, word-level polynomial } 
+Here $g_8=Z+A\cdot B$ is the {\bf canonical, word-level polynomial } 
 representing the function performed by the multiplier $Z=A\cdot B$.
 \end{Example}
 
@@ -1177,4 +1194,4 @@ representing the function performed by the multiplier $Z=A\cdot B$.
 Our approach to word-level abstraction of Galois field arithmetic 
 circuits applies concepts of polynomial ideals, varieties, \Grobner basis, 
 and abstraction theory to implement verifications on sequential circuits. 
-These approaches are described in the following chapters. 
+The application of these approaches to sequential circuit verification is described in the following chapters. 

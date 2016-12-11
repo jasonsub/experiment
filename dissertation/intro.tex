@@ -9,7 +9,7 @@
 During the last decades, the level of integration in modern VLSI systems is becoming higher and higher because of the Moore's law.
 As a result, an entire system with billions of transistors can be built upon a single chip.
 The design process also evolves from manual design with little validation, to 
-a formal 3-step procudure which requires collaboration of teams with large number of 
+a formal 3-step procedure which requires collaboration of teams with large number of 
 engineers. The 3 major steps are: 1) Design, which is to specify and enter the design intent;
 2) Implement, which is to refine the design through various abstraction levels with the assistance of Computer-Aided-Design (CAD)
 tools; 3) Verify, which is to verify the correctness of design and implementation.
@@ -17,10 +17,10 @@ tools; 3) Verify, which is to verify the correctness of design and implementatio
 Nowadays the verification step is usually completed by a team that specializes on test, verification and validation of 
 circuits. This step is also automated as an indispensable part of the CAD flow, when circuit synthesis is performed. 
 Figure \ref{fig:designflow} shows the typical synthesis flow, which covers procedures starting from the 
-register-transfer-level (RTL) description (using hardware design languages, i.e. HDL) to  the 
+register-transfer-level (RTL) description (using hardware design languages, {\it i.e.} HDL) to  the 
 physical design on silicon (depicted by the layout). The objective of verification in synthesis is 
 to ensure the implementation is consistent with the original design intent. Verification is 
-an important quality control measure before sending design layout to the VLSI foundaries.
+an important quality control measure before sending design layout to the VLSI foundries.
 Considering the high cost of fabrication, faults and errors in the design will bring considerable 
 waste of funds for the designers. On the other hand, all aspects of the society increasingly depend on 
 the stability and accuracy of digital VLSI circuits; even small flaws or short-time failures can cause 
@@ -30,11 +30,11 @@ Therefore, it is of utmost importance to verify the correctness of VLSI designs.
 One way to perform verification is by {\it simulation}. It is defined as the collage of all circuit validation 
 methods which apply stimulus on the inputs of circuit model and verify correctness of the outputs.
 However, simulation is not a complete solution to circuit verification problems. In modern designs with 
-large number of logic components and complicated architecures, it is impractical to simulate all possible 
+large number of logic components and complicated architectures, it is impractical to simulate all possible 
 test vectors. Usually only test vectors that correspond to typical failures are selected in simulation, which 
 cannot cover unexpected failure patterns caused by special inputs. The notorious Intel FDIV bug \cite{nicely:FDIV}
 is a good example where simulation failed. Failure occurred with input assignments which were rarely used in most divisions. Because of the limitation of simulation,  
-test engineers from Intel failed to detect the bug,  which brought about $\$475$ million dollors recalling bill
+test engineers from Intel failed to detect the bug,  which brought about $\$475$ million dollars recalling bill
 for the company. Thus,  new methods that can guarantee the correctness of the design are necessary to be explored.
 
 {
@@ -58,7 +58,7 @@ These descriptions are named as {\it specifications}.
 Formal verification has two main forms: property checking and equivalence 
 checking. 
 
-\section{Formal Verification: Property and Equilavence Checking}
+\section{Formal Verification: Property and Equivalence Checking}
 
 
 {\it Property checking} (or property verification) verifies
@@ -81,7 +81,7 @@ properties are violated. If violation occurs,
 a counter-example is then generated as a transition firing path that corresponds to the
 false behavior in the design. 
 Modern model checking techniques use the error-trace to automatically refine
-the system and perform further checkings.
+the system and perform further checking.
 \end{enumerate}
 
 {\it Equivalence Checking} verifies that two different representations of
@@ -99,8 +99,8 @@ satisfiability-based (SAT-based) and induction-based.
 by representing them using canonical graphs. 
 The earliest invented canonical graph is the \emph{Binary Decision Diagram} (BDD) \cite{BRYA86}.
 Many variants branch out from BDDs; some widely used variants include 
-ZDD \cite{minato1993zero}, BMD \cite{bmd}, FDD \cite{okfdd}, etc. The comparison algorithms can 
-determine whether the two graphs are isomorphic. The canonity of the graph representation guarantees that
+ZDD \cite{minato1993zero}, BMD \cite{bmd}, FDD \cite{okfdd}, {\it etc.} The comparison algorithms can 
+determine whether the two graphs are isomorphic. The canonicity of the graph representation guarantees that
 the graphs correspond to the two circuits will be 
 equivalent if and only if the circuits implement the same function.
 \item \emph{Satisfiability} (SAT) techniques utilize the satisfiability theory.
@@ -255,7 +255,7 @@ with all of the above techniques is that they mostly use bit-level
 constraints to model the transition relations and sets of 
 states. Often,
 the designs are expressed at the level of bit-vector words
-(e.g. Matlab code, Verilog), and these word-level abstractions are
+({\it e.g.} Matlab code, Verilog), and these word-level abstractions are
 rarely exploited in verification. The problem is further exacerbated
 when there are arithmetic operators on word-level operands embedded in
 the control logic. While attempts have been made towards word-level
@@ -323,7 +323,7 @@ In this dissertation, we propose a method to perform reachability analysis at th
 In this dissertation we represent
 the FSMs -- the transition relations -- by means of a set of
 multi-variate polynomials with coefficients from the finite (Galois)
-field $\Fkk$ of $2^k$ elements, i.e. polynomials in the ring
+field $\Fkk$ of $2^k$ elements, {\it i.e.} polynomials in the ring
 $\Fkk[x_1,\dots,x_d]$. Each state of a FSM is identified with a
 Boolean assignment to a set of $k$-bit state register variables
 $S=\{s_0,\dots,s_{k-1}\}$. Therefore, we can consider each ($k$-bit)
@@ -341,7 +341,7 @@ This implies that one can derive a canonical, polynomial
   abstraction of the function as $Z = \Func(A)$ where $Z, A$ are
 word-level symbols representing $k$-bit operands. The concept also
 generalizes to functions with different input/output bit-vector sizes,
-i.e. functions of the type $f: \B^n \rightarrow \B^m$, modeled as
+{\it i.e.} functions of the type $f: \B^n \rightarrow \B^m$, modeled as
 polynomials over $f:{\mathbb{F}}_{2^k} \rightarrow
 {\mathbb{F}}_{2^k}$, where $k=LCM(n,m)$ \cite{ff:1997}.  
 {\it This implies that the FSM's transition relations can be

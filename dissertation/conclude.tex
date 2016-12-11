@@ -43,7 +43,7 @@ the following further explorations are worthy of investigation.
   
 \section{Future Work}
 In this section, we highlight some research problems that deserve further study.
-\subsection{Multivariate polynomial ideal based FSM traversal}
+\subsection{Multivariate Polynomial Ideal based FSM Traversal}
 In Chapter \ref{ch:reacha}, we always use a single word-level variable $T$ to denote the
 next state. However, in some situations we need to keep recording the relations between $T$ and
 inputs, {\it i.e.} the reached states contain multivariate polynomials in $T,S$ and PI $x$. 
@@ -153,7 +153,7 @@ However over multivariate case, the proof of this conjecture is not available.
 % which denotes $\{00,01,10,11\}$.
 % \end{Example}
 
-\subsection{Use of the $F_4$ algorithm and ZDDs to Accelerate GB Reduction}
+\subsection{Use of the $F_4$ Algorithm and ZDDs to Accelerate GB Reduction}
 In Chapters \ref{ch:reacha} and \ref{ch:normal}, by using RATO we transform the GB-based
 computation to that of a multivariate polynomial division. However, this division (reduction)
 still incurs exponential complexity in the worst case. In a situation where division is to be performed modulo
@@ -208,7 +208,7 @@ A CI is related to an UNSAT formula.
 
 \begin{Definition}
 (From \cite{mcmillan2003interpolation}) Let $A$ and $B$ be Boolean
-  formulae given as sets of clauses such that $A \wedge B$ is
+  formulas given as sets of clauses such that $A \wedge B$ is
   unsatisfiable (UNSAT). Then there exists a formula $P$ such that: 
 1) $A$ implies $P$ (or $A \subseteq P$); ~2) $P \wedge B$ is UNSAT; ~3)
 $P$ refers to only the common variables of $A$ and $B$. The formula
@@ -336,13 +336,13 @@ interpolants for any given problem? Can they be classified as {\it weak
 As there can be many interpolants for an ideal-pair $(J_A, J_B)$, 
 the following questions should also be investigated in the future:
 \bi
-\item Find the minimal interpolant: i.e. find the interpolant $F_P$
+\item Find the minimal interpolant: {\it i.e.} find the interpolant $F_P$
   such that $V(J_P)$ is the smallest variety larger than $V(J_A)$ such
   that $V(J_P) \cap V(J_B) = \emptyset$.
 \item Analogously, find the maximal interpolant. 
 \item Over finite fields, the variety of an elimination ideal is
-  exactly equal to the projection of the variety on the un-eliminated
-  variables. Consider Fig. \ref{fig:projection}, where variety of the
+  exactly equal to the projection of the variety on the remaining
+  variables. Consider Figure \ref{fig:projection}, where variety of the
   ideals $J_A, J_B$ are respectively projected on the common variables
   $X_C = \{a, c\}$. Then, does computing $F_{P1}$ (resp. $F_{P2}$) 
   deliver the minimal (resp. maximal) interpolant?

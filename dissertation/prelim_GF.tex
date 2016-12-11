@@ -1,25 +1,25 @@
-\chapter{Galois Field and Sequential Arithmetic Circuits}
+\chapter{Finite Fields and Sequential Arithmetic Circuits}
 \label{ch:prelim_GF}
 This chapter provides a mathematical background for understanding 
-finite fields (Galois fields) and explains how to design Galois field arithmetic circuits.
+finite fields (Galois fields) and explains how to design Galois field (GF) arithmetic circuits.
 We first introduce the mathematical concepts of groups, rings, fields, and 
 polynomials. 
 We then apply these concepts to create Galois field arithmetic functions and 
 explain how to map them to a Boolean circuit implementation.
-Additonally, we introduce a special type of sequential arithmetic hardware based on normal basis, as well
+Additionally, we introduce a special type of sequential arithmetic hardware based on normal basis, as well
 as the normal basis theory behind the designing such hardware.
 
 The material is referred from \cite{galois_field:mceliece, ftheory:2006, ff:1997} for Galois field concepts, 
 \cite{mastro:1989, PT:1985, acar:1998, wu:2002, Knezevic:2008} for hardware design over Galois fields 
-and previous work by {\it Lv} \cite{lv:phd}.
-Normal basis theory in this section refers to \cite{normal_book, gao:phd_normal_basis} and sequential
+and previous work by Lv \cite{lv:phd}.
+Normal basis theory in this section is referred from \cite{normal_book, gao:phd_normal_basis} and sequential
 normal basis arithmetic hardware designs come from \cite{mullinONB,MasseyOmura,agnew1991implementation, RHmulti}.
 
 \section{Commutative Algebra}
 \label{sec:algebra}
-\subsection{Group, ring and field}
+\subsection{Group, Ring and Field}
 \begin{Definition}
-An {\bf abelian group} is a set $\mathbb{S}$ with a binary operation $'+'$
+An {\bf Abelian group} is a set $\mathbb{S}$ with a binary operation $'+'$
 which satisfies the following properties: 
 \begin{itemize}
 \item {\it Closure Law:} For every $a, b \in \mathbb{S}, a + b \in \mathbb{S}$  
@@ -32,13 +32,13 @@ element $a^{-1} \in \mathbb{S}$ such that $ a + a^{-1} = 0$.
 \end{itemize}
 \end{Definition}
 
-The set of integers $\mathbb{Z}$ forms an abelian group under the addition operation. 
+The set of integers $\mathbb{Z}$ forms an Abelian group under the addition operation. 
 
 \begin{Definition}
 Given a set $\mathbb{R}$ with two binary operations, $'+'$ and $'\cdot'$, 
 and element $0 \in \mathbb{R}$, the system $\mathbb{R}$ is called a {\bf commutative ring with unity} if the following properties hold:
 \begin{itemize}
-\item $\mathbb{R}$ forms an abelian group under the '+' operation with additive identity element $0$.
+\item $\mathbb{R}$ forms an Abelian group under the '+' operation with additive identity element $0$.
 \item {\it Multiplicative Distributive Law}: For all $a, b, c \in$ $\mathbb{R}$, $a\cdot (b + c) = a\cdot b + a\cdot c$.
 \item {\it Multiplicative Associative Law}: For every $a, b, c\in \mathbb{R}$, $a\cdot (b\cdot c) = (a\cdot b)\cdot c$. 
 \item {\it Multiplicative Commutative Law}: For every $a,b \in \mathbb{R}$, $a\cdot b = b\cdot a$
@@ -56,7 +56,7 @@ can also be finite, such as the ring of integers modulo $n$ ($\Z_n$).
 
 \begin{Definition}
 A {\bf field} $\mathbb{F}$ is a commutative ring with unity, where every
-non-zero element in $\mathbb{F}$ has a multiplicative inverse; i.e. $\forall
+non-zero element in $\mathbb{F}$ has a multiplicative inverse; {\it i.e.} $\forall
 a \in \mathbb{F} - \{0\}$, $\exists \hat{a} \in \mathbb{F}$ such that $ a \cdot
 \hat{a} = 1$.
 \end{Definition}
@@ -100,8 +100,8 @@ and hardware arithmetic designs over such fields \cite{mastro:1989} \cite{PT:198
 
 \begin{Definition} 
 A {\bf Galois field}, denote $\Fq$, is a field with a finite
-number of elements, $q$. The number of elements $q$ of the Galois field is
-a power of a prime integer, i.e. $q = p^k$, where $p$ is a prime
+number of elements, $q$. The number of elements $q$ of the field is
+a power of a prime integer, {\it i.e.} $q = p^k$, where $p$ is a prime
 integer, and $k \geq 1$. Thus a Galois field can also be denoted as 
 $\F_{p^{k}}$.
 \end{Definition}
@@ -150,7 +150,7 @@ This allows them to be widely used in digital hardware applications.
 In order to construct a Galois field of the form $\Fkk$, 
 an {\bf irreducible polynomial} is required:
 \begin{Definition}
-A polynomial $P(x) \in \mathbb{F}_{2}\left[x\right]$, i.e. the set of all 
+A polynomial $P(x) \in \mathbb{F}_{2}\left[x\right]$, {\it i.e.} the set of all 
 polynomials in $x$ with coefficients in $\F_2$, is {\bf irreducible} 
 if $P(x)$ is non-constant with degree $k$ and cannot be 
 factored into a product of polynomials of lower degree in $\mathbb{F}_2[x]$.
@@ -160,14 +160,14 @@ Therefore, the polynomial $P(x)$ with degree $k$ is irreducible over
 $\mathbb{F}_{2}$ if and only if it has no roots in $\mathbb{F}_{2}$,
 i.e if $\forall a \in \mathbb{F}_{2}$, $P(a)\neq 0$.
 For example, $x^2+x+1$ is an irreducible polynomial over $\mathbb{F}_{2}$
-because it has no solutions in $\mathbb{F}_{2}$, i.e. $(0)^2+(0)+1=1\neq0$ 
+because it has no solutions in $\mathbb{F}_{2}$, {\it i.e.} $(0)^2+(0)+1=1\neq0$ 
 and $(1)^2+(1)+1=1\neq0$ over $\F_2$.
 Irreducible polynomials exist for any degree $\geq 2$ in $\mathbb{F}_2[x]$.
 
 Given an irreducible polynomial $P(x)$ of degree $k$ in the polynomial ring 
 $\mathbb{F}_2[x]$, we can construct a binary extension field 
 $\mathbb{F}_{2^k} \equiv \mathbb{F}_2[x] \pmod{P(x)}$.
-Let $\alpha$ be a root of $P(x)$, i.e., $P(\alpha)=0$.
+Let $\alpha$ be a root of $P(x)$, {\it i.e.} $P(\alpha)=0$.
 Since $P(x)$ is irreducible over
 $\mathbb{F}_2[x]$, $\alpha \notin \mathbb{F}_2$. 
 Instead, $\alpha$ is an element in $\mathbb{F}_{2^k}$. 
@@ -214,7 +214,7 @@ $\alpha^3+\alpha+1$.
 \begin{Example}\label{exp:1}
 Let us construct $\mathbb{F}_{2^4}$ as $\mathbb{F}_2[x] \pmod{ P(x)}$, where
 $P(x)=x^4+x^3+1 \in \mathbb{F}_2[x]$ is an irreducible polynomial of degree $k=4$. 
-Let $\alpha$ be the root of $P(x)$, i.e. $P(\alpha)=0$. 
+Let $\alpha$ be the root of $P(x)$, {\it i.e.} $P(\alpha)=0$. 
 
 Any element $A \in \mathbb{F}_2[x] \pmod{ x^4 + x^3 + 1}$
 has a representation of the type: $A = a_3 x^3 + a_2 x^2 +
@@ -337,7 +337,7 @@ designate $\F_{16}$. Of these, $\{0,1,\alpha^5,\alpha^{10}\}$ create $\F_4$.
 From these, only $\{0,1\}$ exist in $\F_2$.
 
 \begin{Theorem}
-$\F_{2^n}\subset\F_{2^m}$ iff $n \mid m$, i.e. if $n$ divides $m$.
+$\F_{2^n}\subset\F_{2^m}$ iff $n \mid m$, {\it i.e.} if $n$ divides $m$.
 \end{Theorem}
 
 Therefore:
@@ -353,18 +353,18 @@ union of all fields $\F_{2^n}$ such that $k \mid n$.
 \end{Definition}
 
 \section{Normal Basis Multiplier over Galois Field}
-From algebraic view, a field is a space, and field elements are points in the space. Those elements can be 
+From an algebraic perspective, a field is a space, and field elements are points in the space. Those elements can be 
 represented with unique coordinates, which requires the pre-definition of a basis vector. In this
 section, we discuss a special basis called normal basis, as well as the advantages adopting it in 
-GF operations esp. multiplication.
+GF operations, especially multiplication.
 \subsection{Normal Basis}
-Given a Galois field (GF) $\Fkk$ is a finite field with  $2^k$ elements and characteristic equals to 2.
+Given a Galois field $\Fkk$ is a finite field with  $2^k$ elements and characteristic equals to 2.
 Its elements can be written in polynomials of $\alpha$, when there is an irreducible polynomial $p(\alpha)$
 defined.
 
 If we use a basis $\{1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1}\}$, we can easily transform polynomial representations
 to binary bit-vector representations by recording the coefficients. For example, for elements in
-$\F_{2^4}$, the results are shown in table \ref{tab:gfelement}, column ``Polynomial".
+$\F_{2^4}$, the results are shown in Table \ref{tab:gfelement}, column ``Polynomial".
 
 % \begin{table}[H]
 % \centering
@@ -395,7 +395,7 @@ $\F_{2^4}$, the results are shown in table \ref{tab:gfelement}, column ``Polynom
 % \label{table:booltogalois}  
 % \end{table}
 
-Basis $\{1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1}\}$ is called {\bf standard basis} (StdB), which results in
+The basis $\{1,\alpha,\alpha^2,\alpha^3,\dots,\alpha^{k-1}\}$ is called a {\bf standard basis} (StdB), which results in
 a straightforward representation for elements, and operations of elements such as addition and subtraction.
 The addition/subtraction of GF elements in StdB follows the rules of polynomial addition/subtraction
 where coefficients belong to $\mathbb F_2$. In other words, using the definition of {\it exclusive or} (XOR) in
@@ -409,24 +409,24 @@ A+B = A-B &= (a_0,a_1,\dots,a_{k-1})_{StdB} \xor (b_0,b_1,\dots,b_{k-1})_{StdB} 
 Besides addition/subtraction, multiplication is also very common in arithmetic circuit design.
 The multiplication of GF elements in $\Fkk$ in StdB follows the rule of polynomial multiplication.
 However, it will result in $O(k^2)$ bitwise operations. In other words, if we implement GF multiplication
-in bit-level logic circuit, it will contain $O(k^2)$ gates. When the datapath size $k$ is large,
+in a bit-level logic circuit, it will contain $O(k^2)$ gates. When the datapath size $k$ is large,
 the area and delay of circuit will be costly.
 
-In order to lower down the complexity of arithmetic circuit design, Massey and Omura \cite{MasseyOmura} % ref 7 in RH paper
-use a new basis to represent GF elements, which is called {\bf normal basis} (NB).
+In order to lower the complexity of arithmetic circuit design, Massey and Omura \cite{MasseyOmura} % ref 7 in RH paper
+use a new basis to represent GF elements, which is called a {\bf normal basis} (NB).
 A normal basis over $\Fkk$ is written in the form of
 \begin{equation*}
 N.B. ~~~ \N = \{\beta,\beta^2,\beta^4,\beta^8,\dots,\beta^{2^{k-1}}\}
 \end{equation*}
 
 {\bf Normal element} $\beta$ is an element from the field which is used to construct the normal basis,
-and can be represent as a power of primitive element $\alpha$: 
+and can be represented as a power of the primitive element $\alpha$: 
 \begin{equation*}
 \beta = \alpha^t, ~~~ 1\leq t<2^k
 \end{equation*}
-Exponent $t$ takes value in the given range when $\N$ fulfills the definition of a basis.
+Exponent $t$ takes values in the given range when $\N$ fulfills the definition of a basis.
 
-Respectively, a field element in NB representation is actually
+Correspondingly, a field element in NB representation is actually
 \begin{align*}
 A &= (a_0,a_1,\dots,a_{k-1})_{NB} \\
   &= a_0\beta+a_1\beta^2+\cdots+a_{k-1}\beta^{2^{k-1}} \\
@@ -434,9 +434,9 @@ A &= (a_0,a_1,\dots,a_{k-1})_{NB} \\
 \end{align*}
 
 According to the definition, a normal basis is a vector where the next entry is the square of the former one.
-We note that the vector is cyclic, i.e. $\beta^{2^k} = \beta$ due to {\it Fermat's little theorem}.
+We note that the vector is cyclic, {\it i.e.} $\beta^{2^k} = \beta$ due to {\it Fermat's little theorem}.
 
-The addition and subtraction of elements in NB representation are similar to equation \ref{eqn:StdB}.
+The addition and subtraction of elements in NB representation are similar to Equation \ref{eqn:StdB}.
 However, what makes NB powerful is its ease of implementation when doing multiplications and exponentiations.
 The following lemmas and examples illustrate this fabulous property very well.
 \begin{Lemma}[Square of NB]
@@ -452,7 +452,7 @@ According to the \textbf{binomial theorem}, it can be extended to
 =& b_{k-1}^2\beta + b_0\beta^2 + b_1\beta^4 + \dots + b_{k-2}\beta^{2^{k-1}}
 \end{align*}
 \end{Lemma}
-This lemma concludes that the square of an element in NB equals to a simple right-cyclic shift of the bit-vector.
+This lemma concludes that the square of an element in NB equals to a simple {\it right-cyclic shift} of the bit-vector.
 Obviously, StdB representation does not have this benefit.
 
 \begin{Example}[Square of NB]
@@ -478,8 +478,8 @@ E^2 &= \overset{\xrightarrow{Cyclic~~shift}}{(b_0,b_1,b_2)}_{NB} \\
 \end{Example}
 
 This example shows that convenience to use NB when computing $2^k$ power of an element.
-Multiplication is a bit complicated than squaring; but when it is decomposed as bit-wise
-operations, the property in lemma \ref{lem:squareNB} can be well utilized.
+Multiplication is more complicated than squaring; but when it is decomposed as bit-wise
+operations, the property in Lemma \ref{lem:squareNB} can be well utilized.
 
 \begin{Example}[Bit-wise NB multiplication]
 Assume there are 2 binary vectors representing 2 operands in NB over $\Fkk$: 
@@ -492,9 +492,9 @@ Assume the most significant bit (MSB) of the product can be represented by a fun
 \label{eqn:multiMSB}
 c_{k-1} = f_{mult}(a_0, a_1, \dots, a_{k-1}; b_0, b_1, \dots, b_{k-1})
 \end{equation}
-Before discussing the details of the function $f_{mult}$, we can take 
-a square on both side of equation \ref{eqn:multiMSB}, i.e. $C^2 = A^2\times B^2$.
-Obviously, using the property in lemma \ref{lem:squareNB}, the original second most significant bit 
+Before discussing the details of the function $f_{mult}$, we can 
+square both sides of Equation \ref{eqn:multiMSB}, {\it i.e.} $C^2 = A^2\times B^2$.
+Obviously, using the property in Lemma \ref{lem:squareNB}, the original second most significant bit 
 becomes the new MSB because of right-cyclic shifting. 
 Concretely, 
 $$(c_{k-1},c_0,c_1,\dots,c_{k-2}) = (a_{k-1},a_0,a_1,\dots,a_{k-2})\times(b_{k-1},b_0,b_1,\dots,b_{k-2})$$
@@ -535,7 +535,7 @@ b_1 \\
 b_{k-1}
 \end{pmatrix}
 \end{align*}
-Moreover, $M$ is a $k\times k$ square matrix. If we can find $M$, we obtain the design of the multiplier.
+Moreover, $M$ is a $k\times k$ square binary matrix. If we can find $M$, we obtain the design of the multiplier.
 
 \begin{Definition}[$\lambda$-Matrix]
 A binary $k\times k$ matrix $M$ is used to describe the bit-wise normal basis multiplication function $f_{mult}$ where
@@ -547,14 +547,14 @@ Symbol $B^T$ denotes vector transposition. Matrix $M$ is called $\lambda$-Matrix
 $k$-bit NB multiplication over $\Fkk$.
 \end{Definition} 
 
-When taking different bits $l$ of the product in equation \ref{eqn:def_lambda}, 
+When taking different bits $l$ of the product in Equation \ref{eqn:def_lambda}, 
 we obtain a series of conjugate matrices of $M$. 
 Which means instead of shifting operands $A$ and $B$, we can also shift the 
 matrix.
 
 More specifically, we denote the matrix by \emph{$l$-th $\lambda$-Matrix} as 
 $$c_l = A \times M^{(l)} \cdot B^T$$
-Meanwhile, the operator shifting rule in equation \ref{eqn:shiftMSB} still holds. Then we have relation 
+Meanwhile, the operator shifting rule in Equation \ref{eqn:shiftMSB} still holds. Then we have the relation 
 $$c_{l-1} = A \cdot M^{(l-1)} \cdot B^T = shift(A) \cdot M^{(l)} \cdot shift(B)^T$$ which means
 by right and down cyclically shifting $M^{(l-1)}$, we can get $M^{(l)}$.
 
@@ -605,11 +605,11 @@ If we generalize the definition and explore the nature of $\lambda$-Matrix, it i
 Product~vector~C = (\sum_{i=0}^{k-1}a_i\beta^{2^i})(\sum_{j=0}^{k-1}b_j\beta^{2^j}) = \sum_{i=0}^{k-1}\sum_{j=0}^{k-1}a_ib_j\beta^{2^i}\beta^{2^j}
 \end{equation}
 The expressions $\beta^{2^i}\beta^{2^j}$ are referred to as cross-product terms, and can be represented by
-NB, i.e.
+NB, {\it i.e.}
 \begin{equation}
 \beta^{2^i}\beta^{2^j} = \sum_{l=0}^{k-1}\lambda_{ij}^{(l)}\beta^{2^l}, \ \ \lambda_{ij}^{(l)} \in \mathbb F_2.
 \end{equation}
-Substitution yields, result is an expression for l-th digit of product as showed in equation \ref{eqn:multiMSB}:
+Substitution yields an expression for $l$-th digit of product as showed in Equation \ref{eqn:multiMSB}:
 \begin{equation}
 c_l = \sum_{i=0}^{k-1}\sum_{j=0}^{k-1}\lambda_{ij}^{(l)}a_ib_j
 \end{equation}
@@ -620,10 +620,10 @@ The very naive implementation requires $O(C_N)$ gates, where $C_N$ is the number
 nonzero entries in $\lambda$-Matrix.
 There usually exists multiple NBs in $\Fkk, k>3$. If we employ a random NB, there is no mathematical
 guarantee that $C_N$ has bound $o(k)$. However,
-Mullin et al. \cite{mullinONB} % This citation is valid
+Mullin {\it et al.} \cite{mullinONB} % This citation is valid
 proves that in certain GF $\mathbb F_{p^{k_{opt}}}$, there always exists at least one NB such that 
 its corresponding $\lambda$-Matrix has $C_N = 2n-1$ nonzero entries. A basis with this property is
-called optimal normal basis (ONB), details are introduced in appendix \ref{append:ONB}.
+called optimal normal basis (ONB), details are introduced in Appendix \ref{append:ONB}.
 
 In practice, large size NB multipliers are usually designed in $\Fkk$ when ONB exists
 to minimize the number of gates. So in the following part of this chapter and our experiments,
@@ -685,7 +685,7 @@ vectors, not real Boolean vectors in any kind of bases.
 \end{center}
 \vspace{0.5cm}
 
-The final remainder is $1$, i.e. the product equals to 1 in StdB.
+The final remainder is $1$, {\it i.e.} the product equals to 1 in StdB.
 
 On the other hand, operands $A$ and $B$ can be written in NB as
 $$A = (0010~1001)_{NB},~~B = (0100~0010)_{NB}$$
@@ -738,7 +738,7 @@ contains 53 gates in total, which is a great saving in area cost comparing to St
 
 \section{Design a Normal Basis Multiplier on Gate Level}
 \label{sec:nbdesign}
-The NB multiplier design consumes much less gates than ordinary StdB multiplier design, even if 
+The NB multiplier design consists of fewer gates than ordinary StdB multiplier design, even if 
 we use the most naive design. However, the modern NB multiplier design has been improved a lot from the 
 very first design model proposed by Massey and Omura in 1986 \cite{MasseyOmura}. In order to 
 test our approach on practical contemporary circuits, it is necessary to learn the mechanism and design 
@@ -760,7 +760,7 @@ The logic gates in the boxes implements the matrix multiplication with $\lambda$
 while each AND gate corresponds to term $a_ib_j$ and each XOR gate corresponds to addition $a_ib_j+a_{i'}b_{j'}$. 
 The XOR layer has only 1 output, giving out 1 bit of product $C$ every clock cycle.
 
-The behavior of Massey-Omura multiplier can be concluded as: pre-load operands $A,B$ and reset $C$ to 0, after 
+The behavior of Massey-Omura multiplier can be described as: pre-load operands $A,B$ and reset $C$ to 0, after 
 executing for $k$ clock cycles, the data stored in flip-flop array $C$ is the product $A\times B$.
 We note that there is only one output giving 1 bit of the product each clock cycle, which matches the 
 definition of serial output to communication channel. Therefore this type of design is named as 
@@ -769,21 +769,21 @@ The SMSO architecture need $C_N$ AND gates and $C_N-1$ XOR gates, which equals t
 if it is designed using ONB. In fact, the number of gates can be reduced if the multiplication is 
 implemented using a conjugate of SMSO.
 
-The gate-level logic boxes are implementing following function:
+The gate-level logic boxes implement the following function:
 \begin{equation}
 \label{eqn:SMPOterms}
 c_l = row_1(A\times M^{(l)}) \times B + row_2(A\times M^{(l)}) \times B + \cdots + row_{k}(A\times M^{(l)}) \times B
 \end{equation}
 It can be decomposed into $k$ terms. If we only compute one term for each $c_l,~0\leq l\leq k-1$ in one 
 clock cycle, make $k$ outputs and add them up using shift register after $k$ clock cycles, 
-it will generate the same result with SMSO. This kind of architecture is named as 
+it will generate the same result with SMSO. This kind of architecture is named as a 
 sequential multiplier with parallel outputs (SMPO). The basic SMPO, as a conjugate of Massey-Omura multiplier,
-is invented by Agnew et al. \cite{agnew1991implementation}.
+was invented by Agnew {\it et al.} \cite{agnew1991implementation}.
 
 \begin{figure}[H]
 \centering{
 \includegraphics[width=\textwidth]{newfig/mySMPO.eps}
-\caption{5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda$-Matrix $M^{(0)}$, i.e. if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \pmod 5$. Index $w = 2i\pmod 5$}
+\caption{5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda$-Matrix $M^{(0)}$, {\it i.e.} if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \pmod 5$. Index $w = 2i\pmod 5$}
 \label{fig:SMPO}}
 \end{figure}
 
@@ -812,7 +812,7 @@ Suppose we implement $M^{(0)}$ as the logic block in SMSO. In the first clock cy
 \label{eqn:5bitSMPO_c0}
 c_0 = a_1b_0+(a_0+a_3)b_1 + (a_3+a_4)b_2 + (a_1+a_2)b_3 + (a_2+a_4)b_4
 \end{equation}
-Note it is written in the form of Equation \ref{eqn:SMPOterms}. In next clock cycles we can obtain 
+It is written in the form of Equation \ref{eqn:SMPOterms}. In next clock cycles we can obtain 
 remaining bits of the product, which can be written in following general form polynomial:
 \begin{align}
 c_i =& b_ia_{i+1} + b_{i+1}(a_i + a_{i+3}) + b_{i+2}(a_{i+3} + a_{i+4}) \nonumber\\
@@ -848,7 +848,7 @@ For ONB, adopting Agnew's SMPO will reduce the number of AND gates from $2k-1$ t
 Both Massey-Omura multiplier and Agnew's SMPO rely on the implementation of $\lambda$-Matrix,
 which means that they will be identical if unrolled to full combinational circuits. 
 After Agnew's work of parallelization, researchers proposed more designs of SMPO, 
-some of them jump out of the circle and are independent from $\lambda$-Matrix.
+some of them jump out of the box and are independent from $\lambda$-Matrix.
 One competitive multiplier design of this type is invented by Reyhani-Masoleh and Hasan 
 \cite{RHmulti}, which is therefore called RH-SMPO.
 
@@ -882,6 +882,7 @@ With the auxiliary function, we can utilize following theorem (proof refers to \
 Consider three elements $A,B$ and $R$ such that $R=A\times B$ over $\Fkk$. Then,
 $$R=(((F_{k-1}^2+F_{k-2})^2+F_{k-3})^2+\cdots+F_1)^2+F_0$$
 \end{Theorem}
+where $F$ is as given in Equation \ref{eqn:aux}.
 This form is called inductive sum of squares, and corresponds to the cyclic shifting on 
 $R_i$ flip-flops. Concretely, the multiplier behavior is an implementation of 
 following algorithm:
@@ -889,7 +890,7 @@ following algorithm:
 \begin{algorithm}[H]
 \SetAlgoNoLine
 
- \KwIn{$A,B\in \Fkk$ given w.r.t. NB $N$}
+ \KwIn{$A,B\in \Fkk$ given {\it w.r.t.} NB $N$}
  \KwOut{$R=A\times B$}
 %%%%%%%%%%%%%%%%%%%%
   Initialize $A,B$ and aux var $X$ to 0\;
@@ -927,10 +928,10 @@ The difficult part of the whole design is to deploy XOR gates in $e$-layer.
 As the logic layer closest to the outputs $R_i$, $e$-layer actually finishes the implementation of 
 $F_{k-1}(A,B)$. But it is not a simple addition; the reason is before bit-wise adding to $X^2$, it is necessary to 
 turn the sum to NB form. In other words, theoretically we need $k$ XOR gates in $e$-layer, the output of 
-$i$-th gate corresponds to the bit multiplying $\beta^{2^i}$.
+$i$-th gate forms the coefficient of $\beta^{2^i}$.
 
 In order to obtain information 
-indicating interconnections between $d$-layer and $e$-layer, we need to interpret $\beta^{1+2^j}$ 
+indicating interconnections between the $d$-layer and $e$-layer, we need to interpret $\beta^{1+2^j}$ 
 to NB representation.
 There is a concept called {\bf multiplication table} (M-table) which can assist this interpretation. It is defined as 
 a $k\times k$ matrix $T$ over $\mathbb F_2$:
@@ -1018,7 +1019,7 @@ equals to $v$ plus 1 (for gate $d_0$). When using ONB ($C_N = 2k-1$), the total 
 is $2k+\lfloor \frac{k}{2}\rfloor$.
 
 \section{Concluding Remarks}
-In this section, we introduce basic concepts such as the definition of finite fields and the construction 
-of finite fields. Moreover, we describes a special kind of basis in finite field, and its 
-application on Galois field hardware design. The sequential Galois field multipliers working based on these 
+In this chapter, we introduced basic concepts such as the definition of finite fields and the construction 
+of finite fields. Moreover, we described a special kind of basis in finite field, and its 
+application on Galois field hardware design. The sequential Galois field multipliers based on these 
 principles are used as good candidates for applying our functional verification approach in subsequent chapters.

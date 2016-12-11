@@ -65,7 +65,7 @@ Shannon's expansion:
 f(x, y, \dots) = x f_x + x' f_{x'}
 \end{equation}
 where $f_x = f(x = 1)$ and $f_{x'} = f(x = 0)$ denote the positive and
-negative co-factors of $f$ w.r.t. $x$, respectively.
+negative co-factors of $f$ {\it w.r.t.} $x$, respectively.
 A BDD is usually represented as a binary tree.
 Its ordered and reduced form -- the Reduced Ordered Binary Decision Diagram (ROBBD)
 \cite{BRYA86}, was the first significant contribution because of its canonicity.  
@@ -84,7 +84,7 @@ space complexity. It can be used to represent polynomials with integer coefficie
 
 \begin{figure}[h]
 \centerline{
-\includegraphics[width=0.35\textwidth]{newfig/BDD.pdf}
+\includegraphics[width=0.45\textwidth]{newfig/BDD.pdf}
 }
 \caption{ROBDD representing Boolean function $\neg a \land b \land (c\lor d)$ with order $a>b>c>d$}
 \label{fig:BDD}
@@ -190,12 +190,12 @@ theorem proving \cite{arditi:bmd} and bit-vector SMT-solvers
 decision procedures for Presburger arithmetic \cite{presburger,bultan:mixed_verification}, 
 algebraic manipulation techniques 
 \cite{devadas:algebraic_manipulation_iccd91}, or the ones based on
-term re-writing \cite{AST}, etc.
+term re-writing \cite{AST}, {\it etc.}
 
 Polynomial, integer and other non-linear representations have also
 been researched: Difference Decision Diagrams (DDDs) \cite{ddd-csl99,ddd-mt-98}, interval
 diagrams \cite{interval_dd}, interval analysis using polynomials
-\cite{polynomial_sanchez99}, etc. Most of these have found 
+\cite{polynomial_sanchez99}, {\it etc.} Most of these have found 
 application in constraint satisfaction for simulation-based
 validation:  \cite{Ritter99,hsat,lpsat,brinkmann:asp-dac,Huang:tcad01,bitvector98}. Among
 these, \cite{brinkmann:asp-dac,Huang:tcad01,bitvector98}
@@ -234,7 +234,7 @@ approach views any arbitrary Boolean function (circuit) $f: \B^k
 \rightarrow \B^k$ as a polynomial function $f: \Fkk \rightarrow \Fkk$,
 and derives a canonical polynomial representation $\F$ over
 $\Fkk$. They show that this can be achieved by computing a reduced 
-\Grobner basis w.r.t. an {\it abstraction term order} derived from the
+\Grobner basis {\it w.r.t.} an {\it abstraction term order} derived from the
 circuit. Subsequently, they propose a \underline{r}efinement of this
 \underline{a}bstraction \underline{t}erm \underline{o}rder (called
 RATO), that enables to compute the \Grobner basis of a smaller subset
@@ -258,7 +258,7 @@ bounded MC over Boolean rings. However, these approaches are a
 straight-forward transformation of the problem to {\it bit-level}
 Boolean GB engines which are used in lieu of BDDs or SAT solvers. All
 the concepts of word-level reachability, abstraction-refinement using
-interpolation or UNSAT cores, etc., that we desire was not the focus of
+interpolation or UNSAT cores, {\it etc.}, that we desire was not the focus of
 \cite{Avrunin:CAV,vardi-iasted07}. 
 
 \section{Concluding Remarks}

@@ -1,28 +1,33 @@
 \chapter{Finding Unsatisfiable Cores of a Set of Polynomials using the Gr\"obner Basis Algorithm}
 \label{ch:UNSAT}
-Gr\"obner basis can find further applications to a vast field
-of other techniques in formal verification. Satisfiability (SAT) problem is the basis of 
+In previous chapters, we have introduced the concept of word-level abstraction and 
+reachability analysis of the state-space of sequential circuits for equivalence checking.
+Modern property verification techniques employ state-space abstraction using interpolants and UNSAT 
+cores. In this chapter, we explore algebraic geometry analogs of UNSAT cores which can be 
+applied at both bit and word-level, actually over any field.
+
+Boolean satisfiability (SAT) problem is the basis of 
 most decidable decision problems, as well as the basis of many formal verification techniques. 
-In this chapter, we discuss a special topic branching out from SAT theory. They are about a situation 
+In this chapter, we discuss a special topic branching out from SAT theory. It is about a situation 
 when SAT problems give negative answer, which are called unsatisfiability (UNSAT) problems. Within 
-a set of constrains (e.g. clauses, formulas or polynomials) which is unsatisfiable, sometimes 
+a set of constrains ({\it e.g.} clauses, formulas or polynomials) which is unsatisfiable, sometimes 
 it is worthy to explore the reasons for UNSAT. From the execution of the GB algorithm, 
 an auxiliary structure can be obtained to help explore the reasons causing UNSAT. This chapter introduces the 
 details about the motivation, mechanism and implementation. 
 
 \section{Motivation}
 In this section, we introduce the motivation of our UNSAT core extraction research. We
-start with defining an UNSAT problem, then review the previous work and applications 
-to abstraction refinement. Moreover, we then present the need of finding a word-level 
+start by defining an UNSAT problem, then review the previous work and applications 
+to abstraction refinement. We then present the need for finding a word-level 
 analog to contemporary UNSAT reasoning techniques.
 
 \subsection{Preliminaries of SAT/UNSAT Theory}
-Boolean satisfiability (SAT) problem is one of most basic problems in computer science.
+Boolean satisfiability (SAT) problem is a fundamental problem in computer science.
 In the following part we define the terminology related to SAT problem \cite{anaICCAD}.
 
 \begin{Definition}
 A {\bf literal} $l$ is defined as a variable $v$, or its negation $\overline{v}$. A disjunction (OR relation)
-of literals forms a {\bf clause}, i.e. $c = l_1\lor l_2 \lor \cdots \lor l_k$. 
+of literals forms a {\bf clause}, {\it i.e}. $c = l_1\lor l_2 \lor \cdots \lor l_k$. 
 A Boolean formula can always be written as {\bf conjunctive normal form} (CNF),
 which is the conjunction (AND relation) of clauses: $F = c_1\land c_2\land\cdots\land c_k$.
 \end{Definition}
@@ -30,20 +35,21 @@ which is the conjunction (AND relation) of clauses: $F = c_1\land c_2\land\cdots
 Using above concepts, the SAT/UNSAT problem can also be formally defined:
 \begin{Definition}
 A {\bf satisfiability (SAT) problem} is a decision problem that takes a CNF formula and returns
-that the formula is satisfiable (SAT), when there is an assignment of the variables making the 
-formula evaluate to true. Otherwise, the formula is {\bf unsatisfiable (UNSAT)}.
+that the formula is SAT, whenever there is an assignment of variables that makes the 
+formula evaluate to true. Otherwise, the formula is unsatisfiable (UNSAT).
 \end{Definition}
 
-Figure \ref{fig:SAT} shows a simple example of SAT problem on circuits verification:
-we need to verify whether subcircuit $A$ and subcircuit $B$ has the same function, so
+Figure \ref{fig:SAT} shows a simple example of SAT problem on circuit verification:
+we need to verify whether subcircuit $A$ and subcircuit $B$ have the same function, so
 we build a miter circuit for their outputs $X$ and $Y$, and the equivalence checking 
 problem is turned into a SAT problem as follows:
 
+\vspace{-0.5in}
 \begin{center}
 \begin{align*}
 &\textit{Is\ subcircuit\ A\ functionally\ equivalent\ to\ subcircuit\ B?}\\
 &\Longleftrightarrow
-\textit{Is\ it\ true\ that\ no\ Boolean\ vector\ assignment\ to\ primary\ inputs\ a,b,c\ such\ that\ Z=1?}
+\textit{Is\ it\ true\ that\ no\ Boolean\ vector\ assignment\ to\ PIs\ a,b,c\ exists\ such\ that\ Z=1?}
 \end{align*}
 \end{center}
 
@@ -54,7 +60,7 @@ problem is turned into a SAT problem as follows:
 \label{fig:SAT}}
 \end{figure}
 
-For an UNSAT problem, the cause of UNSAT may include a part of clauses.
+For an UNSAT problem, the cause of UNSAT may include a subset of clauses.
 \begin{Definition}
 Assume a CNF formula $F$ is UNSAT. A subformula $M \subseteq F$ is an {\bf UNSAT core} 
 if $M$ is also UNSAT. Further, if $\forall c\in M$, $M\setminus\{c\}$ is SAT, then 
@@ -68,14 +74,14 @@ is recursive branching and backtrack searching. To improve the efficiency of DPL
 SAT solver, efforts are made on minimizing number of branches, accelerating unit propagation
 and modifying backtrack algorithm. Recently state-of-art SAT solvers developed conflict-driven
 clause learning (CDCL) technique to prune the search space, which is effective to reduce
-result search time.
+search time.
 
 When a SAT solver fails to give a SAT assignment, it will provide a {\it UNSAT proof} or {\it refutation proof}
-to prove the problem is UNSAT. By analyzing clauses involved to the UNSAT proof, we can 
-generate a subformula which remains to be UNSAT. A n\"aive method is to collect all leaf 
+to prove the problem is UNSAT. By analyzing clauses involved in the UNSAT proof, we can 
+generate a subformula which remains UNSAT. A n\"aive method is to collect all leaf 
 clauses in an UNSAT proof as an UNSAT core. In practice, a minimal UNSAT core is more valuable.
-There are mainly 2 kinds of method to find minimal UNSAT cores.
-The one is insertion-based method, which is achieved by adding clauses to the smallest subset 
+There are mainly two kinds of methods to find minimal UNSAT cores.
+One is insertion-based method, which is achieved by adding clauses to the smallest subset 
 until the subset turns to be UNSAT. The other method is deletion-based method,
 which is realized by deleting clauses from a larger subset until the subset turns to be SAT.
 Recently heuristics such as clause-set refinement \cite{modelrotation} and model rotation \cite{belov2011accelerating}
@@ -87,7 +93,7 @@ different method from ``old-fashioned" DPLL algorithm. One promising option is p
 mapping Boolean variables and connectors in CNF formulas to variables and operators in 
 Galois fields. In this way clauses are transformed to monomials/polynomials, thus theorems and concepts in computer
 algebra such as Hilbert's Nullstellensatz and Gr\"obner basis can be employed to assist finding
-valid assignments or proof of unsatisfiability. Basic concepts about PC will be formally introduced with definitions
+valid assignments or proofs of unsatisfiability. Basic concepts about PC will be formally introduced with definitions
 from computer algebra.
 
 \begin{table}[htb]
@@ -110,15 +116,16 @@ from computer algebra.
 \label{tab:booltof4}  
 \end{table}
 
-The inspiration that use PC to solve SAT problems first comes from \cite{ceiSTOC96}.
-Using PC and its variations, researchers develop many SAT solvers \cite{STABLE,BLUEVERI,PolyBoRi}. 
+The inspiration to use PC to solve SAT problems first came from \cite{ceiSTOC96}.
+Using PC and its variations, researchers developed many SAT solvers \cite{STABLE,BLUEVERI,PolyBoRi}. 
 Besides, researchers borrow concepts from PC, combine them with traditional DPLL and clause learning techniques
 to build hybrid SAT solvers \cite{condratTACAS07,Zengler2010}.
 
-\subsection{Exploiting UNSAT cores for abstraction refinement}
-Finding small UNSAT cores attracts interest for decades because of the need for all kinds of applications.
-In solving MaxSAT problems, small UNSAT proof provides lower bound for the branch-and-bound searching algorithm \cite{li2009maxsat}.
-It is applied to solving Boolean algebra problems, such as Boolean function decomposition \cite{lee2008bi}. 
+\subsection{Exploiting UNSAT Cores for Abstraction Refinement}
+The problem of finding small UNSAT cores has attracted interest for decades because of 
+its applications to various of verification and synthesis problems.
+In solving MaxSAT problems, a small UNSAT proof provides lower bound for the branch-and-bound searching algorithm \cite{li2009maxsat}.
+It is applied to solving logic synthesis problems, such as Boolean function decomposition \cite{lee2008bi}. 
 Small explanation generation in general constraint programming problems also rely on small UNSAT cores \cite{cambazard2008reformulating}.
 
 UNSAT cores can find wide range of applications in circuit verification as well. Many abstraction refinement techniques require 
@@ -181,7 +188,7 @@ $$I(s_0)\land \bigwedge_{i=0}^{k-1}T(s_i,s_{i+1}) \land \neg p$$
 is SAT or not, where $s_i$ denotes the set of reached states in $i$-th time-frame. If the result is
 SAT, then a counterexample is found that violates property $p$. If the result is UNSAT, we cannot
 assert that $p$ is satisfied for the original machine $M$ because we only unrolled $M$ for a given specific number of time-frames
-without any fixpoint detection.
+without any fix-point detection.
 In this algorithm, we analyze the UNSAT core composed by a set of clauses whose conjunction is UNSAT.
 If there are some latch variables ($L_{abs}$) not included in this UNSAT core, then we can assert that the evaluations of 
 these variables will not affect the unsatisfiability of original formula. Therefore, we can ignore them in the abstracted model.
@@ -207,8 +214,8 @@ method according to the following observation:}
 {\it While the complexity of computing a GB over finite fields is exponential in the number of variables,
 the GB  computation is observed to be more efficient for UNSAT problems.} 
 The reason is as follows:
-\begin{Theorem}
-{\bf Weak Nullstellensatz:} Given ideal $J\subset \mathbb F[x_1,\dots,x_n]$, its variety over algebraic closure
+\begin{Theorem}[Weak Nullstellensatz]
+Given ideal $J\subseteq \mathbb F[x_1,\dots,x_n]$, its variety over algebraic closure $\overline{\F}$
 of field $\mathbb F$ is empty if and only if its reduced Gr\"obner basis contains only one generator ``1".
 $${\bf V}_{\overline{\mathbb F}}(J) = \emptyset \Longleftrightarrow \text{reduced GB}(J) = \{1\}$$
 \end{Theorem}
@@ -226,7 +233,7 @@ modeled as polynomials in finite fields extensions.
 
 \section{UNSAT Cores of Polynomial Ideals}
 \label{sec:core}
-In this section we provide a solution to the problem that how to use 
+In this section we provide a solution to the problem of how to use 
 GB to extract the UNSAT core. 
 
 \textbf{Problem statement: }
@@ -237,7 +244,7 @@ f_1,\dots,f_s\rangle \subset R$. Suppose that it is known that $V(J) =
 basis algorithm. Identify a subset of polynomials $F_c \subseteq F,
 J_c = \langle F_c \rangle$, such that $V(J_c) = \emptyset$
 too. Borrowing the terminology from the Boolean SAT domain, we
-call $F_c$ the infeasible core or the unsat core of $F$. 
+call $F_c$ the infeasible core or the UNSAT core of $F$. 
 
 %% Any set of polynomials $F$ with empty variety is an unsat core in
 %% itself. There may be more than one unsat cores in $F$, some
@@ -259,19 +266,19 @@ call $F_c$ the infeasible core or the unsat core of $F$.
 
 %% Let us first consider the problem of finding any $F_c \subset F$,
 %% disregarding minimality. 
-It is not hard to motivate that an unsat core should be identifiable
+It is not hard to motivate that an UNSAT core should be identifiable
 using the Gr\"obner basis algorithm: Assume that $F_c=F-\{f_j\}$. If
 $GB(F) = GB(F_c) = \{1\}$, then it implies that $f_j$ is a member of
-the ideal generated by $(F - \{f_j\})$, i.e. $f_j \in \langle F -
+the ideal generated by $(F - \{f_j\})$, {\it i.e.} $f_j \in \langle F -
 \{f_j\}\rangle$. Thus $f_j$ can be composed of the other
-polynomials of $F_c$, so $f_j$ is  not a part of the unsat core, and
+polynomials of $F_c$, so $f_j$ is  not a part of the UNSAT core, and
 it can be safely discarded from $F_c$. This can be identified by means
 of the GB algorithm for this ideal membership test.% (Definition \ref{def:gb}(ii)).  
 
 A n\"aive way (and inefficient way) to identify {\it a minimal core}
 using the GB computation is as follows:
 select a polynomial $f_i$ and see if $V(F_c - \{f_i\}) = \emptyset$
-(i.e. if reduced $GB(F_c - \{f_i\}) = \{1\}$). If so, discard $f_i$
+({\it i.e.} if reduced $GB(F_c - \{f_i\}) = \{1\}$). If so, discard $f_i$
 from the core; otherwise retain $f_i$ in $F_c$. Select a different
 $f_i$ and continue until all polynomials $f_i$ are visited for
 inclusion in $F_c$. This approach will produce a minimal core, as we
@@ -281,10 +288,10 @@ impractical.
 
 \subsection{An Example Motivating our Approach}
 
-Buchberger's algorithm picks pairs of polynomials from a given set, computes their S-poly, then reduces this S-poly
+Buchberger's algorithm picks pairs of polynomials from a given set, computes their $Spoly$, then reduces this $Spoly$
 with the given set of polynomials. If the remainder is non-zero,
 it is added to the set of polynomials.
-By tracking S-poly computations and multivariate divisions that lead to remainder 
+By tracking $Spoly$ computations and multivariate divisions that lead to remainder 
 1, we can obtain an UNSAT core. Moreover, we can identify a minimal UNSAT core with one-time
  execution of Buchberger's algorithm.
 
@@ -349,19 +356,12 @@ as these polynomials are the ``causes" of unsatisfiability of original set of po
 \begin{figure}[hbt]
 \centering{
 \includegraphics[width=\textwidth]{newfig/UNSAT.eps}
-\caption{DAG representing Spoly computations and multivariate divisions}
+\caption{DAG representing $Spoly$ computations and multivariate divisions}
 \label{fig:UNSAT}}
 \end{figure}
-% We conclude our approach as follows: i) Keep track of all $Spoly(f_i,
-% f_j)\xrightarrow{f_1, \dots, f_s}_+ r$; ii) mark $f_i, f_j$ if $r\neq
-% 0$; iii) Mark those $f_l$'s that have leading terms that cancel
-% monomial terms in $Spoly(f_i, f_j)$; iv) Build a DAG recording all reductions including Spoly computations
-% and multivariate divisions; v) Once $1\in J$ is
-% detected, traverse the graph to identify all the marked polynomials that were
-% used in obtaining this unit element. These polynomials constitute the
-% core.
 
-We conclude our approach as a conjecture Algorithm \ref{alg:UNSAT}. 
+This general idea is depicted in Algorithm \ref{alg:UNSAT}. 
+We now show a formal and efficient implementation.
 
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
@@ -369,11 +369,11 @@ We conclude our approach as a conjecture Algorithm \ref{alg:UNSAT}.
 	\KwOut{An UNSAT core $\{f_{m_1},f_{m_2},\dots,f_{m_t}\}$}
 \Repeat{$r_l == 1$}
 {
-	Pick a pair $f_i,f_j\in F$ that has never been computed S-poly\;
+	Pick a pair $f_i,f_j\in F$ that has never been computed $Spoly$\;
 	\If{$Spoly(f_i,f_j)\xrightarrow{F}_+ r_l \neq 0$}
 	{
 		$F = F\cup r_l$\;
-		Create a DAG $G_l$ with $f_i,f_j$ as roots, $r_l$ as leaf, recording the S-poly, all intermediate remainders and $f_k\in F$ that cancel monomial terms in the S-poly\;
+		Create a DAG $G_l$ with $f_i,f_j$ as roots, $r_l$ as leaf, recording the $Spoly$, all intermediate remainders and $f_k\in F$ that cancel monomial terms in the $Spoly$\;
 	}
 }
 Backward traverse the DAG for remainder ``1", replace $r_l$ with corresponding DAG $G_l$\;
@@ -385,16 +385,16 @@ Backward traverse the DAG for remainder ``1", replace $r_l$ with corresponding D
 
 We investigate if it is possible to identify a core by analyzing the
 $Spoly(f_i,f_j)\xrightarrow{F}_+ g_{ij}$ reductions in Buchberger's
-algorithm. Since $F$ is itself an unsat core, 
+algorithm. Since $F$ is itself an UNSAT core, 
 definitely {\it there exists  
-a sequence of Spoly reductions in Buchberger's algorithm where
+a sequence of $Spoly$ reductions in Buchberger's algorithm where
 $Spoly(f_i, f_j) \xrightarrow{F}_+ 1$ is achieved.} Moreover, 
 polynomial reduction algorithms can be suitably modified to record
 which polynomials from $F$ are used in the division leading to
 $Spoly(f_i,f_j)\xrightarrow{F}_+1$. This suggests that 
 we should be able to identify a core by recording
 the {\it data} generated by Buchberger's algorithm --- namely, the
-critical pairs($f_i,f_j$) used in the Spoly computations,
+critical pairs($f_i,f_j$) used in the $Spoly$ computations,
 and the polynomials from $F$ used to cancel terms in the reduction
 $Spoly(f_i,f_j)\xrightarrow{F}_+1$. The following example motivates
 our approach to identify  $F_c \subseteq F$ using this data:
@@ -440,7 +440,7 @@ of the order in which the critical pairs $(f_i,f_j)$ are selected and reduced by
 $Spoly(f_i,f_j)\xrightarrow{F}_+g_{ij}$. Let us suppose that in the GB
 computation corresponding to Example \ref{ex:1}, the first 3 critical
 {\it Spoly} pairs analyzed are $(f_1, f_2), (f_3, f_4)$ and
-$(f_2,f_5)$. It turns out that the Spoly-reductions corresponding to
+$(f_2,f_5)$. It turns out that the $Spoly$-reductions corresponding to
 these 3 pairs lead to the unit ideal. Recording the data
 corresponding to this sequence of reductions is depicted by means of a
 graph in Figure \ref{fig:refute}. We call this graph a {\it refutation tree}. 
@@ -449,7 +449,7 @@ graph in Figure \ref{fig:refute}. We call this graph a {\it refutation tree}.
 \begin{figure}[hbt]
 \centering
 \includegraphics[width=4.5in]{newfig/refutation_tree.eps}
-\caption{Generating refutation trees to record unsat cores}
+\caption{Generating refutation trees to record UNSAT cores}
 \label{fig:refute}
 \end{figure}
 
@@ -475,12 +475,12 @@ $Spoly(f_5,f_2)\xrightarrow{f_{11}} 1$.
 To identify an $F_c \subset F$, we start from the refutation node
 ``1'', and traverse the graph in reverse, all the way up to the
 leaves. Then, all the leaves in the transitive fanin of ``1''
-constitute an unsat core. The polynomials (nodes) that do not lie in
+constitute an UNSAT core. The polynomials (nodes) that do not lie in
 the transitive fanin of ``1'' can be safely discarded from $F_c$. From
 Figure \ref{fig:refute}, $F_c = \{f_1,f_2,f_3,f_4,f_5\}$ is identified
-as an unsat core of $F$. 
+as an UNSAT core of $F$. 
 
-\section{Reducing the Size of the Infeasible Core $F_c$}
+\section{Reducing the Size of the UNSAT Core $F_c$}
 \label{sec:alg}
 The core $F_c$ obtained from the aforementioned procedure may
 contain redundant elements which could be discarded. For
@@ -490,13 +490,13 @@ is not minimal. In fact, Example 1 shows that $F_{c4} =\{f_1,f_2,f_4,f_5\}$ is t
 minimal core, where $F_{c4} \subset F_{c}$. Clearly, the polynomial
 $f_3 \in F_c$ is a redundant element of the core and can be 
 discarded. We will now describe techniques to further reduce the size
-of the unsat core by identifying such redundant elements. 
+of the UNSAT core by identifying such redundant elements. 
 %how the size of this core could be reduced further.  
 For this purpose, we perform a more 
 systematic book-keeping of the data generated during the execution of
 Buchberger's algorithm and the refutation tree. 
 
-\subsection{Identifying redundant polynomials from the refutation tree}
+\subsection{Identifying Redundant Polynomials from the Refutation Tree}
 
 We record the S-polynomial reduction
 $Spoly(f_i,f_j)\xrightarrow{F}_+{g_{ij}}$ that give a non-zero
@@ -639,7 +639,7 @@ This data forms a part of the refutation tree rooted at node $f_{m+1}$.
 {\bf Recording the coefficients:} In Equation \ref{eqn:red} we obtain a
 vector of polynomial coefficients $c_k$ where $k>s$. These
 coefficients are associated with new elements (remainders) in the
-Gr\"obner basis, that are not a part of the unsat core. 
+Gr\"obner basis, that are not a part of the UNSAT core. 
 %which cannot benefit the UNSAT core extraction. 
 Since each polynomial $f_k$, ($k>s$) is generated by
 $\{f_1,\dots,f_s\}$, we can re-express $f_k$ in terms of $\{f_1,\dots,
@@ -683,7 +683,7 @@ refutation tree $T$ and the matrix $M$ is derived.
  \ENSURE Refutation tree $T$ and coefficients matrix $M$
  \STATE{ {Initialize: list $G \gets F$; Dataset $D\gets \emptyset$; $M\gets s\times s$ unit matrix} }
  \FOR {{ each pair $(f_i,f_j)\in G$  }}
- 	\STATE  $f_{sp},(f_{i},h_{ij})(f_{j},h_{ji}) \gets$ Spoly($f_i,f_j$) \COMMENT{$f_{sp}$ is the S-polynomial}
+ 	\STATE  $f_{sp},(f_{i},h_{ij})(f_{j},h_{ji}) \gets Spolyf_i,f_j)$ \COMMENT{$f_{sp}$ is the S-polynomial}
  	\STATE{{ $g_{ij}|(c_{k1},f_{k1}),\dots,(c_{kl},f_{kl}) \gets (f_{sp}\xrightarrow{G}_+  g_{ij})$}}
  	\IF{{ $g_{ij} \neq 0$ }}
  		\STATE {{$G \gets G \cup g_{ij}$}}
@@ -706,10 +706,10 @@ $M$. However, we also construct the refutation tree $T$ as it
 facilitates an iterative refinement of the core, which is described
 in the next section. 
 
-\section{Iterative Refinement of the Unsat Core}
+\section{Iterative Refinement of the UNSAT Core}
 \label{sec:iter}
 
-As with most other unsat core extractors, our algorithm also cannot
+As with most other UNSAT core extractors, our algorithm also cannot
 generate a minimal core in one execution. To obtain a smaller core, we
  re-execute our algorithm with the core obtained in the current
 iteration. We describe two heuristics that are applied to our
@@ -729,8 +729,8 @@ Moreover, for the reduction process
 $Spoly(f_i,f_j)\xrightarrow{F}_+g_{ij}$, we pick divisor polynomials from
 $F$ following the increasing order of polynomial indexes. Therefore,
 by relabeling the polynomial indexes, we can affect their
-chances of being selected in the unsat core. We use two criteria to
-to affect the polynomial selection in the unsat core. One corresponds
+chances of being selected in the UNSAT core. We use two criteria to
+to affect the polynomial selection in the UNSAT core. One corresponds
 to the \emph{refutation distance}, whereas the other corresponds to
 the {\it frequency} with which a polynomial appears in the refutation
 tree.  
@@ -749,7 +749,7 @@ order, and successive divisions (term cancellations) reduce the degree
 of the remainders. However, what is more desirable is to use these
 polynomials with lower-degree leading terms earlier in the reduction,
 as they can cancel more terms. This may prohibit other (higher-degree)
-polynomials from being present in the unsat core. 
+polynomials from being present in the UNSAT core. 
 
 
 %% So polynomials with lower degree
@@ -766,7 +766,7 @@ polynomials from being present in the unsat core.
 
 Similarly, we can define the concept of another heuristic:
 \begin{Definition}[Frequency of Occurrence]
-Frequency of occurrence of a polynomial $f_i$ in a refutation tree
+The frequency of occurrence of a polynomial $f_i$ in a refutation tree
 corresponds to the number it appears in the refutation tree. 
 \end{Definition}
 
@@ -774,7 +774,7 @@ The motivation for using the \emph{frequency of occurrence}
 of $f_i$ in the refutation tree is as follows: polynomials that appear
 frequently in the refutation tree may imply that they have certain
 properties (leading terms) that give them a higher likelihood of being
-present in the unsat core. 
+present in the UNSAT core. 
 
 %make them "favourable" in the unsat core
 %selection. For example, their leading terms may contain variables
@@ -819,10 +819,10 @@ and apply our GB-core algorithm on the core
 $\{f_1',f_2',f_3',f_4'\}$. The result is shown in
 Figure \ref{fig:refine}(b) with the core identified as $\{f_1', f_3',
 f_4'\} = \{f_2,f_3,f_4\}$. Further iterations do not refine the core
--- i.e. a fix point is reached. 
+-- {\it i.e.} a fix point is reached. 
 \end{Example}
 
-\section{Refining the Unsat core using Syzygies}
+\section{Refining the UNSAT Core using Syzygies}
 \label{sec:syz}
 
 %% In some
@@ -832,13 +832,13 @@ f_4'\} = \{f_2,f_3,f_4\}$. Further iterations do not refine the core
 %% strategy, therefore a new method to identify the 
 %% redundancy in UNSAT core is needed.
 
-The unsat core obtained through our GB-core algorithm is by nature a
+The UNSAT core obtained through our GB-core algorithm is by nature a
 refutation polynomial that equals to 1:  
 $$1 = \sum_{i=1}^s c_i\cdot f_i$$
 where $0 \neq c_i \in \F[x_1,\dots,x_d]$ and the polynomials
 $F = \{f_1,\dots,f_s\}$ form a core. Suppose that a polynomial 
 $f_k \in F$ can be represented using a combination of the rest of the
-polynomials of the core, e.g.:
+polynomials of the core, {\it e.g.}
 $$f_k = \sum_{j\neq k} c_j'f_j.$$
 
 Then we can substitute $f_k$ in terms of the other polynomials in the
@@ -846,7 +846,7 @@ refutation. Thus, $f_k$ can be dropped from the core as it is
 redundant. One of the limitations of the GB-core algorithm and the
 re-labeling/refinement strategy is that they cannot easily identify
 such polynomials $f_k$ in the generating set $F$ that can be composed
-of the other polynomials in the basis, i.e. 
+of the other polynomials in the basis, {\it i.e.}
 $f_k \in \langle F-\{f_k\} \rangle$. We present an approach targeted
 to identify such combinations to further refine the core. 
  
@@ -865,7 +865,7 @@ each GB iteration so as to refine the core. Therefore, we further
 record the quotient-divisor data from S-polynomial reductions that
 result in the remainder 0. Every $Spoly(f_i,f_j)\xrightarrow{F}_+0$
 implies that some polynomial combination of $\{f_1,\dots,f_s\}$
-vanishes: i.e. $c_1f_1 + c_2f_2 + \dots+c_sf_s=0$, for some
+vanishes: {\it i.e.} $c_1f_1 + c_2f_2 + \dots+c_sf_s=0$, for some
 $c_1,\dots,c_s$. These elements ($c_1,\dots,c_s$) form a syzygy on $f_1,\dots,f_s$. 
 
 \begin{Definition}[Syzygy \cite{ideals:book}]
@@ -914,7 +914,7 @@ represented in matrix form in Equation \ref{mat:syzygy}:
 
 \ \\
  Here $\{f_1,f_2,\dots,f_s\}$ is the given core.
- Take one column of the syzygy matrix (e.g. the set of polynomials in $j$-th column
+ Take one column of the syzygy matrix ({\it e.g.} the set of polynomials in $j$-th column
  $c_j^1, c_j^2, \dots, c_j^m$)  and compute its reduced Gr\"obner
  basis $G_r$. If $G_r = \{1\}$, then it means that there exists some
  polynomial vector  $[r_1,r_2,\dots,r_m]$ such that $1 = r_1c_j^1 +
@@ -945,7 +945,7 @@ This implies that
 or that $f_j$ is a polynomial combination of
 $f_1,\dots,f_s$ (excluding $f_j$). Subsequently, we can deduce that $f_j$ can be
 discarded from the core. By repeating this procedure, some redundant
-polynomials can be identified and size of unsat core can be reduced
+polynomials can be identified and size of UNSAT core can be reduced
 further. 
 
  \begin{Example}
@@ -1031,7 +1031,7 @@ column of the syzygy matrix can become prohibitive to apply
 iteratively. For this reason, we only apply the syzygy heuristic
 on the smaller reduced core given by our iterative refinement algorithm.
 
-\textbf{Our Overall Approach for Unsat Core Extraction:} i) Given
+\textbf{Our Overall Approach for UNSAT Core Extraction:} i) Given
 the set $F = \{f_1,\dots,f_s\}$, we apply the GB-core algorithm,
 record the data $D, M$ (Section 4) and the syzygies $S$ on
 $f_1,\dots,f_s$. ii) From $M$, we obtain a core $F_c \subseteq
@@ -1039,11 +1039,11 @@ F$. iii) Iteratively refine $F_c$ (Section 5) until $|F_c|$ cannot be
 reduced further. iv) Apply the syzygy-heuristic (Section 6) to
 identify if some $f_k \in F_c$ is a combination of other polynomials
 in $F_c$; all such $f_k$ are discarded from $F_c$. This gives us the
-final unsat core $F_c$. 
+final UNSAT core $F_c$. 
 
 \section{Application to Abstraction Refinement}
 In this section we apply our UNSAT core extraction approach to the 
-$k$-BMC in Algorithm \ref{alg:refined}. This algorithm utilize UNSAT core to 
+$k$-BMC in Algorithm \ref{alg:refined}. This algorithm utilizes UNSAT core to 
 remove irrelevant latches (state variables) to
 reduce the state space. Since those state variables contribute nothing to the violation of 
 property $p$, the abstracted model is a reasonable over-approximation for checking 
@@ -1129,7 +1129,7 @@ the original machine and  the refined $k$-BMC algorithm terminates!
 
 \end{Example}
 
-\section{Experiment results}
+\section{Experiment Results}
 \label{sec:exp}
 
 
@@ -1137,7 +1137,7 @@ We have implemented our core extraction approach (the GB-Core
 and the refinement algorithms) using the \textsc{Singular} symbolic
 algebra computation system [v. 3-1-6] \cite{DGPS}. With our
 tool implementation, we have performed experiments to extract a
-minimal unsat core from a given set of  
+minimal UNSAT core from a given set of  
 polynomials. Our experiments run on a desktop with
 3.5GHz Intel $\text{Core}^\text{TM}$ i7-4770K Quad-core CPU, 16 GB RAM and
 64-bit Ubuntu Linux OS. The experiments are shown in Table \ref{tab:result}. 
@@ -1166,8 +1166,8 @@ circuits \cite{agnew1991implementation,RHmulti}, compared against a golden model
 {\it spec}. Similarly, the "MasVMon" benchmarks are the equivalence
 checking  circuits corresponding to Mastrovito multipliers compared
 against  Montgomery multipliers \cite{lv:tcad2013}. Some of these are
-available as CNF formulae, whereas others were available directly as
-polynomials over finite fields. The CNF formulae are translated as
+available as CNF formulas, whereas others were available directly as
+polynomials over finite fields. The CNF formulas are translated as
 polynomial constraints over $\mathbb{F}_2$ (as shown in
 \cite{condrat-tacas07}), and the GB-Core algorithm and the refinement
 approach is applied.   
@@ -1223,17 +1223,17 @@ In Table \ref{tab:result},
 %we list the details of our experimental results. In the table, 
 \#Polys denotes the given number of polynomials
 from which a core is to be extracted. \#MUS is the {\it minimal} core either
-extracted by PicoMUS (for CNF benchmarks) or exhaustive deletion method (for non-CNF bencmarks).
+extracted by {\it PicoMUS} (for CNF benchmarks) or exhaustive deletion method (for non-CNF bencmarks).
  \#GB-core iterations corresponds to the
-number of calls to the GB-core engine to arrive at the reduced unsat
+number of calls to the GB-core engine to arrive at the reduced UNSAT
 core. The second last column shows the improvement in the minimal core
 size by applying the syzygy heuristic on those cases which cannot be
 iteratively refined further. 
-We choose PicoMUS as a comparison to our tool because it is a state-of-art MUS extractor,
+We choose {\it PicoMUS} as a comparison to our tool because it is a state-of-art MUS extractor,
 and the results it returned for our set of benchmarks are proved to be minimal. 
 The data shows that in most of these
 cases, our tool can produce a minimal core. For the subset-3
-benchmark, we obtain another core with even smaller size than the one from PicoMUS. The results
+benchmark, we obtain another core with even smaller size than the one from {\it PicoMUS}. The results
 demonstrate the power of the Gr\"obner basis technique to identify the
 causes of unsatisfiability. 
 %From the
@@ -1245,8 +1245,8 @@ causes of unsatisfiability.
 
 
 
-\section{Conclusions}\label{sec:conc}
-This paper addresses the problem of identifying an infeasible core of
+\section{Concluding Remarks}\label{sec:conc}
+This chapter addresses the problem of identifying an infeasible core of
 a set of multivariate polynomials, with coefficients from a field,
 that have no common zeros. The problem is posed in the context of
 computational algebraic geometry and solved using the Gr\"obner basis
@@ -1258,8 +1258,8 @@ conditions under which a polynomial can be discarded from a core. An
 algorithm was implemented within the Singular computer algebra tool
 and some experiments were conducted to validate the approach. While
 the use of GB engines for SAT solving has a rich history, the problem
-of unsat core identification using GB-engines has not been addressed
-by the SAT community. We hope that this paper will kindle some
+of UNSAT core identification using GB-engines has not been addressed
+by the SAT community. We hope that this technique will kindle some
 interest in this topic which is worthy of attention from the SAT
 community -- particularly when there seems to be a renewal of interest
 in the use of Gr\"obner bases for formal verification

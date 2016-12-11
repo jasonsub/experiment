@@ -54,7 +54,7 @@ Assume $f(x)$ is the minimal and characteristic polynomial for $T$. Then accordi
 we obtain 
 $$W = \{u\in V~|~g(T)u = 0\}$$
 
-Let $k$ be a polynomial whose degree is larger than $f(x)$, i.e. $deg(k(x))>deg(f(x))$, then
+Let $k$ be a polynomial whose degree is larger than $f(x)$, {\it i.e.} $deg(k(x))>deg(f(x))$, then
 $$f(x)|k(x)~~\text{iff}~k(T)=0$$
 
 Since the construction of $f(x)$ relies on $T$, $f(T) = 0$, we get
@@ -202,7 +202,7 @@ Use Lemma \ref{lem:3}, the minimal/characteristic polynomial for $\sigma$ is $x^
 any annihilator of $\alpha^i$ ({\it i.e.} $f_i(\sigma)$) divides $x^n-1$. Meanwhile, $\{\alpha^i~|~0<i<n-1\}$ forms a (standard) basis
 of field $\F_{p^n}$, this means $\alpha_i$ are linearly independent with each other ($i=0,1,\dots,n-1$).
 Since linear map $f(\sigma)$ guarantees that all elements in the field 
-have order $lcm(f_0,\dots,f_{n-1})$, i.e. $f(\sigma)\gamma = f(\sigma)(\sum_i \alpha^i) \implies f(\sigma) = lcm(f_0,\dots,f_{n-1})$.
+have order $lcm(f_0,\dots,f_{n-1})$, {\it i.e.} $f(\sigma)\gamma = f(\sigma)(\sum_i \alpha^i) \implies f(\sigma) = lcm(f_0,\dots,f_{n-1})$.
 By contradiction we can prove that there is no factor of $x^n-1$ that can be divided by the product 
 of elements in set $\{f_0,f_1,\dots,f_{n-1}\}$. This actually corresponds to the assertion in the first step of the algorithm:
 $$x^n-1 = lcm(f_0,f_1,\dots,f_{n-1})$$
@@ -412,17 +412,17 @@ $$M_{i,j}^{(0)} = \lambda_{ij}^{(0)} = \lambda_{j,0}^{(i)} = T_{j-i,0-i}$$
 The number of non-zero entries in $\lambda$-Matrix or multiplication table (M-table) is known as \emph{Complexity $(C_N)$}.
 To define optimal normal basis, it is necessary to find the lower bound of $C_N$.
 \begin{Theorem}
-If N is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
+If $\mathcal{N}$ is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
 \end{Theorem}
 \begin{Proof}
-Let basis $N = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
+Let basis $\mathcal{N} = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
 Then $\sum_{i=0}^{n-1} \beta_i = trace\ \beta$. 
 Denote $trace\ \beta$ by $b$, consider a $n\times n$ matrix $M^{(0)}$. Then
 $$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$$
 
 Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
 So the first column always includes at least one nonzero element. 
-Since the sum of enries in each of other columns should equal to zero (modulo 2), they 
+Since the sum of entries in each of other columns should equal to zero (modulo 2), they 
 need to include an even number of ``1"s.
 Meanwhile, in order to maintain the linear independence among each row, they cannot be all ``0"s. 
 Therefore, there are always at least two non-zero elements in each column.
@@ -436,9 +436,9 @@ If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal bas
 \begin{Example}
 \label{ex:app4}
 In $\F_{2^4}$ constructed with $p(\alpha) = \alpha^4 + \alpha + 1$, two normal bases can be found:
-$\beta = \alpha^3, N_1 = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
-$\beta = \alpha^7, N_2 = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. 
-Their multiplication tables are listed below. For basis $N_1$:
+$\beta = \alpha^3, \mathcal N_1 = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
+$\beta = \alpha^7, \mathcal N_2 = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. 
+Their multiplication tables are listed below. For basis $\mathcal N_1$:
 \begin{equation}
 T_1 = \left(
 \begin{array}{lccr}
@@ -448,7 +448,7 @@ T_1 = \left(
 0 & 0 & 1 & 0
 \end{array} \right)
 \end{equation}
-Complexity $C_N$ = 7, so $N_1$ is an ONB. For basis $N_2$:
+Complexity $C_N$ = 7, so $\mathcal N_1$ is an ONB. For basis $\mathcal N_2$:
 \begin{equation}
 T_2 = \left(
 \begin{array}{lccr}
@@ -458,7 +458,7 @@ T_2 = \left(
 1 & 0 & 1 & 1
 \end{array} \right)
 \end{equation}
-Complexity $C_N$ = 9, so basis $N_2$ is not optimal.
+Complexity $C_N$ = 9, so basis $\mathcal N_2$ is not optimal.
 \end{Example}
 
 ONBs are widely used in finite field circuit design, not only because its low complexity, 
@@ -499,7 +499,7 @@ $$\begin{cases}
 \end{cases}$$
 we obtain $\lambda$-Matrix $M^{(0)}$. This construction method does not require information about 
 primitive polynomial nor normal element, so it is very convenient for circuit designers.
-Basis $N_1$ in Example \ref{ex:app4} is a type-I ONB over $\F_{2^4}$.
+Basis $\mathcal N_1$ in Example \ref{ex:app4} is a type-I ONB over $\F_{2^4}$.
 
 {\bf Type-II ONB} over $\F_{2^n}$ satisfies following criteria:
 \begin{itemize}
