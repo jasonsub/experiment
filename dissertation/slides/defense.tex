@@ -16,6 +16,7 @@
 \usepackage{multirow}
 \usepackage{comment}
 \usepackage{xspace}
+\usepackage{polynom}
 %\usepackage{columns}
 
 \usepackage[absolute,overlay]{textpos}
@@ -101,7 +102,7 @@ Advisor: {\it Priyank Kalla}
 	\bi
 	\item Finite fields
 	\item Polynomial algebra \& Algebraic geometry
-	\item Projection
+	\item Projection of varieties
 	\ei
 \item Projection based abstraction 
 	\bi 
@@ -119,18 +120,21 @@ Advisor: {\it Priyank Kalla}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Contributions}}
 \bi
-\item Word-level reachability analysis -- analog if implicit state enumeration
+\item Word-level reachability analysis -- analog of implicit state enumeration
 	\bi 
 	\item {\bf Q:} Why word-level? 
 	\pause
-	\item {\bf A:} Datapath $\gets$ word-level info 
+	\item {\bf A:} Data $\gets$ word-level info 
 	\pause
 	\item {\bf A:} Simplify representation (abstraction) of state-space $\to$ Efficiency!
 	\ei
 \pause
-\item Apply word-level reachability algo. to sequential arithmetic circuit verification
+\item Apply word-level reachability algorithm to sequential arithmetic circuit verification
 	\bi
 	\item Abstraction $\to$ word-level signature each time-frame
+	\bi
+            \item Word-level abstraction from bit-level ckts [Pruss, 2015]
+        \ei
 	\item Word-level unrolling
 	\ei
 \pause
@@ -138,7 +142,6 @@ Advisor: {\it Priyank Kalla}
 	\bi
 	\item Analyze Buchberger's algorithm $\to$ extract refutation proof $\to$ UNSAT core
 	\item Structure of refutation proof $\to$ refine UNSAT core
-	\item Apply UNSAT core to $k$-BMC abstraction refinement
 	\ei
 \pause
 \item Implement above algos: C++ \& \textsc{Singular}
@@ -236,11 +239,13 @@ Advisor: {\it Priyank Kalla}
 \bi
 \item Sequential Equivalence Checking (SEC): bit-blasting, or structural info dependency
 	\bi
+	\item Usually based on reachability analysis
 	\item Sequential miter
 	\item Unroll, then use DDs, SAT or AIGs (Combinational)
+	\item Induction-based
 	\ei
 \item Symbolic model checking (counterexample, IC3): SAT/BDDs in nature
-\item Word-level techniques (term rewriting, uninterpreted function): ?
+\item Word-level techniques (term rewriting, uninterpreted function): ?/no encoding
 \item Algebraic geometry methods
 	\bi
 	\item Gr\"ober basis in model checking [Avrunin,CAV'96;Vardi,IASTED'07]: Analog of bit-level Boolean functions
@@ -248,6 +253,18 @@ Advisor: {\it Priyank Kalla}
 	\ei
 \pause
 \item No purely word-level sequential verification: data/abstraction/algorithm
+\ei
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Working field: $\Fkk$}}
+\bi
+\item Our proposed state-space model is based on finite field $\Fkk$
+	\bi
+	\item $\B^k$: bit-vector
+	\item $\Z_{2^k}$, $\R_q$: approaches not compatible
+	\ei
+\item Evaluations in $\B^k \Leftrightarrow$ Elements in $\Fkk$
+\item Functions $\B^k\to\B^k \Leftrightarrow \Func:\Fkk\to\Fkk$
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -330,9 +347,15 @@ $\{a_2a_1a_0\}\in\mathbb{B}^3$   & $A\in \F_{2^3}$ &$\rightarrow$& $\{z_2z_1z_0\
 \caption{Truth table for mappings in $\mathbb{B}^3$ and $\F_{2^3}$}
 \end{table}
 \pause
-\bi
-\item A polynomial function representation always exists in $\Fq[A]$ (Lagrange's interpolation)
-\ei
+\vspace{-0.2in}
+% \bi
+% \item Always possible to generate word-level poly function using Lagrange's interpolation
+% \ei
+\begin{align*}
+Z =& \Func(A) \\
+=& (\alpha^2+\alpha+1) A^7 + (\alpha^2+1) A^6 + \alpha A^5 + (\alpha+1) A^4 \\
+&+ (\alpha^2+\alpha+1)A^3+ (\alpha^2+1)A
+\end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Preliminaries: Computer algebra terminology}}
@@ -365,17 +388,32 @@ Let $\mathbb{F}_q = GF(2^k)$, and $\overline{\Fq}$ be its closure
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Preliminaries: Polynomial division}}
-Copy page 12 from FMCAD
+Divide $f = x^3-2x^2+2x+8$ ~~by ~~$g =2x^2+3x + 1$\\
+
+\pause
+
+\polylongdiv{x^3-2x^2+2x+8}{2x^2+3x + 1}
+
+\pause
+
+\bi
+\item The key step in division: \alert{$r = f - \frac{lt(f)}{lt(g)}\cdot  g$}, denoted $f\xrightarrow{g} r$
+\item Similarly divide $f$ by a set of polynomials $F = \{f_1,\dots, f_s\}$
+\item Denoted: $f \xrightarrow{f_1, \dots, f_s}_+ r$
+\bi
+\item Remainder $r$ is reduced: no term in $r$ is divisible by $lt(f_i)$
+\ei
+\ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Preliminaries: Algebraic geometry terminology (cont.)}}
 Let $\mathbb{F}_q = GF(2^k)$:
 \begin{itemize}
-\item $\mathbb{F}_q[x_1, \ldots, x_n]$: ring of all polynomials with
-  coefficients in $\mathbb{F}_q$ 
+% \item $\mathbb{F}_q[x_1, \ldots, x_n]$: ring of all polynomials with
+%   coefficients in $\mathbb{F}_q$ 
 \item Given a set of polynomials:
 \begin{itemize}
-\item $f, f_1, f_2, \dots , f_s \in \mathbb{F}_q[x_1, \dots, x_n]$
+\item $f_1, f_2, \dots , f_s \in \mathbb{F}_q[x_1, \dots, x_n]$
 \item Find solutions to $f_1 = f_2 = \dots = f_s = 0$
 \end{itemize}
 \item \alert{Variety:} Set of ALL solutions to a given system of polynomial equations: $V(f_1, \dots, f_s)$
@@ -398,7 +436,7 @@ Let $\mathbb{F}_q = GF(2^k)$:
 {\bf Ideals of Polynomials:} Let $f_1, f_2, \ldots, f_s \in
 \mathbb{F}_q[x_1, \dots, x_n]$. Let 
 \begin{eqnarray}
-J = \langle f_1, f_2 \ldots, f_s\rangle = \{f_1 h_1 + f_2 h_2 + \dots + f_s h_s\} \nonumber 
+J = \langle f_1, f_2 \ldots, f_s\rangle = \{f_1 h_1 + f_2 h_2 + \dots + f_s h_s\},~~h_i\in\Fq[x_1,\dots,x_n] \nonumber 
 \end{eqnarray}
 
 $J = \langle f_1, f_2 \ldots, f_s\rangle$ is an ideal generated by
@@ -421,7 +459,7 @@ $f_1, \ldots, f_s$ and the polynomials are called the generators.
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\large{Preliminaries: Buchberger's algorithm}}
+\begin{frame}{\large{Preliminaries: Buchberger's algorithm computes a Gr\"obner basis}}
  INPUT : $F = \{f_1, \dots, f_s\}$\\
 % \ENSURE : $G = \{g_1,\dots ,g_t\}$\\ %, a Gr\"{o}bner basis \\
  OUTPUT : $G = \{g_1,\dots ,g_t\}$\\ %, a Gr\"{o}bner basis \\
@@ -442,7 +480,11 @@ UNTIL $G = G'$
 $L = \text{LCM}(lm(f), lm(g))$, ~~$lm(f)$: leading monomial of $f$
 \item Animation 1...
 \pause
-\item Inspiration of mapping: set of states $\to$ \alert{variety} of polynomial ideal
+\item GB enables mapping: set of states $\to$ \alert{variety} of polynomial ideal
+	\bi
+	\item Algebraic/reasoning engine: application to elimination
+	\ei
+\item GB enables abstraction
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -467,7 +509,7 @@ $L = \text{LCM}(lm(f), lm(g))$, ~~$lm(f)$: leading monomial of $f$
 	\end{itemize}
 \item Similarly, $g_4$ only contains the variable $z$ and eliminates $x$ and $y$
 \pause
-\item GB($I_{x,y,z}$)$\cap\Fq[z]\Leftrightarrow$ \alert{projection} on variable $z$!
+\item GB($I_{x,y,z}$)$\cap\Fq[z]$ related to \alert{projection} on variable $z$!
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -656,8 +698,8 @@ Let $J_0$ be an ideal of vanishing polynomials over $\Fkk[x_1,\dots,x_n]$, then
 $${\bf V}(J_0:J) = {\bf V}(J_0) - {\bf V}(J) = \overline{{\bf V}(J)}$$
 \end{Theorem}
 \bi
-\item Given ideal $J$, compute $J'$ s.t. $V(J') = \overline{V(J)}$
-\item $\to J'=J_0:J$
+\item $V(J)\subseteq \Fkk$ in affine space
+\item Given ideal $J$, compute $J'$ s.t. $V(J') = \overline{V(J)} = \Fkk-V(J)\implies J'=J_0:J$
 \ei
 \end{frame}
 
@@ -703,22 +745,41 @@ $${\bf V}(J_0:J) = {\bf V}(J_0) - {\bf V}(J) = \overline{{\bf V}(J)}$$
 \bi
 \item Initial state $from^0 = S(\{00\})$
 \item {\bf Iteration 1:}Compose an elimination ideal $J$ 
-\vspace{-0.2in}\\
+\ei
+\vspace{-0.2in}
+\begin{columns}[onlytextwidth]
+\begin{column}{0.5\textwidth}
 \begin{align*}
-&f_1: t_0- (xs_0s_1+xs_0+xs_1+x+s_0+s_1+1)\\
+&f_1: t_0- (xs_0s_1+xs_0\\
+&+xs_1+x+s_0+s_1+1)\\
 &f_2: t_1 - (xs_0+x+s_0s_1+s_0)\\
 &f_3: S - s_0 - s_1\alpha\\
 &f_4: T - t_0 - t_1\alpha
 \end{align*}
-$J_{ckt} = \langle f_1,f_2,f_3,f_4\rangle$
+\end{column}
+\vspace{-0.2in}
+\begin{column}{0.5\textwidth}
 \begin{align*}
 &f_5: x^2-x\\
 &f_6: s_0^2-s_0, f_7: s_1^2-s_1\\
 &f_8: t_0^2-t_0, f_9: t_1^2-t_1\\
 &f_{10}: S^4-S, f_{11}:T^4-T
 \end{align*}
-$\ \ \ \ \ \ \ \ \ \ \  \ J_0 = \langle f_5,f_6,\dots,f_{11}\rangle$
-\ei
+\end{column}
+\end{columns}
+\begin{columns}[onlytextwidth]
+\begin{column}{0.7\textwidth}
+\begin{figure}[H]
+\centering{
+\includegraphics[width=3in]{hehe.pdf}
+}
+\end{figure}
+\end{column}
+\begin{column}{0.3\textwidth}
+$J_{ckt} = \langle f_1,f_2,f_3,f_4\rangle$\\
+$J_0 = \langle f_5,f_6,\dots,f_{11}\rangle$
+\end{column}
+\end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label = pptpage2]{\large{Full Blown traversal of example circuit using algebraic geometry}}
@@ -772,20 +833,36 @@ $$reached = \langle T^3+(\alpha+1)T^2+\alpha T\rangle$$
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%(End of copy)%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\large{Improve complexity using RATO}}
+\begin{frame}{\large{Improve complexity using RATO [Pruss, '15]}}
 \bi
 \item Directly compute GB($J_{ckt}+J_0$) in $\Fq$ is costly ($q^{O(d)}$)
 \item GB sensitive to term order$\to$Transform to simpler set for GB?
 \pause
 \item RATO: reverse topological traverse on ckt structure
-\item Benefit: Only one pair of poly with non-relatively-prime leading terms\par
-$gcd(lt(f_w),lt(f_g))\neq 1$
 \ei
 \begin{figure}[H]
 \centering{
 \includegraphics[width=4.5in]{../newfig/new_stg.eps}
 \label{fig:fsm}}
 \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Benefits of using RATO}}
+\bi
+\item Definition of RATO:\par 
+``bit-level variables ordered reverse topologically "$ > T>S$
+\item Only one pair of poly with non-relatively-prime leading terms
+	\bi
+	\item If $gcd(lt(f_w),lt(f_g)) = 1$:
+	\item $Spoly(f_w,f_g) \xrightarrow{J_{ckt}+J_0}_+ 0$
+	\ei
+\item Topology in structure
+	\bi
+	\item Each poly with leading term -- fanout
+	\item Divide with levelization
+	\item Only inputs (primary \& pseudo) left!
+	\ei
+\ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Example of using RATO}}
@@ -801,7 +878,7 @@ f_2: b+s_0s_1 &~~~ f_3: c+x+xs_0 &&~~~f_4: d+s_0s_1+s_0 \\
 f_5: \alert{t_0}+ab+a+1 &~~~ f_6: t_1+cd+c+d &&~~~ f_7: \alert{t_0}+t_1\alpha+T 
 \end{alignat*}
 \bi
-\item $Spoly$ reduction gives $T+\Func(inputs)$
+\item $Spoly$ reduction gives $T+\Func(primary/pseudo~inputs)$
 \ei
 \begin{align}
 &Spoly(f_5,f_7) \xrightarrow{J_{ckt}+J_0}_{+}T + s_0 s_1 x+\alpha s_0 s_1 \nonumber\\
@@ -913,9 +990,7 @@ SPEC: $R = A_{init}\cdot B_{init} \pmod {P(\alpha)}$ after $k$ clock cycles
 \hspace{-0.3in}\begin{figure}[hbt]
 \centering{
 %\begin{minipage}{12cm}
-\includegraphics[width=5.5in]{./new_multi.eps}
-% \vspace{-0.2in}
-\caption{A 3-bit RH-SMPO and its Moore FSM model}
+\includegraphics[width=5in]{./new_multi.eps}
 %\end{minipage}
 \label{fig:RHmulti}}
 \end{figure}
@@ -924,7 +999,7 @@ SPEC: $R = A_{init}\cdot B_{init} \pmod {P(\alpha)}$ after $k$ clock cycles
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\large{GF multiplier verification algo.}}
+\begin{frame}{\large{GF multiplier verification algorithm}}
 \begin{algorithm}[H] % note [hbt] will fail in beamer
 \SetAlgoNoLine
  \KwIn{Circuit polynomial ideal $J$, vanishing ideal $J_0$, initial state ideal $R (=0), \mathcal{G}(A_{init}), \mathcal{H}(B_{init})$} 
@@ -1042,10 +1117,11 @@ B_{init}+b_2\alpha^3+b_0\alpha^6+b_1\alpha^{12}\}$
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Experiment result: sequential GF multiplier verification}}
+\bi
+\item Run-time for verification of bug-free RH-SMPO circuits
+  for SAT, ABC and BDD based methods. \emph{TO} = timeout 14 hrs
 \begin{table}[H]
 \centering
-\caption{\small Run-time for verification of bug-free RH-SMPO circuits
-  for SAT, ABC and BDD based methods. \emph{TO} = timeout 14 hrs}
 \label{tbl:equiv}
 \begin{tabular}{|c||c|c|c|c|} 
 \hline
@@ -1065,7 +1141,8 @@ BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
 \end{tabular}
 \label{table:satbdd}  
 \end{table} 
-\begin{table}[H]
+\item Runtime for verification of bug-free Agnew's and RH-SMPO circuits using our approach
+\hspace{-0.3in}\begin{table}[H]
 \centering
 \label{tab:Cpp}
 {\small 
@@ -1073,11 +1150,11 @@ BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
 \hline
 \multicolumn{2}{|c||}{\centering Operand size $k$} & 36 & 60 & 81 & 100 & 131 & 162 \\
 \hline
-\multirow{2}{1.5cm}{\centering RH-SMPO} & \#Polynomials & 4716 & 12960 & 21870 & 35600 & 56592 & 92826 \\
+\multirow{2}{1cm}{\centering RH-SMPO} & \#Polys & 4716 & 12960 & 21870 & 35600 & 56592 & 92826 \\
 \cline{2-8}
  & Runtime & 14.3 & 213.3 & 1343 & 4685 & 26314 & 124194 \\
 \hline
-\multirow{2}{1.5cm}{\centering Agnew's SMPO} & \#Polynomials & 2700 & 7380 & 13356 & 20300 & 34715 & 52974 \\
+\multirow{2}{1cm}{\centering Agnew's SMPO} & \#Polys & 2700 & 7380 & 13356 & 20300 & 34715 & 52974 \\
 \cline{2-8}
  & Runtime & 10.2 & 212.0 & 2684 & 4686 & 56568 & 119441 \\
  
@@ -1086,6 +1163,7 @@ BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
 \end{tabular}
 }
 \end{table}
+\ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label = refine]{\large{Abstraction refinement}}
@@ -1095,6 +1173,7 @@ BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
 \caption{Abstraction by reducing latches}
 \label{fig:refine}}
 \end{figure}
+\vspace{-0.2in}
 \bi
 \item Remove ``irrelevant" latches, reduce state space
 \item Provide an over-approximation
@@ -1105,7 +1184,7 @@ BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Refutation within Buchberger's algo.}}
 \bi
-\item Recall Buchberger's algo....
+\item Recall Buchberger's algorithm
 \pause
 \item  What can we learn from the \alert{``1" generated by Buchberger's Algorithm}?
 \ei
@@ -1434,6 +1513,43 @@ $f_3 = ac f_2 + a f_5$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Application to abstraction refinement}}
 \vspace{-0.1in}
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{../newfig/s27.pdf}
+\end{figure}
+\vspace{-0.3in}
+\bi
+\item PS = $\{G7,G6,G5\}$, NS = $\{G13,G11,G10\}$: 8 states
+\item Property $p = {\bf AG}( (\neg G13) {\bf U} (\neg Z) )$
+\item $k$-BMC without abstraction refinement: when $k=3$ prove $PASS$
+\ei
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Application to abstraction refinement}}
+\bi
+\item Circuit ideal when $k=0$:
+\ei
+\begin{align*}
+I = \langle & G14+1+G0, G8+G14\cdot G6, G15+G12+G8+G12\cdot G8,\\ 
+	& G16+G3+G8+G3\cdot G8, G9+1+G16\cdot G15, \\ 
+	& G10+1+G14+G11+G14\cdot G11, G11+1+G5+G9+G5\cdot G9, \\
+	& G12+1+G1+G7+G1\cdot G7, G13+1+G2+G12+G2\cdot G12, \\
+	& Z+1+G1, \\
+	& \text{(Initial state 000 )} G5, G6, G7 \rangle;
+\end{align*}
+\vspace{-0.2in}
+\bi
+\item Property: $\neg p = Z\cdot G13 + 1$
+\item UNSAT core: \begin{align*}
+Core(I\land \neg p) =& G12+1+G1+G7+G1\cdot G7,\\
+&G13+1+G2+G12+G2\cdot G12, \\
+& Z+1+G1, G7;
+\end{align*}
+\ei
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{\large{Application to abstraction refinement}}
+\vspace{-0.1in}
 \begin{columns}[onlytextwidth]
 \begin{column}{0.5\textwidth}
 \begin{figure}
@@ -1449,17 +1565,63 @@ $f_3 = ac f_2 + a f_5$
 \end{column}
 \end{columns}
 \bi
-\item By removing ``irrelevant" latches, state-space reduced
+\item $\{G5/G10 ,G6/G11\}$: irrelevant
+\item By removing irrelevant latches, state-space reduced
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Conclusion}}
+\bi
+\item Word-level abstraction of state-space
+\item Apply to reachability analysis
+\item Prove effectiveness by experiments on ISCAS'89 and ITC'99 benchmarks
+\ei
+\bi
+\item Word-level abstraction of function in a single time-frame
+\item Word-level unrolling
+\item Apply to functional correctness checking of sequential GF multipliers
+\item Succeed to verify 162-bit, while contemporary fails beyond 23 bit 
+\ei
+\bi
+\item UNSAT core extraction for a set of polynomials
+\item Refine the core using refutation proof \& syzygies
+\item UNSAT core info can be applied to abstraction refinement
+\ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Future work}}
+\bi
+\item Multivariate polynomial ideals
+	\bi
+	\item Extend the application of univariate polynomial ideals
+	\ei
+\ei
+\bi
+\item Accelerate GB reduction
+	\bi
+	\item $F_4$ algorithm on term-sparse polynomial ideal (parallel computing)
+	\item ZDDs can represent chain of OR gates logic in linear space complexity (alternative canonical graphic representation)
+	\ei
+\ei
+\bi
+\item Compute Craig's interpolants using algebraic geometry
+	\bi
+	\item Projection of varieties $\implies$ interpolants
+	\ei
+\ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Publications \& tools}}
+\bi
+\item Publications:
+	\bi
+	\item {\it Formal Verification of Sequential Galois Field Arithmetic Circuits using Algebraic Geometry}. {\bf Xiaojun Sun}, Priyank Kalla, Tim Pruss, Florian Enescu. DATE 2015, Grenoble
+	\item {\it Finding Unsatisfiable Cores of a Set of Polynomials using the Groebner Basis Algorithm}. {\bf Xiaojun Sun}, Irina Ilioaea, Priyank Kalla, Florian Enescu. CP 2016, Toulouse
+	\item {\it Word-level Traversal of Finite States Machines using Algebraic Geometry}. {\bf Xiaojun Sun}, Priyank Kalla, Florian Enescu. HLDVT 2016, Santa Cruz
+	\ei
+\item Tools:\\
+My website: {\it ece.utah.edu/$\sim$xiaojuns/code.html}
+\ei
 \end{frame}
 
 
