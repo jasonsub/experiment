@@ -159,6 +159,7 @@ Advisor: {\it Priyank Kalla}
 \includegraphics[scale=0.25]{./stg_fig.eps}
 \caption{State Transition Graph}
 \end{figure}
+\hyperlink{pptpage2}{\beamergotobutton{Go back to example}}
 \end{column}
 \begin{column}{0.5\textwidth}
 \bi
@@ -181,7 +182,7 @@ Advisor: {\it Priyank Kalla}
 \ei
 \end{column}
 \end{columns}
-\hyperlink{pptpage2}{\beamergotobutton{Go back to example}}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label = motiv2]{\large{Motivation II: Sequential arithmetic circuits verification}}
@@ -246,7 +247,7 @@ Advisor: {\it Priyank Kalla}
 	\item Induction-based
 	\ei
 \item Symbolic model checking (counterexample, IC3): SAT/BDDs in nature
-\item Word-level techniques (term rewriting, uninterpreted function): ?/no encoding
+\item Word-level techniques (term rewriting, uninterpreted function): no universal representation/no encoding
 \item Algebraic geometry methods
 	\bi
 	\item Gr\"ober basis in model checking [Avrunin,CAV'96;Vardi,IASTED'07]: Analog of bit-level Boolean functions
@@ -262,10 +263,13 @@ Advisor: {\it Priyank Kalla}
 \item Our proposed state-space model is based on finite field $\Fkk$
 	\bi
 	\item $\B^k$: bit-vector
-	\item $\Z_{2^k}$, $\R_q$: approaches not compatible
+	\item $\Z_{2^k}$, $\R$: approaches not compatible
 	\ei
 \item Evaluations in $\B^k \Leftrightarrow$ Elements in $\Fkk$
 \item Functions $\B^k\to\B^k \Leftrightarrow \Func:\Fkk\to\Fkk$
+\pause
+\item State-space: finite set of $2^k$ points
+\item Treat them as solutions to polys in $\Fkk$
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -289,12 +293,13 @@ Our interest: $\mathbb{F}_{q} = \Fkk$ ($q = 2^k$)
 To construct $\mathbb{F}_{2^k}$
 \begin{itemize}
 \item $\mathbb{F}_{2^k} \equiv \mathbb{F}_{2}[x] \pmod {P(x)}$
-\item $P(x) \in \mathbb{F}_{2}[x]$, irreducible polynomial of degree
-  $k$
-\item Operations performed (mod $P(x)$) and coefficient reduced (mod 2)
+\item $P(x) \in \mathbb{F}_{2}[x]$, irreducible polynomial of degree $k$
+\item Root $P(x)=0$: primitive element
 \bi
 \item E.g. $\C   = \R[x] \pmod{ x^2+1}$
 \ei
+\item Operations performed (mod $P(x)$) and coefficient reduced (mod 2)
+
 \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -488,9 +493,10 @@ $L = \text{LCM}(lm(f), lm(g))$, ~~$lm(f)$: leading monomial of $f$
 \item GB enables abstraction
 \ei
 \hyperlink{linkRATO}{\beamergotobutton{RATO}}
+\hyperlink{UNSAT}{\beamergotobutton{UNSAT}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\large{Gr\'obner basis with elimination term order}}
+\begin{frame}{\large{Gr\"obner basis with elimination term order}}
 \begin{itemize}
 \item Let ideal $I = \langle f_1, f_2, f_3 \rangle$ where
 	\begin{itemize}
@@ -713,11 +719,11 @@ $${\bf V}(J_0:J) = {\bf V}(J_0) - {\bf V}(J) = \overline{{\bf V}(J)}$$
 \SetAlgoNoLine
 \Indm
  \KwIn{The circuit's characteristic polynomial ideal $J_{ckt}$,
-   initial state polynomial $\F(S)$, and LEX term order: bit-level
+   initial state polynomial $\Func(S)$, and LEX term order: bit-level
    variables $x, s, t$ $>$ PS word $S$ $>$ NS word $T$}
 \Indp
 
-  $from^0 = reached = \F(S)$\;
+  $from^0 = reached = \Func(S)$\;
   \Repeat{$\langle new^i\rangle == \langle 1\rangle$}
   {
   	$i \gets i + 1$\;
@@ -847,7 +853,7 @@ $$reached = \langle T^3+(\alpha+1)T^2+\alpha T\rangle$$
 \includegraphics[width=4.5in]{../newfig/new_stg.eps}
 \label{fig:fsm}}
 \end{figure}
-\hyperlink{Buch}{\beamergotobutton{Buchberger}}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[label = linkRATO]{\large{Benefits of using RATO}}
@@ -859,6 +865,7 @@ $$reached = \langle T^3+(\alpha+1)T^2+\alpha T\rangle$$
 	\item Output of each gate $= lt(f_i)$
 	\ei
 \item Product criterion: $gcd(lt(f_i),lt(f_j)) = 1 \implies Spoly(f_i,f_j) \xrightarrow{J_{ckt}+J_0}_+ 0$
+\hyperlink{Buch}{\beamergotobutton{Buchberger}}
 \item Only one pair of poly with non-relatively-prime leading terms
 	
 \item $Spoly$ division
@@ -897,7 +904,8 @@ f_5: \alert{t_0}+ab+a+1 &~~~ f_6: t_1+cd+c+d &&~~~ f_7: \alert{t_0}+t_1\alpha+T
 \bi
 \item Objective: find $s_i = \mathcal G(S)$
 \item $(s_0+s_1\alpha+\cdots+s_{k-1}\alpha^{k-1})^{2^n} = s_0^{2^n}+(s_1\alpha)^{2^n}+\cdots+(s_{k-1}\alpha^{k-1})^{2^n}$
-\item Build system of poly eqns by squaring:
+\item Build system of poly eqns by squaring poly:\\
+$S = s_0+s_1\alpha+\cdots+s_{k-1}\alpha^{2^{k-1}}$
 \begin{align*}
 \label{eqn:alphamat}
 \begin{bmatrix}
@@ -1224,7 +1232,7 @@ BDD & 0.1 & 11.7 & 1002.4 & \emph{TO}  \\
 \hyperlink{motiv3}{\beamergotobutton{Recall $k$-BMC}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\large{UNSAT problems: refutation within Buchberger's algorithm}}
+\begin{frame}[label = UNSAT]{\large{UNSAT problems: refutation within Buchberger's algorithm}}
 \begin{Theorem}[Weak Nullstellensatz]
 Let $J = \langle f_1,\dots, f_s \rangle $ be
 an ideal in the ring $ \mathbb{F}[x_1, \dots, x_n]$ and $V_{\overline{\F}}(J)$ be its
@@ -1232,18 +1240,20 @@ variety over $\overline{\F}$. Then $V_{\overline{\F}}(J) = \emptyset \iff J =
 \mathbb{F}[x_1,\dots,x_n] \iff 1 \in J$.  
 \end{Theorem}
 $V_{\overline{\F}}(J)=\emptyset \iff 1\in J \iff reduced~GB(J) = \{1\}$
-\bi
-\item Recall Buchberger's algorithm: UNSAT $\to$ terminates with $1$
-\pause
-\item  Information lies in $Spoly$?
-\item Poly calculus stronger than resolution!
-\ei
-
 \begin{Definition}
 Assume a polynomial set $F$ is UNSAT. A subset $M \subseteq F$ is an {\bf UNSAT core} 
 if $M$ is also UNSAT. Further, if $\forall f\in M$, $M\setminus\{f\}$ is SAT, then 
 $M$ is called a {\bf minimal UNSAT core} of $F$.
 \end{Definition}
+\bi
+\item Recall Buchberger's algorithm: UNSAT $\to$ terminates with $1$
+\hyperlink{Buch}{\beamergotobutton{Buchberger}}
+\pause
+\item  Information lies in $Spoly$?
+\item Poly calculus stronger than resolution!
+\ei
+
+
 
 Animation 2...
 \end{frame}
@@ -1328,9 +1338,9 @@ $\{f_1,\dots,f_9,f_{10},f_{11},1\}$ is the Gr\"obner basis generated from Buchbe
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{\large{Reducing size: iterative refinement}}
+\begin{frame}{\large{Reducing size: iterative refinement by reordering Spoly pairs}}
 \bi
-\item Spoly pair selection strategy: $(f_1,f_2)\to(f_1,f_3)\to(f_2,f_3)\to(f_1,f_4)\to(f_2,f_4)\to\cdots$
+\item Spoly pair selection strategy: $(f_1,f_2)\to(f_1,f_3)\to(f_2,f_3)\to(f_1,f_4)\to(f_2,f_4)\to\cdots$  (Animation 3)
 \item High likelihood in minimal core $\to$ Put ahead in Spoly queue $\to$ Faster approaching ``1" in GB-core $\to$ Smaller core
 \ei
 \vspace{-0.2in}
