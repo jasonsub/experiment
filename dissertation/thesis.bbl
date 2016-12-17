@@ -931,6 +931,11 @@ Pavel Pudl{\'a}k,
   computations'',
 \newblock {\em The Journal of Symbolic Logic}, vol. 62, pp. 981--998, 1997.
 
+\bibitem{sankaranarayanan2004non}
+Sriram Sankaranarayanan, Henny~B Sipma, and Zohar Manna,
+\newblock ``Non-linear loop invariant generation using gr{\"o}bner bases'',
+\newblock {\em ACM SIGPLAN Notices}, vol. 39, pp. 318--329, 2004.
+
 \bibitem{rosingbook}
 Michael Rosing,
 \newblock {\em Implementing elliptic curve cryptography},

@@ -1312,14 +1312,14 @@ $\{f_1,\dots,f_9,f_{10},f_{11},1\}$ is the Gr\"obner basis generated from Buchbe
 \pause
 \bi
 \item $f_{10}=f_1-acf_2-af_2-f_3-cf_2-f_2 = f_1+acf_2+af_2+f_3+cf_2+f_2$
-\item $1 = \F(f_1,f_2,f_3,f_4,f_5)\implies 1 \in \langle f_1,f_2,f_3,f_4,f_5\rangle \implies UNSAT$
+\item $1 = \Func(f_1,f_2,f_3,f_4,f_5)\implies 1 \in \langle f_1,f_2,f_3,f_4,f_5\rangle \implies UNSAT$
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{\large{Reducing size: redundancy in refutation tree}}
 \bi
 \item Expand: \begin{align*}
-		1 &= \F(f_1,f_2,f_3,f_4,f_5)\\
+		1 &= \Func(f_1,f_2,f_3,f_4,f_5)\\
 		&= cf_2+f_5+\alert{f_{11}}\\
 		&=cf_2+f_5+f_3+f_4+\alert{f_{10}}\\
 		&=(cf_2 + f_5) + \dots + \mathbf{1\cdot f_3} + \dots + \mathbf{1\cdot
@@ -1541,7 +1541,7 @@ $Spoly(f_1,f_5)\xrightarrow{F}_+ 0$
 \bi
 \item Column $f_3$ contains ``1", means:\\
 $1\cdot f_3 + ac f_2 + a f_5 = 0\Leftrightarrow f_3 = acf_2+af_5$
-\item Generalization of this strategy refer to the paper
+\item Generalization of this strategy refer to Ch.7 in dissertation
 \ei
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

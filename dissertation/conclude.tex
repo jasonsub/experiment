@@ -63,95 +63,95 @@ $$V(J') = V(J_0:J) = V(J_0)\setminus V(J) = \overline{V(J)}$$
 
 In univariate case, $\F[x]$ is the principle ideal domain thus Theorem \ref{thm:quotient} can be proved.
 However over multivariate case, the proof of this conjecture is not available.
-% 
-% The following example illustrates a different operation from Example \ref{ex:SMPO}.
-% \begin{Example}
-% In Figure \ref{fig:fsm}
-% $\{s_0, s_1\}$ are state/pseudo inputs, $\{t_0,t_1\}$ are state/pseudo outputs, and there is a primary input (1-bit) 
-% $x$. We propose a new algorithm by modifying Algorithm \ref{alg:univa}:
-% 
-% \IncMargin{1em}
-% \begin{algorithm}[hbt]
-% \SetAlgoNoLine
-% \LinesNumbered
-%  \KwIn{Transition polynomial $f_t = T + \mathcal F (S,x)$, 
-% 	initial state ideal $from^0 = \langle S+\mathcal G(x), x^{q_1} - x\rangle$}
-%  \KwOut{Reachable states}
-%   $reached = from^0(T\setminus S)$\;
-%   \Repeat{$GB(new^i) == 1$}
-%   {
-%   	$i \gets i + 1$\;
-% 	$to^i \gets$GB$(\langle f_t, from^{i-1}\rangle) \setminus \mathcal H(S)$\;
-% 	$\overline{reached} = \langle T^{q_2}-T, x^{q_1} - x \rangle : reached$\;
-% 	$new^i \gets $GB$(to^i + \overline{reached})$\;
-%   	$reached \gets $GB$( reached \cdot new^i)$\;
-% 	$from^i \gets new^i(S\setminus T)$\;
-%   }
-% \Return{$reached$}
-% \caption {Algebraic Geometry based Traversal Algorithm (multivariate-generator ideals)}\label{alg:multi}
-% \end{algorithm}
-% \DecMargin{1em}
-% 
-% The inputs of this algorithm includes transition polynomial (result of word-level abstraction) and initial 
-% states description ideal, which contains 2 generators corresponds to constraints of PI and combinational input $S$. 
-% For example, $\langle S+1+\alpha, x^2+x\rangle$ means initial state$=\{11\}$,
-% $\langle S+x\cdot\alpha, x^2+x\rangle$ means initial states$=\{00,10\}$).
-% 
-% Transition polynomial calculation uses the abstraction and bit-to-level conversion method from 
-% Chapter \ref{ch:reacha}. After Constructing
-% an elimination ideal, we impose RATO such that \emph{reverse\ topo\ order\ ckt\ variables }$> T > S > x$, the reduction
-% remainder has the form $T+\mathcal F(s_0,s_1,x)$. From word definition $S+s_0+s_1\alpha$ we get
-% $$s_0 = \alpha S^2+ (1+\alpha)S, s_1 = S^2+S$$
-% Do substitution, the transition polynomial of example ckt is 
-% $$f_T = T+S^3\cdot x+\alpha S^3+(1+\alpha)S^2\cdot x+S^2+S\cdot x+(1+\alpha)x+1$$
-% 
-% Assume we start from state $\{11\}$. In the first iteration, the reached state is $\{01\}$. Line 4 is to compose an
-% ideal with 2 generators from $from^0$ and transition polynomial $f_T$, compute its Gr\"obner basis. Note this ideal
-% has the form
-% \begin{equation}
-% I_{tran} = \left\{
-%              \begin{array}{c}
-%              T+\mathcal F(S,x) \\
-%              S + \mathcal G(x) \\
-%              v_x
-%              \end{array}  
-%         \right.
-% \end {equation}
-% $v_x$ is a polynomial containing only $q$-bit PI $x$, initially it should be vanishing polynomial $x^{q_1}-x$, 
-% with the program executing it may be factorized.
-% 
-% Consider Buchberger's algorithm, all generators' leading terms are relatively prime, so it is a GB itself. 
-% Then we need to reduce this GB, we will find out $S + \mathcal G(x)$ could (possibly) be reduced by $v_x$,
-% and $T+\mathcal F(S,x)$ will definitely reduced by $S + \mathcal G(x)$. So, at last we will get a polynomial
-% $T + \mathcal F'(x)$ in reduce GB. We can include this polynomial and $v_x$, exclude the polynomial containing
-% $S$ (i.e. $\mathcal H(S)$ in algorithm), to compose an ideal representing \emph{next states} $to^i$. 
-% In iteration 1, result is $to^1 = \langle T+1, x^2+x\rangle$
-% 
-% Line 5 is the ideal quotient of universal set and reached states. In the first iteration, 
-% $reached$ is the initial state $\langle T+1+\alpha, x^2+x \rangle$. Result of ideal quotient
-% is $\langle T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle$ represents $\{00,01,10\}$.
-% 
-% Line 6 is ideals' sum (intersection of their varieties), it is done by combining all generators
-% from 2 ideals and compute GB. For first iteration result is $GB(\langle T+1,T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle) = \langle T+1, x^2+x\rangle$ representing $\{01\}$.
-% 
-% Line 7 is ideals' product (union of their varieties), it is done by multiplying all pairs of
-% generators from both ideal. For first iteration result is $GB(\langle (T+1)(T+1+\alpha),
-% (T+1)(x^2+x), (T+1+\alpha)(x^2+x), (x^4+x)\rangle) = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$ representing $\{01,11\}$.
-% 
-% The traversal will run 3 iterations and terminate at 4th iteration. I list all intermediate 
-% results below:
-% \begin{itemize}
-% \item Iteration 1: $from^0 = \langle S+1+\alpha, x^2+x\rangle, to^1 = \langle T+1, x^2+x\rangle,
-%  reached = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$
-% \item Iteration 2: $from^1 = \langle S+1, x^2+x\rangle, to^2= \langle T+\alpha, x^2+x\rangle,
-% reached = \langle T^3+1, x^2+x\rangle$
-% \item Iteration 3: $from^2 = \langle S+\alpha, x^2+x\rangle, to^3 = \langle T+\alpha x, x^2+x
-% \rangle, reached = \langle T^3\cdot x+x, T^4+T, x^2+x\rangle$
-% \item Iteration 4: $from^3 = \langle S, x\rangle, to^4 = \langle T+1, x\rangle, new = \langle1\rangle$
-% \end{itemize}
-% The final reachable states are represented by multivariate polynomial ideal $\langle T^3\cdot x+x, T^4+T, x^2+x\rangle$,
-% which denotes $\{00,01,10,11\}$.
-% \end{Example}
+
+The following example illustrates a different operation from Example \ref{ex:SMPO}.
+\begin{Example}
+In Figure \ref{fig:fsm}
+$\{s_0, s_1\}$ are state/pseudo inputs, $\{t_0,t_1\}$ are state/pseudo outputs, and there is a primary input (1-bit) 
+$x$. We propose a new algorithm by modifying Algorithm \ref{alg:univa}:
+
+\IncMargin{1em}
+\begin{algorithm}[hbt]
+\SetAlgoNoLine
+\LinesNumbered
+ \KwIn{Transition polynomial $f_t = T + \mathcal F (S,x)$, 
+	initial state ideal $from^0 = \langle S+\mathcal G(x), x^{q_1} - x\rangle$}
+ \KwOut{Reachable states}
+  $reached = from^0(T\setminus S)$\;
+  \Repeat{$GB(new^i) == 1$}
+  {
+  	$i \gets i + 1$\;
+	$to^i \gets$GB$(\langle f_t, from^{i-1}\rangle) \setminus \mathcal H(S)$\;
+	$\overline{reached} = \langle T^{q_2}-T, x^{q_1} - x \rangle : reached$\;
+	$new^i \gets $GB$(to^i + \overline{reached})$\;
+  	$reached \gets $GB$( reached \cdot new^i)$\;
+	$from^i \gets new^i(S\setminus T)$\;
+  }
+\Return{$reached$}
+\caption {Algebraic Geometry based Traversal Algorithm (multivariate-generator ideals)}\label{alg:multi}
+\end{algorithm}
+\DecMargin{1em}
+
+The inputs of this algorithm includes transition polynomial (result of word-level abstraction) and initial 
+states description ideal, which contains 2 generators corresponds to constraints of PI and combinational input $S$. 
+For example, $\langle S+1+\alpha, x^2+x\rangle$ means initial state$=\{11\}$,
+$\langle S+x\cdot\alpha, x^2+x\rangle$ means initial states$=\{00,10\}$).
+
+Transition polynomial calculation uses the abstraction and bit-to-level conversion method from 
+Chapter \ref{ch:reacha}. After Constructing
+an elimination ideal, we impose RATO such that \emph{reverse\ topo\ order\ ckt\ variables }$> T > S > x$, the reduction
+remainder has the form $T+\mathcal F(s_0,s_1,x)$. From word definition $S+s_0+s_1\alpha$ we get
+$$s_0 = \alpha S^2+ (1+\alpha)S, s_1 = S^2+S$$
+Do substitution, the transition polynomial of example ckt is 
+$$f_T = T+S^3\cdot x+\alpha S^3+(1+\alpha)S^2\cdot x+S^2+S\cdot x+(1+\alpha)x+1$$
+
+Assume we start from state $\{11\}$. In the first iteration, the reached state is $\{01\}$. Line 4 is to compose an
+ideal with 2 generators from $from^0$ and transition polynomial $f_T$, compute its Gr\"obner basis. Note this ideal
+has the form
+\begin{equation}
+I_{tran} = \left\{
+             \begin{array}{c}
+             T+\mathcal F(S,x) \\
+             S + \mathcal G(x) \\
+             v_x
+             \end{array}  
+        \right.
+\end {equation}
+$v_x$ is a polynomial containing only $q$-bit PI $x$, initially it should be vanishing polynomial $x^{q_1}-x$, 
+with the program executing it may be factorized.
+
+Consider Buchberger's algorithm, all generators' leading terms are relatively prime, so it is a GB itself. 
+Then we need to reduce this GB, we will find out $S + \mathcal G(x)$ could (possibly) be reduced by $v_x$,
+and $T+\mathcal F(S,x)$ will definitely reduced by $S + \mathcal G(x)$. So, at last we will get a polynomial
+$T + \mathcal F'(x)$ in reduce GB. We can include this polynomial and $v_x$, exclude the polynomial containing
+$S$ (i.e. $\mathcal H(S)$ in algorithm), to compose an ideal representing \emph{next states} $to^i$. 
+In iteration 1, result is $to^1 = \langle T+1, x^2+x\rangle$
+
+Line 5 is the ideal quotient of universal set and reached states. In the first iteration, 
+$reached$ is the initial state $\langle T+1+\alpha, x^2+x \rangle$. Result of ideal quotient
+is $\langle T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle$ represents $\{00,01,10\}$.
+
+Line 6 is ideals' sum (intersection of their varieties), it is done by combining all generators
+from 2 ideals and compute GB. For first iteration result is $GB(\langle T+1,T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle) = \langle T+1, x^2+x\rangle$ representing $\{01\}$.
+
+Line 7 is ideals' product (union of their varieties), it is done by multiplying all pairs of
+generators from both ideal. For first iteration result is $GB(\langle (T+1)(T+1+\alpha),
+(T+1)(x^2+x), (T+1+\alpha)(x^2+x), (x^4+x)\rangle) = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$ representing $\{01,11\}$.
+
+The traversal will run 3 iterations and terminate at 4th iteration. I list all intermediate 
+results below:
+\begin{itemize}
+\item Iteration 1: $from^0 = \langle S+1+\alpha, x^2+x\rangle, to^1 = \langle T+1, x^2+x\rangle,
+ reached = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$
+\item Iteration 2: $from^1 = \langle S+1, x^2+x\rangle, to^2= \langle T+\alpha, x^2+x\rangle,
+reached = \langle T^3+1, x^2+x\rangle$
+\item Iteration 3: $from^2 = \langle S+\alpha, x^2+x\rangle, to^3 = \langle T+\alpha x, x^2+x
+\rangle, reached = \langle T^3\cdot x+x, T^4+T, x^2+x\rangle$
+\item Iteration 4: $from^3 = \langle S, x\rangle, to^4 = \langle T+1, x\rangle, new = \langle1\rangle$
+\end{itemize}
+The final reachable states are represented by multivariate polynomial ideal $\langle T^3\cdot x+x, T^4+T, x^2+x\rangle$,
+which denotes $\{00,01,10,11\}$.
+\end{Example}
 
 \subsection{Use of the $F_4$ Algorithm and ZDDs to Accelerate GB Reduction}
 In Chapters \ref{ch:reacha} and \ref{ch:normal}, by using RATO we transform the GB-based
@@ -361,234 +361,234 @@ the following questions should also be investigated in the future:
 % with word-level reachability analysis for abstraction-based model
 % checking. 
 
-% \subsection{Technology Mapping for Word-level Functional Blocks}
-% Technology mapping is an important problem in digital circuit synthesis.
-% Designers are given a library of well-designed functional/macro blocks (including IP cores) and a raw netlist, 
-% technology mapping's objective is to map as many as blocks to the raw netlist and 
-% keep the functional equivalence. Contemporary techniques rely on bit-wise 
-% analysis on the signals to deduce the boundary of mapped blocks.
-% It is possible to use the equivalence checking techniques proposed in this dissertation 
-% as a alternative way to perform technology mapping, especially on word-level when 
-% given blocks represent word-level functions.
-% 
-% \begin{Problem}
-% The objective of our approach is to map the macro blocks without boundary information.
-% Mapping is an essential technique used in synthesis and verification. In synthesis, we can map the 
-% macro functions with smaller and faster implementations to optimize the timing and area; in simulation,
-% we can map a complicated function to a simple execution to accelerate simulation speed.
-% 
-% Given a gate-level design $D$ and several word-level macro blocks $\{B_i\}$, we need to map macro
-% blocks $B_i$ into design $D$, and write out the mapped design $D'$ which is equivalent to original
-% design $D$. The objective is to generate a mapped design $D$ with as many of $B_i$ such that the area
-% and timing is optimal. The procedure is also illustrated in Figure \ref{fig:macro}.
-% 
-% \begin{figure}[h]
-% 	\begin{center}
-% 	\includegraphics[width=\textwidth]{newfig/macro.pdf}
-% 	\end{center}
-% 	\caption{The outline and flow of technology mapping of macro blocks}
-% 	\label{fig:macro}
-% \end{figure}
-% 
-% \end{Problem}
-% 
-% The following part describes the sketch of our proposed approach base on loop invariant constraints \cite{sankaranarayanan2004non}.
-% First, a transition system is modeled by algebraic assertions; then \emph{ideal membership test} \cite{lv:phd}
-% is applied on the set of assertions to help abstract the loop invariant. We introduce concept \emph{template}
-% from \cite{sankaranarayanan2004non} to apply on our proposed approach.
-% 
-% 1) {\bf Template and state constraints:}  Ideal membership test technique requires a setup of ideal $J_{loop}$
-% for loop invariants. 
-% One heuristic can provide better coverage for loop invariant abstraction as well as
-% relatively small size is \emph{generic quadratic form} (GQF).
-% 
-% For example, the GQF of a pair of state variables $\{x,y\}$ is
-% $$\Func = a_0x^2+a_1x+a_2xy+a_3y+a_4y^2+a_5$$
-% It covers all possible terms with degree no more than 2. $a_0,a_1,\dots, a_5$ are usually real number parameters,
-% some of their assignments can turn $\Func$ into desired invariant. This parameterized constrain
-% polynomial covers all combinations of state variables can also be called a \emph{template}.
-% Subsequently, finding a proper assignment is the essential part of in our proposed research.
-% 
-% 2) {\bf Initial state constraints:} For initial states, the constrains are explicit. A template is adopted and refined by Gr\"obner basis 
-% generated by original constrains, by equaling the remainder to 0 we can get constrains on
-% parameters from the template.
-% 
-% An example is shown in the following 3-line algorithm multiplying two natural numbers. 
-% \begin{align}
-% \label{eqn:loopinv}
-% & {\bf integer}~~i,j,s~~{\bf where}(s=0 \land j=j_0) \nonumber\\
-% & l_0: {\bf while}~~(\cdots)~~{\bf do} \nonumber\\
-% & ~~~~ l_1:~(s,j)\gets(s+i,j-1) 
-% \end{align}
-% 
-% Its template is generic quadratic form of $\{s,i,j,j_0\}$, which is
-% \begin{align}
-% \Func = & a_0s^2+a_1s+a_2si+a_3sj+a_4sj_0\nonumber\\
-% &a_5i^2+a_6i+a_7ij+a_8ij_0+a_9j^2\nonumber\\
-% &a_{10}j+a_{11}jj_0+a_{12}j_0^2+a_{13}j_0+a_{14}\nonumber
-% \end{align}
-% with parameters $a_0,\dots,a_{14}$.
-% 
-% Constrains of initial state $s=0\land j=j_0$ can be interpreted to polynomials:
-% $$\{s, j-j_0\}$$
-% Since their leading terms are relatively prime, the polynomial set itself constitutes a Gr\"obner basis 
-% $$G=\{s, j-j_0\}$$ 
-% Therefore its ideal can be written as
-% $J=\langle s,j-j_0\rangle$.
-% 
-% In the next step, we reduce the template with the Gr\"obner basis $G$: $\Func \xrightarrow{G}_+ r$, the remainder equals to
-% $$r = a_5i^2+a_6i+(a_7+a_8)ij_0+(a_9+a_{11}+a_{12})j_0^2+(a_{10}+a_{13})j_0+a_{14}$$
-% Let it equal to 0, then each coefficient will generate a constraint. The solution to the system forms the candidate
-% assignment to generate loop invariants.
-% \begin{equation}
-% \left\{
-% \begin{array}{l}
-% a_5=a_6=a_{14}=0\\
-% a_7+a_8=0\\
-% a_9+a_{11}+a_{12}=0\\
-% a_{10}+a_{13}=0
-% \end{array}\right.
-% \nonumber
-% \end{equation}
-% 
-% 3) {\bf Modeling state transitions:}
-% A typical state transition starts from the previous state (PS) and ends at next state (NS). 
-% Our proposed approach models the 2 states individually,
-% {i.e.} performs polynomial reduction separately and obtains remainder $r_1$ and $r_2$. 
-% Assume a constraint polynomial describing
-% the state transition is $r_t$, then we require that when invariant of PS holds and transition $PS \to NS$ stands,
-% invariant of NS should also be satisfied:
-% $$(r_1 = 0)\land (r_t = 0) \implies (r_2 = 0)$$
-% One reasonable conjecture is
-% $$r_t = r_1 - \lambda r_2$$
-% Theoretically $\lambda$ can be any polynomial in arbitrary rings. To make it practical solving the system, 
-% we limit $\lambda$ to the polynomial ring with only real numbers.
-% 
-% We take Equation \ref{eqn:loopinv} as the example (which refers to Example 10 in \cite{sankaranarayanan2004non}). 
-% PS is initial state we just characterized 
-% $$\Func = f(s,i,j,j_0)$$ 
-% and NS has exactly the same form of constraint:
-% $$\Func' = f(s',i',j',j_0')$$
-% Considering the transition relation, we substitute $s'$ with $s+i$ and replace $j'$
-% with $j-1$, $i'$ for $i$, $j_0'$ for $j_0$, respectively. 
-% The template for NS is polynomial $f'$ in Example 10 in \cite{sankaranarayanan2004non}.
-% 
-% We then perform reduction with the Gr\"obner basis generated from the transition relation modeling, 
-% and record its remainder $r_2$.
-% From equality $r_2 = \lambda r_1$, we get constraints for the parameters. Solve the system using 
-% similar algorithm to solve binate covering problems
-% which is also described in Section 4 as \emph{elimination by splitting} technique in \cite{sankaranarayanan2004non}. 
-% One branching result is:
-% \begin{align*}
-% &a_0,a_2,\dots, a_6, a_9,\dots,a_{14}=  0\\ 
-% &a_1=a_7=-a_8
-% \end{align*}
-% The reduced remainder is: 
-% $$r_2 = a_1s +(a_1-a_7)i+a_7ij+a_8ij_0 = a_1(s+ij-ij_0) = 0$$
-% Thus the invariant of the program in Equation \ref{eqn:loopinv} is:
-% $$s = i(j_0- j)$$
-% We can verify the invariant by executing the program which calculates $i\times j_0$. 
-% Initially $s=0$, $j_0-j=0$, invariant holds;
-% during each cycle, $s'=s+i, (j_0'-j') = (j_0-j)+1$, the invariant also holds. In conclusion, this is a
-% loop invariant for program in Equation \ref{eqn:loopinv}.
-% 
-% {\bf Our proposed approach on technology mapping:}
-% Our approach borrows inspiration of templates in \cite{sankaranarayanan2004non}. However, we make an improvement
-% on the original approach:
-% instead of using template polynomial to describe the system, we add some templates into the ideal
-% of macro blocks which serve as technology mapping candidates. In this way we can cover all possibilities
-% of boundary cutting (circuit partition).
-% 
-% 1) {\bf System abstraction:}
-% The polynomial we use to test ideal membership should include all information of a circuit partition,
-% which requires us to abstract information from the system and write it into a single polynomial.
-% Usually this polynomial has the following generic form:
-% $$Z + f(i_1,i_2,\dots,i_n)$$
-% where $Z$ is the output. When there is only one output, $Z$ collapse to a bit-level variable. However in most
-% cases there are multiple outputs on the cut, indicating $Z$ as a word-level variable. Boolean function $\Func$ covers
-% all inputs, and $i_1,i_2,\dots,i_n$ are all bit-level inputs.
-% 
-% \begin{figure}[h]
-% 	\begin{center}
-% 	\includegraphics[width=\textwidth]{newfig/tobemapped.pdf}
-% 	\end{center}
-% 	\caption{An example gate-level netlist to be mapped}
-% 	\label{fig:tobemapped}
-% \end{figure}
-% 
-% Figure \ref{fig:tobemapped} shows an example circuit partition with $a_1,b_1,a_0,b_0$ as inputs and
-% $Z = \{z_0,z_1\}$ as outputs. If we use elements from Galois field $\F_{2^2}$ to represent word $Z$,
-% we have $Z = z_0 + \alpha\cdot z_1$.
-% 
-% After imposing ATO of LEX with
-% $$Other\ circuit\ variables > output\ word\ Z > all\ bit\ level\ inputs$$
-% on the ideal describing the partitioned circuit as well as ideal with vanishing polynomials,
-% the reduced Gr\"obner basis has a single polynomial generator in the form of $Z + \Func(a_1,b_1,a_0,b_0)$.
-% In this example:
-% 
-% \begin{itemize}
-% \item Term ordering: $\{z_0,z_1,t,g_1,p_1,ci,t_1,t_2\}>Z>\{a_0,b_0,a_1,b_1$
-% \item Gate description: $z_0+t+g_1+t\cdot g_1, t+t_1+t_2+t_1\cdot t_2, g_1+a_1\cdot b_1,
-% 			t_1+a_1\cdot ci, t_2+b_1\cdot ci, ci+a_0\cdot b_0, z_1+p_1+ci, p_1+a_1+b_1$
-% \item Word definition: $Z+z_0+z_1\cdot \alpha$
-% \item Vanishing polynomial ideal $(J_0)$: $z_0^2+z_0, z_1^2+z_1, t^2+t, g_1^2+g_1, t_1^2+t_1, t_2^2+t_2, p_1^2+p_1, ci^2+ci,
-% 			a_0^2+a_0, b_0^2+b_0, a_1^2+a_1, b_1^2+b_1, Z^4+Z$(since Z is a 2-bit word)
-% \end{itemize}
-% 
-% The result is a Gr\"obner basis with single polynomial generator. The polynomial has leading term $Z$:
-% $$Z+a_0\cdot b_0\cdot a_1+a_0\cdot b_0\cdot b_1+\alpha\cdot a_0\cdot b_0+a_1\cdot b_1+\alpha\cdot a_1+\alpha\cdot b_1$$
-% 
-% % \begin{table}
-% % \centering
-% % \begin{tabular}{|c|c|} \hline
-% % Boolean operator & operation in $\mathbb{F}_{2}$\\ \hline
-% % $\overline{a}$ & $1 + a$\\ \hline
-% % $a\ and\ b$ & $ab$\\ \hline
-% % $a\ or\ b$ & $a + b + ab$\\ \hline
-% % $a \oplus b$ & $a + b$\\
-% % \hline\end{tabular}
-% % \caption{Some Boolean operators and corresponding operations in $\mathbb{F}_{2}$}
-% % \label{table:booltogalois_op}
-% % \end{table}
-% 
-% 2) {\bf Templates on Boundary Information:}
-% \begin{figure}[h]
-% 	\begin{center}
-% 	\includegraphics[width=\textwidth]{newfig/template.pdf}
-% 	\end{center}
-% 	\caption{Standard 2-bit adder with input/output mapping}
-% 	\label{fig:template}
-% \end{figure}
-% 
-% Figure \ref{fig:template} shows a 2-bit standard cell. It has 3 outputs mapped to 2 output pins,
-% and 4 inputs mapped to 3 input pins (the rest pins are assigned to fixed 0/1 signal). Dashed connection
-% lines show one possible mapping, to find out this kind of feasible mapping, we need to simulate
-% all possible mappings, where the concept "template" can be used.
-% 
-% {\it Output template}: $z_0+c_{{t_0}{z_0}}\cdot t_0+c_{t_1z_0}\cdot t_1+c0_{CO}\cdot CO+c_{n_0}$
-% 
-% When $c_{n_0} = 0$, then $\{c_{t_0z_0},c_{t_1z_0},c0_{CO}\}$ equals to 1 denotes a valid mapping to corresponding output pin. 
-% Conversely if $cn0 = 1$, the ``1" evaluation denotes mapping to negation of corresponding output pin.
-% 
-% {\it Input template}: $a_0+p_{a_0}+c0_{A_0}\cdot s_0+c1_{A_0}\cdot s_1+c2_{A_0}\cdot s_2$
-% 
-% When $p_{a_0} = 0$, then $\{c0_{A_0},c1_{A_0},c2_{A_0}\}$ equal to 1 denotes a valid mapping to corresponding input
-% pin. Conversely if every variable in set $\{c0_{A_0},c1_{A_0},c2_{A_0}\}$ equals to 0, it denotes mapping to fixed signal ``0" (when $p_{a_0} = 1$ then
-% mapping to fixed signal ``1").
-% 
-% With these settings, we propose an approach to perform technology mapping with boundary information:
-% \begin{itemize}
-% \item First, choose a set of independent wires as input pins;
-% 
-% \item Second, push forward input signal for a certain number of gates (depth), choose a cut set
-% which fully dependent on these inputs as output pins;
-% 
-% \item Third, abstract a description polynomial using GB based abstraction;
-% 
-% \item Fourth, reduce the description polynomial with the GB we computed associated to macro block 
-% and templates, obtain a remainder polynomial;
-% 
-% \item Last but not least, abstract all coefficients from the remainder polynomial and set up a system of equations.
-% If we find a solution to this system, then the solution is a feasible mapping; no solution means we cannot make a
-% feasible mapping.
-% \end{itemize}
+\subsection{Technology Mapping for Word-level Functional Blocks}
+Technology mapping is an important problem in digital circuit synthesis.
+Designers are given a library of well-designed functional/macro blocks (including IP cores) and a raw netlist, 
+technology mapping's objective is to map as many as blocks to the raw netlist and 
+keep the functional equivalence. Contemporary techniques rely on bit-wise 
+analysis on the signals to deduce the boundary of mapped blocks.
+It is possible to use the equivalence checking techniques proposed in this dissertation 
+as a alternative way to perform technology mapping, especially on word-level when 
+given blocks represent word-level functions.
+
+\begin{Problem}
+The objective of our approach is to map the macro blocks without boundary information.
+Mapping is an essential technique used in synthesis and verification. In synthesis, we can map the 
+macro functions with smaller and faster implementations to optimize the timing and area; in simulation,
+we can map a complicated function to a simple execution to accelerate simulation speed.
+
+Given a gate-level design $D$ and several word-level macro blocks $\{B_i\}$, we need to map macro
+blocks $B_i$ into design $D$, and write out the mapped design $D'$ which is equivalent to original
+design $D$. The objective is to generate a mapped design $D$ with as many of $B_i$ such that the area
+and timing is optimal. The procedure is also illustrated in Figure \ref{fig:macro}.
+
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=\textwidth]{newfig/macro.pdf}
+	\end{center}
+	\caption{The outline and flow of technology mapping of macro blocks}
+	\label{fig:macro}
+\end{figure}
+
+\end{Problem}
+
+The following part describes the sketch of our proposed approach base on loop invariant constraints \cite{sankaranarayanan2004non}.
+First, a transition system is modeled by algebraic assertions; then \emph{ideal membership test} \cite{lv:phd}
+is applied on the set of assertions to help abstract the loop invariant. We introduce concept \emph{template}
+from \cite{sankaranarayanan2004non} to apply on our proposed approach.
+
+1) {\bf Template and state constraints:}  Ideal membership test technique requires a setup of ideal $J_{loop}$
+for loop invariants. 
+One heuristic can provide better coverage for loop invariant abstraction as well as
+relatively small size is \emph{generic quadratic form} (GQF).
+
+For example, the GQF of a pair of state variables $\{x,y\}$ is
+$$\Func = a_0x^2+a_1x+a_2xy+a_3y+a_4y^2+a_5$$
+It covers all possible terms with degree no more than 2. $a_0,a_1,\dots, a_5$ are usually real number parameters,
+some of their assignments can turn $\Func$ into desired invariant. This parameterized constrain
+polynomial covers all combinations of state variables can also be called a \emph{template}.
+Subsequently, finding a proper assignment is the essential part of in our proposed research.
+
+2) {\bf Initial state constraints:} For initial states, the constrains are explicit. A template is adopted and refined by Gr\"obner basis 
+generated by original constrains, by equaling the remainder to 0 we can get constrains on
+parameters from the template.
+
+An example is shown in the following 3-line algorithm multiplying two natural numbers. 
+\begin{align}
+\label{eqn:loopinv}
+& {\bf integer}~~i,j,s~~{\bf where}(s=0 \land j=j_0) \nonumber\\
+& l_0: {\bf while}~~(\cdots)~~{\bf do} \nonumber\\
+& ~~~~ l_1:~(s,j)\gets(s+i,j-1) 
+\end{align}
+
+Its template is generic quadratic form of $\{s,i,j,j_0\}$, which is
+\begin{align}
+\Func = & a_0s^2+a_1s+a_2si+a_3sj+a_4sj_0\nonumber\\
+&a_5i^2+a_6i+a_7ij+a_8ij_0+a_9j^2\nonumber\\
+&a_{10}j+a_{11}jj_0+a_{12}j_0^2+a_{13}j_0+a_{14}\nonumber
+\end{align}
+with parameters $a_0,\dots,a_{14}$.
+
+Constrains of initial state $s=0\land j=j_0$ can be interpreted to polynomials:
+$$\{s, j-j_0\}$$
+Since their leading terms are relatively prime, the polynomial set itself constitutes a Gr\"obner basis 
+$$G=\{s, j-j_0\}$$ 
+Therefore its ideal can be written as
+$J=\langle s,j-j_0\rangle$.
+
+In the next step, we reduce the template with the Gr\"obner basis $G$: $\Func \xrightarrow{G}_+ r$, the remainder equals to
+$$r = a_5i^2+a_6i+(a_7+a_8)ij_0+(a_9+a_{11}+a_{12})j_0^2+(a_{10}+a_{13})j_0+a_{14}$$
+Let it equal to 0, then each coefficient will generate a constraint. The solution to the system forms the candidate
+assignment to generate loop invariants.
+\begin{equation}
+\left\{
+\begin{array}{l}
+a_5=a_6=a_{14}=0\\
+a_7+a_8=0\\
+a_9+a_{11}+a_{12}=0\\
+a_{10}+a_{13}=0
+\end{array}\right.
+\nonumber
+\end{equation}
+
+3) {\bf Modeling state transitions:}
+A typical state transition starts from the previous state (PS) and ends at next state (NS). 
+Our proposed approach models the 2 states individually,
+{i.e.} performs polynomial reduction separately and obtains remainder $r_1$ and $r_2$. 
+Assume a constraint polynomial describing
+the state transition is $r_t$, then we require that when invariant of PS holds and transition $PS \to NS$ stands,
+invariant of NS should also be satisfied:
+$$(r_1 = 0)\land (r_t = 0) \implies (r_2 = 0)$$
+One reasonable conjecture is
+$$r_t = r_1 - \lambda r_2$$
+Theoretically $\lambda$ can be any polynomial in arbitrary rings. To make it practical solving the system, 
+we limit $\lambda$ to the polynomial ring with only real numbers.
+
+We take Equation \ref{eqn:loopinv} as the example (which refers to Example 10 in \cite{sankaranarayanan2004non}). 
+PS is initial state we just characterized 
+$$\Func = f(s,i,j,j_0)$$ 
+and NS has exactly the same form of constraint:
+$$\Func' = f(s',i',j',j_0')$$
+Considering the transition relation, we substitute $s'$ with $s+i$ and replace $j'$
+with $j-1$, $i'$ for $i$, $j_0'$ for $j_0$, respectively. 
+The template for NS is polynomial $f'$ in Example 10 in \cite{sankaranarayanan2004non}.
+
+We then perform reduction with the Gr\"obner basis generated from the transition relation modeling, 
+and record its remainder $r_2$.
+From equality $r_2 = \lambda r_1$, we get constraints for the parameters. Solve the system using 
+similar algorithm to solve binate covering problems
+which is also described in Section 4 as \emph{elimination by splitting} technique in \cite{sankaranarayanan2004non}. 
+One branching result is:
+\begin{align*}
+&a_0,a_2,\dots, a_6, a_9,\dots,a_{14}=  0\\ 
+&a_1=a_7=-a_8
+\end{align*}
+The reduced remainder is: 
+$$r_2 = a_1s +(a_1-a_7)i+a_7ij+a_8ij_0 = a_1(s+ij-ij_0) = 0$$
+Thus the invariant of the program in Equation \ref{eqn:loopinv} is:
+$$s = i(j_0- j)$$
+We can verify the invariant by executing the program which calculates $i\times j_0$. 
+Initially $s=0$, $j_0-j=0$, invariant holds;
+during each cycle, $s'=s+i, (j_0'-j') = (j_0-j)+1$, the invariant also holds. In conclusion, this is a
+loop invariant for program in Equation \ref{eqn:loopinv}.
+
+{\bf Our proposed approach on technology mapping:}
+Our approach borrows inspiration of templates in \cite{sankaranarayanan2004non}. However, we make an improvement
+on the original approach:
+instead of using template polynomial to describe the system, we add some templates into the ideal
+of macro blocks which serve as technology mapping candidates. In this way we can cover all possibilities
+of boundary cutting (circuit partition).
+
+1) {\bf System abstraction:}
+The polynomial we use to test ideal membership should include all information of a circuit partition,
+which requires us to abstract information from the system and write it into a single polynomial.
+Usually this polynomial has the following generic form:
+$$Z + f(i_1,i_2,\dots,i_n)$$
+where $Z$ is the output. When there is only one output, $Z$ collapse to a bit-level variable. However in most
+cases there are multiple outputs on the cut, indicating $Z$ as a word-level variable. Boolean function $\Func$ covers
+all inputs, and $i_1,i_2,\dots,i_n$ are all bit-level inputs.
+
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=\textwidth]{newfig/tobemapped.pdf}
+	\end{center}
+	\caption{An example gate-level netlist to be mapped}
+	\label{fig:tobemapped}
+\end{figure}
+
+Figure \ref{fig:tobemapped} shows an example circuit partition with $a_1,b_1,a_0,b_0$ as inputs and
+$Z = \{z_0,z_1\}$ as outputs. If we use elements from Galois field $\F_{2^2}$ to represent word $Z$,
+we have $Z = z_0 + \alpha\cdot z_1$.
+
+After imposing ATO of LEX with
+$$Other\ circuit\ variables > output\ word\ Z > all\ bit\ level\ inputs$$
+on the ideal describing the partitioned circuit as well as ideal with vanishing polynomials,
+the reduced Gr\"obner basis has a single polynomial generator in the form of $Z + \Func(a_1,b_1,a_0,b_0)$.
+In this example:
+
+\begin{itemize}
+\item Term ordering: $\{z_0,z_1,t,g_1,p_1,ci,t_1,t_2\}>Z>\{a_0,b_0,a_1,b_1$
+\item Gate description: $z_0+t+g_1+t\cdot g_1, t+t_1+t_2+t_1\cdot t_2, g_1+a_1\cdot b_1,
+			t_1+a_1\cdot ci, t_2+b_1\cdot ci, ci+a_0\cdot b_0, z_1+p_1+ci, p_1+a_1+b_1$
+\item Word definition: $Z+z_0+z_1\cdot \alpha$
+\item Vanishing polynomial ideal $(J_0)$: $z_0^2+z_0, z_1^2+z_1, t^2+t, g_1^2+g_1, t_1^2+t_1, t_2^2+t_2, p_1^2+p_1, ci^2+ci,
+			a_0^2+a_0, b_0^2+b_0, a_1^2+a_1, b_1^2+b_1, Z^4+Z$(since Z is a 2-bit word)
+\end{itemize}
+
+The result is a Gr\"obner basis with single polynomial generator. The polynomial has leading term $Z$:
+$$Z+a_0\cdot b_0\cdot a_1+a_0\cdot b_0\cdot b_1+\alpha\cdot a_0\cdot b_0+a_1\cdot b_1+\alpha\cdot a_1+\alpha\cdot b_1$$
+
+% \begin{table}
+% \centering
+% \begin{tabular}{|c|c|} \hline
+% Boolean operator & operation in $\mathbb{F}_{2}$\\ \hline
+% $\overline{a}$ & $1 + a$\\ \hline
+% $a\ and\ b$ & $ab$\\ \hline
+% $a\ or\ b$ & $a + b + ab$\\ \hline
+% $a \oplus b$ & $a + b$\\
+% \hline\end{tabular}
+% \caption{Some Boolean operators and corresponding operations in $\mathbb{F}_{2}$}
+% \label{table:booltogalois_op}
+% \end{table}
+
+2) {\bf Templates on Boundary Information:}
+\begin{figure}[h]
+	\begin{center}
+	\includegraphics[width=\textwidth]{newfig/template.pdf}
+	\end{center}
+	\caption{Standard 2-bit adder with input/output mapping}
+	\label{fig:template}
+\end{figure}
+
+Figure \ref{fig:template} shows a 2-bit standard cell. It has 3 outputs mapped to 2 output pins,
+and 4 inputs mapped to 3 input pins (the rest pins are assigned to fixed 0/1 signal). Dashed connection
+lines show one possible mapping, to find out this kind of feasible mapping, we need to simulate
+all possible mappings, where the concept "template" can be used.
+
+{\it Output template}: $z_0+c_{{t_0}{z_0}}\cdot t_0+c_{t_1z_0}\cdot t_1+c0_{CO}\cdot CO+c_{n_0}$
+
+When $c_{n_0} = 0$, then $\{c_{t_0z_0},c_{t_1z_0},c0_{CO}\}$ equals to 1 denotes a valid mapping to corresponding output pin. 
+Conversely if $cn0 = 1$, the ``1" evaluation denotes mapping to negation of corresponding output pin.
+
+{\it Input template}: $a_0+p_{a_0}+c0_{A_0}\cdot s_0+c1_{A_0}\cdot s_1+c2_{A_0}\cdot s_2$
+
+When $p_{a_0} = 0$, then $\{c0_{A_0},c1_{A_0},c2_{A_0}\}$ equal to 1 denotes a valid mapping to corresponding input
+pin. Conversely if every variable in set $\{c0_{A_0},c1_{A_0},c2_{A_0}\}$ equals to 0, it denotes mapping to fixed signal ``0" (when $p_{a_0} = 1$ then
+mapping to fixed signal ``1").
+
+With these settings, we propose an approach to perform technology mapping with boundary information:
+\begin{itemize}
+\item First, choose a set of independent wires as input pins;
+
+\item Second, push forward input signal for a certain number of gates (depth), choose a cut set
+which fully dependent on these inputs as output pins;
+
+\item Third, abstract a description polynomial using GB based abstraction;
+
+\item Fourth, reduce the description polynomial with the GB we computed associated to macro block 
+and templates, obtain a remainder polynomial;
+
+\item Last but not least, abstract all coefficients from the remainder polynomial and set up a system of equations.
+If we find a solution to this system, then the solution is a feasible mapping; no solution means we cannot make a
+feasible mapping.
+\end{itemize}
