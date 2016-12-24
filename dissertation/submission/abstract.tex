@@ -1,0 +1,35 @@
+%\begin{center}{\bf ABSTRACT}\end{center}
+Formal verification of hardware designs has become an essential
+component of the overall system design flow. The designs are generally
+modeled as finite state machines, on which property and equivalence
+checking problems are solved for verification. Reachability analysis
+forms the core of these techniques. However, increasing
+size and complexity of the circuits causes the state explosion
+problem. Abstraction is key to tackle the scalability challenge.
+
+This dissertation presents new techniques for word-level abstraction
+with applications in sequential design verification. By bundling
+together $k$ bit-level state-variables into one word-level constraint 
+expression, the state-space is construed as solutions (variety) to
+a set of polynomial constraints (ideal), modeled over the finite
+(Galois) field of $2^k$ elements. Subsequently, techniques from
+algebraic geometry -- notably, Gr\"obner basis theory and technology
+-- are researched to perform reachability analysis and
+verification of sequential circuits. This approach adds a ``word-level
+dimension'' to state-space abstraction and verification to make the
+process more efficient.
+
+While algebraic geometry provides powerful abstraction and reasoning
+capabilities, the algorithms exhibit high computational complexity. In
+the dissertation, we show that by analyzing the constraints, it is
+possible to obtain more insights about the polynomial ideals, which can be
+exploited to overcome the complexity. Using our algorithm design and
+implementations, we demonstrate how to perform reachability
+analysis of finite-state machines purely at the word-level. Using this
+concept, we perform scalable verification of sequential arithmetic
+circuits. As contemporary approaches make use of resolution proofs and
+unsatisfiable cores for state-space abstraction, we introduce the
+algebraic geometry analog of unsatisfiable cores, and present
+algorithms to extract and refine unsatisfiable cores of polynomial
+ideals. Experiments are performed to demonstrate the efficacy of our
+approaches. 

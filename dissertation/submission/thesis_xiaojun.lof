@@ -1,0 +1,37 @@
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Typical hardware design flow.\relax }}{3}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces An example of equivalence checking on miter of circuit $A$ and $B$ using SAT.\relax }}{5}
+\contentsline {figure}{\numberline {2.1}{\ignorespaces The unrolling of a sequential circuit.\relax }}{12}
+\contentsline {figure}{\numberline {2.2}{\ignorespaces ROBDD representing Boolean function $\neg a \land b \land (c\lor d)$ with order $a>b>c>d$.\relax }}{13}
+\contentsline {figure}{\numberline {3.1}{\ignorespaces A typical SMSO structure of Massey-Omura multiplier.\relax }}{32}
+\contentsline {figure}{\numberline {3.2}{\ignorespaces 5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda $-Matrix $M^{(0)}$, {\it i.e.} if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$. Index $w = 2i\penalty \z@ \mkern 8mu({\mathgroup \symoperators mod}\mkern 6mu5)$.\relax }}{33}
+\contentsline {figure}{\numberline {3.3}{\ignorespaces A 5-bit RH-SMPO.\relax }}{35}
+\contentsline {figure}{\numberline {3.4}{\ignorespaces A $5\times 5$ multiplication table.\relax }}{37}
+\contentsline {figure}{\numberline {4.1}{\ignorespaces An example of projection from ${\mathbb {F}}_{q}^3$ to ${\mathbb {F}}_{q}^2$.\relax }}{56}
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Galois field arithmetic circuit model for abstraction.\relax }}{58}
+\contentsline {figure}{\numberline {4.3}{\ignorespaces A 2-bit multiplier over ${\mathbb {F}}_{2^2}$.\relax }}{60}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces A 64-bit sequential multiplication hardware design.\relax }}{66}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Gate-level netlist for Lagrange's interpolation example.\relax }}{68}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces FSM models of sequential circuits.\relax }}{72}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces The example FSM and the gate-level implementation. \relax }}{73}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Projection of the variety of circuit description ideal.\relax }}{80}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces PI partition of a sequential circuit.\relax }}{86}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces Execution process of word-level FSM traversal tool.\relax }}{88}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Singular script for executing bit-to-word substitution and traversal loop.\relax }}{90}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces The output given by our traversal tool.\relax }}{91}
+\contentsline {figure}{\numberline {6.1}{\ignorespaces A typical Moore machine and its state transition graph.\relax }}{95}
+\contentsline {figure}{\numberline {6.2}{\ignorespaces Conventional verification techniques based on bit-level unrolling and equivalence checking.\relax }}{96}
+\contentsline {figure}{\numberline {6.3}{\ignorespaces Architecture of a combinational GF multiplier.\relax }}{97}
+\contentsline {figure}{\numberline {6.4}{\ignorespaces A typical normal basis GF sequential circuit model. $A = (a_0,\dots ,a_{k-1})$ and similarly $B, R$ are $k$-bit registers; $A', B', R'$ denote next-state inputs.\relax }}{98}
+\contentsline {figure}{\numberline {7.1}{\ignorespaces An example of Boolean satisfiability problem on circuits.\relax }}{117}
+\contentsline {figure}{\numberline {7.2}{\ignorespaces Abstraction by reducing latches.\relax }}{120}
+\contentsline {figure}{\numberline {7.3}{\ignorespaces DAG representing $Spoly$ computations and multivariate divisions.\relax }}{124}
+\contentsline {figure}{\numberline {7.4}{\ignorespaces Generating refutation trees to record UNSAT cores.\relax }}{126}
+\contentsline {figure}{\numberline {7.5}{\ignorespaces Refutation trees of core refinement example.\relax }}{132}
+\contentsline {figure}{\numberline {7.6}{\ignorespaces Gate-level schematic of the example circuit.\relax }}{136}
+\contentsline {figure}{\numberline {7.7}{\ignorespaces State transition graph of example circuit.\relax }}{136}
+\contentsline {figure}{\numberline {7.8}{\ignorespaces State transition graph of abstracted machine.\relax }}{138}
+\contentsline {figure}{\numberline {8.1}{\ignorespaces A ZDD representing remainder polynomial reducing by a chain of OR gates with order $d>c>b>a$.\relax }}{145}
+\contentsline {figure}{\numberline {8.2}{\ignorespaces Algebraic interpolant: projection of varieties on common variables.\relax }}{148}
+\contentsline {figure}{\numberline {8.3}{\ignorespaces The outline and flow of technology mapping of macro blocks.\relax }}{149}
+\contentsline {figure}{\numberline {8.4}{\ignorespaces An example gate-level netlist of a target sub-circuit to be mapped. ``$\blacksquare $" denotes a pin, which is the boundary for the mapper.\relax }}{153}
+\contentsline {figure}{\numberline {8.5}{\ignorespaces Candidate cell: a standard 2-bit adder with one possible input/output mapping.\relax }}{154}

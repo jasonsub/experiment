@@ -1,0 +1,964 @@
+@article{khasidashvili2003sat,
+  title={SAT-based methods for sequential hardware equivalence verification without synchronization},
+  author={Khasidashvili, Zurab and Hanna, Ziyad},
+  journal={Electronic Notes in Theoretical Computer Science},
+  volume={89},
+  number={4},
+  pages={593--607},
+  year={2003},
+  publisher={Elsevier}
+}
+
+@PhdThesis{gao:phd_normal_basis,
+  author = 	 {Gao, S.},
+  title = 	 {{N}ormal {B}asis over {F}inite {F}ields},
+  school = 	 {University of Waterloo},
+  year = 	 {1993},
+  OPTkey = 	 {},
+  OPTtype = 	 {},
+  OPTaddress = 	 {},
+  OPTmonth = 	 {},
+  OPTnote = 	 {},
+  OPTannote = 	 {}
+}
+
+%Decide ungiven initial states and reset states
+%The idea is to employ a binary encoding of 3-valued modeling of circuits, 
+%and use the undefined state X as a reset state.
+
+@inproceedings{coudert1990verification,
+  title={Verification of synchronous sequential machines based on symbolic execution},
+  author={Coudert, Olivier and Berthet, Christian and Madre, Jean Christophe},
+  booktitle={Automatic verification methods for finite state systems},
+  pages={365--373},
+  year={1990},
+  organization={Springer}
+}
+% Old paper, applying SAT solver to BFS algorithm, talk about how to simplify boolean functions
+%actually quantify out ckt variables
+
+@inproceedings{burch1990sequential,
+  title={Sequential circuit verification using symbolic model checking},
+  author={Burch, Jerry R and Clarke, Edmund M and McMillan, Kenneth L and Dill, David L},
+  booktitle={Design Automation Conference, 1990. Proceedings., 27th ACM/IEEE},
+  pages={46--51},
+  year={1990},
+  organization={IEEE}
+}
+
+%McMillan's paper, the use of BDD for CTL
+
+@inproceedings{mneimneh2003reverse,
+  title={REVERSE: Efficient sequential verification for retiming},
+  author={Mneimneh, Maher and Sakallah, Karem},
+  booktitle={International Workshop on Logic Synthesis},
+  year={2003},
+  organization={Citeseer}
+}
+%Retiming Invariant
+
+@inproceedings{gunther2001application,
+  title={Application of linearly transformed BDDs in sequential verification},
+  author={G{\"u}nther, Wolfgang and Hett, Andreas and Becker, Bernd},
+  booktitle={Proceedings of the 2001 Asia and South Pacific Design Automation Conference},
+  pages={91--96},
+  year={2001},
+  organization={ACM}
+}
+%linearly transformed BDD(LTBDD) to compute set of reachable states
+
+@inproceedings{touati1990implicit,
+  title={Implicit state enumeration of finite state machines using {BDD}s},
+  author={Touati, Herve J and Savoj, Hamid and Lin, Bill and Brayton, Robert K and Sangiovanni-Vincentelli, Alberto},
+  booktitle={Computer-Aided Design, 1990. ICCAD-90. Digest of Technical Papers., 1990 IEEE International Conference on},
+  pages={130--133},
+  year={1990},
+  organization={IEEE}
+}
+%State enumeration
+
+@inproceedings{van1998sequential,
+  title={Sequential equivalence checking without state space traversal},
+  author={Van Eijk, CAJ},
+  booktitle={Design, Automation and Test in Europe, 1998., Proceedings},
+  pages={618--623},
+  year={1998},
+  organization={IEEE}
+}
+%Find structural similarity, use combinational BDDs to check equivalence
+
+@inproceedings{mishchenko2008recording,
+  title={Recording synthesis history for sequential verification},
+  author={Mishchenko, Alan and Brayton, Robert},
+  booktitle={Formal Methods in Computer-Aided Design, 2008. FMCAD'08},
+  pages={1--8},
+  year={2008},
+  organization={IEEE}
+}
+%using synthesis information to assist verification, not only retiming
+
+@article{jiang2003verification,
+  title={On the verification of sequential equivalence},
+  author={Jiang, J-HR and Brayton, Robert K},
+  journal={Computer-Aided Design of Integrated Circuits and Systems, IEEE Transactions on},
+  volume={22},
+  number={6},
+  pages={686--697},
+  year={2003},
+  publisher={IEEE}
+}
+%Construct a multuplexed machine to half the state space
+
+@inproceedings{stoffel1997record,
+  title={Record \& play: A structural fixed point iteration for sequential circuit verification},
+  author={Stoffel, Dominik and Kunz, Wolfgang},
+  booktitle={Proceedings of the 1997 IEEE/ACM international conference on Computer-aided design},
+  pages={394--399},
+  year={1997},
+  organization={IEEE Computer Society}
+}
+%find fix-point iteration, can work on retimed ckts
+
+@inproceedings{burch1991representing,
+  title={Representing circuits more efficiently in symbolic model checking},
+  author={Burch, Jerry R and Clarke, Edmund M and Long, David E},
+  booktitle={Proceedings of the 28th ACM/IEEE Design Automation Conference},
+  pages={403--407},
+  year={1991},
+  organization={ACM}
+}
+%using partitioned transition relations to scale down BDD size
+
+@article{brayton2007scalable,
+  title={Scalable sequential verification},
+  author={Brayton, Robert and Mishchenko, Alan},
+  year={2007},
+  publisher={Citeseer}
+}
+% introduce history AIG info during synthesis  (rewriting) to help verification
+
+@inproceedings{van1996exploiting,
+  title={Exploiting functional dependencies in finite state machine verification},
+  author={Van Eijk, CAJ and Jess, Jochen AG},
+  booktitle={European Design and Test Conference, 1996. ED\&TC 96. Proceedings},
+  pages={9--14},
+  year={1996},
+  organization={IEEE}
+}
+% find functional variable dependencies to reduce iterations by direct proving
+
+@inproceedings{khasidashvili2004theoretical,
+  title={Theoretical framework for compositional sequential hardware equivalence verification in presence of design constraints},
+  author={Khasidashvili, Zurab and Skaba, Marcelo and Kaiss, Daher and Hanna, Ziyad},
+  booktitle={Proceedings of the 2004 IEEE/ACM International conference on Computer-aided design},
+  pages={58--65},
+  year={2004},
+  organization={IEEE Computer Society}
+}
+% divide whole ckts to smaller conditional FSM
+
+@inproceedings{narayan1997reachability,
+  title={Reachability analysis using partitioned-ROBDDs},
+  author={Narayan, Amit and Isles, Adrian J and Jain, Jawahar and Brayton, Robert K and Sangiovanni-Vincentelli, Alberto L},
+  booktitle={Proceedings of the 1997 IEEE/ACM international conference on Computer-aided design},
+  pages={388--393},
+  year={1997},
+  organization={IEEE Computer Society}
+}
+% use partitioned ROBDDs, cut space use, can use independent variable ordering for each partition
+
+@article{cabodi2005bdds,
+  title={Are BDDs still alive within sequential verification?},
+  author={Cabodi, Gianpiero and Nocco, Sergio and Quer, Stefano},
+  journal={International Journal on Software Tools for Technology Transfer},
+  volume={7},
+  number={2},
+  pages={129--142},
+  year={2005},
+  publisher={Springer}
+}
+%conclude all SAT based and BDD based methods
+
+@inproceedings{minato1993zero,
+  title={Zero-suppressed {BDD}s for set manipulation in combinatorial problems},
+  author={Minato, Shin-ichi},
+  booktitle={Design Automation, 1993. 30th Conference on},
+  pages={272--277},
+  year={1993},
+  organization={IEEE}
+}
+% ZDD--first
+
+@inproceedings{minato1994calculation,
+  title={Calculation of unate cube set algebra using zero-suppressed {BDD}s},
+  author={Minato, Shin-ichi},
+  booktitle={Proceedings of the 31st annual Design Automation Conference},
+  pages={420--424},
+  year={1994},
+  organization={ACM}
+}
+% ZDD --second
+
+@inproceedings{baumgartner2007scalable,
+  title={Scalable sequential equivalence checking across arbitrary design transformations},
+  author={Baumgartner, Jason and Mony, Hari and Paruthi, Viresh and Kanzelman, Robert and Janssen, Geert},
+  booktitle={Computer Design, 2006. ICCD 2006. International Conference on},
+  pages={259--266},
+  year={2007},
+  organization={IEEE}
+}
+%Compare among all sequential equivalence checking engines used in IBM
+
+@inproceedings{savoj2010combinational,
+  title={Combinational techniques for sequential equivalence checking},
+  author={Savoj, Hamid and Berthelot, David and Mishchenko, Alan and Brayton, Robert},
+  booktitle={Formal Methods in Computer-Aided Design (FMCAD), 2010},
+  pages={145--149},
+  year={2010},
+  organization={IEEE}
+}
+% find a theorem that some SEC can be converted to combinational equivalence checking
+
+@article{ray2009incremental,
+  title={Incremental sequential equivalence checking and subgraph isomorphism},
+  author={Ray, Sayak and Mishchenko, Alan and Brayton, Robert},
+  year={2009},
+  publisher={Citeseer}
+}
+% find isomorphism in AIG
+
+@incollection{alizadeh2009sequential,
+  title={Sequential Equivalence Checking Using a Hybrid Boolean-Word Level Decision Diagram},
+  author={Alizadeh, Bijan and Fujita, Masahiro},
+  booktitle={Advances in Computer Science and Engineering},
+  pages={697--704},
+  year={2009},
+  publisher={Springer}
+}
+%Taylor Expansion Diagram (TED)
+
+@inproceedings{bjesse2000sat,
+  title={{SAT}-based verification without state space traversal},
+  author={Bjesse, Per and Claessen, Koen},
+  booktitle={Formal Methods in Computer-Aided Design},
+  pages={409--426},
+  year={2000},
+  organization={Springer}
+}
+% SAT and boolean constrains manipulation
+
+@inproceedings{biere1999symbolic,
+  title={Symbolic model checking using {SAT} procedures instead of {BDD}s},
+  author={Biere, Armin and Cimatti, Alessandro and Clarke, Edmund M and Fujita, Masahiro and Zhu, Yunshan},
+  booktitle={Proceedings of the 36th annual ACM/IEEE Design Automation Conference},
+  pages={317--320},
+  year={1999},
+  organization={ACM}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%   About abstraction and refinement  %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+@article{braytonvariable,
+  title={Variable Time-Frame Abstraction},
+  author={Brayton, Alan Mishchenko Niklas Een Robert and Nalla, Jason Baumgartner Hari Mony Pradeep}
+}
+% IWLS12: a new gate-level abstraction method for unrolled AIG
+
+@inproceedings{clarke2000counterexample,
+  title={Counterexample-guided abstraction refinement},
+  author={Clarke, Edmund and Grumberg, Orna and Jha, Somesh and Lu, Yuan and Veith, Helmut},
+  booktitle={Computer aided verification},
+  pages={154--169},
+  year={2000},
+  organization={Springer}
+}
+% most basic paper on abstraction refinement for verification
+
+@inproceedings{jain2005word,
+  title={Word level predicate abstraction and refinement for verifying {RTL} verilog},
+  author={Jain, Himanshu and Kroening, Daniel and Sharygina, Natasha and Clarke, Edmund},
+  booktitle={Proceedings of the 42nd annual Design Automation Conference},
+  pages={445--450},
+  year={2005},
+  organization={ACM}
+}
+% SAT based predicates abstraction
+
+@incollection{mcmillan2003automatic,
+  title={Automatic abstraction without counterexamples},
+  author={McMillan, Kenneth L and Amla, Nina},
+  booktitle={Tools and Algorithms for the Construction and Analysis of Systems},
+  pages={2--17},
+  year={2003},
+  publisher={Springer}
+}
+% unbounded model checking
+
+@phdthesis{zhang2005design,
+  title={Design Verification for Sequential Systems at Various Abstraction Levels},
+  author={Zhang, Liang},
+  year={2005},
+  school={Citeseer}
+}
+% remove irrelevant bits based on UNSAT analysis from k-Bounded model checking
+
+@inproceedings{biere1999symbolic,
+  title={Symbolic Model Checking without BDDs},
+  author={Biere, Armin and Cimatti, Alcssandro and Clarke, Edmund and Zhu, Yunshan},
+  booktitle={Tools and Algorithms for the Construction of Analysis of Systems: 5th International Conference, TACAS'99, Held as Part of the Joint European Conferences on Theory and Practice of Software, ETAPS'99, Amsterdam, The Netherlands, March 22-28, 1999, Proceedings},
+  number={1597},
+  pages={193},
+  year={1999},
+  organization={Springer}
+}
+% k-BMC, SAT in nature
+
+@inproceedings{mcmillan2003interpolation,
+  title={Interpolation and {SAT}-based model checking},
+  author={McMillan, Kenneth L},
+  booktitle={Computer Aided Verification},
+  pages={1--13},
+  year={2003},
+  organization={Springer}
+}
+% McMillan's interpolation on k-BMC
+
+@inproceedings{HimanshuDAC2005,
+  title={Word level predicate abstraction and refinement for verifying {RTL} verilog},
+  author={Jain, Himanshu and Kroening, Daniel and Sharygina, Natasha and Clarke, Edmund},
+  booktitle={Proceedings of the 42nd annual Design Automation Conference},
+  pages={445--450},
+  year={2005},
+  organization={ACM}
+}
+% Abstraction refinement implementation on word-level RTL
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   GB and Alg Geometry  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@inproceedings{avrunin1996symbolic,
+  title={Symbolic model checking using algebraic geometry},
+  author={Avrunin, George S},
+  booktitle={Computer Aided Verification},
+  pages={26--37},
+  year={1996},
+  organization={Springer}
+}
+% Algebraic Geometry!
+
+@inproceedings{tran2007groebner,
+  title={Groebner bases computation in Boolean rings for symbolic model checking},
+  author={Tran, Quocnam and Vardi, Moshe Y},
+  booktitle={Proceedings of IASTED 2007 Conference on Modeling and Simulation},
+  year={2007}
+}
+% M. Vardi, Groebner to model checking
+
+@inproceedings{bradley2011sat,
+  title={{SAT}-based model checking without unrolling},
+  author={Bradley, Aaron R},
+  booktitle={Verification, Model Checking, and Abstract Interpretation},
+  pages={70--87},
+  year={2011},
+  organization={Springer}
+}
+% original IC3/PDR
+
+@inproceedings{bradley2011incremental,
+  title={An incremental approach to model checking progress properties},
+  author={Bradley, Aaron R and Somenzi, Fabio and Hassan, Zyad and Zhang, Yan},
+  booktitle={Formal Methods in Computer-Aided Design (FMCAD), 2011},
+  pages={144--153},
+  year={2011},
+  organization={IEEE}
+}
+% IC3 on LTL
+
+@article{alizadeh2010modular,
+  title={Modular datapath optimization and verification based on modular-HED},
+  author={Alizadeh, Bijan and Fujita, Masahiro},
+  journal={Computer-Aided Design of Integrated Circuits and Systems, IEEE Transactions on},
+  volume={29},
+  number={9},
+  pages={1422--1435},
+  year={2010},
+  publisher={IEEE}
+}
+% Horner's Expansion Diagram
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   Tools for experiments  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@article{biere2013lingeling,
+  title={Lingeling, Plingeling and Treengeling entering the {SAT} competition 2013},
+  author={Biere, Armin},
+  journal={Proceedings of SAT Competition 2013; Solver and},
+  pages={51},
+  year={2013}
+}
+% Lingeling SAT solver
+
+@article{DIMACSformat,
+  title={Satisfiability: Suggested Format},
+  author={Challenge, DIMACS},
+  journal={DIMACS Challenge. DIMACS},
+  year={1993}
+}
+%DIMACS CNF format
+
+@inproceedings{brayton2010abc,
+  title={{ABC}: An academic industrial-strength verification tool},
+  author={Brayton, Robert and Mishchenko, Alan},
+  booktitle={Computer Aided Verification},
+  pages={24--40},
+  year={2010},
+  organization={Springer}
+}
+%ABC tool
+
+@inproceedings{brayton1996vis,
+  title={{VIS}: A system for verification and synthesis},
+  author={Brayton, Robert K and Hachtel, Gary D and Sangiovanni-Vincentelli, Alberto and Somenzi, Fabio and Aziz, Adnan and Cheng, Szu-Tsung and Edwards, Stephen and Khatri, Sunil and Kukimoto, Yuji and Pardo, Abelardo and others},
+  booktitle={Computer Aided Verification},
+  pages={428--432},
+  year={1996},
+  organization={Springer}
+}
+% VIS synthesis and verification tool
+
+@misc {DGPS,
+ title = {{\sc Singular} {3-1-6} --- {A} computer algebra system for polynomial computations},
+ author = {Decker, Wolfram and Greuel, Gert-Martin and Pfister, Gerhard and Sch\"onemann, Hans},
+ year = {2012},
+ howpublished = {http://www.singular.uni-kl.de},
+}
+% Singular
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   My approach based on...  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+@article{KallaPartialScan,
+  title={A comprehensive approach to the partial scan problem using implicit state enumeration},
+  author={Kalla, Priyank and Ciesielski, Maciej},
+  journal={Computer-Aided Design of Integrated Circuits and Systems, IEEE Transactions on},
+  volume={21},
+  number={7},
+  pages={810--826},
+  year={2002},
+  publisher={IEEE}
+}
+% Partial Scan paper
+
+@article{agnew1991implementation,
+  title={An implementation for a fast public-key cryptosystem},
+  author={Agnew, Gordon B. and Mullin, Ronald C. and Onyszchuk, IM and Vanstone, Scott A.},
+  journal={Journal of CRYPTOLOGY},
+  volume={3},
+  number={2},
+  pages={63--79},
+  year={1991},
+  publisher={Springer}
+}
+% Basic SMPO design
+
+@article{RHmulti,
+  title={Low complexity word-level sequential normal basis multipliers},
+  author={Reyhani-Masoleh, Arash and Hasan, M Anwar},
+  journal={Computers, IEEE Transactions on},
+  volume={54},
+  number={2},
+  pages={98--110},
+  year={2005},
+  publisher={IEEE}
+}
+% RH multiplier
+
+@article{jinpeng,
+  title={Efficient {G}r{\"o}bner Basis Reductions for Formal Verification of {G}alois Field Arithmetic Circuits},
+  author={Lv, Jinpeng and Kalla, Priyank and Enescu, Florian},
+  journal={Computer-Aided Design of Integrated Circuits and Systems, IEEE Transactions on},
+  volume={32},
+  number={9},
+  pages={1409--1420},
+  year={2013},
+  publisher={IEEE}
+}
+% Jinpeng journal
+
+@inproceedings{myDATE,
+  title={Formal Verification of Sequential {G}alois Field Arithmetic Circuits using Algebraic Geometry},
+  author={Sun, Xiaojun and Kalla, Priyank and Pruss, Tim and Enescu, Florian},
+  booktitle={Design Automation and Test in Europe, DATE 2015. Proceedings},
+  pages={},
+  year={2015},
+  organization={IEEE/ACM}
+}
+% My DATE paper!
+
+@inproceedings{timDAC,
+  title={Equivalence Verification of Large {G}alois Field Arithmetic Circuits using Word-Level Abstraction via {G}r{\"o}bner Bases},
+  author={Pruss, Tim and Kalla, Priyank and Enescu, Florian},
+  booktitle={Proceedings of the The 51st Annual Design Automation Conference on Design Automation Conference},
+  pages={1--6},
+  year={2014},
+  organization={ACM}
+}
+% Tim's DAC paper
+
+@article{mullinONB,
+  title={Optimal normal bases in {GF}($p^n$)},
+  author={Mullin, Ronald C and Onyszchuk, Ivan M and Vanstone, Scott A and Wilson, Richard M},
+  journal={Discrete Applied Mathematics},
+  volume={22},
+  number={2},
+  pages={149--161},
+  year={1989},
+  publisher={Elsevier}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%        SAT            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@incollection{CondratTACAS07,
+  title={A Gr{\"o}bner basis approach to CNF-formulae preprocessing},
+  author={Condrat, Christopher and Kalla, Priyank},
+  booktitle={Tools and Algorithms for the Construction and Analysis of Systems},
+  pages={618--631},
+  year={2007},
+  publisher={Springer}
+}
+% Chris, SAT GB preprocess
+
+@inproceedings{Zengler2010,
+  title={Extending clause learning of SAT solvers with Boolean Gr{\"o}bner bases},
+  author={Zengler, Christoph and K{\"u}chlin, Wolfgang},
+  booktitle={Computer Algebra in Scientific Computing},
+  pages={293--302},
+  year={2010},
+  organization={Springer}
+}
+% clause learning use GB
+
+@inproceedings{ceiSTOC96,
+  title={Using the Groebner basis algorithm to find proofs of unsatisfiability},
+  author={Clegg, Matthew and Edmonds, Jeffery and Impagliazzo, Russell},
+  booktitle={Proceedings of the twenty-eighth annual ACM symposium on Theory of computing},
+  pages={174--183},
+  year={1996},
+  organization={ACM}
+}
+% original GB UNSAT
+
+@inproceedings{STABLE,
+  title={STABLE: A new QF-BV SMT solver for hard verification problems combining Boolean reasoning with computer algebra},
+  author={Pavlenko, Evgeny and Wedler, Markus and Stoffel, Dominik and Kunz, Wolfgang and Dreyer, Alexander and Seelisch, Frank and Greuel, G},
+  booktitle={Design, Automation \& Test in Europe Conference \& Exhibition (DATE), 2011},
+  pages={1--6},
+  year={2011},
+  organization={IEEE}
+}
+% poly SAT tool:STABLE
+
+@inproceedings{BLUEVERI,
+  title={Formal verification of error correcting circuits using computational algebraic geometry},
+  author={Lvov, Alexey and Lastras-Montano, Luis Alfonso and Paruthi, Viresh and Shadowen, Robert and El-Zein, Ali},
+  booktitle={Formal Methods in Computer-Aided Design (FMCAD), 2012},
+  pages={141--148},
+  year={2012},
+  organization={IEEE}
+}
+% Tool: BLUEVERI
+
+@article{PolyBoRi,
+  title={PolyBoRi: A framework for Gr{\"o}bner-basis computations with Boolean polynomials},
+  author={Brickenstein, Michael and Dreyer, Alexander},
+  journal={Journal of Symbolic Computation},
+  volume={44},
+  number={9},
+  pages={1326--1345},
+  year={2009},
+  publisher={Elsevier}
+}
+% Tool
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%   Dissertation -- Not very often %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+@article{Mastrovito,
+  title={Mastrovito multiplier for general irreducible polynomials},
+  author={Halbutogullari, Alper and Ko{\c{c}}, {\c{C}}etin K},
+  journal={IEEE Transactions on Computers},
+  volume={49},
+  number={5},
+  pages={503--518},
+  year={2000},
+  publisher={IEEE}
+}
+
+
+@misc{MasseyOmura,
+  title={Computational method and apparatus for finite field arithmetic},
+  author={Omura, Jimmy K and Massey, James L},
+  year={1986},
+  month=may # "~6",
+  publisher={Google Patents},
+  note={US Patent 4,587,627}
+}
+
+@article{AppleA10,
+  title={Difference between iPhone 7 and iPhone 6s in a nutshell},
+  author={Wee, Alex},
+  journal={Image},
+  year={2016}
+}
+
+@article{BLIF,
+  title={Berkeley logic interchange format ({BLIF})},
+  author={Berkeley, UC},
+  journal={Oct Tools Distribution},
+  volume={2},
+  pages={197--247},
+  year={1992}
+}
+
+@article{SIS,
+  title={{SIS}: A system for sequential circuit synthesis},
+  author={Sentovich, Ellen M and Singh, Kanwar Jit and Lavagno, Luciano and Moon, Cho and Murgai, Rajeev and Saldanha, Alexander and Savoj, Hamid and Stephan, Paul R and Brayton, Robert K and Sangiovanni-Vincentelli, Alberto},
+  year={1992},
+  publisher={Citeseer}
+}
+
+@book{normal_book,
+  title={Applications of finite fields},
+  author={Menezes, Alfred J and Blake, Ian F and Gao, XuHong and Mullin, Ronald C and Vanstone, Scott A and Yaghoobian, Tomik},
+  volume={199},
+  year={2013},
+  publisher={Springer Science \& Business Media}
+}
+
+@article{dube1986complexity,
+  title={Complexity of {B}uchberger's algorithm for {G}r{\"o}bner bases},
+  author={Dub{\'e}, T and Mishra, Bud and Yap, Chee-Keng},
+  journal={Extended Abstract, New York University, New York},
+  year={1986}
+}
+% Doubly-exponential complexity for GB
+
+@article{retiming,
+  title={Retiming synchronous circuitry},
+  author={Leiserson, Charles E and Saxe, James B},
+  journal={Algorithmica},
+  volume={6},
+  number={1-6},
+  pages={5--35},
+  year={1991},
+  publisher={Springer}
+}
+% Retiming
+
+@inproceedings{scan,
+  title={Timing-driven partial scan},
+  author={Jou, J-Y and Cheng, K-T},
+  booktitle={Computer-Aided Design, 1991. ICCAD-91. Digest of Technical Papers., 1991 IEEE International Conference on},
+  pages={404--407},
+  year={1991},
+  organization={IEEE}
+}
+% Partial scan
+
+@inproceedings{mathur2009power,
+  title={Power Reduction Techniques and Flows at {RTL} and System Level},
+  author={Mathur, Anmol and Wang, Qi},
+  booktitle={2009 22nd International Conference on VLSI Design},
+  pages={28--29},
+  year={2009},
+  organization={IEEE}
+}
+% sequential power opt by Calypto
+
+@inproceedings{clockgating,
+  title={Clock gating -- A power optimizing technique for {VLSI} circuits},
+  author={Shinde, Jitesh and Salankar, SS},
+  booktitle={2011 Annual IEEE India Conference},
+  pages={1--4},
+  year={2011},
+  organization={IEEE}
+}
+% Clock-gating
+
+@incollection{coudert2003unified,
+  title={A unified framework for the formal verification of sequential circuits},
+  author={Coudert, Olivier and Madre, Jean Christophe},
+  booktitle={The Best of ICCAD},
+  pages={39--50},
+  year={2003},
+  publisher={Springer}
+}
+% BFS traversal (I)
+
+@article{cho1993redundancy,
+  title={Redundancy identification/removal and test generation for sequential circuits using implicit state enumeration},
+  author={Cho, Hyunwoo and Hachtel, Gary D and Somenzi, Fabio},
+  journal={IEEE Transactions on Computer-Aided Design of Integrated Circuits and Systems},
+  volume={12},
+  number={7},
+  pages={935--945},
+  year={1993},
+  publisher={IEEE}
+}
+% BFS traversal (II) -- implicit
+
+@inproceedings{modelrotation,
+  title={On improving MUS extraction algorithms},
+  author={Marques-Silva, Joao and Lynce, Ines},
+  booktitle={International Conference on Theory and Applications of Satisfiability Testing},
+  pages={159--173},
+  year={2011},
+  organization={Springer}
+}
+% Model rotation by Joao Silva
+
+@inproceedings{anaICCAD,
+  title={Constrained interpolation for guided logic synthesis},
+  author={Petkovska, Ana and Novo, David and Mishchenko, Alan and Ienne, Paolo},
+  booktitle={2014 IEEE/ACM International Conference on Computer-Aided Design (ICCAD)},
+  pages={462--469},
+  year={2014},
+  organization={IEEE}
+}
+% Function dependency by Ana and Alan Mischenko
+
+@inproceedings{belov2011accelerating,
+  title={Accelerating MUS extraction with recursive model rotation},
+  author={Belov, Anton and Marques-Silva, Joao},
+  booktitle={Formal Methods in Computer-Aided Design (FMCAD), 2011},
+  pages={37--40},
+  year={2011},
+  organization={IEEE}
+}
+% Belov & Joao
+
+@inproceedings{cimatti2007simple,
+  title={A simple and flexible way of computing small unsatisfiable cores in SAT modulo theories},
+  author={Cimatti, Alessandro and Griggio, Alberto and Sebastiani, Roberto},
+  booktitle={International Conference on Theory and Applications of Satisfiability Testing},
+  pages={334--339},
+  year={2007},
+  organization={Springer}
+}
+% SMT UNSAT core
+
+@article{cambazard2008reformulating,
+  title={Reformulating Table Constraints using Functional Dependencies—An Application to Explanation Generation},
+  author={Cambazard, Hadrien and O’Sullivan, Barry},
+  journal={Constraints},
+  volume={13},
+  number={3},
+  pages={385--406},
+  year={2008},
+  publisher={Springer}
+}
+% CP explanation generation
+
+@article{li2009maxsat,
+  title={MaxSAT, Hard and Soft Constraints.},
+  author={Li, Chu Min and Manya, Felip},
+  journal={Handbook of satisfiability},
+  volume={185},
+  pages={613--631},
+  year={2009}
+}
+% MaxSAT using UNSAT as lower bounds
+
+@inproceedings{lee2008bi,
+  title={Bi-decomposing large Boolean functions via interpolation and satisfiability solving},
+  author={Lee, Ruei-Rung and Jiang, Jie-Hong R and Hung, Wei-Lun},
+  booktitle={Design Automation Conference, 2008. DAC 2008. 45th ACM/IEEE},
+  pages={636--641},
+  year={2008},
+  organization={IEEE}
+}
+% Bi-decomposition using UNSAT
+
+@inproceedings{kalla:fmcad_tut2015,
+  title={Formal verification of arithmetic datapaths using algebraic geometry and symbolic computation},
+  author={Kalla, Priyank},
+  booktitle={Proceedings of the 15th Conference on Formal Methods in Computer-Aided Design},
+  pages={2--2},
+  year={2015},
+  organization={FMCAD Inc}
+}
+
+@inproceedings{rolf:date16,
+  title={Formal verification of integer multipliers by combining {G}r\"obner basis with logic reduction},
+  author={Sayed-Ahmed, Amr and Gro, Daniel and Soeken, Mathias and Drechsler, Rolf},
+  booktitle={2016 Design, Automation \& Test in Europe Conference \& Exhibition (DATE)},
+  pages={1048--1053},
+  year={2016},
+  organization={IEEE}
+}
+
+@article{rolf:FMCAD16,
+  title={Equivalence Checking using {G}r\"obner Bases},
+  author={Sayed-Ahmed, Amr and Gro{\ss}e, Daniel and Soeken, Mathias and Drechsler, Rolf},
+  journal={Formal Methods in Computer-Aided Design FMCAD 2016},
+  pages={169},
+  year={2016}
+}
+
+@inproceedings{ciesielski2014function,
+  title={Function Extraction from Arithmetic Bit-level Circuits},
+  author={Ciesielski, Maciej and Brown, Walter and Liu, Duo and Rossi, Andr{\'e}},
+  booktitle={VLSI (ISVLSI), 2014 IEEE Computer Society Annual Symposium on},
+  pages={356--361},
+  year={2014},
+  organization={IEEE}
+}
+
+
+% 3 refs for uninterpreted function abstraction (word-level)
+@inproceedings{UF1,
+  title={Automatic abstraction and verification of Verilog models},
+  author={Andraus, Zaher S and Sakallah, Karem A},
+  booktitle={Proceedings of the 41st annual Design Automation Conference},
+  pages={218--223},
+  year={2004},
+  organization={ACM}
+}
+
+@inproceedings{UF2,
+  title={Reveal: A formal verification tool for verilog designs},
+  author={Andraus, Zaher S and Liffiton, Mark H and Sakallah, Karem A},
+  booktitle={International Conference on Logic for Programming Artificial Intelligence and Reasoning},
+  pages={343--352},
+  year={2008},
+  organization={Springer}
+}
+
+@inproceedings{UF3,
+  title={{ATLAS}: automatic term-level abstraction of {RTL} designs},
+  author={Brady, Bryan A and Bryant, Randal E and Seshia, Sanjit A and O'Leary, John W},
+  booktitle={Formal Methods and Models for Codesign (MEMOCODE), 2010 8th IEEE/ACM International Conference on},
+  pages={31--40},
+  year={2010},
+  organization={IEEE}
+}
+
+@article{cegar-journal,
+  title={Counterexample-guided abstraction refinement for symbolic model checking},
+  author={Clarke, Edmund and Grumberg, Orna and Jha, Somesh and Lu, Yuan and Veith, Helmut},
+  journal={Journal of the ACM (JACM)},
+  volume={50},
+  number={5},
+  pages={752--794},
+  year={2003},
+  publisher={ACM}
+}
+% CEGAR
+
+@inproceedings{mcmillan:cav06,
+  title={Lazy abstraction with interpolants},
+  author={McMillan, Kenneth L},
+  booktitle={International Conference on Computer Aided Verification},
+  pages={123--136},
+  year={2006},
+  organization={Springer}
+}
+% mcmillan lazy
+
+@inproceedings{mcmillan2010lazy,
+  title={Lazy annotation for program testing and verification},
+  author={McMillan, Kenneth L},
+  booktitle={International Conference on Computer Aided Verification},
+  pages={104--118},
+  year={2010},
+  organization={Springer}
+}
+
+@article{sankaranarayanan2004non,
+  title={Non-linear loop invariant generation using Gr{\"o}bner bases},
+  author={Sankaranarayanan, Sriram and Sipma, Henny B and Manna, Zohar},
+  journal={ACM SIGPLAN Notices},
+  volume={39},
+  number={1},
+  pages={318--329},
+  year={2004},
+  publisher={ACM}
+}
+% Technology mapping basics -- invariant
+
+@article{craig-interpolate,
+  title={Linear reasoning. A new form of the Herbrand-Gentzen theorem},
+  author={Craig, William},
+  journal={The Journal of Symbolic Logic},
+  volume={22},
+  number={03},
+  pages={250--268},
+  year={1957},
+  publisher={Cambridge Univ Press}
+}
+% Craig's interpolant
+
+@article{pudlak:ci,
+  title={Lower bounds for resolution and cutting plane proofs and monotone computations},
+  author={Pudl{\'a}k, Pavel},
+  journal={The Journal of Symbolic Logic},
+  volume={62},
+  number={03},
+  pages={981--998},
+  year={1997},
+  publisher={Cambridge Univ Press}
+}
+% interpo2
+
+@inproceedings{mishchenko2006improvements,
+  title={Improvements to combinational equivalence checking},
+  author={Mishchenko, Alan and Chatterjee, Satrajit and Brayton, Robert and Een, Niklas},
+  booktitle={2006 IEEE/ACM International Conference on Computer Aided Design},
+  pages={836--843},
+  year={2006},
+  organization={IEEE}
+}
+% Alan's 2006 ICCAD on CEC
+
+@book{rosingbook,
+  title={Implementing elliptic curve cryptography},
+  author={Rosing, Michael},
+  year={1999},
+  publisher={Manning Publications Co.}
+}
+% The book we refer to intro ONB
+
+@article{IEEE1363,
+  title={{IEEE} 1363-2000: Standard Specifications For Public Key Cryptography},
+  author={IEEE Working Group and others},
+  journal={IEEE Standard, IEEE, New York, NY},
+  volume={10017},
+  year={2000}
+}
+% IEEE std 1363-2000
+
+@inproceedings{myHLDVT,
+  title={Word-level traversal of finite state machines using algebraic geometry},
+  author={Sun, Xiaojun and Kalla, Priyank and Enescu, Florian},
+  booktitle={High Level Design Validation and Test Workshop (HLDVT), 2016 IEEE International},
+  pages={142--149},
+  year={2016},
+  organization={IEEE}
+}
+% My HLDVT paper
+
+@inproceedings{myCP,
+  title={Finding Unsatisfiable Cores of a Set of Polynomials Using the {G}r{\"o}bner Basis Algorithm},
+  author={Sun, Xiaojun and Ilioaea, Irina and Kalla, Priyank and Enescu, Florian},
+  booktitle={International Conference on Principles and Practice of Constraint Programming},
+  pages={859--875},
+  year={2016},
+  organization={Springer}
+}
+% My CP paper

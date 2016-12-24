@@ -1,0 +1,98 @@
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: thesis_xiaojun.aux
+A level-1 auxiliary file: intro.aux
+A level-1 auxiliary file: prev.aux
+A level-1 auxiliary file: prelim_GF.aux
+A level-1 auxiliary file: prelim_basis.aux
+A level-1 auxiliary file: recha.aux
+A level-1 auxiliary file: normal.aux
+A level-1 auxiliary file: unsat.aux
+A level-1 auxiliary file: conclude.aux
+A level-1 auxiliary file: appendix1.aux
+A level-1 auxiliary file: appendix2.aux
+The style file: ieee.bst
+Database file #1: logic.bib
+Repeated entry---line 235 of file logic.bib
+ : %@misc{ecc:software
+ :                    ,
+I'm skipping whatever remains of this entry
+You're missing a field name---line 2153 of file logic.bib
+ : 
+ : %address = {Los Alamitos, CA, USA},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Repeated entry---line 2554 of file logic.bib
+ : @inproceedings{Cryptol:fmcad09
+ :                               ,
+I'm skipping whatever remains of this entry
+Database file #2: xiaojun.bib
+Repeated entry---line 617 of file xiaojun.bib
+ : @inproceedings{biere1999symbolic
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 865 of file xiaojun.bib
+ : @misc {DGPS
+ :            ,
+I'm skipping whatever remains of this entry
+Database file #3: cnfsat.bib
+`volume' is a missing field, not a string, for entry pruss:tcad15
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry dube1986complexity
+while executing---line 987 of file ieee.bst
+Name 1 in "Lvov, A., and Lastras-Monta\~{n}o, L. and Paruthi, V. and Shadowen, R. and El-Zein, A." has a comma at the end for entry ibm:blueveri
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry rolf:FMCAD16
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry AppleA10
+while executing---line 987 of file ieee.bst
+Warning--empty journal in DGPS
+`volume' is a missing field, not a string, for entry DGPS
+while executing---line 987 of file ieee.bst
+Warning--empty journal in SIS
+`volume' is a missing field, not a string, for entry SIS
+while executing---line 987 of file ieee.bst
+`volume' is a missing field, not a string, for entry biere2013lingeling
+while executing---line 987 of file ieee.bst
+You've used 151 entries,
+            1802 wiz_defined-function locations,
+            1256 strings with 29198 characters,
+and the built_in function-call counts, 41482 in all, are:
+= -- 3925
+> -- 1499
+< -- 76
++ -- 560
+- -- 409
+* -- 2877
+:= -- 5904
+add.period$ -- 204
+call.type$ -- 151
+change.case$ -- 137
+chr.to.int$ -- 0
+cite$ -- 153
+duplicate$ -- 2170
+empty$ -- 4193
+format.name$ -- 409
+if$ -- 9886
+int.to.chr$ -- 0
+int.to.str$ -- 151
+missing$ -- 151
+newline$ -- 759
+num.names$ -- 157
+pop$ -- 714
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 1163
+stack$ -- 0
+substring$ -- 2687
+swap$ -- 833
+text.length$ -- 76
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 399
+width$ -- 154
+write$ -- 1682
+(There were 13 error messages)

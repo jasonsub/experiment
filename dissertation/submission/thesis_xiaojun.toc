@@ -1,0 +1,126 @@
+\contentsline {chapter}{\uppercase {Abstract}}{iii}
+\contentsline {chapter}{LIST OF FIGURES}{viii}
+\contentsline {chapter}{LIST OF TABLES}{x}
+\contentsline {chapter}{\uppercase {Acknowledgements}}{xi}
+\unhbox \voidb@x \\[-1.2ex] \kern -1.5em\contentsline {}{\textbf {CHAPTERS}}{}
+\contentsline {chapter}{\numberline {1.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Introduction}\global \uuthesis@needtocspacetrue }{1}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {1.1}Hardware Design and Verification Overview}{1}
+\contentsline {section}{\numberline {1.2}Formal Verification: Property and Equivalence Checking}{2}
+\contentsline {section}{\numberline {1.3}Importance of Word-level Abstraction}{5}
+\contentsline {section}{\numberline {1.4}Abstractions in Sequential Design Verification}{6}
+\contentsline {section}{\numberline {1.5}Objective and Contribution of this Dissertation}{7}
+\contentsline {subsection}{\numberline {1.5.1}Word-level Reachability Analysis of FSMs}{8}
+\contentsline {subsection}{\numberline {1.5.2}Application to Sequential Galois Field Arithmetic Circuit Verification}{9}
+\contentsline {subsection}{\numberline {1.5.3}UNSAT Cores in Algebraic Geometry}{9}
+\contentsline {section}{\numberline {1.6}Dissertation Organization}{9}
+\contentsline {chapter}{\numberline {2.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Previous Work}\global \uuthesis@needtocspacetrue }{11}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {2.1}Sequential Equivalence Checking}{11}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {2.1.1}Canonical Decision Diagrams}{12}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {2.1.2}Combinational Equivalence Checking Techniques}{14}
+\contentsline {section}{\numberline {2.2}Symbolic Model Checking and Abstraction Refinement}{14}
+\contentsline {section}{\numberline {2.3}Word-level Techniques applied to Sequential Circuit Synthesis and Validation}{15}
+\contentsline {section}{\numberline {2.4}Verification using Algebraic Geometry}{16}
+\contentsline {section}{\numberline {2.5}Concluding Remarks}{17}
+\contentsline {chapter}{\numberline {3.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Finite Fields and Sequential Arithmetic Circuits}\global \uuthesis@needtocspacetrue }{18}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {3.1}Commutative Algebra}{18}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {3.1.1}Group, Ring and Field}{18}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {3.1.2}Finite Field}{20}
+\contentsline {section}{\numberline {3.2}Normal Basis Multiplier over Galois Field}{24}
+\contentsline {subsection}{\numberline {3.2.1}Normal Basis}{24}
+\contentsline {subsection}{\numberline {3.2.2}Multiplication using Normal Basis}{24}
+\contentsline {subsection}{\numberline {3.2.3}Comparison between Standard Basis and Normal Basis}{29}
+\contentsline {section}{\numberline {3.3}Design of a Normal Basis Multiplier on Gate Level}{31}
+\contentsline {subsection}{\numberline {3.3.1}Sequential Multiplier with Parallel Outputs}{31}
+\contentsline {subsection}{\numberline {3.3.2}Multiplier not based on the $\lambda $-Matrix}{35}
+\contentsline {section}{\numberline {3.4}Concluding Remarks}{38}
+\contentsline {chapter}{\numberline {4.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Gr\"ober Bases and Algebraic Geometry}\global \uuthesis@needtocspacetrue }{40}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {4.1}Algebraic Geometry Fundamentals}{40}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {4.1.1}Monomials, Polynomials and Polynomial Algebra}{40}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {4.1.2}Varieties and Ideals}{44}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {4.1.3}Gr\"{o}bner\xspace Bases}{48}
+\contentsline {section}{\numberline {4.2}Hilbert's Nullstellensatz}{53}
+\contentsline {section}{\numberline {4.3}Elimination Theory and Application to Abstraction}{55}
+\contentsline {subsection}{\numberline {4.3.1}Elimination Theory}{55}
+\contentsline {subsection}{\numberline {4.3.2}Abstraction using Nullstellensatz and Gr\"obner Basis}{58}
+\contentsline {section}{\numberline {4.4}Concluding Remarks}{61}
+\contentsline {chapter}{\numberline {5.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Word-Level Traversal of Finite State Machines using Algebraic Geometry}\global \uuthesis@needtocspacetrue }{63}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {5.1}Motivation}{64}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {5.1.1}FSM Traversal Algorithms}{64}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {5.1.2}Word-Level Data Flow on Modern Datapath Designs}{65}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {5.1.3}On the Existence of Word-Level Abstraction for Arbitrary Circuits}{68}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {5.1.4}Significance of Developing Word-Level Reachability Analysis}{70}
+\contentsline {section}{\numberline {5.2}FSM Reachability using Algebraic Geometry}{71}
+\contentsline {subsection}{\numberline {5.2.1}FSM Model for Sequential Circuits}{71}
+\contentsline {subsection}{\numberline {5.2.2}Conventional Traversal Method}{72}
+\contentsline {subsection}{\numberline {5.2.3}FSM Traversal at Word-Level over ${\mathbb {F}}_{2^k}$}{74}
+\contentsline {section}{\numberline {5.3}Problem Setup and Formulation}{76}
+\contentsline {subsection}{\numberline {5.3.1}Word-Level FSM Traversal Example}{77}
+\contentsline {subsection}{\numberline {5.3.2}Significance of using Algebraic Geometry and Gr\"obner Bases}{80}
+\contentsline {section}{\numberline {5.4}Improving our Approach}{81}
+\contentsline {subsection}{\numberline {5.4.1}Simplifying the Gr\"obner Bases Computation}{81}
+\contentsline {subsection}{\numberline {5.4.2}Primary Inputs Partitioning}{84}
+\contentsline {section}{\numberline {5.5}Implementation of Word-Level FSM Traversal Algorithm}{87}
+\contentsline {section}{\numberline {5.6}Experiment Results}{92}
+\contentsline {section}{\numberline {5.7}Concluding Remarks}{93}
+\contentsline {chapter}{\numberline {6.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Functional Verification of Sequential Normal Basis Multipliers}\global \uuthesis@needtocspacetrue }{94}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {6.1}Motivation}{94}
+\contentsline {section}{\numberline {6.2}Formal Verification of Normal Basis Multipliers using Gr\"obner Bases}{96}
+\contentsline {subsection}{\numberline {6.2.1}Implicit Unrolling based on Abstraction with ATO}{97}
+\contentsline {subsection}{\numberline {6.2.2}Overcome Computational Complexity using RATO}{104}
+\contentsline {subsection}{\numberline {6.2.3}Solving a Linear System for Bit-to-Word Substitution}{107}
+\contentsline {subsection}{\numberline {6.2.4}The Overall Verification Approach}{109}
+\contentsline {section}{\numberline {6.3}Software Implementation of Implicit Unrolling Approach}{110}
+\contentsline {section}{\numberline {6.4}Experiment Results}{113}
+\contentsline {section}{\numberline {6.5}Concluding Remarks}{114}
+\contentsline {chapter}{\numberline {7.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Finding Unsatisfiable Cores of a Set of Polynomials using the Gr\"obner Basis Algorithm}\global \uuthesis@needtocspacetrue }{116}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {7.1}Motivation}{116}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {7.1.1}Preliminaries of SAT/UNSAT Theory}{116}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {7.1.2}Previous Work on CNF-UNSAT}{118}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {7.1.3}Exploiting UNSAT Cores for Abstraction Refinement}{119}
+\contentsline {section}{\numberline {7.2}UNSAT Cores of Polynomial Ideals}{122}
+\contentsline {subsection}{\numberline {7.2.1}An Example Motivating our Approach}{123}
+\contentsline {subsection}{\numberline {7.2.2}The Refutation Tree of the GB Algorithm: Find $F_c$ from $F$}{124}
+\contentsline {section}{\numberline {7.3}Reducing the Size of the UNSAT Core $F_c$}{126}
+\contentsline {subsection}{\numberline {7.3.1}Identifying Redundant Polynomials from the Refutation Tree}{127}
+\contentsline {subsection}{\numberline {7.3.2}The GB-Core Algorithm Outline}{128}
+\contentsline {section}{\numberline {7.4}Iterative Refinement of the UNSAT Core}{130}
+\contentsline {section}{\numberline {7.5}Refining the UNSAT Core using Syzygies}{132}
+\contentsline {section}{\numberline {7.6}Application to Abstraction Refinement}{135}
+\contentsline {section}{\numberline {7.7}Experiment Results}{138}
+\contentsline {section}{\numberline {7.8}Concluding Remarks}{140}
+\contentsline {chapter}{\numberline {8.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Conclusions and Future Work}\global \uuthesis@needtocspacetrue }{141}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {section}{\numberline {8.1}Future Work}{142}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {8.1.1}Multivariate Polynomial Ideal based FSM Traversal}{142}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {8.1.2}Use of the $F_4$ Algorithm and ZDDs to Accelerate GB Reduction}{144}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {8.1.3}Craig Interpolants in Algebraic Geometry}{145}
+\ifuuthesis@needtocspace \vspace {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse 
+\contentsline {subsection}{\numberline {8.1.4}Technology Mapping for Word-Level Functional Blocks}{148}
+\unhbox \voidb@x \\[-1.2ex] \kern -1.5em\contentsline {}{\textbf {APPENDICES}}{}
+\contentsline {chapter}{\numberline {A.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Normal Basis Theory}\global \uuthesis@needtocspacetrue }{156}
+\contentsline {chapter}{\numberline {B.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Optimal Normal Basis}\global \uuthesis@needtocspacetrue }{167}
+\contentsline {chapter}{REFERENCES}{172}

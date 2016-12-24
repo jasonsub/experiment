@@ -1,0 +1,132 @@
+\relax 
+\citation{anaICCAD}
+\@writefile{loa}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7.}\hyphenpenalty =10000\exhyphenpenalty =10000\relax \linepenalty =0 \uppercase {Finding Unsatisfiable Cores of a Set of Polynomials using the Gr\"obner Basis Algorithm}\global \uuthesis@needtocspacetrue }{116}}
+\newlabel{ch:UNSAT}{{7}{116}}
+\@writefile{toc}{\ifuuthesis@needtocspace \vspace  {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse }
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Motivation}{116}}
+\@writefile{toc}{\ifuuthesis@needtocspace \vspace  {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.1}Preliminaries of SAT/UNSAT Theory}{116}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.1}{\ignorespaces An example of Boolean satisfiability problem on circuits.\relax }}{117}}
+\newlabel{fig:SAT}{{7.1}{117}}
+\citation{modelrotation}
+\citation{belov2011accelerating}
+\citation{cimatti2007simple}
+\citation{ceiSTOC96}
+\citation{STABLE,BLUEVERI,PolyBoRi}
+\citation{condratTACAS07,Zengler2010}
+\@writefile{toc}{\ifuuthesis@needtocspace \vspace  {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.2}Previous Work on CNF-UNSAT}{118}}
+\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Mapping Boolean operators to functions over ${\mathbb  {F}}_{2^k}$\relax }}{118}}
+\newlabel{tab:booltof4}{{7.1}{118}}
+\citation{li2009maxsat}
+\citation{lee2008bi}
+\citation{cambazard2008reformulating}
+\citation{zhang2005design}
+\@writefile{toc}{\ifuuthesis@needtocspace \vspace  {\uuthesis@chaptersectionspace } \fi \global \uuthesis@needtocspacefalse }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1.3}Exploiting UNSAT Cores for Abstraction Refinement}{119}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {9}{\ignorespaces Abstraction refinement using $k$-BMC\relax }}{120}}
+\newlabel{alg:absrefine}{{9}{120}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.2}{\ignorespaces Abstraction by reducing latches.\relax }}{120}}
+\newlabel{fig:refine}{{7.2}{120}}
+\citation{zhang2005design}
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}UNSAT Cores of Polynomial Ideals}{122}}
+\newlabel{sec:core}{{7.2}{122}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.1}An Example Motivating our Approach}{123}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.3}{\ignorespaces DAG representing $Spoly$ computations and multivariate divisions.\relax }}{124}}
+\newlabel{fig:UNSAT}{{\caption@xref {fig:UNSAT}{ on input line 360}}{124}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2.2}The Refutation Tree of the GB Algorithm: Find $F_c$ from $F$}{124}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {10}{\ignorespaces Extract UNSAT core using a variation of Buchberger's algorithm\relax }}{125}}
+\newlabel{alg:UNSAT}{{10}{125}}
+\newlabel{ex:1}{{7.2}{125}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.4}{\ignorespaces Generating refutation trees to record UNSAT cores.\relax }}{126}}
+\newlabel{fig:refute}{{7.4}{126}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.3}Reducing the Size of the UNSAT Core $F_c$}{126}}
+\newlabel{sec:alg}{{7.3}{126}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.1}Identifying Redundant Polynomials from the Refutation Tree}{127}}
+\newlabel{eqn1}{{7.1}{127}}
+\newlabel{data1}{{7.2}{127}}
+\newlabel{thm}{{7.2}{128}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3.2}The GB-Core Algorithm Outline}{128}}
+\newlabel{eqn:red}{{7.5}{129}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {11}{\ignorespaces GB-core algorithm (based on Buchberger's algorithm)\relax }}{130}}
+\newlabel{algo:gbcore}{{11}{130}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.4}Iterative Refinement of the UNSAT Core}{130}}
+\newlabel{sec:iter}{{7.4}{130}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.5}{\ignorespaces Refutation trees of core refinement example.\relax }}{132}}
+\newlabel{fig:refine}{{7.5}{132}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.5}Refining the UNSAT Core using Syzygies}{132}}
+\newlabel{sec:syz}{{7.5}{132}}
+\citation{ideals:book}
+\newlabel{eqn:syz}{{7.6}{133}}
+\newlabel{mat:syzygy}{{7.7}{133}}
+\newlabel{eqn:sm}{{7.9}{134}}
+\newlabel{sr}{{7.10}{135}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.6}Application to Abstraction Refinement}{135}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.6}{\ignorespaces Gate-level schematic of the example circuit.\relax }}{136}}
+\newlabel{fig:s27}{{\caption@xref {fig:s27}{ on input line 1060}}{136}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.7}{\ignorespaces State transition graph of example circuit.\relax }}{136}}
+\newlabel{fig:s27_stg}{{7.7}{136}}
+\citation{DGPS}
+\citation{agnew1991implementation,RHmulti}
+\citation{lv:tcad2013}
+\citation{condrat-tacas07}
+\@writefile{lof}{\contentsline {figure}{\numberline {7.8}{\ignorespaces State transition graph of abstracted machine.\relax }}{138}}
+\newlabel{fig:s27_stg_refined}{{7.8}{138}}
+\@writefile{toc}{\contentsline {section}{\numberline {7.7}Experiment Results}{138}}
+\newlabel{sec:exp}{{7.7}{138}}
+\@writefile{lot}{\contentsline {table}{\numberline {7.2}{\ignorespaces Results of running benchmarks using our tool. \relax \fontsize  {10}{12}\selectfont  \abovedisplayskip 10\p@ plus2\p@ minus5\p@ \abovedisplayshortskip \z@ plus3\p@ \belowdisplayshortskip 6\p@ plus3\p@ minus3\p@ \def \leftmargin \leftmargini \parsep 4.5\p@ plus2\p@ minus\p@ \topsep 9\p@ plus3\p@ minus5\p@ \itemsep 4.5\p@ plus2\p@ minus\p@ {\leftmargin \leftmargini \topsep 6\p@ plus2\p@ minus2\p@ \parsep 3\p@ plus2\p@ minus\p@ \itemsep \parsep }\belowdisplayskip \abovedisplayskip {Asterisk($^*$) denotes that the benchmark was not translated from CNF.} Our tool is composed by 3 parts: part I runs a single GB-core algorithm, part II applies the iterative refinement heuristic to run the GB-core algorithm iteratively, part III applies the syzygy heuristic.\relax }}{139}}
+\newlabel{tab:result}{{7.2}{139}}
+\citation{lv:tcad2013,gao:qe-gf-gb,kalla:fmcad_tut2015,rolf:date16}
+\@writefile{toc}{\contentsline {section}{\numberline {7.8}Concluding Remarks}{140}}
+\newlabel{sec:conc}{{7.8}{140}}
+\@setckpt{unsat}{
+\setcounter{page}{141}
+\setcounter{equation}{10}
+\setcounter{enumi}{7}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{7}
+\setcounter{figure}{8}
+\setcounter{table}{2}
+\setcounter{oldchapter}{0}
+\setcounter{oldtocdepth}{0}
+\setcounter{section}{8}
+\setcounter{subsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subsubsection}{0}
+\setcounter{float@type}{8}
+\setcounter{ContinuedFloat}{0}
+\setcounter{KVtest}{0}
+\setcounter{subfigure}{0}
+\setcounter{subfigure@save}{0}
+\setcounter{lofdepth}{1}
+\setcounter{subtable}{0}
+\setcounter{subtable@save}{0}
+\setcounter{lotdepth}{1}
+\setcounter{r@tfl@t}{0}
+\setcounter{lstnumber}{1}
+\setcounter{parentequation}{0}
+\setcounter{ALC@unique}{14}
+\setcounter{ALC@line}{14}
+\setcounter{ALC@rem}{0}
+\setcounter{ALC@depth}{0}
+\setcounter{BAenumi}{0}
+\setcounter{AlgoLine}{0}
+\setcounter{algocfline}{11}
+\setcounter{algocfproc}{11}
+\setcounter{algocf}{11}
+\setcounter{Theorem}{2}
+\setcounter{Definition}{6}
+\setcounter{Example}{7}
+\setcounter{Proposition}{0}
+\setcounter{Lemma}{0}
+\setcounter{Corollary}{0}
+\setcounter{Conjecture}{0}
+\setcounter{Problem}{0}
+\setcounter{lstlisting}{0}
+}

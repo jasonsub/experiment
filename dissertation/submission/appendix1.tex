@@ -1,15 +1,11 @@
-\numberofappendices=1
-\appendix
-\chapter{}
-\fixchapterheading
-\section{Normal Basis Theory}
+\chapter{Normal Basis Theory}
 \label{append:NB}
 In Chapter \ref{ch:prelim_GF} we briefly introduced the concept of normal basis (NB), and 
-the benefits of using NB. In the section we describe more details about the normal basis theory by 
-characterizing NB from linear algebra perspective, constructing a general NB in an 
-arbitrary field and converting between NB and StdB. All theorems and lemmas refer to the 
-dissertation of S. Gao \cite{gao:phd_normal_basis}, and we deduce all the proofs for them.
-\subsection{Characterization of Normal Basis}
+the benefits of using NB. In this appendix chapter we describe more details about NB theory by 
+characterizing NB from a linear algebra perspective, constructing a general NB in an 
+arbitrary field, and converting between NB and StdB. All theorems and lemmas refer to the 
+dissertation of Gao \cite{gao:phd_normal_basis}, and we deduce all the proofs for them.
+\section{Characterization of Normal Basis}
 In order to depict the characterization of NB, we need the introduce some concepts from linear algebra domain.
 \begin{Definition}[Frobenius Map]
 Define map $\sigma:x\to x^p,~x\in \F_{p^n}$. This map denoting the linear map of field extension $\F_{p^n}$
@@ -18,30 +14,30 @@ over $\F_p$.
 Additionally we can define a subspace based on linear map $T$:
 \begin{Definition}
 A subspace $W\subset V$ is called {\bf $T$-invariant} when 
-$$Tu \in W, ~~ \forall \text{vector }u\in W$$
+$$Tu \in W, ~~ \forall \text{ vector }u\in W$$
 
 Subspace $Z(u,T) = \langle u,Tu,T^2u,\dots\rangle$ is called {\bf $T$-cyclic subspace} of $V$.
 If $Z(u,T) = V$ holds, then $u$ is called a {\bf cyclic vector} of $V$ for $T$.
 \end{Definition}
-Field elements $x$ constitutes polynomials in ring $\F[x]$. Subsequently we can define the 
-nullspace of polynomial:
-\begin{Definition}[Nullspace of polynomial]
+
+We define the nullspace of a polynomial as:
+\begin{Definition}[Nullspace of a polynomial]
 \label{def:nullspace}
 For any polynomial $g(x) \in \F[x]$, the null space of $g(T)$ consists of all vectors $u$ such that
 $g(T)u = 0$.
 \end{Definition}
-Finally we get to the most important concept: $T$-Order. Meanwhile it derives the construction of a ring extended by a field requires
-a minimal polynomial (while we use stronger irreducible polynomial $P(x)$ in Chapter \ref{ch:prelim_GF}).
+Finally we get to the most important concept: $T$-Order. It derives the construction of a ring extended 
+by a field requiring a minimal polynomial.
 \begin{Definition}
 For any vector $u \in V$, the monic polynomial $g(x) \in \F[x]$ with smallest degree such that
 $g(T)u = 0$ is called the {\bf $T$-Order} of $u$ or {\bf minimal polynomial} of $u$.
 
-That is, for an arbitrary element $\theta$ in $F_{q^n}$, find least positive integer $k$ such that
+Let map $T=\sigma$, for an arbitrary element $u=\theta$ in $F_{p^n}$, find least positive integer $k$ such that
 $\sigma^k\theta = \sum_{i=0}^{k-1} c_i\sigma^i\theta$, then the $\sigma$-Order of $\theta$ can be 
 written as $$Ord_{\theta,\sigma}(x) = x^k - \sum_{i=0}^{k-1} c_ix^i$$
 \end{Definition}
 
-Using the concepts introduced above along with other basic concepts in linear algebra and finite field theory,
+Using the concepts introduced above, along with other basic concepts in linear algebra and finite field theory,
 we can derive following theorems.
 
 \begin{Lemma}
@@ -54,7 +50,7 @@ Assume $f(x)$ is the minimal and characteristic polynomial for $T$. Then accordi
 we obtain 
 $$W = \{u\in V~|~g(T)u = 0\}$$
 
-Let $k$ be a polynomial whose degree is larger than $f(x)$, {\it i.e.} $deg(k(x))>deg(f(x))$, then
+Let $k$ be a polynomial whose degree is larger than that of $f(x)$, {\it i.e.} $deg(k(x))>deg(f(x))$, then
 $$f(x)|k(x)~~\text{iff}~k(T)=0$$
 
 Since the construction of $f(x)$ relies on $T$, $f(T) = 0$, we get
@@ -172,7 +168,7 @@ or Theorem \ref{thm:2}, we obtain following theorem:
 \begin{Theorem}[Normal Basis Theorem over Finite Fields]
 There always exists a normal basis of $\F_{p^n}$ over $\F_p$.
 \end{Theorem}
-\subsection{Construction of General Normal Bases}
+\section{Construction of General Normal Bases}
 After proving the existence of normal bases, the upcoming question is that how to find such a normal basis/element.
 For general normal basis identification, there are two methods widely used: the L\"uneburg's algorithm
 and Lenstra's algorithm.\\
@@ -191,7 +187,7 @@ is a normal element.
 L\"uneburg's algorithm starts with a random element and ends with a normal element. The justification of 
 its soundness is as follows:
 \begin{Proposition}
-L\"uneburg's algorithm always generate a normal element over field $\F_{p^n}$.
+L\"uneburg's algorithm always generates a normal element over the field $\F_{p^n}$.
 \end{Proposition}
 
 \begin{Proof}
@@ -294,9 +290,9 @@ otherwise if $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$ then find a non-zero el
 replace $\theta$ by $\theta + \eta$ and determine the order of new $\theta$, and go to 2).
 \end{enumerate}
 
-Lenstra's algorithm is an approximation algorithm in nature. For each iteration $Ord_\theta(x)$ monotonically increase,
+Lenstra's algorithm is an approximation algorithm in nature. For each iteration $Ord_\theta(x)$ monotonically increases,
 so it will finally reach termination condition $Ord_\theta(x) = x^n-1$.
-\subsection{Bases Conversion and $\lambda$-Matrix Construction}
+\section{Bases Conversion and $\lambda$-Matrix Construction}
 % General \lambda matrix computation
 Given a normal basis (NB), we can easily convert it to a standard basis (StdB) by reducing $\alpha^t$
 with irreducible polynomial $p(\alpha)$ since 
@@ -317,7 +313,7 @@ is as follows:
 \end{cases}
 \end{equation}
 
-We treat StdB $\{1,\alpha,\dots,\alpha^7$ as unknowns and NB $\{\alpha,\alpha^2,\dots,\alpha^{128}\}$
+We treat StdB $\{1,\alpha,\dots,\alpha^7\}$ as unknowns and NB $\{\alpha,\alpha^2,\dots,\alpha^{128}\}$
 as parameters. Then we can obtain a solution to this system denoting mapping from StdB to NB:
 
 \begin{equation}
@@ -334,7 +330,7 @@ as parameters. Then we can obtain a solution to this system denoting mapping fro
 \end{equation}
 
 Directly constructing $\lambda$-Matrix is difficult for general NBs. 
-In Section \ref{sec:nbdesign}, we introduce the concept of multiplication table (M-table) and explained how its 
+In Section \ref{sec:nbdesign}, we introduced the concept of multiplication table (M-table) and explained how its 
 entries are transformed from the $0$-th $\lambda$-Matrix. 
 Recall the M-table is defined as
 \begin{equation}
@@ -349,7 +345,7 @@ Recall the M-table is defined as
 \end{bmatrix}
 \end{equation}
 Therefore we can compute M-table and then covert it to $\lambda$-Matrix.
-Using Equation \ref{eqn:appmt}, we derive entry $T_{i,j}$ in the M-table equals to
+Using Equation \ref{eqn:appmt}, we derive entry $T_{i,j}$ in the M-table by equating it to
 the $j$-th bit of the NB representation of element $\beta\cdot\beta^{2^{i}}$.
 For example, the $i$-th row of the M-table for NB in Example \ref{ex:Rijndael} satisfies
 $$\beta\cdot\beta^{2^i} = \sum_{j=0}^{7} T_{i,j}\beta^{2^j}$$
@@ -373,8 +369,8 @@ $\lambda$-Matrix in Equation \ref{eqn:mat_R}.
 Actually we can mathematically prove the relationship 
 between them:
 \begin{Theorem}
-M-table $T$ is actually a conjugate of the $\lambda$-Matrix $M$. 
-We can use an equation $M_{i,j}^{(0)} = T_{j-i,-i}$ to demonstrate the relation between their entries.
+M-table $T$ is a conjugate of the $\lambda$-Matrix $M$. In other words,
+Equation $M_{i,j}^{(0)} = T_{j-i,-i}$ holds as the relation between their entries.
 \end{Theorem}
 \begin{Proof}
 Recall the definition of $\lambda$-Matrix over field $\F_{2^k}$:
@@ -406,219 +402,3 @@ row index $i$, the proof can be extended to all row indices $i<n$ but fix $l$ to
 conjugation generated by right-down cyclic-shift of $\lambda$-Matrix. Therefore we have 
 $$M_{i,j}^{(0)} = \lambda_{ij}^{(0)} = \lambda_{j,0}^{(i)} = T_{j-i,0-i}$$
 \end{Proof}
-
-\section{Optimal Normal Basis}
-\label{append:ONB}
-The number of non-zero entries in $\lambda$-Matrix or multiplication table (M-table) is known as \emph{Complexity $(C_N)$}.
-To define optimal normal basis, it is necessary to find the lower bound of $C_N$.
-\begin{Theorem}
-If $\mathcal{N}$ is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
-\end{Theorem}
-\begin{Proof}
-Let basis $\mathcal{N} = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
-Then $\sum_{i=0}^{n-1} \beta_i = trace\ \beta$. 
-Denote $trace\ \beta$ by $b$, consider a $n\times n$ matrix $M^{(0)}$. Then
-$$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$$
-
-Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
-So the first column always includes at least one nonzero element. 
-Since the sum of entries in each of other columns should equal to zero (modulo 2), they 
-need to include an even number of ``1"s.
-Meanwhile, in order to maintain the linear independence among each row, they cannot be all ``0"s. 
-Therefore, there are always at least two non-zero elements in each column.
-
-As a result, $C_N \geq 2(n-1)+1  = 2n-1$.
-\end{Proof}
-
-If there exists a set of normal basis satisfying $C_N = 2n - 1$, this normal basis is named as 
-\emph{Optimal Normal Basis} (ONB).
-
-\begin{Example}
-\label{ex:app4}
-In $\F_{2^4}$ constructed with $p(\alpha) = \alpha^4 + \alpha + 1$, two normal bases can be found:
-$\beta = \alpha^3, \mathcal N_1 = \{ \alpha^3, \alpha^6, \alpha^{12}, \alpha^9\}$ and 
-$\beta = \alpha^7, \mathcal N_2 = \{\alpha^7, \alpha^{14}, \alpha^{13}, \alpha^{11}\}$. 
-Their multiplication tables are listed below. For basis $\mathcal N_1$:
-\begin{equation}
-T_1 = \left(
-\begin{array}{lccr}
-0 & 1 & 0 & 0\\
-0 & 0 & 0 & 1\\
-1 & 1 & 1 & 1\\
-0 & 0 & 1 & 0
-\end{array} \right)
-\end{equation}
-Complexity $C_N$ = 7, so $\mathcal N_1$ is an ONB. For basis $\mathcal N_2$:
-\begin{equation}
-T_2 = \left(
-\begin{array}{lccr}
-0 & 1 & 0 & 0\\
-1 & 1 & 0 & 1\\
-1 & 0 & 1 & 0\\
-1 & 0 & 1 & 1
-\end{array} \right)
-\end{equation}
-Complexity $C_N$ = 9, so basis $\mathcal N_2$ is not optimal.
-\end{Example}
-
-ONBs are widely used in finite field circuit design, not only because its low complexity, 
-but also because of the convenience to construct the $\lambda$-Matrix and M-table for them. 
-To explain the convenience and the reason behind it, we introduce two types of ONBs and the method 
-to construct them.
-The following subsection refers to \cite{rosingbook}.
-\subsection{Construction of Optimal Normal Basis}
-{\bf Type-I ONB} over $F_{2^n}$ satisfies following criteria:
-\begin{itemize}
-\item $n+1$ must be prime.
-\item 2 must be primitive in $\mathbb{Z}_{n+1}$.
-\end{itemize}
-The second criterion indicates that powers of 2 (exponent from 0 to $n-1$) modulo $n+1$ must cover all integers
-from 1 to $n$.
-
-In following part we derive a simple way to construct the $\lambda$-Matrix of type-I ONB 
-from the criteria above. 
-Assume $\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ from k-th $\lambda$-Matrix. Then the crossproduct
-term can be written as
-\begin{equation}
-\beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1} \lambda_{ij}^{(k)} \beta^{2^k}
-\end{equation}
-Suppose we only care about k=0. So simplified to following equations:
-
-$$
-\begin{cases}
-&\beta^{2^i}\beta^{2^j} = \beta\\
-&\beta^{2^i}\beta^{2^j} = 1 ~~~(\text{ if }~  2^i = 2^j\pmod{n+1})
-\end{cases}$$
-
-Solution $(i,j)$ implies location of entries that equal to ``1" in $\lambda$-Matrix. 
-Let $\beta$ be an optimal normal element, 
-$\{\beta^{2^i}~|~0\leq i<n\}$ cover all powers of $\beta$ and generates the basis. Thus by solving
-$$\begin{cases}
-2^i + 2^j = 1 \pmod{n+1}\\
-2^i + 2^j = 0 \pmod{n+1}
-\end{cases}$$
-we obtain $\lambda$-Matrix $M^{(0)}$. This construction method does not require information about 
-primitive polynomial nor normal element, so it is very convenient for circuit designers.
-Basis $\mathcal N_1$ in Example \ref{ex:app4} is a type-I ONB over $\F_{2^4}$.
-
-{\bf Type-II ONB} over $\F_{2^n}$ satisfies following criteria:
-\begin{itemize}
-\item $2n+1$ must be prime. And either
-\item 2 is primitive in $\mathbb{Z}_{2n+1}$, or
-\item $2n+1 = 3 \pmod{4}$ and 2 generates the quadratic residues in $\mathbb{Z}_{2n+1}$
-\end{itemize}
-The last criterion means that that $2n+1$ should be congruent to $1$ or $3$ modulo 4. 
-To generate a Type-II ONB, we first pick an element $\gamma$ with order $2n+1$ in $\F_{2^{2n}}$, 
-such that the corresponding normal element $\beta$
-from $F_{2^n}$ can be written as $\beta = \gamma + \gamma^{-1}$. Thus the cross-product terms will be:
-\begin{equation}
-\begin{split}
-\beta^{2^i}\beta^{2^j} &= (\gamma^{2^i} + \gamma^{-2^i})(\gamma^{2^j} + \gamma^{-2^j})\\ &= 
-(\gamma^{2^i+2^j} + \gamma^{-(2^i+2^j)}) + (\gamma^{2^i-2^j} + \gamma^{-(2^i-2^j)})\\ &= 
-\begin{cases}
-\beta^{2^k} + \beta^{2^{k\prime}}~~~\text{if }~ 2^i \neq 2^j \pmod{2n+1}\\
-\beta^{2^k}~~~~~~~~~~~~~~\text{if }~ 2^i = 2^j \pmod{2n+1}
-\end{cases}
-\end{split}
-\end{equation}
-$k$ and $k\prime$ are the 2 possible solutions to multiplication of any 2 basis elements. 
-This guarantees the optimum of the basis since it has the minimum number of possible terms. 
-In the case of $2^i \neq 2^j \pmod{2n+1}$, at least one of following
-equations
-\begin{equation}
-\label{eqn:app1st}
-\begin{cases}
-2^i + 2^j = 2^k ~~~\pmod{2n+1}\\
-2^i + 2^j = -2^k \pmod{2n+1}
-\end{cases}
-\end{equation}
-has a solution, meanwhile at least one of following equations
-\begin{equation}
-\label{eqn:app2nd}
-\begin{cases}
-2^i - 2^j = 2^{k\prime} ~~~\pmod{2n+1}\\
-2^i - 2^j = -2^{k\prime} \pmod{2n+1}
-\end{cases}
-\end{equation}
-has a solution as well.
-
-In another case that $2^i = \pm 2^j \pmod{2n+1}$, at least one of the following 4 equations has a solution
-\begin{equation}
-\label{eqn:app3rd}
-\begin{cases}
-2^i + 2^j = 2^k ~~~\pmod{2n+1}\\
-2^i + 2^j = -2^k \pmod{2n+1}\\
-2^i - 2^j = 2^k ~~~\pmod{2n+1}\\
-2^i - 2^j = -2^k \pmod{2n+1}
-\end{cases}
-\end{equation}
-In set of Equations \ref{eqn:app1st} and \ref{eqn:app2nd}, there are two possible solutions in total. 
-In set of Equations \ref{eqn:app3rd},
-there is only one possible solution. Since these equations are all similar, instead of 
-working with two different sets we can combine them together and solve a system of 4 equations. 
-As a result, to construct 
-the $\lambda$-Matrix $M^{(0)}$, we set $k=0$ and find solutions to:
-\begin{equation}
-\label{eqn:app4th}
-\begin{cases}
-2^i + 2^j = 1 ~~~\pmod{2n+1}\\
-2^i + 2^j = -1 \pmod{2n+1}\\
-2^i - 2^j = 1 ~~~\pmod{2n+1}\\
-2^i - 2^j = -1 \pmod{2n+1}
-\end{cases}
-\end{equation}
-
-\begin{Example} 
-By solving the system of Equations \ref{eqn:app4th} with $n=5$, we find 9 pairs of
-indices $(i,j)$ such that $0\leq i,j <5$. Assign ``1" to corresponding entries in a $5\times5$ matrix,
-the result is $M^{(0)}$ for type-II ONB over $\F_{2^5}$:
-\begin{equation}
-M^{(0)} = \left(
-\begin{array}{lcccr}
-0 & 1 & 0 & 0 & 0\\
-1 & 0 & 0 & 1 & 0\\
-0 & 0 & 0 & 1 & 1\\
-0 & 1 & 1 & 0 & 0\\
-0 & 0 & 1 & 0 & 1
-\end{array} \right)
-\end{equation}
-\end{Example}
-
-\subsection{Optimal Normal Basis Multiplier Design}
-% Customized Galois Field IEEE1363-2000
-Designers can easily generate the $\lambda$-Matrix for GF multipliers, which is sufficient to derive the 
-structure of the circuit. However, our GB based approach requires specifying the exact normal element $\beta$,
-{\it i.e. } it is necessary to obtain $t$ as $\beta = \alpha^t$ before executing our technique.
-L\"uneburg's algorithm and Lenstra's algorithm do not guarantee the output normal element is optimal 
-normal element, and usually result in high computation cost. Actually if the type of ONB within the design 
-is known, instead of looking up the optimal normal element, we can construct a special irreducible $p(\alpha)$
-such that optimal normal element equals to the primitive element: $\beta=\alpha$. The concepts and algorithms 
-refer to IEEE standard 1363-2000 \cite{IEEE1363}.
-
-For type-I ONB over $\F_{2^k}$, the irreducible polynomial is 
-$$p(\alpha) = \alpha^k+\alpha^{k-1}+\cdots+\alpha+1
-= \sum_{i=0}^k \alpha^i$$ 
-
-For type-II ONB, the following iterative algorithm is required to generate desired 
-irreducible polynomial:
-
-\begin{algorithm}[H]
-\SetAlgoNoLine
-\LinesNumbered
- \KwIn{Field $\Fkk$ which contains a type-II ONB}
- \KwOut{The irreducible polynomial $p(\alpha)$ for the ONB}
-
-  $f(\alpha)\gets 1$\;
-  $p(\alpha)\gets \alpha+1$\;
-  \For{$i=1\dots k-1$}
-  {
-  	$g(\alpha)\gets f(\alpha)$\;
-	$f(\alpha)\gets p(\alpha)$\;
-	$p(\alpha)\gets \alpha f(\alpha)+g(\alpha)$\;
-  }\
-\Return{$p(\alpha)$}
-\caption {Generating irreducible polynomial for type-II ONB over $\Fkk$}
-\label{alg:ieee1363}
-\end{algorithm}
-\DecMargin{1em}
-\vspace{0.2in}
