@@ -344,20 +344,21 @@ Since this problem is UNSAT, we will stop when ``1" is added to GB.
 \item Update $F=F\cup r_1$;
 \item Next we compute $Spoly(f_1,f_3)\xrightarrow{F}_{+} r_2$, remainder $r_2$ equals to $b$;
 \item Update $F=F\cup r_2$;
-\item We can use a directed acyclic graph (DAG) to represent the process to get $r_1,r_2$, as Figure \ref{fig:UNSAT}(a) shows;
+\item We can use a directed acyclic graph (DAG) to represent the process to get $r_1,r_2$, as Figure \ref{fig:originUNSAT}(a) shows;
 \item Then we compute $Spoly(f_1,f_4) = s_3= a+b+1$, obviously $a+b+1$ can be reduced (multivariate divided) by
 $r_1$ , the intermediate remainder $r_3 = b+1$. It can be immediately divided by $r_2$, and the remainder is ``1", we
 terminate the Buchberger's algorithm;
-\item We draw a DAG depicting the process through which we obtain remainder ``1" as shown in Figure \ref{fig:UNSAT}(b). 
+\item We draw a DAG depicting the process through which we obtain remainder ``1" as shown in Figure \ref{fig:originUNSAT}(b). 
 From leaf ``1" we backtrace the graph to roots $f_1,f_2,f_3,f_4$. They constitute an UNSAT core for this problem
 as these polynomials are the ``causes" of unsatisfiability of original set of polynomials.
 \end{enumerate}
 \end{Example}
+
 \begin{figure}[h]
 \centering{
-\includegraphics[width=\textwidth]{newfig/UNSAT.eps}
-\caption{DAG representing $Spoly$ computations and multivariate divisions.}}
-\label{fig:UNSAT}
+\includegraphics[width=\textwidth]{newfig/UNSAT.eps}}
+\caption{DAG representing $Spoly$ computations and multivariate divisions.}
+\label{fig:originUNSAT}
 \end{figure}
 
 This general idea is depicted in Algorithm \ref{alg:UNSAT}. 
@@ -1055,8 +1056,8 @@ abstraction refinement to reduce the state space for refined $k$-BMC.
 
 \begin{figure}[H]
 \centering{
-\includegraphics[width=\textwidth]{newfig/s27.eps}
-\caption{Gate-level schematic of the example circuit.}}
+\includegraphics[width=\textwidth]{newfig/s27.eps}}
+\caption{Gate-level schematic of the example circuit.}
 \label{fig:s27}
 \end{figure}
 

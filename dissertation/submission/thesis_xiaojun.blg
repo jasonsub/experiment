@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2015/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_xiaojun.aux
 A level-1 auxiliary file: intro.aux
@@ -31,7 +31,7 @@ Repeated entry---line 617 of file xiaojun.bib
  : @inproceedings{biere1999symbolic
  :                                 ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 865 of file xiaojun.bib
+Repeated entry---line 867 of file xiaojun.bib
  : @misc {DGPS
  :            ,
 I'm skipping whatever remains of this entry
@@ -54,45 +54,45 @@ Warning--empty journal in SIS
 while executing---line 987 of file ieee.bst
 `volume' is a missing field, not a string, for entry biere2013lingeling
 while executing---line 987 of file ieee.bst
-You've used 151 entries,
+You've used 150 entries,
             1802 wiz_defined-function locations,
-            1256 strings with 29198 characters,
-and the built_in function-call counts, 41482 in all, are:
-= -- 3925
-> -- 1499
+            1251 strings with 29237 characters,
+and the built_in function-call counts, 41316 in all, are:
+= -- 3901
+> -- 1508
 < -- 76
-+ -- 560
-- -- 409
-* -- 2877
-:= -- 5904
-add.period$ -- 204
-call.type$ -- 151
-change.case$ -- 137
++ -- 563
+- -- 413
+* -- 2868
+:= -- 5884
+add.period$ -- 203
+call.type$ -- 150
+change.case$ -- 136
 chr.to.int$ -- 0
-cite$ -- 153
-duplicate$ -- 2170
-empty$ -- 4193
-format.name$ -- 409
-if$ -- 9886
+cite$ -- 152
+duplicate$ -- 2162
+empty$ -- 4170
+format.name$ -- 413
+if$ -- 9843
 int.to.chr$ -- 0
-int.to.str$ -- 151
-missing$ -- 151
-newline$ -- 759
-num.names$ -- 157
-pop$ -- 714
+int.to.str$ -- 150
+missing$ -- 150
+newline$ -- 754
+num.names$ -- 156
+pop$ -- 713
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 1163
+skip$ -- 1159
 stack$ -- 0
-substring$ -- 2687
-swap$ -- 833
+substring$ -- 2660
+swap$ -- 832
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 2
-while$ -- 399
-width$ -- 154
-write$ -- 1682
+while$ -- 397
+width$ -- 153
+write$ -- 1671
 (There were 13 error messages)

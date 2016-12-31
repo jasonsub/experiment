@@ -46,8 +46,9 @@ In this section, we highlight some research problems that deserve further study.
 \subsection{Multivariate Polynomial Ideal based FSM Traversal}
 In Chapter \ref{ch:reacha}, we always use a single word-level variable $T$ to denote the
 next state. However, in some situations we need to keep recording the relations between $T$ and
-inputs, {\it i.e.} the reached states contain multivariate polynomials in $T,S$ and PI $x$. 
-While the elimination and set union/intersection are compatible with multiple NS variables,
+the inputs, {\it e.g.} the reached states contain multivariate polynomials in $T$, as well as 
+PS variable $S$ and PI $x$. 
+While the elimination and set union/intersection are compatible with multivariate polynomials,
 the set complement requires an extension of Theorem \ref{thm:quotient} on ideals with 
 multivariate polynomial generators. We conjecture as follows:
 
@@ -66,9 +67,9 @@ However over multivariate case, the proof of this conjecture is not available.
 
 The following example illustrates a different operation from Example \ref{ex:SMPO}.
 \begin{Example}
-In Figure \ref{fig:fsm}
+In Figure \ref{fig:fsm}, we denote that
 $\{s_0, s_1\}$ are state/pseudo inputs, $\{t_0,t_1\}$ are state/pseudo outputs, and there is a primary input (1-bit) 
-$x$. We propose a new algorithm by modifying Algorithm \ref{alg:univa}:
+$x$. We propose a new algorithm (Algorithm \ref{alg:multi}) by modifying Algorithm \ref{alg:univa}.
 
 \IncMargin{1em}
 \begin{algorithm}[hbt]
@@ -92,21 +93,21 @@ $x$. We propose a new algorithm by modifying Algorithm \ref{alg:univa}:
 \end{algorithm}
 \DecMargin{1em}
 
-The inputs of this algorithm includes transition polynomial (result of word-level abstraction) and initial 
-states description ideal, which contains 2 generators corresponds to constraints of PI and combinational input $S$. 
+The inputs of this algorithm includes the transition polynomial (result of word-level abstraction) and initial 
+states description ideal, which contains 2 generators corresponding to constraints of PI and combinational input $S$. 
 For example, $\langle S+1+\alpha, x^2+x\rangle$ means initial state$=\{11\}$,
 $\langle S+x\cdot\alpha, x^2+x\rangle$ means initial states$=\{00,10\}$).
 
-Transition polynomial calculation uses the abstraction and bit-to-level conversion method from 
+Transition polynomial calculation uses the abstraction and bit-to-word conversion method from 
 Chapter \ref{ch:reacha}. After Constructing
-an elimination ideal, we impose RATO such that \emph{reverse\ topo\ order\ ckt\ variables }$> T > S > x$, the reduction
-remainder has the form $T+\mathcal F(s_0,s_1,x)$. From word definition $S+s_0+s_1\alpha$ we get
+an elimination ideal, we impose RATO such that \textit{reverse\ topo\ order\ ckt\ variables }$> T > S > x$, the reduction
+remainder has the form $T+\mathcal F(s_0,s_1,x)$. According to the bit-to-word correspondence $S+s_0+s_1\alpha$ we get
 $$s_0 = \alpha S^2+ (1+\alpha)S, s_1 = S^2+S$$
-Do substitution, the transition polynomial of example ckt is 
+After substitution, we obtain the transition polynomial of example circuit: 
 $$f_T = T+S^3\cdot x+\alpha S^3+(1+\alpha)S^2\cdot x+S^2+S\cdot x+(1+\alpha)x+1$$
 
-Assume we start from state $\{11\}$. In the first iteration, the reached state is $\{01\}$. Line 4 is to compose an
-ideal with 2 generators from $from^0$ and transition polynomial $f_T$, compute its Gr\"obner basis. Note this ideal
+Assume the initial state is $\{11\}$. In the first iteration, the reached state is $\{01\}$. Line 4 is to compose an
+ideal with 2 generators from $from^0$ and transition polynomial $f_t$, compute its Gr\"obner basis. Note this ideal
 has the form
 \begin{equation}
 I_{tran} = \left\{
@@ -117,28 +118,28 @@ I_{tran} = \left\{
              \end{array}  
         \right.
 \end {equation}
-$v_x$ is a polynomial containing only $q$-bit PI $x$, initially it should be vanishing polynomial $x^{q_1}-x$, 
+$v_x$ is a polynomial containing only $q_1$-bit PI $x$, initially it should be vanishing polynomial $x^{q_1}-x$, 
 with the program executing it may be factorized.
 
-Consider Buchberger's algorithm, all generators' leading terms are relatively prime, so it is a GB itself. 
-Then we need to reduce this GB, we will find out $S + \mathcal G(x)$ could (possibly) be reduced by $v_x$,
-and $T+\mathcal F(S,x)$ will definitely reduced by $S + \mathcal G(x)$. So, at last we will get a polynomial
-$T + \mathcal F'(x)$ in reduce GB. We can include this polynomial and $v_x$, exclude the polynomial containing
-$S$ ({\it i.e.} $\mathcal H(S)$ in algorithm), to compose an ideal representing \emph{next states} $to^i$. 
-In iteration 1, result is $to^1 = \langle T+1, x^2+x\rangle$
+Considering the Buchberger's algorithm, all generators' leading terms are relatively prime, so $I_{tran}$ is a GB itself. 
+Furthermore, generator $S + \mathcal G(x)$ could (possibly) be reduced by $v_x$,
+and $T+\mathcal F(S,x)$ will definitely reduced by $S + \mathcal G(x)$. In the end we obtain a polynomial
+$T + \mathcal F'(x)$ in the reduced GB. We can then include this polynomial and $v_x$ and exclude the polynomial containing
+$S$ ({\it i.e.} $\mathcal H(S)$ in Algorithm \ref{alg:multi}), to compose an ideal representing \emph{next states} $to^i$. 
+In iteration 1, the result is $to^1 = \langle T+1, x^2+x\rangle$
 
 Line 5 is the ideal quotient of universal set and reached states. In the first iteration, 
 $reached$ is the initial state $\langle T+1+\alpha, x^2+x \rangle$. Result of ideal quotient
 is $\langle T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle$ represents $\{00,01,10\}$.
 
 Line 6 is ideals' sum (intersection of their varieties), it is done by combining all generators
-from 2 ideals and compute GB. For first iteration result is $GB(\langle T+1,T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle) = \langle T+1, x^2+x\rangle$ representing $\{01\}$.
+from 2 ideals and compute GB. In the first iteration, the result is $GB(\langle T+1,T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle) = \langle T+1, x^2+x\rangle$ representing $\{01\}$.
 
 Line 7 is ideals' product (union of their varieties), it is done by multiplying all pairs of
-generators from both ideal. For first iteration result is $GB(\langle (T+1)(T+1+\alpha),
+generators from both ideal. For the first iteration it gives the result as $GB(\langle (T+1)(T+1+\alpha),
 (T+1)(x^2+x), (T+1+\alpha)(x^2+x), (x^4+x)\rangle) = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$ representing $\{01,11\}$.
 
-The traversal will run 3 iterations and terminate at 4th iteration. I list all intermediate 
+The traversal algorithm executes 3 iterations and terminate at 4th iteration. We list all intermediate 
 results below:
 \begin{itemize}
 \item Iteration 1: $from^0 = \langle S+1+\alpha, x^2+x\rangle, to^1 = \langle T+1, x^2+x\rangle,
@@ -149,7 +150,7 @@ reached = \langle T^3+1, x^2+x\rangle$
 \rangle, reached = \langle T^3\cdot x+x, T^4+T, x^2+x\rangle$
 \item Iteration 4: $from^3 = \langle S, x\rangle, to^4 = \langle T+1, x\rangle, new = \langle1\rangle$
 \end{itemize}
-The final reachable states are represented by multivariate polynomial ideal $\langle T^3\cdot x+x, T^4+T, x^2+x\rangle$,
+The final reachable states are represented by a multivariate polynomial ideal $\langle T^3\cdot x+x, T^4+T, x^2+x\rangle$,
 which denotes $\{00,01,10,11\}$.
 \end{Example}
 
@@ -188,7 +189,7 @@ to a monomial term.
 
 Figure \ref{fig:ZDD} shows a ZDD representing 
 Equation \ref{eqn:chainOR} with size $2\times4 -1 = 7$, which is linear in the number of variables.
-The reduction process using ZDDs can be executed as in \cite{polybori:2009}. The graphical illustration 
+The reduction process using ZDDs can be executed as in \cite{PolyBoRi}. The graphical illustration 
 of the remainder in ZDDs is also shown in Figure \ref{fig:ZDD}. 
 
 \subsection{Craig Interpolants in Algebraic Geometry}

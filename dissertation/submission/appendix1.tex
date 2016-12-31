@@ -171,8 +171,11 @@ There always exists a normal basis of $\F_{p^n}$ over $\F_p$.
 \section{Construction of General Normal Bases}
 After proving the existence of normal bases, the upcoming question is that how to find such a normal basis/element.
 For general normal basis identification, there are two methods widely used: the L\"uneburg's algorithm
-and Lenstra's algorithm.\\
-\textbf{L\"uneburg's Algorithm:}
+and Lenstra's algorithm.
+
+\subsection{L\"uneburg's Algorithm}
+L\"uneburg's algorithm can be described with following steps:
+
 \begin{enumerate}[{1)}]
 \item Randomly pick an element $\alpha$ from $\F_{p^n}$. For each $i = 0,1,\dots,n-1$, 
 compute $\sigma$-Order $f_i = Ord_{\alpha^i}(x)$. Then $x^n - 1 = lcm(f_0,f_1,...,f_{n-1})$.
@@ -217,6 +220,7 @@ As a result
 $$x^n-1 = Ord_{\sigma,\beta}(x) \implies \beta\text{ is a normal element.}$$
 \end{Proof}
 
+\subsection{Lenstra's Algorithm}
 L\"uneburg's algorithm is an analytic method, which requires relatively high computational complexity 
 mainly because of the factorization in its second step. To overcome the high cost, an inductive method 
 is proposed, which is the Lenstra's algorithm. It allows for setup of heuristics to accelerate the procedure.
@@ -279,8 +283,8 @@ Since $\eta \neq 0$, we derive the result
 $$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$$
 \end{Proof}
 
-Based on Lemmas \ref{lem:4} and \ref{lem:5}, the Lenstra's algorithm is described below:\\
-\textbf{Lenstra's Algorithm}
+Based on Lemmas \ref{lem:4} and \ref{lem:5}, the Lenstra's algorithm is described below:
+
 \begin{enumerate}[{1)}]
 \item Take an arbitrary element $\theta \in \F_{p^n}$, determine $Ord_\theta(x)$.
 \item If $Ord_\theta(x) = x^n - 1$ then algorithm terminates and return $\theta$ as a normal element.

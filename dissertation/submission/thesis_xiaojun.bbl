@@ -86,7 +86,7 @@ C.~Condrat and P.~Kalla,
   the Construction and Analysis of Systems}, pp. 618--631, 2007.
 
 \bibitem{gbverify:2007}
-Y.~Watanabe and {\it et al},
+Yuki Watanabe, Naofumi Homma, Takafumi Aoki, and Tatsuo Higuchi,
 \newblock ``{A}pplication of {S}ymbolic {C}omputer {A}lgebra to {A}rithmetic
   {C}ircuit {V}erification'',
 \newblock {\em in} {\em IEEE International Conference on Computer Design}, pp.
@@ -672,7 +672,7 @@ S.~Gao,
 
 \bibitem{mullinONB}
 Ronald~C Mullin, Ivan~M Onyszchuk, Scott~A Vanstone, and Richard~M Wilson,
-\newblock ``Optimal normal bases in gf($p^n$)'',
+\newblock ``Optimal normal bases in {GF}($p^n$)'',
 \newblock {\em Discrete Applied Mathematics}, vol. 22, pp. 149--161, 1989.
 
 \bibitem{MasseyOmura}
@@ -733,13 +733,13 @@ J-Y Jou and K-T Cheng,
 
 \bibitem{mathur2009power}
 Anmol Mathur and Qi~Wang,
-\newblock ``Power reduction techniques and flows at rtl and system level'',
+\newblock ``Power reduction techniques and flows at {RTL} and system level'',
 \newblock {\em in} {\em 2009 22nd International Conference on VLSI Design}, pp.
   28--29. IEEE, 2009.
 
 \bibitem{clockgating}
 Jitesh Shinde and SS~Salankar,
-\newblock ``Clock gating—a power optimizing technique for vlsi circuits'',
+\newblock ``Clock gating -- a power optimizing technique for {VLSI} circuits'',
 \newblock {\em in} {\em 2011 Annual IEEE India Conference}, pp. 1--4. IEEE,
   2011.
 
@@ -772,12 +772,12 @@ W.~Decker, G.-M. Greuel, G.~Pfister, and H.~Sch{\"o}nemann,
 
 \bibitem{BLIF}
 UC~Berkeley,
-\newblock ``Berkeley logic interchange format (blif)'',
+\newblock ``Berkeley logic interchange format ({BLIF})'',
 \newblock {\em Oct Tools Distribution}, vol. 2, pp. 197--247, 1992.
 
 \bibitem{brayton2010abc}
 Robert Brayton and Alan Mishchenko,
-\newblock ``Abc: An academic industrial-strength verification tool'',
+\newblock ``{ABC}: An academic industrial-strength verification tool'',
 \newblock {\em in} {\em Computer Aided Verification}, pp. 24--40. Springer,
   2010.
 
@@ -785,28 +785,29 @@ Robert Brayton and Alan Mishchenko,
 Ellen~M Sentovich, Kanwar~Jit Singh, Luciano Lavagno, Cho Moon, Rajeev Murgai,
   Alexander Saldanha, Hamid Savoj, Paul~R Stephan, Robert~K Brayton, and
   Alberto Sangiovanni-Vincentelli,
-\newblock ``Sis: A system for sequential circuit synthesis'',
+\newblock ``{SIS}: A system for sequential circuit synthesis'',
 \newblock 1992.
 
 \bibitem{brayton1996vis}
 Robert~K Brayton, Gary~D Hachtel, Alberto Sangiovanni-Vincentelli, Fabio
   Somenzi, Adnan Aziz, Szu-Tsung Cheng, Stephen Edwards, Sunil Khatri, Yuji
-  Kukimoto, Abelardo Pardo, et~al.,
-\newblock ``Vis: A system for verification and synthesis'',
+  Kukimoto, Abelardo Pardo, Shaz Qadeer, Rajeev~K Ranjan, Shaker Sarwary,
+  Thomas~R Shiple, Gitanjali Swamy, and Tiziano Villa,
+\newblock ``{VIS}: A system for verification and synthesis'',
 \newblock {\em in} {\em Computer Aided Verification}, pp. 428--432. Springer,
   1996.
 
 \bibitem{TimDAC}
 Tim Pruss, Priyank Kalla, and Florian Enescu,
-\newblock ``Equivalence verification of large galois field arithmetic circuits
-  using word-level abstraction via gr{\"o}bner bases'',
+\newblock ``Equivalence verification of large {G}alois field arithmetic
+  circuits using word-level abstraction via {G}r{\"o}bner bases'',
 \newblock {\em in} {\em Proceedings of the The 51st Annual Design Automation
   Conference on Design Automation Conference}, pp. 1--6. ACM, 2014.
 
 \bibitem{biere2013lingeling}
 Armin Biere,
-\newblock ``Lingeling, plingeling and treengeling entering the sat competition
-  2013'',
+\newblock ``Lingeling, plingeling and treengeling entering the {SAT}
+  competition 2013'',
 \newblock {\em Proceedings of SAT Competition 2013; Solver and}, p.~51, 2013.
 
 \bibitem{abc}
@@ -824,26 +825,26 @@ Ana Petkovska, David Novo, Alan Mishchenko, and Paolo Ienne,
 
 \bibitem{modelrotation}
 Joao Marques-Silva and Ines Lynce,
-\newblock ``On improving mus extraction algorithms'',
+\newblock ``On improving {MUS} extraction algorithms'',
 \newblock {\em in} {\em International Conference on Theory and Applications of
   Satisfiability Testing}, pp. 159--173. Springer, 2011.
 
 \bibitem{belov2011accelerating}
 Anton Belov and Joao Marques-Silva,
-\newblock ``Accelerating mus extraction with recursive model rotation'',
+\newblock ``Accelerating {MUS} extraction with recursive model rotation'',
 \newblock {\em in} {\em Formal Methods in Computer-Aided Design (FMCAD), 2011},
   pp. 37--40. IEEE, 2011.
 
 \bibitem{cimatti2007simple}
 Alessandro Cimatti, Alberto Griggio, and Roberto Sebastiani,
 \newblock ``A simple and flexible way of computing small unsatisfiable cores in
-  sat modulo theories'',
+  {SAT} modulo theories'',
 \newblock {\em in} {\em International Conference on Theory and Applications of
   Satisfiability Testing}, pp. 334--339. Springer, 2007.
 
 \bibitem{ceiSTOC96}
 Matthew Clegg, Jeffery Edmonds, and Russell Impagliazzo,
-\newblock ``Using the groebner basis algorithm to find proofs of
+\newblock ``Using the {G}roebner basis algorithm to find proofs of
   unsatisfiability'',
 \newblock {\em in} {\em Proceedings of the twenty-eighth annual ACM symposium
   on Theory of computing}, pp. 174--183. ACM, 1996.
@@ -851,33 +852,33 @@ Matthew Clegg, Jeffery Edmonds, and Russell Impagliazzo,
 \bibitem{STABLE}
 Evgeny Pavlenko, Markus Wedler, Dominik Stoffel, Wolfgang Kunz, Alexander
   Dreyer, Frank Seelisch, and G~Greuel,
-\newblock ``Stable: A new qf-bv smt solver for hard verification problems
-  combining boolean reasoning with computer algebra'',
+\newblock ``Stable: A new {QF}-{BV} {SMT} solver for hard verification problems
+  combining {B}oolean reasoning with computer algebra'',
 \newblock {\em in} {\em Design, Automation \& Test in Europe Conference \&
   Exhibition (DATE), 2011}, pp. 1--6. IEEE, 2011.
 
 \bibitem{PolyBoRi}
 Michael Brickenstein and Alexander Dreyer,
-\newblock ``Polybori: A framework for gr{\"o}bner-basis computations with
-  boolean polynomials'',
+\newblock ``{P}oly{B}o{R}i: A framework for {G}r{\"o}bner-basis computations
+  with {B}oolean polynomials'',
 \newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345, 2009.
 
 \bibitem{condratTACAS07}
 Christopher Condrat and Priyank Kalla,
-\newblock ``A gr{\"o}bner basis approach to cnf-formulae preprocessing'',
+\newblock ``A {G}r{\"o}bner basis approach to {CNF}-formulae preprocessing'',
 \newblock {\em in} {\em Tools and Algorithms for the Construction and Analysis
   of Systems}, pp. 618--631. Springer, 2007.
 
 \bibitem{Zengler2010}
 Christoph Zengler and Wolfgang K{\"u}chlin,
-\newblock ``Extending clause learning of sat solvers with boolean gr{\"o}bner
-  bases'',
+\newblock ``Extending clause learning of {SAT} solvers with {B}oolean
+  {G}r{\"o}bner bases'',
 \newblock {\em in} {\em Computer Algebra in Scientific Computing}, pp.
   293--302. Springer, 2010.
 
 \bibitem{li2009maxsat}
 Chu~Min Li and Felip Manya,
-\newblock ``Maxsat, hard and soft constraints.'',
+\newblock ``{M}ax{SAT}, hard and soft constraints'',
 \newblock {\em Handbook of satisfiability}, vol. 185, pp. 613--631, 2009.
 
 \bibitem{lee2008bi}
@@ -888,9 +889,9 @@ Ruei-Rung Lee, Jie-Hong~R Jiang, and Wei-Lun Hung,
   ACM/IEEE}, pp. 636--641. IEEE, 2008.
 
 \bibitem{cambazard2008reformulating}
-Hadrien Cambazard and Barry O’Sullivan,
-\newblock ``Reformulating table constraints using functional dependencies—an
-  application to explanation generation'',
+Hadrien Cambazard and Barry O'Sullivan,
+\newblock ``Reformulating table constraints using functional dependencies --
+  {A}n application to explanation generation'',
 \newblock {\em Constraints}, vol. 13, pp. 385--406, 2008.
 
 \bibitem{kalla:fmcad_tut2015}
@@ -901,22 +902,15 @@ Priyank Kalla,
   Computer-Aided Design}, pp. 2--2. FMCAD Inc, 2015.
 
 \bibitem{f4}
-J-C. Faug\~{e}re,
+J-C. Faug\'{e}re,
 \newblock ``{A} {N}ew {E}fficient {A}lgorithm for {C}omputing {G}r\"obner
   {B}ases ({F}$_4$)'',
 \newblock {\em Journal of Pure and Applied Algebra}, vol. 139, pp. 61--88, June
   1999.
 
-\bibitem{polybori:2009}
-Michael Brickenstein and Alexander Dreyer,
-\newblock ``{P}olybori: {A} {F}ramework for {G}r{\"o}bner {B}asis
-  {C}omputations with {B}oolean {P}olynomials'',
-\newblock {\em Journal of Symbolic Computation}, vol. 44, pp. 1326--1345,
-  September 2009.
-
 \bibitem{craig-interpolate}
 William Craig,
-\newblock ``Linear reasoning. a new form of the herbrand-gentzen theorem'',
+\newblock ``Linear reasoning: A new form of the {H}erbrand-{G}entzen theorem'',
 \newblock {\em The Journal of Symbolic Logic}, vol. 22, pp. 250--268, 1957.
 
 \bibitem{pudlak:ci}
@@ -927,7 +921,7 @@ Pavel Pudl{\'a}k,
 
 \bibitem{sankaranarayanan2004non}
 Sriram Sankaranarayanan, Henny~B Sipma, and Zohar Manna,
-\newblock ``Non-linear loop invariant generation using gr{\"o}bner bases'',
+\newblock ``Non-linear loop invariant generation using {G}r{\"o}bner bases'',
 \newblock {\em ACM SIGPLAN Notices}, vol. 39, pp. 318--329, 2004.
 
 \bibitem{rosingbook}
@@ -936,7 +930,7 @@ Michael Rosing,
 \newblock Manning Publications Co., 1999.
 
 \bibitem{IEEE1363}
-IEEE~Working Group et~al.,
+IEEE~Working Group,
 \newblock ``{IEEE} 1363-2000: Standard specifications for public key
   cryptography'',
 \newblock {\em IEEE Standard, IEEE, New York, NY}, vol. 10017, 2000.
