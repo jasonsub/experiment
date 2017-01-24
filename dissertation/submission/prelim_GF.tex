@@ -108,13 +108,20 @@ $\F_{p^{k}}$.
 
 Fields of the form $\F_{p^{k}}$ are called Galois extension fields.
 We are specifically interested in extension fields of type 
-$\Fkk$, where $k > 1$. These are extensions of the binary
-field $\F_2$.
+$\Fkk$, where $k > 1$, because they are extensions of the binary
+field $\F_2$. Elements and operators in $\F_2$ can be mapped to 
+Boolean values and Boolean operators, as Table \ref{tab:1stTab} shows.
+Notice that addition over $\F_2$ is a Boolean {\sc XOR} operation, 
+because it is performed modulo $2$.
+Similarly, multiplication over $\F_2$ performs a Boolean {\sc AND} operation.
 
-\begin{table}[!h]
-\caption{Addition and multiplication operations over $\F_2$.}
+\begin{table}[bp]
+% \vspace{-0.3cm}
+\caption{Addition and multiplication operations over $\F_2$.\vspace{0.5cm}}
 	\centering
+	\label{tab:1stTab}
 	\begin{tabular}{m{1cm}|l|ll|m{1cm}}
+% 	\indent\\
 	\hhline{~---~}
 	\multirow{3}{*}{} & $+$ & $0$ & $1$ & \multirow{3}{*}{} \\
 	\hhline{~---~}
@@ -126,6 +133,7 @@ field $\F_2$.
 	\end{tabular}
 	\quad
 	\begin{tabular}{m{1cm}|l|ll|m{1cm}}
+% 	\indent\\
 	\hhline{~---~}
 	\multirow{3}{*}{} & $\cdot$ & $0$ & $1$ & \multirow{3}{*}{} \\
 	\hhline{~---~}
@@ -135,12 +143,9 @@ field $\F_2$.
 	\multicolumn{5}{c}{}\\
 	\multicolumn{5}{c}{Multiplication over $\F_2$}\\
 	\end{tabular}
+	
+	
 \end{table}
-
-Notice that addition over $\F_2$ is a Boolean {\sc XOR} operation, 
-because it is performed modulo $2$.
-Similarly, multiplication over $\F_2$ performs a Boolean {\sc AND} operation.
-
 
 Algebraic extensions of the binary field $\F_{2}$  
 are generally termed as {\it binary extension fields} $\Fkk$.
@@ -226,7 +231,7 @@ Each element also has an exponential $\alpha$
 representation. All three representations are shown in Table
 \ref{tab:gfelement}.
 
-\begin{table}[h]
+\begin{table}[bp]
 \begin{center}
 \caption{Bit-vector, Exponential and Polynomial representation of
 elements in  $\mathbb{F}_{2^4} = \mathbb{F}_2[x] \pmod{x^4+x^3+1}$.}\label{tab:gfelement} 
@@ -747,13 +752,6 @@ routine of several kinds of modern NB multipliers.
 The major benefit of NB multiplier origins from the sequential design. A straightforward design implementing 
 the cyclic-shift of operands and $\lambda$-Matrix logic component is the Massey-Omura multiplier.
 
-\begin{figure}[H]
-\centering{
-\includegraphics[width=\textwidth]{newfig/MasseyOmura.pdf}
-\caption{A typical SMSO structure of Massey-Omura multiplier.}
-\label{fig:MasseyOmura}}
-\end{figure}
-
 Figure \ref{fig:MasseyOmura} shows the basic architecture of a Massey-Omura multiplier. The operands
 $A$ and $B$ are 2 arrays of flip-flops which allow 1-bit right-cyclic shift every clock cycle.
 The logic gates in the boxes implements the matrix multiplication with $\lambda$-Matrix $M^{(0)}$, 
@@ -769,6 +767,13 @@ The SMSO architecture need $C_N$ AND gates and $C_N-1$ XOR gates, which equals t
 if it is designed using ONB. In fact, the number of gates can be reduced if the multiplication is 
 implemented using a conjugate of SMSO.
 
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=\textwidth]{newfig/MasseyOmura.pdf}
+\caption{A typical SMSO structure of Massey-Omura multiplier.}
+\label{fig:MasseyOmura}}
+\end{figure}
+
 The gate-level logic boxes implement the following function:
 \begin{equation}
 \label{eqn:SMPOterms}
@@ -779,13 +784,6 @@ clock cycle, make $k$ outputs and add them up using shift register after $k$ clo
 it will generate the same result with SMSO. This kind of architecture is named as a 
 sequential multiplier with parallel outputs (SMPO). The basic SMPO, as a conjugate of Massey-Omura multiplier,
 was invented by Agnew {\it et al.} \cite{agnew1991implementation}.
-
-\begin{figure}[H]
-\centering{
-\includegraphics[width=\textwidth]{newfig/mySMPO.eps}
-\caption{5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda$-Matrix $M^{(0)}$, {\it i.e.} if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \pmod 5$. Index $w = 2i\pmod 5$.}
-\label{fig:SMPO}}
-\end{figure}
 
 \begin{Example}[5-bit Agnew's SMPO]
 Given GF $\mathbb F_{2^5}$ and primitive element $\alpha$ defined by irreducible polynomial 
@@ -801,6 +799,13 @@ M^{(0)} = \left(\begin{array}{lcccr}
 \end{array}\right)
 \end{equation*}
 Then a typical design of 5-bit Agnew's SMPO is depicted in Figure \ref{fig:SMPO}.
+
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=\textwidth]{newfig/mySMPO.eps}
+\caption{5-bit Agnew's SMPO. Index $i$ satisfies $0<i<4$, indices $u,v$ are determined by column \# of nonzero entries in $i$-th row of $\lambda$-Matrix $M^{(0)}$, {\it i.e.} if entry $M_{ij}^{(0)}$ is a nonzero entry, $u$ or $v$ equals to $i+j \pmod 5$. Index $w = 2i\pmod 5$.}
+\label{fig:SMPO}}
+\end{figure}
 
 The operands part of this circuit is the same with Massey-Omura multiplier. The differences are on 
 the matrix multiplication part, while it is implemented as separate logic blocks for 5 outputs,
@@ -852,13 +857,6 @@ some of them jump out of the box and are independent from $\lambda$-Matrix.
 One competitive multiplier design of this type is invented by Reyhani-Masoleh and Hasan 
 \cite{RHmulti}, which is therefore called RH-SMPO.
 
-\begin{figure}[H]
-\centering{
-\includegraphics[width=\textwidth]{newfig/5bitRH.pdf}
-\caption{A 5-bit RH-SMPO.}
-\label{fig:5bitRH}}
-\end{figure}
-
 Figure \ref{fig:5bitRH} is a 5-bit RH-SMPO which is functionally equivalent to 5-bit Agnew's SMPO 
 in Figure \ref{fig:SMPO}. A brief proof is as follows: 
 
@@ -889,7 +887,7 @@ following algorithm:
 
 \begin{algorithm}[H]
 \SetAlgoNoLine
-
+\LinesNumbered
  \KwIn{$A,B\in \Fkk$ given {\it w.r.t.} NB $N$}
  \KwOut{$R=A\times B$}
 %%%%%%%%%%%%%%%%%%%%
@@ -907,8 +905,15 @@ In this algorithm, we use a fixed auxiliary function $F_{k-1}$ inside the loop.
 This is because of equation
 $$F_{k-l} = F_{k-1}(A^{2^{l-1}},B^{2^{l-1}}),~~1\le l\le k$$
 So using fixed $F_{k-1}$ and squaring $A^{2^i}$ every time inside the loop is equivalent to computing 
-$F_{k-1},F_{k-2},\dots,F_0$ with fixed operands $A,B$.
+sequence $F_{k-1},F_{k-2},\dots,F_0$ with fixed operands $A,B$.
 \end{Proof}
+
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=\textwidth]{newfig/5bitRH.pdf}
+\caption{A 5-bit RH-SMPO.}
+\label{fig:5bitRH}}
+\end{figure}
 
 To better understand the mechanism of RH-SMPO, we will use this 5-bit 
 RH-SMPO as an example and introduce the details on how to design it.
@@ -921,7 +926,7 @@ $$i = k-1 = 4;~~v=\lfloor 5/2 \rfloor = 2$$
 \label{eqn:5bitRHaux}
 F_{4}(A,B) = a_4b_4\beta+\sum_{j=1}^2 d_{4,j}\beta^{1+2^j} = d_0\beta+\sum_{j=1}^2 d_{4,j}\beta^{1+2^j}
 \end{equation}
-Consider indices $4+1=0\bmod 5,~4+2=1\bmod 5$, write down gates in $c$-layer and $d$-layer (besides $d_0$)
+Consider equality of indices $4+1=0\bmod 5,~4+2=1\bmod 5$, we can write down gates in $c$-layer and $d$-layer (besides $d_0$)
 $$c_1 = a_0+a_4,~c_2 = b_0+b_4,~d_1=d_{4,1}= c_1c_2 = (a_4+a_0)(b_4+b_0)$$
 $$c_3 = a_1+a_4,~c_4 = b_1+b_4,~d_2=d_{4,2}= c_3c_4 = (a_4+a_1)(b_4+b_1)$$
 The difficult part of the whole design is to deploy XOR gates in $e$-layer. 
@@ -965,7 +970,7 @@ It is a known fact that M-table $T$ can be converted from $\lambda$-Matrix $M$:
 $$M_{i,j}^{(0)} = T_{j-i,-i}$$
 with indices reduced modulo $k$ (proof given in Appendix \ref{append:ONB}). Thus we can write down the M-table of $\mathbb F_{2^5}$ with current NB $N$:
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=3in]{newfig/multitable.pdf}
 \caption{A $5\times 5$ multiplication table.}

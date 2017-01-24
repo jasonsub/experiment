@@ -1,5 +1,6 @@
 \chapter{Previous Work}
 \label{ch:prev}
+\vspace{-0.8cm}
 \section{Sequential Equivalence Checking}
 As an important component of formal verification for sequential circuits, SEC techniques 
 have been developed over decades and widely utilized in both academia and industry. 
@@ -38,7 +39,7 @@ is copied over several time-frames then connected together.
 The procedure is called {\it unrolling} of sequential circuit, as 
 Figure \ref{fig:unrolling} shows.
 
-\begin{figure}[h]
+\begin{figure}[bp]
 \centerline{
 \includegraphics[width=\textwidth]{newfig/unroll.pdf}
 }
@@ -69,10 +70,10 @@ negative co-factors of $f$ {\it w.r.t.} $x$, respectively.
 A BDD is usually represented as a binary tree.
 Its ordered and reduced form -- the Reduced Ordered Binary Decision Diagram (ROBBD)
 \cite{BRYA86}, was the first significant contribution because of its canonicity.  
- ROBDDs represent a Boolean function as an
+ROBDDs represent a Boolean function as an
 implicit set of points on a canonical directed acyclic graph
 (DAG). Manipulation of Boolean functions can then be carried out as
-composition operations on their respective DAGs. 
+composition operations on their respective DAGs. An example of ROBDD is shown as Figure \ref{fig:BDD}.
 
 Following BDDs,  variants of the Shannon's decomposition principle
 were explored to develop other functional decision diagrams such as
@@ -82,7 +83,7 @@ Zero-suppressed BDDs (ZDDs) \cite{minato1993zero,minato1994calculation} use the 
 to represent the existence of variables in a cube, and result in lower 
 space complexity. It can be used to represent polynomials with integer coefficients.
 
-\begin{figure}[h]
+\begin{figure}[bp]
 \centerline{
 \includegraphics[width=0.45\textwidth]{newfig/BDD.pdf}
 }

@@ -240,7 +240,7 @@ This reduction process is shown in Algorithm \ref{alg:polydiv}.
 
 \begin{algorithm}[H]
 \SetAlgoNoLine
-
+\LinesNumbered
  \KwIn{$f,f_{1},\dots,f_{s}$}
  \KwOut{$r,a_{1},\dots,a_{s}$, such that $f=a_{1}\cdot f_{1}+\dots+a_{s}\cdot f_{s}+r$.}
  
@@ -668,7 +668,7 @@ $L=lcm(lt(f),lt(g))=lt(f)\cdot lt(g)$. Then:
 = lt(g)\cdot f - lt(f)\cdot g \nonumber
 \end{equation}
 Thus, every monomial in $Spoly(f, g)$ is divisible by either $lt(f)$ 
-or $lt(g)$, so computing 
+or $lt(g)$, so computing the remainder of \textit{Spoly}: 
 $Spoly(f, g) \stackrel{f,g}{\textstyle\longrightarrow}_+r$ will give $r=0$.
 \end{Proof}
 
@@ -907,15 +907,15 @@ abstraction of a circuit.
 Assume we are given a set of polynomials $f_1,\dots,f_s$ from a ring $\Fq[x_1,\dots,x_l,\dots,x_d]$.
 First, we show that eliminating $x_1,\dots,x_l$ variables related to 
 {\it projecting} the variety $V(\langle f_1,\dots,f_s\rangle)$ from 
-$\Fq^d$ to $\Fq^{d-l}$. Figure \ref{fig:projection} is an example of projection in space of varieties
+$\Fq^d$ to $\Fq^{d-l}$. Figure \ref{fig:3Dprojection} is an example of projection in space of varieties
 from $\Fq^3$ to $\Fq^2$, corresponding to eliminating variable $x_1$ from 
 a system of polynomials belonging to $\Fq[x_1,x_2,x_3]$.
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/projection.pdf}
 \caption{An example of projection from $\Fq^3$ to $\Fq^2$.}
-\label{fig:projection}}
+\label{fig:3Dprojection}}
 \end{figure}
 
 Formally, we define concepts of projection and elimination ideal:
@@ -999,13 +999,6 @@ $g_2$ and $g_3$ to obtain solutions for $y$, and so on.
 
 Elimination theory provides the basis for following abstraction approach.
 \subsection{Abstraction using Nullstellensatz and Gr\"obner Basis}
-\begin{figure}[H]
-\centering{
-\includegraphics[width=\textwidth]{newfig/abs_setup.pdf}
-\caption{Galois field arithmetic circuit model for abstraction.}
-\label{fig:abs_setup}}
-\end{figure}
-
 \begin{Problem}
 \label{setup:abs}
 Let $S$ be the system of polynomials, 
@@ -1018,8 +1011,14 @@ For any circuit $\mathcal C$, $Z = \Func(A)$. Then how to derive this function $
 using GB?
 \end{Problem}
 
-The polynomial representation of $\Func$ over $\Fkk$ is:
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=\textwidth]{newfig/abs_setup.pdf}
+\caption{Galois field arithmetic circuit model for abstraction.}
+\label{fig:abs_setup}}
+\end{figure}
 
+The polynomial representation of $\Func$ over $\Fkk$ is:
 \begin{equation}
 f_{\Func}: Z+\Func(A_1,\dots,A_n) \nonumber
 \end{equation}
@@ -1121,7 +1120,7 @@ $c_0, c_1, c_2, c_3, r_0$ are intermediate variables.
 %corresponds to AND-gate, i.e. bit-level multiplication modulo 2. The
 %gate $\oplus$ corresponds to XOR-gate, i.e. addition modulo 2.
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centerline{
 \includegraphics[scale=0.5]{./figures/2bitmasmult.eps}
 }

@@ -1,10 +1,6 @@
 \chapter{Introduction}
 \label{ch:intro}
-
-
-
-
-
+\vspace{-0.8cm}
 \section{Hardware Design and Verification Overview}
 During the past decades, the level of integration in modern VLSI systems is becoming higher and higher because of the Moore's law.
 As a result, an entire system with billions of transistors can be built upon a single chip.
@@ -37,16 +33,6 @@ is a good example where simulation failed. Failure occurred with input assignmen
 test engineers from Intel failed to detect the bug,  which brought about $\$475$ million dollars recalling bill
 for the company. Thus,  new methods that can guarantee the correctness of the design are necessary to be explored.
 
-{
-\begin{figure}[h]
-\centerline{
-\includegraphics[width=0.7\textwidth]{newfig/designflow.eps}
-}
-\caption{Typical hardware design flow.}
-\label{fig:designflow}
-\end{figure}
-}
-
 Another method developed besides simulation is \emph{formal verification}, it utilizes 
 mathematical theory to reason about the correctness of hardware designs.
 Formal verification can provide $100\%$ fault coverage from two aspects. On the one hand,  
@@ -59,8 +45,6 @@ Formal verification has two main forms: property checking and equivalence
 checking. 
 
 \section{Formal Verification: Property and Equivalence Checking}
-
-
 {\it Property checking} (or property verification) verifies
 that a design satisfies certain given properties. Property checking is done mainly 
 in the form of theorem proving (TP), model checking (MC), or TP/MC hybrid approaches.
@@ -90,6 +74,14 @@ multiple steps in the hardware design flow in Figure \ref{fig:designflow},
 such as checking functional equivalence between HDL description and RTL,
 checking RTL equivalence between RTL and synthesized/optimized netlist, 
 and checking layout verification between netlist and layout for fabrication.
+
+\begin{figure}[bp]
+\centerline{
+\includegraphics[width=0.7\textwidth]{newfig/designflow.eps}
+}
+\caption{Typical hardware design flow.}
+\label{fig:designflow}
+\end{figure}
 
 There are three major
 equivalence checking techniques: graph-based,
@@ -122,7 +114,7 @@ proof and fix-point calculation \cite{bjesse2000sat,stoffel1997record}.
 \end{enumerate}
 
 
-\begin{figure}[h]
+\begin{figure}[bp]
 \centering{
 \includegraphics[scale=0.3]{newfig/fig_SAT.eps}
 \caption{An example of equivalence checking on miter of circuit $A$ and $B$ using SAT.}

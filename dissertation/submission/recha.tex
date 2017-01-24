@@ -71,13 +71,13 @@ Concretely, the algorithm is given in Algorithm \ref{alg:BFS}:
 % \end{algorithm}
 % \DecMargin{1em}
 
-\IncMargin{1em}
+% \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
 \LinesNumbered
-\Indm
+% \Indm
  \KwIn{Transition functions $\Delta$, initial state $S^0$}
-\Indp
+% \Indp
 
   $from^0 = reached = S^0$\;
   \Repeat{$new^i == 0$}
@@ -91,7 +91,7 @@ Concretely, the algorithm is given in Algorithm \ref{alg:BFS}:
 \Return{$reached$}
 \caption {BFS Traversal for FSM Reachability}\label{alg:BFS}
 \end{algorithm}
-\DecMargin{1em}
+% \DecMargin{1em}
 
 Above algorithm describes a breath-first-search (BFS) traversal in
 state space. The traversal algorithm is a simple variation of BFS algorithm where 
@@ -128,14 +128,6 @@ In order to throw light on the advantages using word-level techniques, we pick a
 digital circuit component in modern 64-bit MIPS processor as an example.
 
 \begin{Example}
-
-\begin{figure}[H]
-\centering{
-\includegraphics[width=\textwidth]{newfig/MIPS.pdf}
-\caption{A 64-bit sequential multiplication hardware design.}
-\label{fig:MIPS}}
-\end{figure}
-
 Figure \ref{fig:MIPS} depicts a sequential multiplication hardware implementation within a 64-bit 
 MIPS. Initially, one multiplicand is preloaded to the lower 64 bits of the product registers. 
 Iteratively, the last significant bit (LSB) of current (temporary) product is used as flag to activate the ALU 
@@ -145,14 +137,14 @@ the registers contains the result -- 128 bits product. The behavior can be descr
 
 % \vspace{0.2in}
 
-\IncMargin{1em}
+% \IncMargin{1em}
 \begin{algorithm}[H]
 \SetAlgoNoLine
 \LinesNumbered
-\Indm
+% \Indm
  \KwIn{Multiplicand $A,B$}
  \KwOut{Product $C$}
-\Indp
+% \Indp
 
   Preload $B$ into lower 64-bit of Product Register $P$\;
   \Repeat{64 Repetitions}
@@ -166,9 +158,14 @@ the registers contains the result -- 128 bits product. The behavior can be descr
 \Return{$C=P$}
 \caption {Sequential multiplication hardware in 64-bit MIPS}\label{alg:MIPS}
 \end{algorithm}
-\DecMargin{1em}
+% \DecMargin{1em}
 
-\vspace{0.2in}
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=\textwidth]{newfig/MIPS.pdf}
+\caption{A 64-bit sequential multiplication hardware design.}
+\label{fig:MIPS}}
+\end{figure}
 
 % List the detailed bit-level property need to check P==P+B
 Traditionally, to verify the functional correctness of this multiplier, satisfiability (SAT) based or BDD based 
@@ -215,14 +212,6 @@ which can be applied over finite fields. Here we use an example to illustrate th
 conversion in Galois field using Lagrange's interpolation for an arbitrary circuit.
 
 \begin{Example}[Lagrange's interpolation]
-
-\begin{figure}[H]
-\centering{
-\includegraphics[width=4in]{newfig/Lagrange.pdf}
-\caption{Gate-level netlist for Lagrange's interpolation example.}
-\label{fig:Lagrange}}
-\end{figure}
-
 Assume we are given gate-level netlist shown in Figure \ref{fig:Lagrange}. It can be written as 3 
 Boolean equations:
 \begin{align*}
@@ -236,10 +225,24 @@ To convert bit-level to word-level, we need to find mapping $\mathbb{B}^3 \right
 or $\F_{2^3} \rightarrow \F_{2^3}$. The latter one, as mentioned in preliminaries, is a polynomial
 function in $\F_{2^3}$.
 
-For each element in $\F_{2^3}$, we write down the truth table as follows:
-\begin{table}[H]
-\label{tab:truthtable}
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=4in]{newfig/Lagrange.pdf}
+\caption{Gate-level netlist for Lagrange's interpolation example.}
+\label{fig:Lagrange}}
+\end{figure}
+
+For each element in $\F_{2^3}$, we write down the truth table as Table \ref{tab:truthtable}.
+Now our objective is to abstract a function over finite field $\F_{2^3}$ in word-level variables, {\it i.e.} 
+$Z = \Func(A)$. Recall Lagrange's interpolation formula:
+\begin{equation}
+\label{eqn:Lagrange}
+\Func(x) =  \sum_{k=1}^N \left[ \prod_{(0\leq j \leq k-1),(j\neq i)}\frac{x-x_j}{x_i-x_j} \cdot y_k \right]
+\end{equation}
+
+\begin{table}[bp]
 \caption{Truth table for mappings in $\mathbb{B}^3$ and $\F_{2^3}$.}
+\label{tab:truthtable}
 \centering{\small
 \begin{tabular}{|c|ccc|c|}
 \hline
@@ -257,12 +260,7 @@ $\{a_2a_1a_0\}\in\mathbb{B}^3$   & $A\in \F_{2^3}$ &$\rightarrow$& $\{z_2z_1z_0\
 \end {tabular}
 }
 \end{table}
-Now our objective is to abstract a function over finite field $\F_{2^3}$ in word-level variables, {\it i.e.} 
-$Z = \Func(A)$. Recall Lagrange's interpolation formula:
-\begin{equation}
-\label{eqn:Lagrange}
-\Func(x) =  \sum_{k=1}^N \left[ \prod_{(0\leq j \leq k-1),(j\neq i)}\frac{x-x_j}{x_i-x_j} \cdot y_k \right]
-\end{equation}
+
 The geometric meaning of Lagrange's interpolation in real algebra is: given $N$ points with coordinates $(x_i,y_i)$,
 they can always be fitted into a polynomial function with at most $N-1$ degree, and that function can be 
 written in the form of Equation \ref{eqn:Lagrange}. In this example, although defined in a Galois field instead of 
@@ -353,7 +351,12 @@ We can define 2 $k$-bit words denoting the PS/NS variables as there are $k$ flip
 in the datapath: $S = (s_1,\dots,s_k), ~T=(t_1,\dots,t_k)$. Transition function
 at bit level are defined as $\Delta_i$: 
 $$t_i = \Delta_i(s_1,\dots,s_k,x_1,\dots,x_m)$$
-\begin{figure}[H]
+
+In some cases, arithmetic computations are implemented as Moore machines where input operands
+are loaded into register files $R$ and the FSM is executed for $k$ clock cycles.
+We can simplify them to the model in Figure \ref{fig:seqmodel}(b).
+
+\begin{figure}[bp]
 \centering{
 %\begin{minipage}{12cm}
 \includegraphics[width=5.5in]{newfig/seqmodel.pdf}
@@ -362,9 +365,6 @@ $$t_i = \Delta_i(s_1,\dots,s_k,x_1,\dots,x_m)$$
 %\end{minipage}
 \label{fig:seqmodel}}
 \end{figure}
-In some cases, arithmetic computations are implemented as Moore machines where input operands
-are loaded into register files $R$ and the FSM is executed for $k$ clock cycles.
-We can simplify them to the model in Figure \ref{fig:seqmodel}(b).
 
 \subsection{Conventional Traversal Method}
 Conceptually, the state-space of a FSM is traversed in a breadth-first
@@ -412,7 +412,7 @@ of Figure \ref{fig:fsm}. {\it We will first describe its operation at the
 Boolean level, and then describe how this algorithm can be implemented
 using algebraic geometry at word level.} 
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/new_stg.eps}
 \caption{The example FSM and the gate-level implementation. }
@@ -669,15 +669,15 @@ $$G\cap \Fkk[T]$$
 \end{Problem}
 
 
-\IncMargin{1em}
+% \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
 \LinesNumbered
-\Indm
+% \Indm
  \KwIn{The circuit's characteristic polynomial ideal $J_{ckt}$,
    initial state polynomial $\F(S)$, and LEX term order: bit-level
    variables $x, s, t$ $>$ PS word $S$ $>$ NS word $T$}
-\Indp
+% \Indp
 
   $from^0 = reached = \Func(S)$\;
   \Repeat{$\langle new^i\rangle == \langle 1\rangle$}
@@ -699,7 +699,7 @@ $$G\cap \Fkk[T]$$
 \Return{$\langle reached\rangle$}
 \caption {Algebraic Geometry based FSM Traversal}\label{alg:univa}
 \end{algorithm}
-\DecMargin{1em}
+% \DecMargin{1em}
 
 \subsection{Word-Level FSM Traversal Example}
 \begin{Example}
@@ -796,7 +796,7 @@ the elimination ideal obtained by quantify away the remaining variables.
 This projects the variety on the NS output $T$ by eliminating all other variables.
 This projection gives us the canonical representation of NS in a polynomial in $T$.
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/proj_reacha.pdf}
 \caption{Projection of the variety of circuit description ideal.}
@@ -994,14 +994,14 @@ $J_0^{PI} = \langle x_1^2-x_1,\dots,x_d^2-x_d\rangle$. Using elimination term or
 we can compute a GB of the elimination ideal $\langle f_T,f_S\rangle + J_0^{PI}$. This GB contains a univariate
 polynomial denoting next states. The improved algorithm is depicted in Algorithm \ref{alg:refined}.
 
-\IncMargin{1em}
+% \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
 \LinesNumbered
-\Indm
+% \Indm
  \KwIn{Input-output circuit characteristic polynomial ideal $J_{ckt}$, initial state polynomial $\Func(S)$}
  \KwOut{Final reachable states represented by polynomial $\mathcal G(T)$}
-\Indp
+% \Indp
 
   $from^0 = reached = \Func(S)$\;
   $f_T = $Reduce($Spoly(f_w,f_g), J_{ckt})$\;
@@ -1025,12 +1025,15 @@ polynomial denoting next states. The improved algorithm is depicted in Algorithm
 \Return{$\langle reached\rangle$}
 \caption {Refined Algebraic Geometry based FSM Traversal}\label{alg:refined}
 \end{algorithm}
-\DecMargin{1em}
+% \DecMargin{1em}
 
 \subsection{Primary Inputs Partitioning}
 Using above techniques we can get a remainder polynomial with only word-level PS/NS variables. However in most 
 cases, the number of bit-level PIs will be too large for the last-step Gr\"obner basis computation. 
 Therefore it is necessary to convert bit-level PIs to word-level PI variables. 
+
+As in Figure \ref{fig:PI}, assume there exist $k$-bit datapath and $n$-bit PIs. In finite field, we need to carefully partition $n$ PIs
+such that states of each partition can be covered by a univariate polynomial respectively.
 
 \begin{figure}[hbt]
 \centering{
@@ -1038,9 +1041,6 @@ Therefore it is necessary to convert bit-level PIs to word-level PI variables.
 \caption{PI partition of a sequential circuit.}
 \label{fig:PI}}
 \end{figure}
-
-Assume we have $k$-bit datapath and $n$-bit PIs. In finite field, we need to carefully partition $n$ PIs
-such that states of each partition can be covered by a univariate polynomial respectively.
 
 \begin{Proposition}
 Divide $n$-bit PIs into partitions $n_1,n_2,\dots, n_s$ where each $n_i|k$. Then let $n_1$-bit, $n_2$-bit, $\dots$, $n_s$-bit word-level variables
@@ -1083,7 +1083,7 @@ for NS word $T$, denoting the set of reachable states from given initial state.
 Figure \ref{fig:flowchart} illustrates the execution of reachability analysis approach
 based on C++ and \textsc{Singular} implementation.
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/flowchart.pdf}
 \caption{Execution process of word-level FSM traversal tool.}
@@ -1148,11 +1148,12 @@ word, and ``red\_X" denotes the vanishing polynomial for word $P$.
 
 
 After the script is executed, the traversal finishes after 4 
-transition iterations, which denotes BFS depth equals to 4. The final reachable states 
+transition iterations, which denotes BFS depth equals to 4. According to the output in
+Figure \ref{fig:Recha_result}, the final reachable states 
 is a degree-9 polynomial in $T$, indicating final reachable states set contains 9 states.
 And state encodings can be obtained by solving this polynomial equation.
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/SING.pdf}
 \caption{Singular script for executing bit-to-word substitution and traversal loop.}
@@ -1160,7 +1161,7 @@ And state encodings can be obtained by solving this polynomial equation.
 \end{figure}
 
 
-\begin{figure}[H]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/Recha_result.pdf}
 \caption{The output given by our traversal tool.}
@@ -1206,7 +1207,23 @@ correctness of our techniques and implementations, we compare the
 number of reachable states obtained from our tool against the results
 obtained from the VIS tool \cite{brayton1996vis}. 
 
-\begin{table}[H]
+In Table \ref{tab:recha_result}, \# States denotes the final reachable states
+starting from given reset state, which given by our tool is the same with
+the return value of {\it compute\_reach} in VIS. Meanwhile, from observation
+of the experiment run-times, we find the reduction runtime increases
+as the number of gates grows. Also, iterative reachability convergence
+check's runtime reflects both the size of present state/next state
+words ($k$) and the number of final reached states, which corresponds
+to the degree of polynomial {\it reached} in Algorithm \ref{alg:univa}. 
+Although the efficiency of our initial implementation fails to compete
+with the BDD based FSM analyzer VIS, the experiment
+demonstrates the power of abstraction of algebraic geometry techniques
+for reachability analysis applications. 
+% Currently, we are investigating techniques that
+% can help us overcome the complexity of the GB computation with elimination
+% orders and speed-up our approach. 
+
+\begin{table}[tbp]
 \centering
 \caption{Results of running benchmarks using our tool. 
 \small{Parts I to III denote the time taken by polynomial divisions,
@@ -1243,24 +1260,6 @@ donfile & 205  & 5  & 2 & 24 & 3  & 12316 & 0.02 & 1.7  & $<0.01$\\
 }
 \label{tab:recha_result}  
 \end{table} 
-
-In Table \ref{tab:recha_result}, \# States denotes the final reachable states
-starting from given reset state, which given by our tool is the same with
-the return value of {\it compute\_reach} in VIS. Meanwhile, from observation
-of the experiment run-times, we find the reduction runtime increases
-as the number of gates grows. Also, iterative reachability convergence
-check's runtime reflects both the size of present state/next state
-words ($k$) and the number of final reached states, which corresponds
-to the degree of polynomial {\it reached} in Algorithm \ref{alg:univa}. 
-Although the efficiency of our initial implementation fails to compete
-with the BDD based FSM analyzer VIS, the experiment
-demonstrates the power of abstraction of algebraic geometry techniques
-for reachability analysis applications. 
-% Currently, we are investigating techniques that
-% can help us overcome the complexity of the GB computation with elimination
-% orders and speed-up our approach. 
-
-%\vspace{-0.1in}
 
 \section{Concluding Remarks}
 This chapter has presented a new approach to perform reachability

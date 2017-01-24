@@ -71,7 +71,7 @@ In Figure \ref{fig:fsm}, we denote that
 $\{s_0, s_1\}$ are state/pseudo inputs, $\{t_0,t_1\}$ are state/pseudo outputs, and there is a primary input (1-bit) 
 $x$. We propose a new algorithm (Algorithm \ref{alg:multi}) by modifying Algorithm \ref{alg:univa}.
 
-\IncMargin{1em}
+% \IncMargin{1em}
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
 \LinesNumbered
@@ -91,7 +91,7 @@ $x$. We propose a new algorithm (Algorithm \ref{alg:multi}) by modifying Algorit
 \Return{$reached$}
 \caption {Algebraic Geometry based Traversal Algorithm (multivariate-generator ideals)}\label{alg:multi}
 \end{algorithm}
-\DecMargin{1em}
+% \DecMargin{1em}
 
 The inputs of this algorithm includes the transition polynomial (result of word-level abstraction) and initial 
 states description ideal, which contains 2 generators corresponding to constraints of PI and combinational input $S$. 
@@ -179,18 +179,18 @@ Another way is to utilize DDs, {\it e.g.} ZDDs. ZDDs can represent unate covers 
 We can represent $f$ using a ZDD, where every path in the ZDD from a root to a terminal corresponds
 to a monomial term.
 
-\begin{figure}[h]
+Figure \ref{fig:ZDD} shows a ZDD representing 
+Equation \ref{eqn:chainOR} with size $2\times4 -1 = 7$, which is linear in the number of variables.
+The reduction process using ZDDs can be executed as in \cite{PolyBoRi}. The graphical illustration 
+of the remainder in ZDDs is also shown in Figure \ref{fig:ZDD}. 
+
+\begin{figure}[bp]
 \centerline{
 \includegraphics[width=0.35\textwidth]{newfig/ZDD.eps}
 }
 \caption{A ZDD representing remainder polynomial reducing by a chain of OR gates with order $d>c>b>a$.}
 \label{fig:ZDD}
 \end{figure}
-
-Figure \ref{fig:ZDD} shows a ZDD representing 
-Equation \ref{eqn:chainOR} with size $2\times4 -1 = 7$, which is linear in the number of variables.
-The reduction process using ZDDs can be executed as in \cite{PolyBoRi}. The graphical illustration 
-of the remainder in ZDDs is also shown in Figure \ref{fig:ZDD}. 
 
 \subsection{Craig Interpolants in Algebraic Geometry}
 The concept of Craig Interpolants (CI) and their existence comes from
@@ -349,7 +349,7 @@ the following questions should also be investigated in the future:
   deliver the minimal (resp. maximal) interpolant?
 \ei
 
-\begin{figure}[h]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=4.5in]{newfig/project.eps}
 \caption{Algebraic interpolant: projection of varieties on common variables.}
@@ -383,7 +383,7 @@ blocks $B_i$ into design $N$, and write out the mapped design $N'$ which is equi
 design $D$. The objective is to generate a mapped design $N'$ with as many of $B_i$ such that the area
 and timing is optimal. The procedure is also illustrated in Figure \ref{fig:macro}.
 
-\begin{figure}[h]
+\begin{figure}[bp]
 	\begin{center}
 	\includegraphics[width=\textwidth]{newfig/macro.pdf}
 	\end{center}
@@ -512,7 +512,7 @@ where $Z$ is the output. When there is only one output, $Z$ collapses to a bit-l
 cases there are multiple outputs on the cut, indicating $Z$ as a word-level variable. Boolean function $\Func$ covers
 all inputs, and $i_1,i_2,\dots,i_n$ are all bit-level inputs.
 
-\begin{figure}[h]
+\begin{figure}[tbp]
 	\begin{center}
 	\includegraphics[width=\textwidth]{newfig/tobemapped.pdf}
 	\end{center}
@@ -557,7 +557,7 @@ $$Z+s_2\cdot s_3\cdot s_0+s_2\cdot s_3\cdot s_1+\alpha\cdot s_2\cdot s_3+s_0\cdo
 % \end{table}
 
 2) {\bf Templates on Boundary Information:}
-\begin{figure}[h]
+\begin{figure}[bp]
 	\begin{center}
 	\includegraphics[width=\textwidth]{newfig/template.pdf}
 	\end{center}
