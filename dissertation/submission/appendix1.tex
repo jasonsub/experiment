@@ -6,7 +6,7 @@ characterizing NB from a linear algebra perspective, constructing a general NB i
 arbitrary field, and converting between NB and StdB. All theorems and lemmas refer to the 
 dissertation of Gao \cite{gao:phd_normal_basis}, and we deduce all the proofs for them.
 \section{Characterization of Normal Basis}
-In order to depict the characterization of NB, we need the introduce some concepts from linear algebra domain.
+In order to depict the characterization of NB, we need to introduce some concepts from the domain of linear algebra.
 \begin{Definition}[Frobenius Map]
 Define map $\sigma:x\to x^p,~x\in \F_{p^n}$. This map denoting the linear map of field extension $\F_{p^n}$
 over $\F_p$.
@@ -26,7 +26,7 @@ We define the nullspace of a polynomial as:
 For any polynomial $g(x) \in \F[x]$, the null space of $g(T)$ consists of all vectors $u$ such that
 $g(T)u = 0$.
 \end{Definition}
-Finally we get to the most important concept: $T$-Order. It derives the construction of a ring extended 
+Finally we get to the most important concept: $T$-Order, which derives the construction of a ring extended 
 by a field requiring a minimal polynomial.
 \begin{Definition}
 For any vector $u \in V$, the monic polynomial $g(x) \in \F[x]$ with smallest degree such that
@@ -38,7 +38,7 @@ written as $$Ord_{\theta,\sigma}(x) = x^k - \sum_{i=0}^{k-1} c_ix^i$$
 \end{Definition}
 
 Using the concepts introduced above, along with other basic concepts in linear algebra and finite field theory,
-we can derive following theorems.
+we can derive the following theorems.
 
 \begin{Lemma}
 \label{lem:app1}
@@ -50,7 +50,7 @@ Assume $f(x)$ is the minimal and characteristic polynomial for $T$. Then accordi
 we obtain 
 $$W = \{u\in V~|~g(T)u = 0\}$$
 
-Let $k$ be a polynomial whose degree is larger than that of $f(x)$, {\it i.e.} $deg(k(x))>deg(f(x))$, then
+Let $k$ be a polynomial whose degree is larger than that of $f(x)$, i.e., $deg(k(x))>deg(f(x))$, then
 $$f(x)|k(x)~~\text{iff}~k(T)=0$$
 
 Since the construction of $f(x)$ relies on $T$, $f(T) = 0$, we get
@@ -111,12 +111,12 @@ Then $\forall \beta\in\F_{p^n}$,
 $$\left(\sum_if_i\sigma^i\right)\beta = \sum_if_i\beta^{p^i} = 0$$
 
 This equation denotes that $\beta$ is one of $p^n$ roots of polynomial $\Func(x) = \sum_if_i(x^{p^i})$.
-However, the maximum number of roots allowed equals to the degree of $\Func(x)$, which is 
+However, the maximum number of roots allowed equals the degree of $\Func(x)$, which is 
 $p^{n-1}<p^n$, we find a contradiction. Thus we conclude that
 $$\textit{Both characteristic and minimal polynomial is }x^n-1$$
 \end{Proof}
 
-From lemmas above we can deduce the following corollary:
+From the lemmas above we can deduce the following corollary:
 \begin{Corollary}
 \label{corol:1}
 An element $\alpha \in \F_{p^n}$ is a {\bf normal element} if and only if $Ord_{\alpha,\sigma}(x) = x^n-1$.
@@ -125,7 +125,7 @@ An element $\alpha \in \F_{p^n}$ is a {\bf normal element} if and only if $Ord_{
 Normal bases require $\{\beta,\beta^2,\dots,\beta^{2^{n-1}}\}$ to be linearly independent,
 which is equivalent to the following expression:
 $$\forall f(x)\in \F_p[x],~deg(f(x))<n$$
-Furthermore, because there is no annihilators in the $T$-Order, this implies that
+Furthermore, because there are no annihilators in the $T$-Order, this implies that
 $$Ord_{\alpha,\sigma}(x) = x^n-1$$
 \end{Proof}
 
@@ -164,17 +164,17 @@ as a normal element if and only if $\overline{\alpha_i} \neq 0,~ \forall i = 1,2
 \end{Theorem}
 
 Ultimately, since there always exist at least one element fulfilling requirements in Theorem \ref{thm:1}
-or Theorem \ref{thm:2}, we obtain following theorem:
+or Theorem \ref{thm:2}, we obtain the following theorem:
 \begin{Theorem}[Normal Basis Theorem over Finite Fields]
 There always exists a normal basis of $\F_{p^n}$ over $\F_p$.
 \end{Theorem}
 \section{Construction of General Normal Bases}
-After proving the existence of normal bases, the upcoming question is that how to find such a normal basis/element.
-For general normal basis identification, there are two methods widely used: the L\"uneburg's algorithm
+After proving the existence of normal bases, the upcoming question is how to find such a normal basis/element.
+For general normal basis identification, there are two methods widely used: L\"uneburg's algorithm
 and Lenstra's algorithm.
 
 \subsection{L\"uneburg's Algorithm}
-L\"uneburg's algorithm can be described with following steps:
+L\"uneburg's algorithm can be described with the following steps:
 
 \begin{enumerate}[{1)}]
 \item Randomly pick an element $\alpha$ from $\F_{p^n}$. For each $i = 0,1,\dots,n-1$, 
@@ -198,10 +198,10 @@ First, according to the definition of $T$-Order:
 $$f_i = Ord_{\alpha^i} \Leftrightarrow f_i(\sigma)\alpha^i = 0$$
 
 Use Lemma \ref{lem:3}, the minimal/characteristic polynomial for $\sigma$ is $x^n-1$ implies that
-any annihilator of $\alpha^i$ ({\it i.e.} $f_i(\sigma)$) divides $x^n-1$. Meanwhile, $\{\alpha^i~|~0<i<n-1\}$ forms a (standard) basis
+any annihilator of $\alpha^i$ (i.e., $f_i(\sigma)$) divides $x^n-1$. Meanwhile, $\{\alpha^i~|~0<i<n-1\}$ forms a (standard) basis
 of field $\F_{p^n}$, this means $\alpha_i$ are linearly independent with each other ($i=0,1,\dots,n-1$).
 Since linear map $f(\sigma)$ guarantees that all elements in the field 
-have order $lcm(f_0,\dots,f_{n-1})$, {\it i.e.} $f(\sigma)\gamma = f(\sigma)(\sum_i \alpha^i) \implies f(\sigma) = lcm(f_0,\dots,f_{n-1})$.
+have order $lcm(f_0,\dots,f_{n-1})$, i.e., $f(\sigma)\gamma = f(\sigma)(\sum_i \alpha^i) \implies f(\sigma) = lcm(f_0,\dots,f_{n-1})$.
 By contradiction we can prove that there is no factor of $x^n-1$ that can be divided by the product 
 of elements in set $\{f_0,f_1,\dots,f_{n-1}\}$. This actually corresponds to the assertion in the first step of the algorithm:
 $$x^n-1 = lcm(f_0,f_1,\dots,f_{n-1})$$
@@ -223,7 +223,7 @@ $$x^n-1 = Ord_{\sigma,\beta}(x) \implies \beta\text{ is a normal element.}$$
 \subsection{Lenstra's Algorithm}
 L\"uneburg's algorithm is an analytic method, which requires relatively high computational complexity 
 mainly because of the factorization in its second step. To overcome the high cost, an inductive method 
-is proposed, which is the Lenstra's algorithm. It allows for setup of heuristics to accelerate the procedure.
+is proposed, which is Lenstra's algorithm. It allows for setup of heuristics to accelerate the procedure.
 Before introducing the details of the algorithm, we demonstrate two preliminary lemmas.
 \begin{Lemma}
 \label{lem:4}
@@ -250,7 +250,7 @@ Therefore, $\exists \beta$ {\it i.e. }$g(\sigma)\beta = \theta$. Concretely, $\b
 \begin{Lemma}
 \label{lem:5}
 Define $\theta$ and $g(x)$ as in Lemma \ref{lem:4}. Assume there exists a solution 
-$\beta$ such that $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$. Respectively there exists a non-zero element $\eta$ such that
+$\beta$ such that $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$. Respectively there exists a nonzero element $\eta$ such that
 $$g(\sigma)\eta = 0$$
 and
 $$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$$
@@ -283,14 +283,14 @@ Since $\eta \neq 0$, we derive the result
 $$deg(Ord_{\theta+\eta}(x)) > deg(Ord_\theta(x))$$
 \end{Proof}
 
-Based on Lemmas \ref{lem:4} and \ref{lem:5}, the Lenstra's algorithm is described below:
+Based on Lemmas \ref{lem:4} and \ref{lem:5}, Lenstra's algorithm is described below:
 
 \begin{enumerate}[{1)}]
 \item Take an arbitrary element $\theta \in \F_{p^n}$, determine $Ord_\theta(x)$.
 \item If $Ord_\theta(x) = x^n - 1$ then algorithm terminates and return $\theta$ as a normal element.
 \item Otherwise, compute $g(x) = (x^n - 1)/Ord_\theta(x)$, and solve $\beta$ from $g(\sigma)\beta = \theta$.
 \item Determine $Ord_\beta(x)$. If $deg(Ord_\beta(x)) > deg(Ord_\theta(x))$ then replace $\theta$ by $\beta$ and go to 2);
-otherwise if $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$ then find a non-zero element $\eta$ such that $g(\sigma)\eta = 0$,
+otherwise if $deg(Ord_\beta(x)) \leq deg(Ord_\theta(x))$ then find a nonzero element $\eta$ such that $g(\sigma)\eta = 0$,
 replace $\theta$ by $\theta + \eta$ and determine the order of new $\theta$, and go to 2).
 \end{enumerate}
 
@@ -334,7 +334,7 @@ as parameters. Then we can obtain a solution to this system denoting mapping fro
 \end{equation}
 
 Directly constructing $\lambda$-Matrix is difficult for general NBs. 
-In Section \ref{sec:nbdesign}, we introduced the concept of multiplication table (M-table) and explained how its 
+In Section \ref{sec:nbdesign}, we introduced the concept of a multiplication table (M-table) and explained how its 
 entries are transformed from the $0$-th $\lambda$-Matrix. 
 Recall the M-table is defined as
 \begin{equation}
@@ -366,7 +366,7 @@ T = \left(\begin{array}{lccccccr}
 1 &0 &0 &1 &1 &0 &1 &0
 \end{array}\right)
 \end{equation*}
-Use equation $M_{i,j}^{(0)} = T_{j-i,-i}$, we can obtain the
+Using equation $M_{i,j}^{(0)} = T_{j-i,-i}$, we can obtain the
 $\lambda$-Matrix in Equation \ref{eqn:mat_R}.
 
 

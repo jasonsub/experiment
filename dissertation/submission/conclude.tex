@@ -34,7 +34,7 @@ then develop heuristics to improve the core that exploit the structure of the re
 An algorithm was implemented within the \textsc{Singular} computer algebra tool
 and experiments were conducted to validate the approach.
 
-Our approaches still have limitations: for word-level FSM traversal and 
+Our approaches still have limitations: For word-level FSM traversal and 
 sequential GF multiplier verification, our methods are more efficient
 for XOR-rich circuits, while most industrial designs are AND-OR gate dominant.
 For UNSAT core extraction, the abstraction refinement approach such as $k$-BMC 
@@ -43,7 +43,7 @@ the following further explorations are worthy of investigation.
   
 \section{Future Work}
 In this section, we highlight some research problems that deserve further study.
-\subsection{Multivariate Polynomial Ideal based FSM Traversal}
+\subsection{Multivariate Polynomial Ideal Based FSM Traversal}
 In Chapter \ref{ch:reacha}, we always use a single word-level variable $T$ to denote the
 next state. However, in some situations we need to keep recording the relations between $T$ and
 the inputs, {\it e.g.} the reached states contain multivariate polynomials in $T$, as well as 
@@ -93,7 +93,7 @@ $x$. We propose a new algorithm (Algorithm \ref{alg:multi}) by modifying Algorit
 \end{algorithm}
 % \DecMargin{1em}
 
-The inputs of this algorithm includes the transition polynomial (result of word-level abstraction) and initial 
+The inputs of this algorithm include the transition polynomial (result of word-level abstraction) and initial 
 states description ideal, which contains 2 generators corresponding to constraints of PI and combinational input $S$. 
 For example, $\langle S+1+\alpha, x^2+x\rangle$ means initial state$=\{11\}$,
 $\langle S+x\cdot\alpha, x^2+x\rangle$ means initial states$=\{00,10\}$).
@@ -121,25 +121,26 @@ I_{tran} = \left\{
 $v_x$ is a polynomial containing only $q_1$-bit PI $x$, initially it should be vanishing polynomial $x^{q_1}-x$, 
 with the program executing it may be factorized.
 
-Considering the Buchberger's algorithm, all generators' leading terms are relatively prime, so $I_{tran}$ is a GB itself. 
+Considering Buchberger's algorithm, all generators' leading terms are relatively prime, so $I_{tran}$ is a GB itself. 
 Furthermore, generator $S + \mathcal G(x)$ could (possibly) be reduced by $v_x$,
-and $T+\mathcal F(S,x)$ will definitely reduced by $S + \mathcal G(x)$. In the end we obtain a polynomial
+and $T+\mathcal F(S,x)$ will definitely be reduced by $S + \mathcal G(x)$. In the end we obtain a polynomial
 $T + \mathcal F'(x)$ in the reduced GB. We can then include this polynomial and $v_x$ and exclude the polynomial containing
-$S$ ({\it i.e.} $\mathcal H(S)$ in Algorithm \ref{alg:multi}), to compose an ideal representing \emph{next states} $to^i$. 
+$S$ ({\it i.e.}, $\mathcal H(S)$ in Algorithm \ref{alg:multi}), to compose an ideal representing \emph{next states} $to^i$. 
 In iteration 1, the result is $to^1 = \langle T+1, x^2+x\rangle$
 
 Line 5 is the ideal quotient of universal set and reached states. In the first iteration, 
-$reached$ is the initial state $\langle T+1+\alpha, x^2+x \rangle$. Result of ideal quotient
+The initial state $reached$ is $\langle T+1+\alpha, x^2+x \rangle$. The result of ideal quotient
 is $\langle T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle$ represents $\{00,01,10\}$.
 
-Line 6 is ideals' sum (intersection of their varieties), it is done by combining all generators
-from 2 ideals and compute GB. In the first iteration, the result is $GB(\langle T+1,T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle) = \langle T+1, x^2+x\rangle$ representing $\{01\}$.
+Line 6 is ideals' sum (intersection of their varieties) and is done by combining all generators
+from 2 ideals and computing GB. In the first iteration, the result is $GB(\langle T+1,T^3+(1+\alpha)T^2+\alpha T, x^2+x\rangle) = \langle T+1, x^2+x\rangle$,
+representing $\{01\}$.
 
-Line 7 is ideals' product (union of their varieties), it is done by multiplying all pairs of
-generators from both ideal. For the first iteration it gives the result as $GB(\langle (T+1)(T+1+\alpha),
-(T+1)(x^2+x), (T+1+\alpha)(x^2+x), (x^4+x)\rangle) = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$ representing $\{01,11\}$.
+Line 7 is ideals' product (union of their varieties) and is done by multiplying all pairs of
+generators from both ideals. For the first iteration it gives the result as $GB(\langle (T+1)(T+1+\alpha),
+(T+1)(x^2+x), (T+1+\alpha)(x^2+x), (x^4+x)\rangle) = \langle T^2+\alpha T+(1+\alpha), x^2+x\rangle$, representing $\{01,11\}$.
 
-The traversal algorithm executes 3 iterations and terminate at 4th iteration. We list all intermediate 
+The traversal algorithm executes 3 iterations and terminates at the 4th iteration. We list all intermediate 
 results below:
 \begin{itemize}
 \item Iteration 1: $from^0 = \langle S+1+\alpha, x^2+x\rangle, to^1 = \langle T+1, x^2+x\rangle,
@@ -158,13 +159,13 @@ which denotes $\{00,01,10,11\}$.
 In Chapters \ref{ch:reacha} and \ref{ch:normal}, by using RATO we transform the GB-based
 computation to that of a multivariate polynomial division. However, this division (reduction)
 still incurs exponential complexity in the worst case. In a situation where division is to be performed modulo
-a chain of OR gates, the size of remainder polynomial will explode. For example, a chain of OR gates 
+a chain of OR gates, the size of the remainder polynomial will explode. For example, a chain of OR gates 
 can be written as the Boolean function 
 \begin{equation}
 \label{eqn:chainOR}
 f = ((a\lor b) \lor c) \lor d
 \end{equation}
-which equals to the following polynomial function in $\F_2$:
+which equals the following polynomial function in $\F_2$:
 $$f = abcd+abc+abd+ab+acd+ac+ad+a+bcd+bc+bd+b+cd+c+d$$
 Notice, $f$ contains $2^4-1 = 15$ terms, which is exponential in the number of variables.
 The size explosion is a major factor affecting the efficiency of polynomial division.
@@ -175,7 +176,7 @@ consumes most of the verification time.
 A matrix-based technique named as "$F_4$ style reduction" \cite{f4} can speed up the procedure of
 dividing a low-degree polynomial with a term-sparse polynomial ideal. 
 
-Another way is to utilize DDs, {\it e.g.} ZDDs. ZDDs can represent unate covers of Boolean formulas.
+Another way is to utilize DDs, e.g., ZDDs. ZDDs can represent unate covers of Boolean formulas.
 We can represent $f$ using a ZDD, where every path in the ZDD from a root to a terminal corresponds
 to a monomial term.
 
@@ -195,9 +196,9 @@ of the remainder in ZDDs is also shown in Figure \ref{fig:ZDD}.
 \subsection{Craig Interpolants in Algebraic Geometry}
 The concept of Craig Interpolants (CI) and their existence comes from
 symbolic logic \cite{craig-interpolate}; later, algorithms were
-presented to find the CI for Boolean formulae
-\cite{pudlak:ci} \cite{mcmillan2003interpolation}. Assume that Boolean
-formulae are represented in Clause Normal Form (CNF) as 
+presented to find the CI for Boolean formulas
+\cite{pudlak:ci, mcmillan2003interpolation}. Assume that Boolean
+formulas are represented in Clause Normal Form (CNF) as 
 $f = C_1 \wedge C_2 \wedge \dots \wedge C_m$ where: 1) Each clause
 $C_i$ is a disjunction (Boolean OR, denoted $\vee$) of literals; 2)
 Each literal is a Boolean variable $x_i$ or its complement
@@ -229,7 +230,7 @@ d)$ and  $B = (a \vee b \vee c)(\overline{b})$. Then $P = \overline{a}
 \wedge \overline{c}$ is an interpolant of $(A, B)$. 
 \end{Example}
 
-CIs are used to derive abstractions to produce over-approximate image
+CIs are used to derive abstractions to produce overapproximate image
 operators in model checking \cite{mcmillan2003interpolation}. Since $A
 \implies P$, $P$ contains $A$ and is an {\it abstraction} of $A$. It
 also has fewer variables, so checking  invariants on $P \wedge B$ is
@@ -273,7 +274,7 @@ We call the ideal $J_P = \langle F_P\rangle$ the {\bf algebraic
 \end{Definition}
 
 Existence of algebraic interpolant comes from \cite{craig-interpolate}.
-The question for exploring is that how do we compute it in algebraic geometry?
+The question for exploring is, how do we compute it in algebraic geometry?
 
 \begin{Example} \label{ex2}
 Based on Example \ref{ex1}, we translated the system over
@@ -337,7 +338,7 @@ interpolants for any given problem? Can they be classified as {\it weak
 As there can be many interpolants for an ideal-pair $(J_A, J_B)$, 
 the following questions should also be investigated in the future:
 \bi
-\item Find the minimal interpolant: {\it i.e.} find the interpolant $F_P$
+\item Find the minimal interpolant, i.e., find the interpolant $F_P$
   such that $V(J_P)$ is the smallest variety larger than $V(J_A)$ such
   that $V(J_P) \cap V(J_B) = \emptyset$.
 \item Analogously, find the maximal interpolant. 
@@ -369,7 +370,7 @@ Technology mapping's objective is to map as many as blocks to the raw netlist an
 keep the functional equivalence. Contemporary techniques rely on bit-wise 
 analysis on the signals to deduce the boundary of mapped blocks.
 It is possible to use the equivalence checking techniques proposed in this dissertation 
-as a alternative way to perform technology mapping, especially on word-level when 
+as an alternative way to perform technology mapping, especially at word level when 
 given blocks represent word-level functions.
 
 The objective of our approach is to map the macro blocks without boundary information.
@@ -381,7 +382,7 @@ we can map a complicated function to a simple execution to accelerate simulation
 Given a gate-level design $N$ and several word-level macro blocks $\{B_i\}$, we need to map macro
 blocks $B_i$ into design $N$, and write out the mapped design $N'$ which is equivalent to original
 design $D$. The objective is to generate a mapped design $N'$ with as many of $B_i$ such that the area
-and timing is optimal. The procedure is also illustrated in Figure \ref{fig:macro}.
+and timing are optimal. The procedure is also illustrated in Figure \ref{fig:macro}.
 
 \begin{figure}[bp]
 	\begin{center}
@@ -393,14 +394,14 @@ and timing is optimal. The procedure is also illustrated in Figure \ref{fig:macr
 
 \end{Problem}
 
-The following part describes the sketch of our proposed approach base on loop invariant constraints \cite{sankaranarayanan2004non}.
-First, a transition system is modeled by algebraic assertions; then \emph{ideal membership test} \cite{lv:phd}
+The following part describes the sketch of our proposed approach based on loop-invariant constraints \cite{sankaranarayanan2004non}.
+First, a transition system is modeled by algebraic assertions, then the \emph{ideal membership test} \cite{lv:phd}
 is applied on the set of assertions to help abstract the loop invariant. We introduce concept \emph{template}
 from \cite{sankaranarayanan2004non} to apply on our proposed approach.
 
-1) {\bf Template and state constraints:}  Ideal membership test requires a setup of ideal $J_{loop}$
+1) {\bf Template and state constraints:}  The ideal membership test requires a setup of ideal $J_{loop}$
 for loop invariants. 
-One heuristic that can provide better coverage for loop invariant abstraction as well as a
+One heuristic that can provide better coverage for loop-invariant abstraction as well as a
 relatively small size is \emph{generic quadratic form} (GQF).
 
 For example, the GQF of a pair of state variables $\{x,y\}$ is
@@ -439,9 +440,9 @@ $$G=\{s, j-j_0\}$$
 Therefore its ideal can be written as
 $J=\langle s,j-j_0\rangle$.
 
-In the next step, we reduce the template with the Gr\"obner basis $G$: $\Func \xrightarrow{G}_+ r$, the remainder equals to
+In the next step, we reduce the template with the Gr\"obner basis $G$: $\Func \xrightarrow{G}_+ r$. The remainder equals to
 $$r = a_5i^2+a_6i+(a_7+a_8)ij_0+(a_9+a_{11}+a_{12})j_0^2+(a_{10}+a_{13})j_0+a_{14}$$
-Let it equal to 0, then each coefficient will generate a constraint. The solution to the system forms the candidate
+Let it equal 0, then each coefficient will generate a constraint. The solution to the system forms the candidate
 assignment to generate loop invariants.
 \begin{equation}
 \label{eqn:parasys}
@@ -457,7 +458,7 @@ a_{10}+a_{13}=0
 3) {\bf Modeling state transitions:}
 A typical state transition starts from the previous state (PS) and ends at next state (NS). 
 Our proposed approach models the 2 states individually,
-{\it i.e.} performs polynomial reduction separately and obtains remainder $r_1$ and $r_2$. 
+i.e., performs polynomial reduction separately and obtains remainders $r_1$ and $r_2$. 
 Assume a constraint polynomial describing
 the state transition is $r_t$, then we require that when invariant of PS holds and transition $PS \to NS$ stands,
 the invariant of NS should also be satisfied:
@@ -468,7 +469,7 @@ Theoretically $\lambda$ can be any polynomial in arbitrary rings. To make it pra
 we limit $\lambda$ to the polynomial ring with only real numbers.
 
 Take Equation \ref{eqn:loopinv} as the example (which refers to Example 10 in \cite{sankaranarayanan2004non}). 
-PS is initial state we just characterized 
+PS is the initial state we just characterized 
 $$\Func = f(s,i,j,j_0)$$ 
 and NS has exactly the same form of constraint:
 $$\Func' = f(s',i',j',j_0')$$
@@ -480,16 +481,16 @@ We then perform reduction with the Gr\"obner basis generated from the transition
 which is the Gr\"obner basis of polynomial ideal corresponding to the gates in the circuit partition.
 After recording the NS remainder $r_2$,
 by using equality $r_2 = \lambda r_1$ we get constraints for the parameters. We solve the system using 
-similar algorithm to solve binate covering problems
+similar algorithm to solve binate-covering problems,
 which is also described in Section 4 as \emph{elimination by splitting} technique in \cite{sankaranarayanan2004non}. 
-One of the branching results is:
+One of the branching results is
 \begin{align*}
 &a_0,a_2,\dots, a_6, a_9,\dots,a_{14}=  0\\ 
 &a_1=a_7=-a_8
 \end{align*}
-The reduced remainder is: 
+The reduced remainder is
 $$r_2 = a_1s +(a_1-a_7)i+a_7ij+a_8ij_0 = a_1(s+ij-ij_0) = 0$$
-Thus the invariant of the program in Equation \ref{eqn:loopinv} is:
+Thus the invariant of the program in Equation \ref{eqn:loopinv} is
 $$s = i(j_0- j)$$
 We can verify the invariant by executing the program which calculates $i\times j_0$. 
 Initially $s=0$, $j_0-j=0$, invariant holds;
@@ -508,7 +509,7 @@ The polynomial we use to test ideal membership should include all the informatio
 which requires us to abstract information from the system and write it into a single polynomial.
 Usually this polynomial has the following generic form:
 $$Z + f(i_1,i_2,\dots,i_n)$$
-where $Z$ is the output. When there is only one output, $Z$ collapses to a bit-level variable. However in most
+where $Z$ is the output. When there is only one output, $Z$ collapses to a bit-level variable. However, in most
 cases there are multiple outputs on the cut, indicating $Z$ as a word-level variable. Boolean function $\Func$ covers
 all inputs, and $i_1,i_2,\dots,i_n$ are all bit-level inputs.
 
@@ -527,7 +528,7 @@ we have $Z = z_0 + \alpha\cdot z_1$.
 
 After imposing ATO of LEX with
 $$\textit{Other\ circuit\ variables} > \textit{output\ word\ } Z > \textit{all\ cut-set\ bit\ level\ inputs}$$
-on the ideal describing the partitioned circuit as well as ideal with vanishing polynomials,
+on the ideal describing the partitioned circuit as well as the ideal with vanishing polynomials,
 the reduced Gr\"obner basis has a single polynomial generator in the form of $Z + \Func(s_0,s_1,s_2,s_3)$.
 In this example:
 
@@ -568,12 +569,12 @@ $$Z+s_2\cdot s_3\cdot s_0+s_2\cdot s_3\cdot s_1+\alpha\cdot s_2\cdot s_3+s_0\cdo
 Figure \ref{fig:template} shows a 2-bit standard cell. It has 3 outputs ($t_0,t_1,CO$) mapped to 2 output pins ($z_0,z_1$),
 and 4 inputs ($a_0,a_1,b_0,b_1$) mapped to 3 input pins ($s_0,s_1,s_2$, the excessive input {\it e.g.} $b_1$ is assigned to fixed 0/1 signal). Dashed connection
 lines show one possible mapping, to find out this kind of feasible mapping, we need to simulate
-all possible mappings, where the concept "template" can be used.
+all possible mappings where the concept "template" can be used.
 
 {\it Output template}: $z_0+c_{{t_0}{z_0}}\cdot t_0+c_{t_1z_0}\cdot t_1+c_{z_0CO}\cdot CO+c_{n_0}$
 
-Above polynomial includes all possibilities where $z_0$ could be mapped to.
-When $c_{n_0} = 0$, then $\{c_{t_0z_0},c_{t_1z_0},c_{z_0CO}\}$ equals to 1 denotes a valid mapping to corresponding output pin. 
+The above polynomial includes all possibilities where $z_0$ could be mapped to.
+When $c_{n_0} = 0$, then $\{c_{t_0z_0},c_{t_1z_0},c_{z_0CO}\}$ equals 1 denotes a valid mapping to a corresponding output pin. 
 Conversely if $c_{n_0} = 1$, the ``1" evaluation denotes mapping to negation of corresponding output pin.
 
 {\it Input template}: $a_0+c_{s_0a_0}\cdot s_0+c_{s_1a_0}\cdot s_1+c_{s_2a_0}\cdot s_2+p_{a_0}$
@@ -588,9 +589,9 @@ With these settings, we propose an approach to perform technology mapping with b
 \item First, choose a cut-set of independent wires in target circuit as input pins;
 
 \item Second, propagate forward the cut for a certain number of gates (depth), choose a cut-set
-which fully dependents on these inputs as output pins. Thus we obtain a sub-circuit by partitioning;
+which fully depends on these inputs as output pins. Thus we obtain a subcircuit by partitioning;
 
-\item Third, abstract a description polynomial $\Func$ of the target sub-circuit using GB based abstraction;
+\item Third, abstract a description polynomial $\Func$ of the target subcircuit using GB based abstraction;
 
 \item Fourth, reduce the description polynomial $\Func$ with the GB we computed associated to macro block 
 and templates, obtain a remainder polynomial;

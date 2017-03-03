@@ -1,8 +1,8 @@
-\chapter{Functional Verification of Sequential Normal Basis Multipliers}
+\chapter{Functional Verification of Sequential Normal Basis\protect\\ Multipliers}
 \label{ch:normal}
 With the size of sequential arithmetic circuits increasing rapidly, 
-conventional methods become inefficient on verifying the correctness of these circuits.
-In Chapter \ref{ch:reacha} we proposed a FSM traversal approach at word-level 
+conventional methods become inefficient for verifying the correctness of these circuits.
+In Chapter \ref{ch:reacha} we proposed a FSM traversal approach at word level 
 based on abstractions. Since the sequential arithmetic circuits can be modeled 
 as FSMs, it is possible to apply our word-level traversal algorithm to solving 
 the functional verification problem on these circuits.
@@ -20,7 +20,7 @@ from \cite{pruss:tcad15} to abstract the word-level
 signature of the combinational logic, which corresponds
 to the transition function in our traversal algorithm.
 We show how this approach can be applied to verify sequential GF multipliers
-which we can apply our traversal algorithm to actually 
+which we can apply to our traversal algorithm to actually 
 verify its functional correctness.
 
 \section{Motivation}
@@ -36,13 +36,6 @@ GF arithmetic circuit implementation of
 a Moore machine with $k+1$ distinct states. We notice that it forms a simple chain,
 with $k$ consecutive transitions the machine reaches final state $R_k$.
 
-\begin{figure}[bp]
-\centering{
-\includegraphics[width=\textwidth]{newfig/Moore.eps}
-\caption{A typical Moore machine and its state transition graph.}
-\label{fig:Moore}}
-\end{figure}
-
 In practice,
 some arithmetic components are designed in sequential circuits similar to the structure in 
 Figure \ref{fig:Moore}(a). Initially the operands are loaded into the registers, 
@@ -56,38 +49,46 @@ arithmetic function when circuit is working correctly).
 This kind of design results in 
 reusing a smaller combinational logic component such that the area cost is greatly optimized.
 An example of such designs is the sequential GF arithmetic multipliers described in Chapter \ref{ch:prelim_GF}.
-However, it also brings difficulties in verifying the the circuit functions.
+However, it also brings difficulties in verifying the circuit functions.
 
-\begin{figure}[bp]
+\begin{figure}[tbp]
+\centering{
+\includegraphics[width=\textwidth]{newfig/Moore.eps}
+\caption{A typical Moore machine and its state transition graph.}
+\label{fig:Moore}}
+\end{figure}
+
+
+Conventional methods to such a sequential circuit may consist of unrolling the circuit for 
+$k$ time-frames, and performing an equivalence checking between the unrolled machine and
+the specification function, as shown in Figure \ref{fig:convention}. However, the number of gates will grow fast when unrolling
+at bit level. Meanwhile the structural similarity-based equivalence checking techniques 
+will fail when the sequential circuit is highly customized and optimized from the naive specification 
+function. As a result, conventional techniques are grossly inefficient for large circuits.
+Therefore, a new method based on our proposed word-level FSM traversal technique is worthy of exploration.
+
+\begin{figure}[tbp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/convention.eps}
 \caption{Conventional verification techniques based on bit-level unrolling and equivalence checking.}
 \label{fig:convention}}
 \end{figure}
 
-Conventional methods to such a sequential circuit may consist of unrolling the circuit for 
-$k$ time-frames, and performing an equivalence checking between the unrolled machine and
-the specification function. However, the number of gates will grow fast when unrolling
-on bit-level. Meanwhile the structural similarity based equivalence checking techniques 
-will fail when the sequential circuit is highly customized and optimized from the naive specification 
-function. As a result, conventional techniques are grossly inefficient for large circuits.
-Therefore, a new method based on our proposed word-level FSM traversal technique is worthy of exploration.
-
-\section{Formal Verification of Normal Basis Multipliers using Gr\"obner Bases}
+\section{Formal Verification of Normal Basis Multipliers Using Gr\"obner Bases}
 The gate-level design of a NB multiplier can be generated using approaches introduced in 
 Section \ref{sec:nbdesign}. The gate-level netlist is ready to be verified using 
 an approach similar to that in Chapter \ref{ch:reacha}. 
-First we introduce the sketch of our approach using abstraction term order (ATO)
+First we introduce the sketch of our approach using abstraction term order (ATO),
 mentioned previously in Section \ref{sec:abstraction}, then refine our approach using 
-the concept of ``RATO", which is previously used in Section \ref{sec:improve}.
+the concept of ``RATO", which was previously used in Section \ref{sec:improve}.
 % The following part borrows contents
 % from my own conference paper \cite{myDATE}.
-\subsection{Implicit Unrolling based on Abstraction with ATO}
+\subsection{Implicit Unrolling Based on Abstraction with ATO}
 The concept of abstraction was discussed in Section \ref{sec:abstraction}. If we use an elimination term order with
 $intermediate~variables~>~R~>~A,B$ for the circuit in Figure \ref{fig:comb_RAB} to compute Gr\"obner basis, 
 the function of the combinational logic component can be abstracted as 
 $$R = \Func(A,B)$$
-To verify the functional correctness of a combinational NB multiplier ({\it e.g.} Mastrovito multiplier
+To verify the functional correctness of a combinational NB multiplier (e.g., Mastrovito multiplier
 or Montgomery multiplier), the function given by abstraction will be computed as
 $$R=A\cdot B$$
 While in the sequential case, the function of combinational logic only fulfills a part of the multiplication.
@@ -97,9 +98,9 @@ while computing all of $F_i$ requires $k$-cycle unrolling of the circuit.
 Nevertheless, the abstraction still provides a word-level 
 representation which can be more efficient for unrolling than bit-level expressions.
 In other words, with the assistance of abstraction, we can execute implicit unrolling instead of 
-explicit unrolling and avoid bit-blasting problem.
+explicit unrolling and avoid a bit-blasting problem.
 
-\begin{figure}[bp]
+\begin{figure}[tbp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/comb_RAB.pdf}
 \caption{Architecture of a combinational GF multiplier.}
@@ -137,17 +138,8 @@ explicit unrolling and avoid bit-blasting problem.
 % \DecMargin{1em}
 
 For 2-input sequential NB multipliers, abstraction is utilized to implement Algorithm \ref{alg:modified}.
-Notations in Figure \ref{fig:sequential} as well as in next example comply with 
+Notations in Figure \ref{fig:sequential} as well as in the next example comply with 
 the notations in this algorithm.
-
-\begin{figure}[bp]
-\centering{
-\includegraphics[width=5in]{newfig/gf_seq_model.eps}
-\caption{A typical normal basis GF sequential circuit model. $A =
-  (a_0,\dots,a_{k-1})$ and similarly $B, R$ are $k$-bit registers;
-  $A', B', R'$ denote next-state inputs.}
-\label{fig:sequential}}
-\end{figure}
 
 Given a sequential GF circuit in Figure \ref{fig:sequential} over $\Fkk=\F_2[x]$, irreducible polynomial $p(\alpha) = 0$
 defines the primitive element $\alpha$, $\beta = \alpha^t$ is the normal element.
@@ -163,6 +155,15 @@ $R = \Func(A_{init}, B_{init}) = A_{init} \times B_{init}$ is the final
 result after $k$-cycles. Our approach aims to find this polynomial
 representation for $R$.  
 
+\begin{figure}[bp]
+\centering{
+\includegraphics[width=4.5in]{newfig/gf_seq_model.eps}
+\caption{A typical normal basis GF sequential circuit model. $A =
+  (a_0,\dots,a_{k-1})$ and similarly $B, R$ are $k$-bit registers;
+  $A', B', R'$ denote next-state inputs.}
+\label{fig:sequential}}
+\end{figure}
+
 Each gate in the combinational logic is represented by a Boolean
 polynomial. To 
 this set of Boolean polynomials, we append the polynomials that define
@@ -172,8 +173,8 @@ as ideal $J_{ckt} = \langle
 f_1, \dots, f_s \rangle \subset \F_2[x_1, \dots, x_d, R, R', A, A', B,
   B']$, where $x_1, \dots, x_d$ denote the bit-level (Boolean) variables
   of the circuit. The ideal of vanishing polynomials 
-$J_0 = \langle x_i^2-x_i,R_j^{2^k}-R_j\rangle,~\forall \text{ bit-level variables }x_i\text{ and word-level variables }R_j$, is also included. 
-Then the implicit FSM unrolling problem is setup for abstraction. 
+$J_0 = \langle x_i^2-x_i,R_j^{2^k}-R_j\rangle,~\forall \text{ bit-level variables }x_i\text{, and word-level variables }R_j$, is also included. 
+Then the implicit FSM unrolling problem is set up for abstraction. 
 
 The configurations of the flip-flops are the states of the
 machine. Since the set of states is a finite set of points, we
@@ -187,7 +188,7 @@ Projection of varieties (geometry) corresponds to elimination ideals
 employ a \Grobner basis computation with ATO: we use a {\it lex term
   order} with {\it bit-level variables} 
 $>$ {\it word-level NS outputs} $>$ {\it word-level PS inputs}. This
-allows to eliminate all the bit-level variables 
+allows us to eliminate all the bit-level variables 
 %(corresponding to the combinational logic and the state variables),
 %so as to 
 and derives a representation only in terms of words. 
@@ -209,7 +210,7 @@ the FSM reachability algorithm (given in Chapter \ref{ch:reacha}).
 
 In the practice of sequential GF multiplier verification, the combinational 
 logic actually implements function not only related to current operands $A$ and $B$,
-but also involved with PS variable ({\it i.e.} temporary product) $R$. Which can be 
+but also involved with PS variable (i.e., temporary product) $R$, which can be 
 obtained using the abstraction:
 $$R' = \Func(A,B,R)$$
 Using ATO, if we put $R$ ahead of $R',A,B$ in term ordering, $R$ is thus eliminated
@@ -225,7 +226,7 @@ is also shown in the following example.
 Figure \ref{fig:5bitRH} shows the detailed structure of a 5-bit RH-SMPO, with normal element $\beta = \alpha^5$. The transition function for
 operands $A,B$ perform cyclic shift, while the transition function for $R$ has to be computed through the Gr\"obner basis
 abstraction approach. Following ideal $J_{ckt}$ from line 5 in Algorithm \ref{alg:modified} is the ideal for 
-all gates in combinational logic block and definition of word-level variables.
+all gates in a combinational logic block and definition of word-level variables.
 $$J_{ckt} = \langle f_1,f_2,\dots,f_{19}\rangle$$
 \begin{eqnarray*}
  \left. 
@@ -255,8 +256,8 @@ Concretely, in the first iteration $from^0$ contains three generators. The first
 temporary (or initial, in first iteration) product, which equals to 0 according to the mechanism of sequential 
 GF multiplier. The polynomial is written as 
 $$R$$
-The other two polynomials describes PS variable $A,B$ -- current multiplication operands, and we write them 
-in parameters $A_{init}, B_{init}$. Since this is the first iteration, they have the same form with $f_{16}$ and $f_{17}$:
+The other two polynomials describe PS variable $A,B$ -- current multiplication operands, and we write them 
+in parameters $A_{init}, B_{init}$. Since this is the first iteration, they have the same form as $f_{16}$ and $f_{17}$:
 \begin{align*}
 & A_{init}+a_0\alpha^5+a_1\alpha^{10}+a_2\alpha^{20}+a_3\alpha^9+a_4\alpha^{18} \\
 & B_{init}+b_0\alpha^5+b_1\alpha^{10}+b_2\alpha^{20}+b_3\alpha^9+b_4\alpha^{18}
@@ -307,10 +308,14 @@ $$from^5(R_{final}) = R_{final}+A_{init} B_{init}$$
 which is the function of the multiplier: $R_{final} = A_{init}\cdot B_{init}$
 \end{Example}
 
-\subsection{Overcome Computational Complexity using RATO}
+\subsection{Overcome Computational Complexity Using RATO}
 We implemented Algorithm \ref{alg:modified} in \textsc{Singular}, with similar setup and environments as
 with the experiments in Section \ref{sec:exp_reacha}. The result of verifying Agnew's SMPO is shown 
-in Table \ref{tab:slimgb}.
+in Table \ref{tab:slimgb}. It indicates that our approach based on ATO cannot verify sequential GF multiplier with size larger than 11 bits operands.
+Similar to our improvements in Section \ref{sec:improve}, RATO \cite{TimDAC} can also be applied to 
+accelerate the GB computation here. More specifically, we circumvent the GB computation 
+of Line 5 in Algorithm \ref{alg:modified} by turning the Buchberger's algorithm 
+into a single-step of multivariate polynomial division.
 
 \begin{table}[bp]
 \begin{center}
@@ -328,18 +333,14 @@ in Table \ref{tab:slimgb}.
 	\end{center} 
 \end{table}
 
-It indicates that our approach based on ATO cannot verify sequential GF multiplier with size larger than 11 bits operands.
-Similar to our improvements in Section \ref{sec:improve}, RATO \cite{TimDAC} can also be applied to 
-accelerate the GB computation here. More specifically, we circumvent the GB computation 
-of Line 5 in Algorithm \ref{alg:modified} by turning the Buchberger's algorithm 
-into a single-step of multivariate polynomial division.
+
 
 \begin{itemize}
 \item First, a set of polynomials is constructed from each logic gate in the circuit, and they generate 
 ideal $J_{gates}$. Similarly, ideal $J_{WB}$ is generated by polynomials representing the word-to-bit correspondences.
 They are merged as an ideal describing the combinational logic of the circuit: $J_{ckt} = J_{gates} + J_{WB}$.
 \item Second, we impose RATO on ideal $J_{ckt}$: all bit-level variables are sorted using a reverse topological order
-derived from the circuit structure, followed by word-level NS outputs ({\it e.g.} $R'$ in Figure \ref{fig:sequential}), 
+derived from the circuit structure, followed by word-level NS outputs (e.g., $R'$ in Figure \ref{fig:sequential}), 
 then word-level PS inputs ({\it e.g.} $A,B,R$ in Figure \ref{fig:sequential}).
 \item When computing the Gr\"obner basis of $J_{ckt}+J_0$ (adding vanishing polynomials), because of 
 RATO, there exists only one pair of polynomials $(f_w,f_g)$ such that $LCM(lm(f_w),lm(f_g)) \neq lm(f_w)\cdot lm(f_g)$.
@@ -366,7 +367,7 @@ From the circuit topological structure in Figure \ref{fig:5bitRH}, the term orde
 &>\{e_0,e_3,e_4\},\{d_0,d_1,d_2\},\{c_1,c_2,c_3,c_4\}\nonumber\\
 &>\{a_0,a_1,a_2,a_3,a_4,b_0,b_1,b_2,b_3,b_4\}>R'>R>\{A,B\}\nonumber
 \end{align}
-The variables in braces are at the same topological level, they are arranged in LEX order. 
+The variables in braces are at the same topological level and are arranged in LEX order. 
 We search among all generators of $J_{ckt}$ from Example \ref{ex:RHSMPO} using RATO, 
 and find a pair of polynomials whose leading 
 monomials are not relatively prime:
@@ -384,14 +385,14 @@ We calculate $Spoly$ can reduce it by $J_{ckt}+J_0$:
 &+(\alpha^4+\alpha^3+\alpha) b_3 A+(\alpha^2+\alpha) b_4 A+(\alpha^4+\alpha^2+\alpha+1) R'+R+A B\nonumber
 \end{align}
 \end{Example}
-The above example indicates that RATO based abstraction on 5-bit RH-SMPO will result in a remainder containing both
+The above example indicates that RATO-based abstraction on 5-bit RH-SMPO will result in a remainder containing both
 bit-level variables and word-level variables. Moreover, the number of variables is still large such that
 Gr\"obner basis computation will be inefficient.
 
 Since the remainder from \emph{Spoly} reduction contains some bit-level variables, our objective is to compute
 a polynomial that contains only word-level variables (such as $R'+\mathcal{F}(A,B)$). One possible solution to
 this problem is to replace the bit-level variables by equivalent polynomials that only contain word-level
-variables, {\it e.g.} $a_i = \mathcal{G}(A), r_j = \mathcal{H}(R)$. In this section a Gaussian-elimination
+variables, e.g. $a_i = \mathcal{G}(A), r_j = \mathcal{H}(R)$. In this section a Gaussian-elimination
 approach is introduced to compute corresponding $\mathcal{G}(A),\mathcal{H}(R)$ efficiently.
 
 \begin{Example}
@@ -451,7 +452,7 @@ Then we use Gaussian elimination on coefficients matrix
 % &a_1+(\alpha)a_2+(\alpha^4+\alpha^2)a_3+(\alpha^3+\alpha^2)a_4\nonumber\\
 % =&(\alpha^4+\alpha^3+\alpha^2+1)A^2+(\alpha^2+\alpha)A\nonumber
 % \end{align}
-to recursively eliminate $a_1$ from third row, $a_2$ from fourth row, etc. The final solution to this system of
+to recursively eliminate $a_1$ from the third row, $a_2$ from the fourth row, etc. The final solution to this system of
 equations is
 %\begin{displaymath}
 %\{g_i\ | \ g_i: a_i + \mathcal{G}_i(A)\}
@@ -475,29 +476,29 @@ because of following proposition:
 \label{lem:bitlevelremainder}
 Due to RATO, remainder of $Spoly$ reduction will only contain primary inputs (bit-level) and word-level output; 
 furthermore, there will be one and
-only one term containing word-level output with degree equals to 1.
+only one term containing word-level output with degree equal to 1.
 \end{Proposition}
 
 \begin{Proof}
-First proposition is easy to prove by contradiction: assume there exists an intermediate bit-level variable $v$ in the remainder,
+The first proposition is easy to prove by contradiction: Assume there exists an intermediate bit-level variable $v$ in the remainder,
 then this remainder must be divided further by a polynomial with leading term $v$. 
 Since the remainder cannot be divided by any other polynomials in $J_{ckt}$, the assumption does not hold.
 
 Second part, the candidate pair of polynomials only have one term of
 single word-level output variable (say it is $R$) and this term is the last term under RATO, which means there is only one term with
 $R$ in $Spoly$. Meanwhile in other polynomials from $J_{ckt}+J_0$ there is no such term containing $R$, so this term 
-will appear in remainder $r$, with exponent equals to 1.
+will appear in remainder $r$, with exponent equal to 1.
 \end{Proof}
 
-By replacing all bit-level variables by corresponding word-level variable polynomials, we transform the remainder
-of $Spoly$ reduction to the form of $R'+R+\mathcal F'(A,B)$. Note $R$ is present state notion of output, which
-equals to initial value $R=0$ in first clock cycle, or value of $R'$ from last clock cycle. By substituting
+By replacing all bit-level variables with corresponding word-level variable polynomials, we transform the remainder
+of $Spoly$ reduction to the form of $R'+R+\mathcal F'(A,B)$. Note $R$ is the present state notion of output, which
+equals to initial value $R=0$ in first clock cycle, or value of $R'$ from the last clock cycle. By substituting
 $R$ with its corresponding value ($0$ or a polynomial only about $A$ and $B$), we get the desired polynomial function
 $R'+\mathcal F(A,B)$.
 
 \subsection{Solving a Linear System for Bit-to-Word Substitution}
 In Example \ref{ex:BLVS} we show a Gaussian-elimination method to solve the system of polynomial
-equations. We describe another formal method to solve following system of equations
+equations. We describe another formal method to solve the following system of equations
 \begin{align}
 \label{eqn:betamat}
 \begin{bmatrix}
@@ -547,12 +548,12 @@ Let $\{\alpha_0,\alpha_1,\dots,\alpha_{k-1}\}$ be a set of $k$ elements of $\Fpk
 \end{align}
 is called the {\bf Moore determinant} of set $\{\alpha_0,\dots,\alpha_{k-1}\}$.
 \end{Definition}
-Moore determinant can be written as an explicit expression
+The Moore determinant can be written as an explicit expression
 \begin{equation}
 \label{eqn:Moore}
 \det{M(\alpha_0,\dots,\alpha_{k-1})} = \alpha_0 \prod_{i=1}^{k-1}\left( \prod_{c_0,\dots,c_{i-1}\in \Fp} (\alpha_{i} - \sum_{j=0}^{i-1}c_j\alpha_j)\right)
 \end{equation}
-We use an example to help understanding the notations in Equation \ref{eqn:Moore}:
+We use an example to help understand the notations in Equation \ref{eqn:Moore}:
 \begin{Example}
 Let $\{\alpha_0,\alpha_1,\alpha_2\}$ be a set of elements of $\mathbb F_{2^3}$. Then
 \begin{align}
@@ -564,7 +565,7 @@ Let $\{\alpha_0,\alpha_1,\alpha_2\}$ be a set of elements of $\mathbb F_{2^3}$. 
 \end{vmatrix} \\ \nonumber
 =& \alpha_0 \prod_{i=1}^{2} \prod_{c_0,\dots,c_{i-1}\in \mathbb F_2} (\alpha_{i} - \displaystyle\sum_{j=0}^{i-1}c_j\alpha_j)
 \end{align}
-First, let $i=1$,  we obtain $c_0\in \mathbb F_2$. When $c_0=0$, the product term equals to $\alpha_1$; when $c_0=1$ it equals to $(\alpha_1-\alpha_0)$.
+First, let $i=1$,  we obtain $c_0\in \mathbb F_2$. When $c_0=0$, the product term equals $\alpha_1$; when $c_0=1$ it equals $(\alpha_1-\alpha_0)$.
 Then let $i=2$, we obtain ${c_0,c_1}\in \mathbb F_2$, they can take value from $\{0,0\},\{0,1\},\{1,0\}$ and $\{1,1\}$.
 We add 4 more product terms $\alpha_2,(\alpha_2-\alpha_1),(\alpha_2-\alpha_0),(\alpha_2-\alpha_0-\alpha_1)$, respectively.
 
@@ -585,7 +586,7 @@ Let $\{\alpha_0,\alpha_1,\dots,\alpha_{k-1}\}$ be a normal basis of $\Fpk$ over 
 According to Equation \ref{eqn:Moore}, the Moore determinant consists of all possible linear combinations of 
 $\{\alpha_0,\alpha_1,\dots,\alpha_{k-1}\}$ with coefficients over $\Fp$. If $\{\alpha_0,\alpha_1,\dots,\alpha_{k-1}\}$
 is a (normal) basis, then all product terms are distinct and represents all elements in the field $\Fpk$. Since the product 
-of all elements of a field equals to 1, the Moore determinant $\M=1$.
+of all elements of a field equals 1, the Moore determinant $\M=1$.
 \end{Proof}
 
 Applying Lemma \ref{lemma:Moore} to Equation \ref{eqn:Cramer} gives
@@ -604,7 +605,7 @@ where $\Mi$ can be computed using Laplace expansion method, with complexity $O(k
 
 \subsection{The Overall Verification Approach}
 Based on the above concepts and improvements, the functional verification for sequential GF multiplier 
-on word-level with $k$-bit input operands $A,B$ and $k$-bit output $R$ is described as follows:
+on word level with $k$-bit input operands $A,B$ and $k$-bit output $R$ is described as follows:
 \begin{enumerate}[{1)}]
 \item Given a sequential GF multiplier $S$, with word-level $k$-bit inputs $A,B$ and output $R$.
 \item Given a primitive polynomial $P(x)$ of degree $k$ and construct $\Fkk$, and let $P(\alpha)=0$.
@@ -638,11 +639,11 @@ The \textsc{Singular} tool can read scripts written in its own format similar to
 The input file format for our C++ tool is also designed to be compatible with \textsc{Singular} 
 ring and polynomial definitions. For SMPO experiments, the main 
 loop of our script file performs the same function as Algorithm \ref{alg:modified} describes, while the Gr\"obner basis
-computation in main loop is divided into 4 different functional parts:
+computation in the main loop is divided into 4 different functional parts:
 
-1) Pre-processing:
+1) Preprocessing:
 
-This step is executed only once before the main loop starts. The function of pre-processing is to compute following system
+This step is executed only once before the main loop starts. The function of preprocessing is to compute the following system
 of equations for bit-level inputs $a_0 \dots a_{k-1}$:
 \begin{displaymath}
 \left\{
@@ -674,19 +675,19 @@ we can directly get bit-to-word relation functions for another operand input, ps
 One limitation of the \textsc{Singular} tool is the degree of a term cannot exceed $2^{63}$, so when conducting experiments 
 for SMPO circuits larger than
 62 bits, we rewrite the degree using smaller integers (the feasibility of this rewriting can also be verified 
-in following steps). Our C++ tool does not have data size limit, but it accumulates exponent when computing 
+in the following steps). Our C++ tool does not have a data size limit, but it accumulates exponents when computing 
 the power of a variable. Thus if the exponent is as large as $2^{63}$, its runtime is very long. As a 
 result, our C++ tool also adopts and benefits from this rewriting technique.
 Since the bit-to-word substitution procedure
-only requires squaring of equations each time, the exponent of word $A$ can only be in the form $2^{i-1}$, {\it i.e.} 
+only requires squaring of equations each time, the exponent of word $A$ can only be in the form $2^{i-1}$, i.e., 
 $A^{2^0},A^{2^1},\dots,A^{2^{k-1}}$. To minimize the exponents presenting in both \textsc{Singular} and our tool, 
-we rewrite exponent $2^{i-1}$ to exponent $i$, {\it i.e.}
+we rewrite exponent $2^{i-1}$ to exponent $i$, i.e.,
 $(A^{2^0},A^{2^1},\dots,A^{2^{k-1}}) \to (A, A^2, \dots, A^k)$. In this way result is rewritten to be
 $$a_0 = (\alpha+1)A^5+(\alpha^4+\alpha^3+\alpha)A^4+(\alpha^3+\alpha^2)A^3+(\alpha^4+1)A^2+(\alpha^2+1)A$$
 Thus the exponents do not exceed the \textsc{Singular} data size limit.
 
 This step requires limited substitution operations, so although we use the naive Gaussian elimination
-method (whose time complexity is $O(k^3)$), the time cost is trivial comparing to following steps. 
+method (whose time complexity is $O(k^3)$), the time cost is trivial comparing to the following steps. 
 % For 33 bits experiment,
 % pre-process execution time is 2.7 sec; while for 100 bits experiment time cost is 36 sec.
 
@@ -696,7 +697,7 @@ First, $Spoly$ is calculated based on RATO, then reduced with the ideal composed
 % For already finished experiments, naive reduction (multi-division) is adopted, and this step takes largest portion of total 
 % time consumption.
 
-For SMPO experiments, reduced $Spoly$ has following generic form (all coefficients are omitted):
+For SMPO experiments, reduced $Spoly$ has the following generic form (all coefficients are omitted):
 \begin{equation}
 \label{eqn:redSpoly}
 redSpoly = R'+\Func(a_i,b_j,r_l,A,B,R) = \sum r_i + \sum a_ib_i + \sum a_iB + \sum b_iA + R' + R
@@ -704,28 +705,28 @@ redSpoly = R'+\Func(a_i,b_j,r_l,A,B,R) = \sum r_i + \sum a_ib_i + \sum a_iB + \s
 From observation, there is no cross-product terms of bit-by-bit or bit-by-word variables from the same input/output
 such as $a_ia_j, a_iA$, {\it etc.} 
 For our exponent rewriting approach to give a faithful result, it has to satisfy an important condition:
-there exists no cross-product terms simultaneously containing elements within the same set, {\it i.e. } sets
+there exist no cross-product terms simultaneously containing elements within the same set, i.e., sets
 $\{A,a_i\},\{B,b_j\}$ and $\{R,r_i\}$.
 We now show that $redSpoly$ actually satisfies this condition.
-This property of $redSpoly$ guarantees the word level variable can only exist in the form $A^{2^{i-1}}$,
-after substituting a bit-level variables with corresponding word-level variable.
+This property of $redSpoly$ guarantees the word-level variable can only exist in the form $A^{2^{i-1}}$,
+after substituting a bit-level variable with a corresponding word-level variable.
 
-3) Substitute bit-level variables in reduced $Spoly$, {\it i.e.} 
+3) Substitute bit-level variables in reduced $Spoly$, i.e., 
 $$\Func(a_i,b_j,r_l,A,B,R) \xrightarrow{a_i+\mathcal{G}_i(A),b_j+\mathcal{G}_j(B),r_l+\mathcal{G}_l(R)} \mathcal{H}(A,B,R)$$
 
-Use the result from pre-processing, get rid of $r_i, a_i$ and $b_i$ through substitution. This step yields following polynomial:
+Use the result from preprocessing, get rid of $r_i, a_i$ and $b_i$ through substitution. This step yields the following polynomial:
 \begin{equation}
 \label{eqn:HABR}
 R'+ \mathcal{H}(A,B,R) = R' + \sum R^i + \sum A^iB^j
 \end{equation}
 all coefficients omitted.
 
-4) Substitute PS word-level variable $R$ with inputs $A$ and $B$, {\it i.e.} 
+4) Substitute PS word-level variable $R$ with inputs $A$ and $B$, i.e.,
 $$\Func(A,B,R) \xrightarrow{R+\Func'(A,B)} \Func(A,B)$$
 
 In Equation \ref{eqn:HABR}, there are still terms containing $R$ in the ideal for which we want to compute Gr\"obner basis.
 For PS variable $R$ we can use relation $R+\Func'(A,B)$, which is the last clock-cycle's output ($R'+\Func'(A,B)$) 
-with only leading term replaced in step ``$from^i\gets to^i$" in 
+with only the leading term replaced in step ``$from^i\gets to^i$" in 
 Algorithm \ref{alg:modified}. This step needs to be specially executed because of the exponent rewriting technique. 
 If $R+\Func'(A,B)$ contains terms $A^iB^j$, it should be transformed back to the original exponent first,
 then compute the exponential of the entire term.
@@ -758,10 +759,10 @@ compared against our approach.  Our experiments run on a desktop with
 3.5GHz Intel $\text{Core}^\text{TM}$ i7 Quad-core CPU, 16 GB RAM and
 64-bit Linux.   
 
-{\it Evaluation of SAT/ABC/BDD based methods:} To verify circuit $S$
+{\it Evaluation of SAT/ABC/BDD-based methods:} To verify circuit $S$
 against the polynomial $\Func$, we unroll the SMPO over $k$ time-frames,
 and construct a miter against a combinational implementation of $\Func$.
-A (pre-verified) $\Fkk$ Mastrovito multiplier \cite{mastro:1989} is
+A (preverified) $\Fkk$ Mastrovito multiplier \cite{mastro:1989} is
 used as the {\it spec} model. This miter is checked for SAT using the
 \emph{Lingeling} \cite{biere2013lingeling} solver. We also experiment
 with the Combinational Equivalence Checking (CEC) engine of the ABC
@@ -770,13 +771,13 @@ AIG equivalences within the miter to efficiently solve
 verification. The BDD-based VIS tool \cite{brayton1996vis} is also used
 for equivalence check. The run-times for verification of (unrolled)
 RH-SMPO against Mastrovito {\it   spec} are given in Table
-\ref{tbl:equiv} -- which shows that the techniques fail beyond 23 bit
+\ref{tbl:equiv} -- which shows that the techniques fail beyond 23-bit
 fields.  
 
 % \vspace{-0.1in}
 \begin{table}[bp]
 \centering
-\caption{\small Run-time for verification of bug-free RH-SMPO circuits
+\caption{Run-time for verification of bug-free RH-SMPO circuits
   for SAT, ABC and BDD based methods. \emph{TO} = timeout 14 hrs}
 \label{tbl:equiv}
 \begin{tabular}{|c||c|c|c|c|} 
@@ -812,7 +813,7 @@ emphasizes the (lack of) \emph{similarity} between two designs.
 
 \begin{table}[bp]
 \centering
-\caption{\small Similarity between RH-SMPO and Agnew's SMPO}
+\caption{Similarity between RH-SMPO and Agnew's SMPO}
 \label{tbl:fraig}
 \begin{tabular}{|c||c|c|c|c|} 
 \hline
@@ -847,9 +848,9 @@ that if we do not use the proposed bit-level to word-level
 substitution, and compute reduced \Grobner bases with RATO, then our
 approach does not scale beyond 11-bit datapaths (Table \ref{tab:slimgb}). 
 
-\begin{table}[bp]
+\begin{table}[tbp]
 \centering
-\caption{\small Run-time (seconds) for verification of bug-free and
+\caption{Run-time (seconds) for verification of bug-free and
   buggy RH-SMPO with \textsc{Singular}} 
 \label{tbl:exp1}  
 \begin{tabular}{|c||c|c|c|c|c|c|} 
@@ -890,9 +891,9 @@ Runtime(buggy) & 112.7 & 1129 & 5256 & 20684 & 36120 & 66929\\
 %% %\end{minipage}
 \end{table}
 
-\begin{table}[bp]
+\begin{table}[tbp]
 \centering
-\caption{\small Run-time (seconds) for verification of
+\caption{Run-time (seconds) for verification of
   bug-free and buggy Agnew's SMPO with \textsc{Singular}}
 \label{tbl:exp2}
 \begin{tabular}{|c||c|c|c|c|c|} 
@@ -913,9 +914,9 @@ Runtime(buggy) & 118 & 4320 & 15226 & 31571 & 58861\\
 \end{tabular}
 \end{table}
 
-\begin{table}[bp]
+\begin{table}[tbp]
 \centering
-\caption{\small Run-time (seconds) for verification of
+\caption{Run-time (seconds) for verification of
   RH-SMPO and Agnew's SMPO using C++ implementation}
 \label{tab:Cpp}
 {\small 
@@ -955,18 +956,18 @@ Runtime(buggy) & 118 & 4320 & 15226 & 31571 & 58861\\
 \section{Concluding Remarks}
 
 This chapter has described a method to verify sequential Galois field
-multipliers over $\Fkk$ using computer algebra and algebraic geometry
-based approach. As sequential Galois field circuits perform the
+multipliers over $\Fkk$ using an approach based on computer algebra and algebraic geometry. 
+As sequential Galois field circuits perform the
 computations over $k$ clock-cycles, verification requires an efficient
-approach to unroll the computation, and represent it as a canonical
-word-level multi-variate polynomial. Using algebraic geometry, we show
-that the unrolling of the computation at word-level can be performed by
+approach to unroll the computation and represent it as a canonical
+word-level multivariate polynomial. Using algebraic geometry, we show
+that the unrolling of the computation at word level can be performed by
 \Grobner bases and elimination term orders. Subsequently, we show
 that the complex \Grobner basis computation can be eliminated by means
 of a bit-level to word-level substitution, which is implemented using
 the binomial expansion over Galois fields and Gaussian
 elimination. Our approach is able to verify up to 162-bit sequential
-circuits, whereas contemporary techniques ({\it e.g.} BDDs) fail beyond 23-bit
+circuits, whereas contemporary techniques (e.g., BDDs) fail beyond 23-bit
 datapaths.  
 
 % Our approach still has following limitations: first, it can only be applied

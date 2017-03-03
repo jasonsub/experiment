@@ -1,9 +1,9 @@
 \chapter{Optimal Normal Basis}
 \label{append:ONB}
-The number of non-zero entries in $\lambda$-Matrix or multiplication table (M-table) is known as \emph{Complexity $(C_N)$}.
+The number of nonzero entries in $\lambda$-Matrix or multiplication table (M-table) is known as \emph{Complexity $(C_N)$}.
 To define optimal normal basis, it is necessary to find the lower bound of $C_N$.
 \begin{Theorem}
-If $\mathcal{N}$ is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then non-zero entries in matrix $C_N\geq 2n-1$.
+If $\mathcal{N}$ is a normal basis over $\F_{p^n}$ with $\lambda$-Matrix $M^{(k)}$, then nonzero entries in matrix $C_N\geq 2n-1$.
 \end{Theorem}
 \begin{Proof}
 Let basis $\mathcal{N} = \{\beta, \beta^p, \beta^{p^2},\dots, \beta^{p^{n-1}}\}$, let us denote $\beta^{p^i}$ by $\beta_i$ for the sake of simplification.
@@ -13,10 +13,10 @@ $$b\beta_0 = \sum_{i=0}^{n-1} \beta \beta_i$$
 
 Therefore, the sum of all rows in $M^{(0)}$ is an n-tuple with $b$ as the first element and zeros elsewhere.
 So the first column always includes at least one nonzero element. 
-Since the sum of entries in each of other columns should equal to zero (modulo 2), they 
+Since the sum of entries in each of the other columns should equal zero (modulo 2), they 
 need to include an even number of ``1"s.
 Meanwhile, in order to maintain the linear independence among each row, they cannot be all ``0"s. 
-Therefore, there are always at least two non-zero elements in each column.
+Therefore, there are always at least two nonzero elements in each column.
 
 As a result, $C_N \geq 2(n-1)+1  = 2n-1$.
 \end{Proof}
@@ -52,7 +52,7 @@ T_2 = \left(
 Complexity $C_N$ = 9, so basis $\mathcal N_2$ is not optimal.
 \end{Example}
 
-ONBs are widely used in finite field circuit design, not only because its low complexity, 
+ONBs are widely used in finite field circuit design, not only because of its low complexity, 
 but also because of the convenience to construct the $\lambda$-Matrix and M-table for them. 
 To explain the convenience and the reason behind it, we introduce two types of ONBs and the method 
 to construct them.
@@ -66,14 +66,14 @@ The following section refers to \cite{rosingbook}.
 The second criterion indicates that powers of 2 (exponent from 0 to $n-1$) modulo $n+1$ must cover all integers
 from 1 to $n$.
 
-In following, we derive a simple way to construct the $\lambda$-Matrix of type-I ONB 
+In the following, we derive a simple way to construct the $\lambda$-Matrix of type-I ONB 
 from the criteria above. 
 Assume $\lambda_{ij}^{(k)}$ is the entry with coordinate $(i,j)$ from k-th $\lambda$-Matrix. Then the crossproduct
 term can be written as
 \begin{equation}
 \beta^{2^i}\beta^{2^j} = \sum_{k=0}^{n-1} \lambda_{ij}^{(k)} \beta^{2^k}
 \end{equation}
-Suppose we only care about k=0. So simplified to following equations:
+Suppose we only care about $k=0$. So simplified to following equations:
 
 $$
 \begin{cases}
@@ -81,7 +81,7 @@ $$
 &\beta^{2^i}\beta^{2^j} = 1 ~~~(\text{ if }~  2^i = 2^j\pmod{n+1})
 \end{cases}$$
 
-Solution $(i,j)$ implies location of entries that equal to ``1" in $\lambda$-Matrix. 
+Solution $(i,j)$ implies location of entries that equal ``1" in $\lambda$-Matrix. 
 Let $\beta$ be an optimal normal element, 
 $\{\beta^{2^i}~|~0\leq i<n\}$ cover all powers of $\beta$ and generates the basis. Thus by solving
 $$\begin{cases}
@@ -89,7 +89,7 @@ $$\begin{cases}
 2^i + 2^j = 0 \pmod{n+1}
 \end{cases}$$
 we obtain $\lambda$-Matrix $M^{(0)}$. This construction method does not require information about 
-primitive polynomial nor normal element, so it is very convenient for circuit designers.
+primitive polynomial or normal element, so it is very convenient for circuit designers.
 Basis $\mathcal N_1$ in Example \ref{ex:app4} is a type-I ONB over $\F_{2^4}$.
 
 {\bf Type-II ONB} over $\F_{2^n}$ satisfies following criteria:
@@ -179,18 +179,18 @@ M^{(0)} = \left(
 % Customized Galois Field IEEE1363-2000
 Designers can easily generate the $\lambda$-Matrix for GF multipliers, which is sufficient to derive the 
 structure of the circuit. However, our GB based approach requires specifying the exact normal element $\beta$,
-{\it i.e. } it is necessary to obtain $t$ as $\beta = \alpha^t$ before executing our technique.
-L\"uneburg's algorithm and Lenstra's algorithm do not guarantee the output normal element is optimal 
+i.e., it is necessary to obtain $t$ as $\beta = \alpha^t$ before executing our technique.
+L\"uneburg's algorithm and Lenstra's algorithm do not guarantee the output normal element is the optimal 
 normal element, and usually result in high computation cost. Actually if the type of ONB within the design 
 is known, instead of looking up the optimal normal element, we can construct a special irreducible $p(\alpha)$
-such that optimal normal element equals to the primitive element: $\beta=\alpha$. The concepts and algorithms 
+such that the optimal normal element is equal to the primitive element: $\beta=\alpha$. The concepts and algorithms 
 refer to IEEE standard 1363-2000 \cite{IEEE1363}.
 
 For type-I ONB over $\F_{2^k}$, the irreducible polynomial is 
 $$p(\alpha) = \alpha^k+\alpha^{k-1}+\cdots+\alpha+1
 = \sum_{i=0}^k \alpha^i$$ 
 
-For type-II ONB, the following iterative algorithm is required to generate desired 
+For type-II ONB, the following iterative algorithm is required to generate the desired 
 irreducible polynomial:
 
 \begin{algorithm}[H]

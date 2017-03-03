@@ -2,18 +2,18 @@
 \label{ch:intro}
 \vspace{-0.8cm}
 \section{Hardware Design and Verification Overview}
-During the past decades, the level of integration in modern VLSI systems is becoming higher and higher because of the Moore's law.
+During the past decades, the level of integration in modern VLSI systems is becoming higher and higher because of Moore's law.
 As a result, an entire system with billions of transistors can be built upon a single chip.
 The design process also evolves from manual design with little validation, to 
-a formal 3-step procedure which requires collaboration of teams with large number of 
+a formal 3-step procedure which requires collaboration of teams with large numbers of 
 engineers. The 3 major steps are: 1) Design, which is to specify and enter the design intent;
 2) Implement, which is to refine the design through various abstraction levels with the assistance of Computer-Aided-Design (CAD)
 tools; 3) Verify, which is to verify the correctness of design and implementation.
 
-Nowadays the verification step is usually completed by a team that specializes on test, verification and validation of 
+Nowadays the verification step is usually completed by a team that specializes in the testing, verification and validation of 
 circuits. This step is also automated as an indispensable part of the CAD flow, when circuit synthesis is performed. 
 Figure \ref{fig:designflow} shows the typical synthesis flow, which covers procedures starting from the 
-register-transfer-level (RTL) description (using hardware design languages, {\it i.e.} HDL) to  the 
+register-transfer-level (RTL) description (using hardware design languages, i.e., HDL) to  the 
 physical design on silicon (depicted by the layout). The objective of verification in synthesis is 
 to ensure the implementation is consistent with the original design intent. Verification is 
 an important quality control measure before sending design layout to the VLSI foundries.
@@ -23,24 +23,24 @@ the stability and accuracy of digital VLSI circuits; even small flaws or short-t
 huge loss, especially in medical applications, military facilities and financial systems.
 Therefore, it is of utmost importance to verify the correctness of VLSI designs.
 
-One way to perform verification is by {\it simulation}. It is the collage of all circuit validation 
+One way to perform verification is by simulation, which is the collage of all circuit validation 
 methods which apply stimulus on the inputs of circuit model and verify correctness of the outputs.
 However, simulation is not a complete solution to circuit verification problems. In modern designs with 
 large number of logic components and complicated architectures, it is impractical to simulate all possible 
 test vectors. Usually only test vectors that correspond to typical failures are selected in simulation, which 
 cannot cover unexpected failure patterns caused by special inputs. The notorious Intel FDIV bug \cite{nicely:FDIV}
 is a good example where simulation failed. Failure occurred with input assignments which were rarely used in most divisions. Because of the limitation of simulation,  
-test engineers from Intel failed to detect the bug,  which brought about $\$475$ million dollars recalling bill
-for the company. Thus,  new methods that can guarantee the correctness of the design are necessary to be explored.
+test engineers from Intel failed to detect the bug,  which brought a roughly $\$475$ million-dollar recall bill
+for the company. Thus,  new methods that can guarantee the correctness of the design need to be explored.
 
-Another method developed besides simulation is \emph{formal verification}, it utilizes 
+Another method developed besides simulation is \emph{formal verification}, which utilizes 
 mathematical theory to reason about the correctness of hardware designs.
 Formal verification can provide $100\%$ fault coverage from two aspects. On the one hand,  
 it adopts formal languages to strictly describe the design intent and detailed implementation, 
 and deduces circuit function from the implementation.
 On the other hand,  it formalizes properties
-for the circuit model which are relevant only to specific input signals,  and prove the properties mathematically. 
-These descriptions are named as {\it specifications}.
+for the circuit model which are relevant only to specific input signals and prove the properties mathematically. 
+These descriptions are called {\it specifications}.
 Formal verification has two main forms: property checking and equivalence 
 checking. 
 
@@ -53,16 +53,16 @@ in the form of theorem proving (TP), model checking (MC), or TP/MC hybrid approa
 is a method of reasoning and mathematical logic dealing with proving 
 mathematical theorems. In the application to circuit property checking, 
 the specification as well as the circuit implementation
-is described as theorems in mathematical logic. Subsequently logic rules
+are described as theorems in mathematical logic. Subsequently, logic rules
 are employed to deduce new objective theorems. In practice, the tool can reduce
-a proof goal to simpler sub-goals for automatic verification.
+a proof goal to simpler subgoals for automatic verification.
 
 \item \emph{Model checking} \cite{modelcheck:99} is a technique 
 for verifying if the specification properties are violated in finite-state systems. In the circuit verification 
 domain, both the specification and the circuit implementation are modeled as a system of 
 logic formulas. The finite-state system is then traversed to check if the 
 properties are violated. If violation occurs, 
-a counter-example is then generated as a transition firing path that corresponds to the
+a counterexample is then generated as a transition firing path that corresponds to the
 false behavior in the design. 
 Modern model checking techniques use the error-trace to automatically refine
 the system and perform further checking.
@@ -85,13 +85,13 @@ and checking layout verification between netlist and layout for fabrication.
 
 There are three major
 equivalence checking techniques: graph-based,
-satisfiability-based (SAT-based) and induction-based.
+satisfiability-based (SAT-based), and induction-based.
 \begin{enumerate}[{1)}]
 \item \emph{Graph-based} techniques compare two circuit implementations 
 by representing them using canonical graphs. 
 The earliest invented canonical graph is the \emph{Binary Decision Diagram} (BDD) \cite{BRYA86}.
 Many variants branch out from BDDs; some widely used variants include 
-ZDD \cite{minato1993zero}, BMD \cite{bmd}, FDD \cite{okfdd}, {\it etc.} The comparison algorithms can 
+ZDD \cite{minato1993zero}, BMD \cite{bmd}, FDD \cite{okfdd}, etc. The comparison algorithms can 
 determine whether the two graphs are isomorphic. The canonicity of the graph representation guarantees that
 the graphs correspond to the two circuits will be 
 equivalent if and only if the circuits implement the same function.
@@ -99,16 +99,16 @@ equivalent if and only if the circuits implement the same function.
 In circuit equivalence checking, a miter of the two circuits is created.
 A \emph{miter} is a combination of the two circuits with one bit-level output, which 
 gives output ``1" only when the outputs of the circuits differ with 
-the same inputs, {\it e.g. }inputs $a,b,c$ shown in Figure \ref{fig:miter}. 
+the same inputs, e.g., inputs $a,b,c$ shown in Figure \ref{fig:miter}. 
 A SAT solver \cite{csat,mishchenko2006improvements} is then employed to simplify the problem 
 and find a satisfying assignment to the inputs for which the 
 miter output is ``1". If such an assignment exists, this solution acts as a 
-counter-example to equivalence; otherwise the circuits
+counterexample to equivalence; otherwise the circuits
 are functionally equivalent.
 \item \emph{Induction-based} techniques are developed and applied to verify the 
 equivalence between sequential circuits, which is called the {\it sequential equivalence checking}
 (SEC) problem. A miter model can also be built with two sequential circuits. Through the 
-miter model, SEC problem is transformed into a sequential backward justification problem.
+miter model, an SEC problem is transformed into a sequential backward justification problem.
 Equivalence of states and transitions between states can be proved using induction-based 
 proof and fix-point calculation \cite{bjesse2000sat,stoffel1997record}.
 \end{enumerate}
@@ -170,22 +170,22 @@ expression; which may lower verification complexity.
 % exponentially) while the word-level abstraction stays the same.
 
 Word-level abstractions have a wide variety of applications in formal 
-verification. For example, it can work as automatic decision and canonical reduction engine in theorem proving;
+verification. For example, they can work as automatic decision and canonical reduction engines in theorem proving;
 for RTL composed of macro blocks, abstractions of these blocks also benefit RTL verification.
 Concretely, MC and equivalence checking with abstractions can be classified as:
 \begin{itemize}  
 \item Model checking with abstractions \cite{kroening:model}, 
-where an over-approximation of RTL blocks is abstracted and used for property checking on a simplified model.
+where an overapproximation of RTL blocks is abstracted and used for property checking on a simplified model.
 \item Graph-based equivalence 
 checking with abstraction \cite{WLS,arditi:bmd}, where abstraction 
 generates a word-level canonical graph representation of the circuit.
 \item SAT-based equivalence checking with abstraction \cite{lpsat}, where 
 abstractions are used to analyze structural symmetries and similarities such that
-the Boolean formulas fed to SAT solver is simplified.
+the Boolean formulas fed to the SAT solver are simplified.
 \end{itemize}
 
 Other equivalence checking techniques that employ abstractions 
-include {\it satisfiability modulo theory} (SMT) solvers \cite{boolector,bryant:tacas07}.
+include {\it satisfiability modulo theory} (SMT) solvers \cite{boolector,bryant:tacas07},
 as well as constraint programming (CP) techniques \cite{ms:research,tew:iccad08}.
 
 
@@ -195,7 +195,7 @@ synthesis \cite{demicheli:iccad_98,demicheli:dac_99,demicheli:tcad_03}.
 Since modern datapath design specifications are mostly word-level, synthesis tools with abstractions
 can make use of larger macro blocks to generate and optimize the
 datapaths. Moreover, 
-word-level abstractions facilitates the use of uninterpreted functions (UFs) \cite{UF3}, which 
+word-level abstractions facilitate the use of uninterpreted functions (UFs) \cite{UF3}, which 
 can be transformed into proposition formulas with word-level information and verified using 
 word-level theorem provers and model checkers.
 
@@ -204,17 +204,17 @@ With the increasing size of integrated
 circuits, sequential circuit designers face complicated problems of
 design errors in specification models and implementations. These
 errors are usually modeled as ``bad" states, and the
-circuits/functional components are modeled as finite state machines
+circuits/functional components are modeled as finite-state machines
 (FSMs). Once state reachability is analyzed, the existence of errors
 can be identified by checking whether ``bad" states are {\it
   reachable} from certain initial states. Temporal logic model
   checking formulations and solvers are often used for this
 purpose. Once the designs and specification models are validated using
 model checking, optimized implementations of sequential circuits are
-synthesized. A subsequent problem then needs to be solved to prove
+synthesized. Then there is a subsequent problem that needs to be solved: how to prove
 that the sequential circuit implementations are equivalent to the
-original specification models, {\it i.e.} {\it Sequential Equivalence
-  Checking }(SEC). When the specification is given as an arithmetic function
+original specification models? This problem is called {\it Sequential Equivalence
+  Checking }(SEC) problem. When the specification is given as an arithmetic function
 which canonically represents the circuit, then the problem 
 becomes {\it functional verification} of sequential arithmetic circuits.
 
@@ -229,15 +229,15 @@ overcome this state-explosion problem:
 \cite{bitlevel1} traverses the FSMs for a fixed number of steps $k$
 ($k$-BMC) to check whether a property violation can occur in $k$ or
 fewer steps.  
-\item Analyze over-approximations (or {\it abstractions})
+\item Analyze overapproximations (or {\it abstractions})
 of the state-space. Abstraction proves properties on the system by
-first simplifying it, and when the abstraction does not satisfy the
+first simplifying them, and when the abstraction does not satisfy the
 same properties as the original one, a process of refinement is
 needed. For example, counterexample guided
 abstraction refinement (CEGAR) \cite{cegar-journal} uses proofs of
 unsatisfiability (UNSAT cores) to refine the abstractions.
-\item The recent breakthrough method of \cite{bradley2011sat} where the set of
-over-approximations to forward reachable states are refined with
+\item The recent breakthrough method of \cite{bradley2011sat}, where the set of
+overapproximations to forward reachable states are refined with
 inductive constraints -- property directed reachability (PDR). 
 \end{enumerate}
 
@@ -247,15 +247,15 @@ with all of the above techniques is that they mostly use bit-level
 constraints to model the transition relations and sets of 
 states. Often,
 the designs are expressed at the level of bit-vector words
-({\it e.g.} Matlab code, Verilog), and these word-level abstractions are
+(e.g., Matlab code, Verilog), and these word-level abstractions are
 rarely exploited in verification. The problem is further exacerbated
 when there are arithmetic operators on word-level operands embedded in
 the control logic. While attempts have been made towards word-level
 predicate abstraction \cite{jain2005word,mcmillan:cav06,mcmillan2010lazy}, 
-{\it using a purely word-level representation
+using a purely word-level representation
   of the state-space, the properties and their abstractions have not
   been fully explored as another dimension in improving sequential
-  verification.}  
+  verification.
 
 
    
@@ -284,8 +284,8 @@ predicate abstraction \cite{jain2005word,mcmillan:cav06,mcmillan2010lazy},
 This research proposes a
 set of new, promising approaches for {\it word-level representation,
 reachability analysis and abstraction} for sequential design verification techniques. 
-Our approaches operate at the word-level and are based
-largely on the concepts from {\it algebraic geometry}. 
+Our approaches operate at the word level and are based
+largely on concepts from {\it algebraic geometry}. 
 
 For word-level SEC, we are given two designs, or their corresponding
 Mealy/Moore FSMs ${\mathcal{M}}_1,{\mathcal{M}}_2$, along with their
@@ -294,18 +294,18 @@ a sequence of inputs (string) that distinguishes the initial
 states \cite{coudert:iccad90,coudert1990verification}. Fundamentally, this requires 
 the construction of a product machine; and the main research problem
 relates to that of performing {\it FSM traversal} \cite{touati1990implicit}
-but  at the word-level. Analogously, in the case of MC, the problem
+but  at the word level. Analogously, in the case of MC, the problem
 is setup {\it w.r.t.} a FSM $\mathcal{M}$, a set of initial states $S_0$ and
 a set of property states $p$. Techniques are to be researched that
-verify that there exist no sequence of transitions from an initial
-state to a non-property state (``bad'' state). These problems have to
-be solved in the context of word-level verification -- {\it i.e.} data
-representation, abstraction using UNSAT cores and
-algorithm execution has to be carried out at word-level.
+verify that there exists no sequence of transitions from an initial
+state to a nonproperty state (``bad'' state). These problems have to
+be solved in the context of word-level verification -- i.e., data
+representation, abstraction using UNSAT cores, and
+algorithm execution have to be carried out at word level.
 
 
 \subsection{Word-level Reachability Analysis of FSMs}
-In this dissertation, we propose a method to perform reachability analysis at the word-level. 
+In this dissertation, we propose a method to perform reachability analysis at the word level. 
 	The given FSM is modeled as a system of polynomials over a finite field,
 	where the state space is mapped to the solutions of the polynomial system.
 	Our proposed algorithm utilizes ideal-variety correspondences in algebraic geometry.
@@ -314,8 +314,8 @@ In this dissertation, we propose a method to perform reachability analysis at th
 
 In this dissertation we represent
 the FSMs -- the transition relations -- by means of a set of
-multi-variate polynomials with coefficients from the finite (Galois)
-field $\Fkk$ of $2^k$ elements, {\it i.e.} polynomials in the ring
+multivariate polynomials with coefficients from the finite (Galois)
+field $\Fkk$ of $2^k$ elements, i.e., polynomials in the ring
 $\Fkk[x_1,\dots,x_d]$. Each state of a FSM is identified with a
 Boolean assignment to a set of $k$-bit state register variables
 $S=\{s_0,\dots,s_{k-1}\}$. Therefore, we can consider each ($k$-bit)
@@ -325,7 +325,7 @@ variable $S$.
 
 Boolean functions with $k$-bit inputs and $k$-bit outputs 
 $f: \B^k \rightarrow \B^k,\B = \{0, 1\}$ can be construed as functions
-$f: \Fkk \rightarrow \Fkk$. It is well-known that over the finite
+$f: \Fkk \rightarrow \Fkk$. It is well known that over the finite
 field ($\Fq$) of  $q$ elements, every function $f: \Fq
 \rightarrow \Fq$ is a polynomial function \cite{ff:1997}. Moreover,
 there exists a unique canonical polynomial $\Func$ that describes $f$.
@@ -349,7 +349,7 @@ about state reachability.
 
 The decision and abstraction procedures in our setting will rely on
 the theory and technology of {\it \Grobner bases}. GB-based
-algebraic reasoning is very powerful; in fact it is known to be
+algebraic reasoning is very powerful -- in fact it is known to be
 strictly stronger than resolution \cite{CEI:stoc-96}. Therefore, in
 light of the above discussion, using concepts from algebraic geometry
 and \Grobner bases over $\Fkk$, we can introduce another dimension of
@@ -358,7 +358,7 @@ This work was published at \cite{myHLDVT}.
 
 \subsection{Application to Sequential Galois Field Arithmetic Circuit Verification}
 Sequential Galois field (GF) arithmetic circuits can be modeled as a special type of 
-FSM, where the pre-loaded operands are mapped to initial states, and pseudo outputs
+FSM, where the preloaded operands are mapped to initial states, and pseudo outputs
 after $k$ clock-cycles are recognized as the final reached state after $k$ transitions.
 Therefore, the word-level FSM traversal algorithm can be applied to 
 verify the correctness of final reached state, {\it i.e.} the functional correctness of
@@ -408,7 +408,7 @@ a number of heuristics that extend the Buchberger's algorithm to reduce the size
 
 \section{Dissertation Organization}
 The rest of the dissertation is organized as
-follows: Chapter \ref{ch:prev} reviews previous work, and analyzes their drawbacks with respect to 
+follows: Chapter \ref{ch:prev} reviews previous works and analyzes their drawbacks with respect to 
 the word-level sequential verification problem.
 Chapter \ref{ch:prelim_GF} covers preliminary
 concepts and notation on finite fields, and the methodology about design of arithmetic circuits in finite fields.
@@ -422,5 +422,5 @@ ideals. It also demonstrates with the help of an example how abstraction via
 UNSAT cores in algebraic geometry can simplify BMC. 
 Chapter \ref{ch:conclude} outlines potential future research for
 continuation of this work and concludes the dissertation. 
-An appendix provides theory and methodology on the characterization of finite field normal basis,
+An appendix provides theory and methodology on the characterization of finite-field normal basis,
 as well as the construction of optimal normal basis and application to normal basis multiplier design.
