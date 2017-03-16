@@ -688,7 +688,7 @@ another in $G$.
 Given a \Grobner basis $G$, a minimal \Grobner basis can be
 computed as follows:
 \begin{enumerate}
-\item Minimize every $g_i \in G$, i.e., $g_i=g_i/lc(g_i)$
+\item Minimize every $g_i \in G$, i.e., $g_i=g_i/lc(g_i)$.
 \item For $g_i, g_j \in G$ where $i\neq j$, remove $g_i$ from $G$ if $lt(g_i)\mid lt(g_j)$, 
 i.e., remove every polynomial in $G$ whose leading term is divisible by the leading term 
 of some other polynomial in $G$.
@@ -1006,7 +1006,7 @@ For any circuit $\mathcal C$, $Z = \Func(A)$. Then how to derive this function $
 using GB?
 \end{Problem}
 
-\begin{figure}[bp]
+\begin{figure}[tbp]
 \centering{
 \includegraphics[width=\textwidth]{newfig/abs_setup.pdf}
 \caption{Galois field arithmetic circuit model for abstraction.}

@@ -107,8 +107,33 @@ explicit unrolling and avoid a bit-blasting problem.
 \label{fig:comb_RAB}}
 \end{figure}
 
-%\vspace{-0.1in}
-% \IncMargin{1em}
+For 2-input sequential NB multipliers, abstraction is utilized to implement Algorithm \ref{alg:modified}.
+Notations in Figure \ref{fig:sequential} as well as in the next example comply with 
+the notations in this algorithm.
+
+Given a sequential GF circuit in Figure \ref{fig:sequential} over $\Fkk=\F_2[x]$, irreducible polynomial $p(\alpha) = 0$
+defines the primitive element $\alpha$, $\beta = \alpha^t$ is the normal element.
+The circuit includes word-level variables $A, B, R$
+denoting the {\it present states (PS)} and $A', B', R'$ denoting the {\it next
+  states (NS)} of the machine; where $A = \sum_{i=0}^{k-1} a_i \beta^{2^i}$
+for the PS variables and $A' = \sum_{i=0}^{k-1} a_i'
+\beta^{2^i}$ for NS variables, and so on.  Variables $R\ (R')$ correspond to those that 
+store the result, and $A, B\ (A', B')$ store input operands. For example,
+for a GF multiplier, $A_{init}, B_{init}$ (and $R_{init} =
+0$) are the initial values (operands) loaded into the registers,  and
+$R = \Func(A_{init}, B_{init}) = A_{init} \times B_{init}$ is the final
+result after $k$-cycles. Our approach aims to find this polynomial
+representation for $R$.  
+
+\begin{figure}[tbp]
+\centering{
+\includegraphics[width=4.5in]{newfig/gf_seq_model.eps}
+\caption{A typical normal basis GF sequential circuit model. $A =
+  (a_0,\dots,a_{k-1})$ and similarly $B, R$ are $k$-bit registers;
+  $A', B', R'$ denote next-state inputs.}
+\label{fig:sequential}}
+\end{figure}
+
 \begin{algorithm}[hbt]
 \SetAlgoNoLine
 \LinesNumbered
@@ -135,34 +160,6 @@ explicit unrolling and avoid a bit-blasting problem.
   verification}
 \label{alg:modified}
 \end{algorithm}
-% \DecMargin{1em}
-
-For 2-input sequential NB multipliers, abstraction is utilized to implement Algorithm \ref{alg:modified}.
-Notations in Figure \ref{fig:sequential} as well as in the next example comply with 
-the notations in this algorithm.
-
-Given a sequential GF circuit in Figure \ref{fig:sequential} over $\Fkk=\F_2[x]$, irreducible polynomial $p(\alpha) = 0$
-defines the primitive element $\alpha$, $\beta = \alpha^t$ is the normal element.
-The circuit includes word-level variables $A, B, R$
-denoting the {\it present states (PS)} and $A', B', R'$ denoting the {\it next
-  states (NS)} of the machine; where $A = \sum_{i=0}^{k-1} a_i \beta^{2^i}$
-for the PS variables and $A' = \sum_{i=0}^{k-1} a_i'
-\beta^{2^i}$ for NS variables, and so on.  Variables $R\ (R')$ correspond to those that 
-store the result, and $A, B\ (A', B')$ store input operands. For example,
-for a GF multiplier, $A_{init}, B_{init}$ (and $R_{init} =
-0$) are the initial values (operands) loaded into the registers,  and
-$R = \Func(A_{init}, B_{init}) = A_{init} \times B_{init}$ is the final
-result after $k$-cycles. Our approach aims to find this polynomial
-representation for $R$.  
-
-\begin{figure}[bp]
-\centering{
-\includegraphics[width=4.5in]{newfig/gf_seq_model.eps}
-\caption{A typical normal basis GF sequential circuit model. $A =
-  (a_0,\dots,a_{k-1})$ and similarly $B, R$ are $k$-bit registers;
-  $A', B', R'$ denote next-state inputs.}
-\label{fig:sequential}}
-\end{figure}
 
 Each gate in the combinational logic is represented by a Boolean
 polynomial. To 
@@ -392,7 +389,7 @@ Gr\"obner basis computation will be inefficient.
 Since the remainder from \emph{Spoly} reduction contains some bit-level variables, our objective is to compute
 a polynomial that contains only word-level variables (such as $R'+\mathcal{F}(A,B)$). One possible solution to
 this problem is to replace the bit-level variables by equivalent polynomials that only contain word-level
-variables, e.g. $a_i = \mathcal{G}(A), r_j = \mathcal{H}(R)$. In this section a Gaussian-elimination
+variables, e.g., $a_i = \mathcal{G}(A), r_j = \mathcal{H}(R)$. In this section a Gaussian-elimination
 approach is introduced to compute corresponding $\mathcal{G}(A),\mathcal{H}(R)$ efficiently.
 
 \begin{Example}

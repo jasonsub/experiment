@@ -196,7 +196,7 @@ In practice, we turn these latches into primary inputs/outputs as shown in Figur
 
 
 The second ``if-else" branch means: if we model check the abstracted machine $M'$ and find no
-error trace, we can assert that property $p$ also holds on the original machine $M$. The reason to this assertion is that
+error trace, we can assert that property $p$ also holds on the original machine $M$. The reason for this assertion is that
 the abstracted states represented using abstracted latches cover the original states, which means $M'$ is an {\bf overapproximation}
 of $M$, such that 
 $$(M'\implies p) \implies (M\implies p)$$ 
@@ -278,7 +278,7 @@ of the GB algorithm for this ideal membership test.% (Definition \ref{def:gb}(ii
 A naive way (and inefficient way) to identify {\it a minimal core}
 using the GB computation is as follows:
 Select a polynomial $f_i$ and see if $V(F_c - \{f_i\}) = \emptyset$
-({\it i.e.} if reduced $GB(F_c - \{f_i\}) = \{1\}$). If so, discard $f_i$
+(i.e., if reduced $GB(F_c - \{f_i\}) = \{1\}$). If so, discard $f_i$
 from the core; otherwise retain $f_i$ in $F_c$. Select a different
 $f_i$ and continue until all polynomials $f_i$ are visited for
 inclusion in $F_c$. This approach will produce a minimal core, as we
@@ -447,8 +447,7 @@ these 3 pairs lead to the unit ideal. Recording the data
 corresponding to this sequence of reductions is depicted by means of a
 graph in Figure \ref{fig:refute}. We call this graph a {\it refutation tree}. 
 
-
-\begin{figure}[tbp]
+\begin{figure}[bp]
 \centering{
 \includegraphics[width=4.5in]{newfig/refutation_tree.eps}}
 \caption{Generating refutation trees to record UNSAT cores.}
